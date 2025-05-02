@@ -1,0 +1,317 @@
+{% extends 'xrayapp/base.html' %}
+
+{% block title %}Account Settings | LDCS18{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12 mb-4">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0"><i class="bi bi-person-gear"></i> Account Settings</h4>
+            </div>
+            <div class="card-body">
+                {% if messages %}
+                <div class="messages mb-4">
+                    {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                
+                <ul class="nav nav-tabs mb-4" id="settingsTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link {% if active_tab == 'profile' %}active{% endif %}" 
+                                id="profile-tab" 
+                                data-bs-toggle="tab" 
+                                data-bs-target="#profile-content" 
+                                type="button" 
+                                role="tab">
+                            <i class="bi bi-person"></i> Profile
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link {% if active_tab == 'settings' %}active{% endif %}" 
+                                id="settings-tab" 
+                                data-bs-toggle="tab" 
+                                data-bs-target="#settings-content" 
+                                type="button" 
+                                role="tab">
+                            <i class="bi bi-sliders"></i> Preferences
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link {% if active_tab == 'security' %}active{% endif %}" 
+                                id="security-tab" 
+                                data-bs-toggle="tab" 
+                                data-bs-target="#security-content" 
+                                type="button" 
+                                role="tab">
+                            <i class="bi bi-shield-lock"></i> Security
+                        </button>
+                    </li>
+                </ul>
+                
+                <div class="tab-content" id="settingsTabsContent">
+                    <!-- Profile Tab -->
+                    <div class="tab-pane fade {% if active_tab == 'profile' %}show active{% endif %}" 
+                         id="profile-content" 
+                         role="tabpanel">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <form method="post">
+                                    {% csrf_token %}
+                                    
+                                    <div class="mb-3">
+                                        <label for="{{ user_form.first_name.id_for_label }}" class="form-label">First Name</label>
+                                        {{ user_form.first_name }}
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="{{ user_form.last_name.id_for_label }}" class="form-label">Last Name</label>
+                                        {{ user_form.last_name }}
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="{{ user_form.email.id_for_label }}" class="form-label">Email Address</label>
+                                        {{ user_form.email }}
+                                        <div class="form-text">
+                                            We'll never share your email with anyone else.
+                                        </div>
+                                    </div>
+                                    
+                                    <button type="submit" name="update_profile" class="btn btn-primary">
+                                        <i class="bi bi-save"></i> Save Profile
+                                    </button>
+                                </form>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card bg-light">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Account Information</h5>
+                                        <p class="card-text"><strong>Username:</strong> {{ user.username }}</p>
+                                        <p class="card-text"><strong>Last Login:</strong> {{ user.last_login|date:"F d, Y H:i" }}</p>
+                                        <p class="card-text"><strong>Date Joined:</strong> {{ user.date_joined|date:"F d, Y" }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Preferences Tab -->
+                    <div class="tab-pane fade {% if active_tab == 'settings' %}show active{% endif %}" 
+                         id="settings-content" 
+                         role="tabpanel">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form method="post">
+                                    {% csrf_token %}
+                                    
+                                    <div class="row mb-4">
+                                        <div class="col-md-6">
+                                            <h5>Appearance</h5>
+                                            <div class="mb-3">
+                                                <label for="{{ settings_form.preferred_theme.id_for_label }}" class="form-label">Theme</label>
+                                                {{ settings_form.preferred_theme }}
+                                                <div class="form-text">
+                                                    Choose your preferred theme for the application.
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="mb-3">
+                                                <label for="{{ settings_form.dashboard_view.id_for_label }}" class="form-label">Dashboard Layout</label>
+                                                {{ settings_form.dashboard_view }}
+                                                <div class="form-text">
+                                                    Select how you want items to be displayed on your dashboard.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <h5>Language & Localization</h5>
+                                            <div class="mb-3">
+                                                <label for="{{ settings_form.preferred_language.id_for_label }}" class="form-label">Language</label>
+                                                {{ settings_form.preferred_language }}
+                                                <div class="form-text">
+                                                    Select your preferred language for the application.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row mb-4">
+                                        <div class="col-md-12">
+                                            <h5>Notifications</h5>
+                                            <div class="form-check mb-2">
+                                                {{ settings_form.email_notifications }}
+                                                <label class="form-check-label" for="{{ settings_form.email_notifications.id_for_label }}">
+                                                    Receive email notifications
+                                                </label>
+                                                <div class="form-text">
+                                                    Get notifications about important updates and changes.
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-check">
+                                                {{ settings_form.processing_complete_notification }}
+                                                <label class="form-check-label" for="{{ settings_form.processing_complete_notification.id_for_label }}">
+                                                    Notify when image processing is complete
+                                                </label>
+                                                <div class="form-text">
+                                                    Receive notifications when X-ray image processing is finished.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <button type="submit" name="update_settings" class="btn btn-primary">
+                                        <i class="bi bi-save"></i> Save Preferences
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Security Tab -->
+                    <div class="tab-pane fade {% if active_tab == 'security' %}show active{% endif %}" 
+                         id="security-content" 
+                         role="tabpanel">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>Change Password</h5>
+                                <form method="post">
+                                    {% csrf_token %}
+                                    
+                                    <div class="mb-3">
+                                        <label for="{{ password_form.current_password.id_for_label }}" class="form-label">Current Password</label>
+                                        {{ password_form.current_password }}
+                                        {% if password_form.current_password.errors %}
+                                            <div class="text-danger small">
+                                                {{ password_form.current_password.errors }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="{{ password_form.new_password.id_for_label }}" class="form-label">New Password</label>
+                                        {{ password_form.new_password }}
+                                        <div class="form-text">
+                                            Create a strong password with a mix of letters, numbers, and symbols.
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="{{ password_form.confirm_password.id_for_label }}" class="form-label">Confirm New Password</label>
+                                        {{ password_form.confirm_password }}
+                                        {% if password_form.confirm_password.errors %}
+                                            <div class="text-danger small">
+                                                {{ password_form.confirm_password.errors }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    
+                                    <button type="submit" name="change_password" class="btn btn-primary">
+                                        <i class="bi bi-key"></i> Change Password
+                                    </button>
+                                </form>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <h5>Two-Factor Authentication</h5>
+                                <div class="card bg-light mb-3">
+                                    <div class="card-body">
+                                        <div class="form-check form-switch mb-3">
+                                            {{ settings_form.two_factor_auth_enabled }}
+                                            <label class="form-check-label" for="{{ settings_form.two_factor_auth_enabled.id_for_label }}">
+                                                Enable Two-Factor Authentication
+                                            </label>
+                                        </div>
+                                        <p class="card-text small">
+                                            Two-factor authentication adds an extra layer of security to your account. 
+                                            In addition to your password, you'll need a code from your phone to log in.
+                                        </p>
+                                        <form method="post">
+                                            {% csrf_token %}
+                                            <button type="submit" name="update_settings" class="btn btn-outline-primary">
+                                                <i class="bi bi-save"></i> Save Security Settings
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                                
+                                <div class="card border-warning">
+                                    <div class="card-header bg-warning text-dark">
+                                        <i class="bi bi-exclamation-triangle"></i> Danger Zone
+                                    </div>
+                                    <div class="card-body">
+                                        <h6 class="card-title">Delete Account</h6>
+                                        <p class="card-text small">
+                                            Once you delete your account, there is no going back. Please be certain.
+                                        </p>
+                                        <button class="btn btn-sm btn-outline-danger" type="button" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">
+                                            <i class="bi bi-trash"></i> Delete Account
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Account Modal -->
+<div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="deleteAccountModalLabel">
+                    <i class="bi bi-exclamation-triangle"></i> Delete Account
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you absolutely sure you want to delete your account?</p>
+                <p class="text-danger"><strong>Warning:</strong> This action cannot be undone. This will permanently delete your account and all data associated with it.</p>
+                <div class="mb-3">
+                    <label for="confirmDelete" class="form-label">Type "DELETE" to confirm</label>
+                    <input type="text" class="form-control" id="confirmDelete" placeholder="DELETE">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="deleteAccountBtn" disabled>Delete Account</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Handle delete account confirmation
+        const confirmField = document.getElementById('confirmDelete');
+        const deleteBtn = document.getElementById('deleteAccountBtn');
+        
+        confirmField.addEventListener('input', function() {
+            deleteBtn.disabled = this.value !== 'DELETE';
+        });
+        
+        // Activate tab based on URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const tab = urlParams.get('tab');
+        
+        if (tab) {
+            const tabElement = document.querySelector(`button[data-bs-target="#${tab}-content"]`);
+            if (tabElement) {
+                const tabInstance = new bootstrap.Tab(tabElement);
+                tabInstance.show();
+            }
+        }
+    });
+</script>
+{% endblock %} 

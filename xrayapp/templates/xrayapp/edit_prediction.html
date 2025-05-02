@@ -1,0 +1,92 @@
+{% extends 'xrayapp/base.html' %}
+{% load xrayapp_extras %}
+
+{% block title %}LDCS18 - Edit Prediction Record{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="mb-4">Edit Prediction Record</h2>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Edit Patient Information</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="id_first_name" class="form-label">First Name</label>
+                                {{ form.first_name|add_class:"form-control" }}
+                            </div>
+                            <div class="col-md-6">
+                                <label for="id_last_name" class="form-label">Last Name</label>
+                                {{ form.last_name|add_class:"form-control" }}
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label for="id_patient_id" class="form-label">Patient ID</label>
+                                {{ form.patient_id|add_class:"form-control" }}
+                            </div>
+                            <div class="col-md-4">
+                                <label for="id_gender" class="form-label">Gender</label>
+                                {{ form.gender|add_class:"form-select" }}
+                            </div>
+                            <div class="col-md-4">
+                                <label for="id_date_of_birth" class="form-label">Date of Birth</label>
+                                {{ form.date_of_birth|add_class:"form-control" }}
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="id_date_of_xray" class="form-label">Date of X-ray</label>
+                                {{ form.date_of_xray|add_class:"form-control" }}
+                            </div>
+                            <div class="col-md-6">
+                                <label for="id_additional_info" class="form-label">Additional Information</label>
+                                {{ form.additional_info|add_class:"form-control" }}
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between mt-4">
+                            <a href="{% url 'prediction_history' %}" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left me-1"></i> Back to History
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-1"></i> Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Prediction Details</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Model Used:</strong> {{ history_item.model_used }}</p>
+                            <p><strong>Prediction Date:</strong> {{ history_item.created_at|date:"Y-m-d H:i" }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-end">
+                                <a href="{% url 'xray_results' history_item.xray.id %}" class="btn btn-info">
+                                    <i class="fas fa-eye me-1"></i> View Full Results
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

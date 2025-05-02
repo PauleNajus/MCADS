@@ -1,0 +1,193 @@
+{% extends 'xrayapp/base.html' %}
+{% load xrayapp_extras %}
+
+{% block title %}LDCS18 - Prediction History{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="mb-4">Prediction History</h2>
+            
+            <div class="card mb-4 advanced-filters">
+                <div class="card-header">
+                    <h5 class="mb-0">Advanced Filters</h5>
+                </div>
+                <div class="card-body">
+                    <form method="get" action="" class="row g-3">
+                        <div class="col-md-4 col-lg-3">
+                            <label for="id_gender" class="form-label">Gender</label>
+                            {{ form.gender|add_class:"form-select" }}
+                        </div>
+                        <div class="col-md-4 col-lg-2">
+                            <label for="id_age_min" class="form-label">Min Age</label>
+                            {{ form.age_min|add_class:"form-control" }}
+                        </div>
+                        <div class="col-md-4 col-lg-2">
+                            <label for="id_age_max" class="form-label">Max Age</label>
+                            {{ form.age_max|add_class:"form-control" }}
+                        </div>
+                        <div class="col-md-6 col-lg-2">
+                            <label for="id_date_min" class="form-label">From Date</label>
+                            {{ form.date_min|add_class:"form-control" }}
+                        </div>
+                        <div class="col-md-6 col-lg-2">
+                            <label for="id_date_max" class="form-label">To Date</label>
+                            {{ form.date_max|add_class:"form-control" }}
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <label for="id_pathology" class="form-label">Pathology</label>
+                            {{ form.pathology|add_class:"form-select" }}
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <label for="id_pathology_threshold" class="form-label">Min Probability</label>
+                            {{ form.pathology_threshold|add_class:"form-control" }}
+                        </div>
+                        <div class="col-md-12 col-lg-6 mt-4">
+                            <div class="filter-actions">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-filter me-1"></i> Apply Filters
+                                </button>
+                                <a href="{% url 'prediction_history' %}" class="btn btn-outline-secondary">
+                                    <i class="fas fa-undo me-1"></i> Reset
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">History Records</h5>
+                    <div class="d-flex align-items-center">
+                        <span class="badge bg-primary me-3">{{ history_items.count }} Records Found</span>
+                        {% if history_items.count > 0 %}
+                        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAllModal">
+                            <i class="fas fa-trash-alt me-1"></i> Delete All
+                        </button>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="card-body">
+                    {% if history_items %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Patient</th>
+                                    <th>ID</th>
+                                    <th>Gender</th>
+                                    <th>Date of Birth</th>
+                                    <th>X-ray Date</th>
+                                    <th>Top Prediction</th>
+                                    <th>Probability</th>
+                                    <th>Model Used</th>
+                                    <th>Prediction Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in history_items %}
+                                <tr>
+                                    <td>{{ item.xray.get_patient_display }}</td>
+                                    <td>{{ item.xray.patient_id|default:"-" }}</td>
+                                    <td>{{ item.xray.gender|title|default:"-" }}</td>
+                                    <td>{{ item.xray.date_of_birth|date:"Y-m-d"|default:"-" }}</td>
+                                    <td>{{ item.xray.date_of_xray|date:"Y-m-d"|default:"-" }}</td>
+                                    <td>
+                                        {% with top_pathology=item|get_top_pathology %}
+                                            {{ top_pathology.0 }}
+                                        {% endwith %}
+                                    </td>
+                                    <td>
+                                        {% with top_pathology=item|get_top_pathology %}
+                                            <div class="progress">
+                                                <div class="progress-bar {% if top_pathology.1 > 0.5 %}bg-danger{% else %}bg-success{% endif %}" 
+                                                     style="width: {{ top_pathology.1|multiply:100 }}%">
+                                                    {{ top_pathology.1|floatformat:2 }}
+                                                </div>
+                                            </div>
+                                        {% endwith %}
+                                    </td>
+                                    <td>{{ item.model_used }}</td>
+                                    <td>{{ item.created_at|date:"Y-m-d H:i" }}</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a href="{% url 'xray_results' item.xray.id %}" class="btn btn-sm btn-primary">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="{% url 'edit_prediction_history' item.id %}" class="btn btn-sm btn-warning">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ item.id }}">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                        
+                                        <!-- Delete Confirmation Modal -->
+                                        <div class="modal fade" id="deleteModal{{ item.id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ item.id }}" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="deleteModalLabel{{ item.id }}">Confirm Deletion</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Are you sure you want to delete this prediction record for {{ item.xray.get_patient_display }}?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                        <a href="{% url 'delete_prediction_history' item.id %}" class="btn btn-danger">Delete</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="alert alert-info">
+                        No prediction history found with the current filters.
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="text-center mt-4 mb-4">
+                <a href="{% url 'home' %}" class="btn btn-primary">Upload New X-ray</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Delete All Confirmation Modal -->
+    <div class="modal fade" id="deleteAllModal" tabindex="-1" aria-labelledby="deleteAllModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteAllModalLabel">Delete All Records</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger">
+                        <i class="fas fa-exclamation-triangle me-2"></i> Warning: This action cannot be undone!
+                    </div>
+                    <p>Are you sure you want to delete all {{ history_items.count }} prediction history records?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <form method="post" action="{% url 'delete_all_prediction_history' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-trash-alt me-1"></i> Delete All Records
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
