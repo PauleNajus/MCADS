@@ -1,0 +1,11 @@
+{% extends "errors/error_base.html" %}
+
+{% block title %}429 Too Many Requests - LDCS18{% endblock %}
+
+{% block error_code %}429{% endblock %}
+
+{% block error_message %}Too Many Requests{% endblock %}
+
+{% block error_description %}
+The client has sent too many requests in a given amount of time.
+{% endblock %} 

@@ -18,7 +18,7 @@ import environ
 # Initialize environ
 env = environ.Env(
     # Set default values
-    DEBUG=(bool, True),
+    DEBUG=(bool, False),
     SECRET_KEY=(str, get_random_secret_key()),
     ALLOWED_HOSTS=(list, []),
 )

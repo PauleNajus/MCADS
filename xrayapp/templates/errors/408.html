@@ -1,0 +1,11 @@
+{% extends "errors/error_base.html" %}
+
+{% block title %}408 Request Timeout - LDCS18{% endblock %}
+
+{% block error_code %}408{% endblock %}
+
+{% block error_message %}Request Timeout{% endblock %}
+
+{% block error_description %}
+The client did not produce a request within the time the server was prepared to wait.
+{% endblock %} 

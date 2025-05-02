@@ -526,3 +526,44 @@ def account_settings(request):
     }
     
     return render(request, 'xrayapp/account_settings.html', context)
+
+# Error handler views
+def handler400(request, exception=None):
+    """400 Bad Request handler."""
+    return render(request, 'errors/400.html', status=400)
+
+def handler401(request, exception=None):
+    """401 Unauthorized handler."""
+    return render(request, 'errors/401.html', status=401)
+
+def handler403(request, exception=None):
+    """403 Forbidden handler."""
+    return render(request, 'errors/403.html', status=403)
+
+def handler404(request, exception=None):
+    """404 Not Found handler."""
+    return render(request, 'errors/404.html', status=404)
+
+def handler408(request, exception=None):
+    """408 Request Timeout handler."""
+    return render(request, 'errors/408.html', status=408)
+
+def handler429(request, exception=None):
+    """429 Too Many Requests handler."""
+    return render(request, 'errors/429.html', status=429)
+
+def handler500(request):
+    """500 Internal Server Error handler."""
+    return render(request, 'errors/500.html', status=500)
+
+def handler502(request):
+    """502 Bad Gateway handler."""
+    return render(request, 'errors/502.html', status=502)
+
+def handler503(request):
+    """503 Service Unavailable handler."""
+    return render(request, 'errors/503.html', status=503)
+
+def handler504(request):
+    """504 Gateway Timeout handler."""
+    return render(request, 'errors/504.html', status=504)

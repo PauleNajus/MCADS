@@ -1,0 +1,11 @@
+{% extends "errors/error_base.html" %}
+
+{% block title %}502 Bad Gateway - LDCS18{% endblock %}
+
+{% block error_code %}502{% endblock %}
+
+{% block error_message %}Bad Gateway{% endblock %}
+
+{% block error_description %}
+Occurs when a gateway or proxy server receives an invalid response from an upstream server.
+{% endblock %} 

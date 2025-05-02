@@ -1,0 +1,11 @@
+{% extends "errors/error_base.html" %}
+
+{% block title %}403 Forbidden - LDCS18{% endblock %}
+
+{% block error_code %}403{% endblock %}
+
+{% block error_message %}Forbidden{% endblock %}
+
+{% block error_description %}
+The server understands the request but refuses to authorize it, often due to insufficient permissions.
+{% endblock %} 

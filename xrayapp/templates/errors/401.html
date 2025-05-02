@@ -1,0 +1,11 @@
+{% extends "errors/error_base.html" %}
+
+{% block title %}401 Unauthorized - LDCS18{% endblock %}
+
+{% block error_code %}401{% endblock %}
+
+{% block error_message %}Unauthorized{% endblock %}
+
+{% block error_description %}
+Authentication is required and has either not been provided or failed.
+{% endblock %} 

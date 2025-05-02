@@ -146,10 +146,112 @@ These models are trained on large datasets of chest X-rays to detect various pat
 This project is designed to work across different operating systems:
 
 - Windows
-- Linux
+- Linux (Ubuntu, Debian, Fedora, CentOS, Arch)
 - macOS
 
 All paths are handled using Python's `pathlib` library to ensure cross-platform compatibility.
+
+### Linux-Specific Setup
+
+The application is fully compatible with modern Linux distributions. For the best experience, follow these distribution-specific instructions:
+
+#### Ubuntu/Debian
+
+```bash
+# Install system dependencies
+sudo apt update
+sudo apt install -y python3-dev python3-pip python3-venv libjpeg-dev zlib1g-dev libopenblas-dev
+
+# Create and set up the project
+git clone https://github.com/yourusername/LDCS18.git
+cd LDCS18
+chmod +x run_linux.sh
+./run_linux.sh
+```
+
+#### Fedora
+
+```bash
+# Install system dependencies
+sudo dnf install -y python3-devel python3-pip libjpeg-turbo-devel zlib-devel openblas-devel
+
+# Create and set up the project
+git clone https://github.com/yourusername/LDCS18.git
+cd LDCS18
+chmod +x run_linux.sh
+./run_linux.sh
+```
+
+#### Arch Linux
+
+```bash
+# Install system dependencies
+sudo pacman -Sy python python-pip libjpeg-turbo zlib openblas
+
+# Create and set up the project
+git clone https://github.com/yourusername/LDCS18.git
+cd LDCS18
+chmod +x run_linux.sh
+./run_linux.sh
+```
+
+#### CentOS/RHEL
+
+```bash
+# Install system dependencies
+sudo yum install -y python3-devel python3-pip libjpeg-devel zlib-devel openblas-devel
+
+# Create and set up the project
+git clone https://github.com/yourusername/LDCS18.git
+cd LDCS18
+chmod +x run_linux.sh
+./run_linux.sh
+```
+
+### GPU Support on Linux
+
+For GPU acceleration with NVIDIA GPUs on Linux:
+
+1. Install the appropriate NVIDIA drivers for your distribution
+2. Install CUDA and cuDNN following the [official PyTorch documentation](https://pytorch.org/get-started/locally/)
+
+Example for Ubuntu with CUDA 12.1:
+
+```bash
+# Add NVIDIA repository
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb
+sudo dpkg -i cuda-keyring_1.1-1_all.deb
+sudo apt-get update
+
+# Install CUDA
+sudo apt-get -y install cuda-toolkit-12-1
+
+# Add CUDA to your path
+echo 'export PATH=/usr/local/cuda-12.1/bin:$PATH' >> ~/.bashrc
+echo 'export LD_LIBRARY_PATH=/usr/local/cuda-12.1/lib64:$LD_LIBRARY_PATH' >> ~/.bashrc
+source ~/.bashrc
+
+# Verify installation
+nvcc --version
+```
+
+After installing CUDA, you can set up the project as usual. The application will automatically detect and use your GPU if available.
+
+### File Permissions on Linux
+
+If you encounter permission issues with media uploads:
+
+```bash
+# Set correct permissions for media directory
+chmod -R 755 media/
+```
+
+For production environments, ensure your web server user has appropriate permissions:
+
+```bash
+# For Nginx/Apache with www-data user
+sudo chown -R www-data:www-data media/
+```
 
 ## Acknowledgements
 

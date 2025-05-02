@@ -13,6 +13,14 @@ if ! command -v python3 &> /dev/null; then
     exit 1
 fi
 
+# Check Python version
+PYTHON_VERSION=$(python3 -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
+MINIMUM_VERSION="3.8"
+if [ "$(printf '%s\n' "$MINIMUM_VERSION" "$PYTHON_VERSION" | sort -V | head -n1)" != "$MINIMUM_VERSION" ]; then
+    echo "Error: Python version $PYTHON_VERSION is less than the required minimum version $MINIMUM_VERSION"
+    exit 1
+fi
+
 # Check if virtual environment exists, create if not
 if [ ! -d ".venv" ]; then
     echo "Creating virtual environment..."
@@ -30,6 +38,13 @@ source .venv/bin/activate
 echo "Installing dependencies..."
 pip install --upgrade pip
 pip install -r requirements.txt
+
+# Check for GPU availability
+if python3 -c "import torch; print(torch.cuda.is_available())" | grep -q "True"; then
+    echo "GPU is available for PyTorch acceleration!"
+else
+    echo "No GPU detected. The application will run on CPU only."
+fi
 
 # Create .env file if it doesn't exist
 if [ ! -f ".env" ]; then
