@@ -1,5 +1,5 @@
 /**
- * LDCS18 Image Maximizer
+ * ldcs Image Maximizer
  * Adds click functionality to X-ray images to maximize them in an overlay
  */
 document.addEventListener('DOMContentLoaded', function() {

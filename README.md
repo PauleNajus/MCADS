@@ -1,4 +1,4 @@
-# LDCS18
+# ldcs
 
 A Django web application for analyzing chest X-ray images using the TorchXRayVision library and pre-trained ResNet50 model.
 
@@ -26,8 +26,8 @@ A Django web application for analyzing chest X-ray images using the TorchXRayVis
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/LDCS18.git
-cd LDCS18
+git clone https://github.com/yourusername/ldcs.git
+cd ldcs
 ```
 
 2. Run the setup script:
@@ -56,8 +56,8 @@ python manage.py runserver
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/LDCS18.git
-cd LDCS18
+git clone https://github.com/yourusername/ldcs.git
+cd ldcs
 ```
 
 2. Create and activate a virtual environment:
@@ -163,8 +163,8 @@ sudo apt update
 sudo apt install -y python3-dev python3-pip python3-venv libjpeg-dev zlib1g-dev libopenblas-dev
 
 # Create and set up the project
-git clone https://github.com/yourusername/LDCS18.git
-cd LDCS18
+git clone https://github.com/yourusername/ldcs.git
+cd ldcs
 chmod +x run_linux.sh
 ./run_linux.sh
 ```
@@ -176,8 +176,8 @@ chmod +x run_linux.sh
 sudo dnf install -y python3-devel python3-pip libjpeg-turbo-devel zlib-devel openblas-devel
 
 # Create and set up the project
-git clone https://github.com/yourusername/LDCS18.git
-cd LDCS18
+git clone https://github.com/yourusername/ldcs.git
+cd ldcs
 chmod +x run_linux.sh
 ./run_linux.sh
 ```
@@ -189,8 +189,8 @@ chmod +x run_linux.sh
 sudo pacman -Sy python python-pip libjpeg-turbo zlib openblas
 
 # Create and set up the project
-git clone https://github.com/yourusername/LDCS18.git
-cd LDCS18
+git clone https://github.com/yourusername/ldcs.git
+cd ldcs
 chmod +x run_linux.sh
 ./run_linux.sh
 ```
@@ -202,8 +202,8 @@ chmod +x run_linux.sh
 sudo yum install -y python3-devel python3-pip libjpeg-devel zlib-devel openblas-devel
 
 # Create and set up the project
-git clone https://github.com/yourusername/LDCS18.git
-cd LDCS18
+git clone https://github.com/yourusername/ldcs.git
+cd ldcs
 chmod +x run_linux.sh
 ./run_linux.sh
 ```

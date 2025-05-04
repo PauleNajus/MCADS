@@ -151,7 +151,7 @@ def check_gpu_support():
 
 def main():
     """Main setup function"""
-    print("Setting up LDCS18 project...\n")
+    print("Setting up ldcs project...\n")
     
     # Setup virtual environment
     venv_path = setup_venv()

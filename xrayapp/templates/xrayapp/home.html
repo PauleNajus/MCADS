@@ -1,13 +1,13 @@
 {% extends 'xrayapp/base.html' %}
 
-{% block title %}LDCS18 - X-Ray Upload{% endblock %}
+{% block title %}LDCS - X-Ray Upload{% endblock %}
 
 {% block content %}
 <div class="row">
     <div class="col-md-8 offset-md-2">
         <div class="card">
             <div class="card-header bg-primary text-white">
-                <h2 class="text-center fs-4 mb-0">LDCS18</h2>
+                <h2 class="text-center fs-4 mb-0">LDCS</h2>
             </div>
             <div class="card-body">
                 <!-- Form Wrapper - Will be hidden during processing -->
@@ -94,9 +94,8 @@
                         </div>
                     </form>
                     
-                    <div class="alert alert-info">
-                        <p class="mb-1"><strong>Note:</strong> The analysis may take a few seconds to complete.</p>
-                        <p class="mb-0">The model will analyze the X-ray for different pathological conditions based on the selected model.</p>
+                    <div class="alert alert-warning">
+                        <p class="mb-0"><strong>Warning!</strong> This tool is not meant to be used without supervision of a medical professional. Use DenseNet model for best results.</p>
                     </div>
                     
                     <div class="text-center mt-3">

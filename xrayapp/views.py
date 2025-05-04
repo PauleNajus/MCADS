@@ -527,6 +527,12 @@ def account_settings(request):
     
     return render(request, 'xrayapp/account_settings.html', context)
 
+
+def logout_confirmation(request):
+    """Display a confirmation page before logging out the user."""
+    return render(request, 'registration/logout.html')
+
+
 # Error handler views
 def handler400(request, exception=None):
     """400 Bad Request handler."""

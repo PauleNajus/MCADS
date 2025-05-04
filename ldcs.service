@@ -1,0 +1,15 @@
+[Unit]
+Description=ldcs Django Application
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/ldcs
+ExecStart=/var/www/ldcs/.venv/bin/gunicorn -c gunicorn_config.py ldcs_project.asgi:application
+Restart=on-failure
+Environment="PATH=/var/www/ldcs/.venv/bin:/usr/bin"
+EnvironmentFile=/var/www/ldcs/.env.production
+
+[Install]
+WantedBy=multi-user.target 

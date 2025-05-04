@@ -4,7 +4,7 @@
 set -e
 
 echo "====================================================="
-echo "  Setting up Chest X-Ray Analysis Application (LDCS18)"
+echo "  Setting up Chest X-Ray Analysis Application (ldcs)"
 echo "====================================================="
 
 # Check if Python 3 is installed

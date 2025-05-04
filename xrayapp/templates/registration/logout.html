@@ -1,0 +1,17 @@
+{% extends "xrayapp/base.html" %}
+
+{% block title %}Logout - LDCS{% endblock %}
+
+{% block content %}
+<div class="card shadow">
+  <div class="card-body text-center py-5">
+    <h2>Confirm Logout</h2>
+    <p>Are you sure you want to log out?</p>
+    <form method="post" action="{% url 'logout' %}">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-primary">Yes, Logout</button>
+      <a href="{% url 'home' %}" class="btn btn-outline-secondary">Cancel</a>
+    </form>
+  </div>
+</div>
+{% endblock %} 

@@ -103,14 +103,14 @@
 
 /* Advanced Filters Styling */
 .advanced-filters {
-  background-color: var(--light-bg);
+  background-color: var(--bs-body-bg);
   border-radius: 0.5rem;
   transition: all 0.3s ease;
 }
 
 .advanced-filters .card-header {
   background-color: rgba(var(--primary-rgb), 0.1);
-  border-bottom: 1px solid rgba(var(--primary-rgb), 0.2);
+  border-bottom: 1px solid var(--light-border);
   padding: 0.75rem 1.25rem;
 }
 
@@ -137,7 +137,7 @@
   font-weight: 500;
   font-size: 0.875rem;
   margin-bottom: 0.5rem;
-  color: var(--secondary);
+  color: var(--bs-body-color);
 }
 
 .advanced-filters select.form-select,
@@ -146,6 +146,8 @@
   border: 1px solid var(--light-border);
   padding: 0.5rem 0.75rem;
   font-size: 0.9rem;
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
@@ -219,4 +221,28 @@
     justify-content: space-between;
     width: 100%;
   }
+}
+
+/* Table style for dark mode */
+[data-bs-theme="dark"] .table-light {
+  background-color: var(--dark-bg);
+  color: var(--light);
+}
+
+[data-bs-theme="dark"] .table thead.table-light th {
+  background-color: var(--dark-bg);
+  color: var(--light);
+  border-color: var(--light-border);
+}
+
+[data-bs-theme="dark"] .table-bordered,
+[data-bs-theme="dark"] .table-bordered th,
+[data-bs-theme="dark"] .table-bordered td {
+  border-color: var(--light-border);
+}
+
+/* Make visualization image background adapt to dark mode */
+[data-bs-theme="dark"] .visualization-image {
+  background-color: var(--dark-bg);
+  border-color: var(--light-border);
 } 
