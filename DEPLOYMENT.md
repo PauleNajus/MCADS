@@ -1,14 +1,56 @@
-# Deployment Guide for ldcs on Ubuntu 22.04
+# Deployment Guide for ldcs on Ubuntu 22.04 (Low Memory Server)
 
-This guide will help you deploy the ldcs Django project on Ubuntu 22.04 using Gunicorn (with ASGI), Nginx, and systemd.
+This guide will help you deploy the ldcs Django project on Ubuntu 22.04 with limited resources (2GB RAM) using Gunicorn (with ASGI), Nginx, and systemd.
 
-## Prerequisites
+## Server Specifications
 
-- Ubuntu 22.04 LTS server
-- Domain name pointing to your server (optional, but recommended for production)
-- SSH access to your server
+- Operating System: Ubuntu 22.04 blank (64-bit)
+- IPv4 Address: 162.0.223.203
+- Hostname: ldcs18.com
+- Disk Space: 40 GB
+- Memory: 2 GB (limited)
+- Swap: 17 MB (will be increased)
 
-## 1. Server Preparation
+## 1. Pre-deployment Check
+
+Before deploying the application, run the pre-deployment check script to verify that the server meets the requirements:
+
+```bash
+# Install the check requirements
+pip install -r requirements.check.txt
+
+# Run the check script
+python check_deployment.py
+```
+
+The script will check:
+- Python version
+- System memory and swap space
+- Available disk space
+- PyTorch and torchxrayvision functionality
+- Database connectivity
+
+## 2. Automated Deployment
+
+For automated deployment, use the provided script:
+
+```bash
+sudo bash deploy_to_production.sh
+```
+
+This script will:
+1. Set up a 4GB swap file (critical for PyTorch on a 2GB server)
+2. Install required packages
+3. Create a virtual environment and install dependencies
+4. Install the CPU-only version of PyTorch to save memory
+5. Configure Gunicorn with memory optimizations
+6. Set up Nginx and SSL
+
+## 3. Manual Deployment Steps
+
+If you prefer to deploy manually, follow these steps:
+
+### Server Preparation
 
 Update your system packages:
 
@@ -20,45 +62,73 @@ sudo apt upgrade -y
 Install required packages:
 
 ```bash
-sudo apt install -y python3.11 python3.11-venv python3-pip nginx certbot python3-certbot-nginx
+sudo apt install -y python3.11 python3.11-venv python3.11-dev python3-pip nginx certbot python3-certbot-nginx build-essential
 ```
 
-## 2. Project Setup
-
-### Clone the Repository
+### Set Up Swap Space (Critical for 2GB RAM Server)
 
 ```bash
-git clone https://your-repository-url.git /path/to/ldcs
-cd /path/to/ldcs
+# Check if swap exists
+swapon --show
+
+# Create 4GB swap file if none exists
+sudo fallocate -l 4G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+
+# Make swap persistent across reboots
+echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+
+# Optimize swap settings
+echo 'vm.swappiness=10' | sudo tee -a /etc/sysctl.conf
+echo 'vm.vfs_cache_pressure=50' | sudo tee -a /etc/sysctl.conf
+sudo sysctl -p
 ```
 
-### Create Virtual Environment and Install Dependencies
+### Project Setup
+
+Clone the repository and set up the project:
+
+```bash
+git clone https://your-repository-url.git /var/www/ldcs
+cd /var/www/ldcs
+```
+
+Create a virtual environment and install dependencies:
 
 ```bash
 python3.11 -m venv .venv
 source .venv/bin/activate
 pip install --upgrade pip
-pip install -r requirements.txt
-pip install gunicorn==21.2.0 uvicorn==0.27.1
+
+# Install CPU-only PyTorch to save memory
+pip install torch==2.3.0 torchvision==0.18.0 --index-url https://download.pytorch.org/whl/cpu
+
+# Install remaining dependencies
+pip install -r requirements.production.txt
 ```
 
-### Create Production Environment File
+### Environment Configuration
 
-Create a `.env.production` file in the project root:
+Create `.env.production` in the project root:
 
 ```bash
 DEBUG=False
 SECRET_KEY=your_secure_random_key_here
-ALLOWED_HOSTS=your-domain.com,www.your-domain.com
+ALLOWED_HOSTS=ldcs18.com,www.ldcs18.com,162.0.223.203
+PYTORCH_NO_CUDA=1
+PYTORCH_CPU_ONLY=1
+DJANGO_SETTINGS_MODULE=ldcs_project.settings
 ```
 
-You can generate a secure random key with:
+Generate a secure random key with:
 
 ```bash
 python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
 ```
 
-### Collect Static Files and Run Migrations
+### Database and Static Files
 
 ```bash
 source .venv/bin/activate
@@ -67,16 +137,18 @@ python manage.py collectstatic --no-input
 python manage.py migrate
 ```
 
-## 3. Gunicorn Configuration
+### Gunicorn Configuration for Low Memory
 
-Create a Gunicorn configuration file (`gunicorn_config.py`):
+Create a memory-optimized Gunicorn configuration (`gunicorn_config.py`):
 
 ```python
 import multiprocessing
 
 # Gunicorn configuration file for Django ASGI application
-bind = "unix:/run/gunicorn.sock"  # Use unix socket
-workers = multiprocessing.cpu_count() * 2 + 1  # Recommended formula
+bind = "unix:/run/gunicorn.sock"
+# Low memory configuration for 2GB server
+workers = 2  # Just 2 workers for low memory server
+threads = 2
 worker_class = "uvicorn.workers.UvicornWorker"  # Use Uvicorn worker for ASGI
 max_requests = 1000
 max_requests_jitter = 50
@@ -86,6 +158,8 @@ errorlog = "/var/log/gunicorn/error.log"
 accesslog = "/var/log/gunicorn/access.log"
 loglevel = "info"
 proc_name = "ldcs_asgi"
+# Memory optimization
+worker_tmp_dir = "/dev/shm"
 ```
 
 Create the log directory:
@@ -95,7 +169,7 @@ sudo mkdir -p /var/log/gunicorn
 sudo chown -R www-data:www-data /var/log/gunicorn
 ```
 
-## 4. Systemd Service Setup
+### Systemd Service with Memory Limits
 
 Create a systemd service file (`/etc/systemd/system/ldcs.service`):
 
@@ -110,7 +184,14 @@ Group=www-data
 WorkingDirectory=/var/www/ldcs
 ExecStart=/var/www/ldcs/.venv/bin/gunicorn -c gunicorn_config.py ldcs_project.asgi:application
 Restart=on-failure
+# Memory optimizations
+MemoryLow=512M
+MemoryHigh=1.5G
+MemoryMax=1.8G
+Environment="PYTHONOPTIMIZE=1"
 Environment="PATH=/var/www/ldcs/.venv/bin:/usr/bin"
+Environment="PYTORCH_NO_CUDA=1"
+Environment="PYTORCH_CPU_ONLY=1"
 EnvironmentFile=/var/www/ldcs/.env.production
 
 [Install]
@@ -125,7 +206,7 @@ sudo systemctl enable ldcs
 sudo systemctl start ldcs
 ```
 
-## 5. Nginx Configuration
+### Nginx Configuration
 
 Create an Nginx configuration file (`/etc/nginx/sites-available/ldcs.conf`):
 
@@ -160,6 +241,8 @@ server {
         proxy_set_header Connection "upgrade";
         proxy_buffering off;
         client_max_body_size 20M;
+        proxy_read_timeout 300s;
+        proxy_connect_timeout 75s;
     }
     
     # Logging
@@ -176,24 +259,49 @@ sudo nginx -t  # Test the configuration
 sudo systemctl reload nginx
 ```
 
-## 6. Set Up SSL with Let's Encrypt
+### SSL with Let's Encrypt
 
 ```bash
-sudo certbot --nginx -d your-domain.com -d www.your-domain.com
+sudo certbot --nginx -d ldcs18.com -d www.ldcs18.com
 ```
 
-This will automatically update your Nginx configuration to use HTTPS.
-
-## 7. Set Proper Permissions
+### Security Measures
 
 ```bash
-sudo chown -R www-data:www-data /path/to/ldcs/media
-sudo chown -R www-data:www-data /path/to/ldcs/staticfiles
-sudo chmod -R 755 /path/to/ldcs/media
-sudo chmod -R 755 /path/to/ldcs/staticfiles
+# Set up automatic security updates
+sudo apt install -y unattended-upgrades
+cat > /etc/apt/apt.conf.d/20auto-upgrades << EOF
+APT::Periodic::Update-Package-Lists "1";
+APT::Periodic::Unattended-Upgrade "1";
+APT::Periodic::AutocleanInterval "7";
+EOF
+
+# Set up firewall
+sudo apt install -y ufw
+sudo ufw allow 'Nginx Full'
+sudo ufw allow 'OpenSSH'
+sudo ufw --force enable
 ```
 
-## 8. Monitor the Application
+### Set Proper Permissions
+
+```bash
+sudo chown -R www-data:www-data /var/www/ldcs
+sudo chmod -R 755 /var/www/ldcs/media
+sudo chmod -R 755 /var/www/ldcs/staticfiles
+```
+
+## 4. Memory Optimization for PyTorch
+
+The server has only 2GB of RAM, which is tight for running PyTorch. The following optimizations are applied:
+
+1. Using CPU-only PyTorch to save memory
+2. Adding a 4GB swap file to prevent out-of-memory errors
+3. Limiting Gunicorn to 2 workers
+4. Using systemd memory limits to prevent the application from consuming all memory
+5. Setting environment variables to ensure PyTorch doesn't try to use CUDA
+
+## 5. Monitoring the Application
 
 Check the status of your application:
 
@@ -206,32 +314,61 @@ View logs:
 ```bash
 sudo journalctl -u ldcs
 sudo tail -f /var/log/nginx/ldcs_error.log
+sudo tail -f /var/log/gunicorn/error.log
 ```
 
-## 9. Common Issues and Troubleshooting
+Monitor memory usage:
 
-1. **Socket permission issues**: Make sure the socket directory has the right permissions.
+```bash
+# Real-time memory monitoring
+htop
+
+# Memory usage of the Gunicorn process
+ps -o pid,user,%mem,command ax | grep gunicorn
+```
+
+## 6. Troubleshooting
+
+### Out of Memory Issues
+
+If you see "Killed" messages in the logs or the application crashes:
+
+1. Check if swap is being used:
    ```bash
-   sudo mkdir -p /run/gunicorn
-   sudo chown www-data:www-data /run/gunicorn
+   free -h
    ```
 
-2. **Static files not found**: Verify paths in Nginx configuration and run `collectstatic` again.
-
-3. **502 Bad Gateway**: Check Gunicorn is running and logs for errors:
-   ```bash
-   sudo systemctl status ldcs
-   sudo tail -f /var/log/gunicorn/error.log
+2. Consider reducing Gunicorn workers to 1:
+   ```python
+   # In gunicorn_config.py
+   workers = 1
    ```
 
-4. **ASGI application errors**: Verify ASGI configuration in the project's `asgi.py`.
+3. Limit batch sizes in the PyTorch application code
 
-## 10. Maintenance
+### Slow Performance
+
+The CPU-only PyTorch will be slower than the GPU version. For better performance:
+
+1. Consider precomputing results for common inputs
+2. Implement caching for model predictions
+3. Use smaller model variants if possible
+
+### Socket Permission Issues
+
+Make sure the socket directory has the right permissions:
+
+```bash
+sudo mkdir -p /run/gunicorn
+sudo chown www-data:www-data /run/gunicorn
+```
+
+## 7. Maintenance
 
 To update the application:
 
 ```bash
-cd /path/to/ldcs
+cd /var/www/ldcs
 git pull
 source .venv/bin/activate
 pip install -r requirements.txt

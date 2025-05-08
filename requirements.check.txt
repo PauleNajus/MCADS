@@ -1,0 +1,2 @@
+# Requirements for the pre-deployment check script
+psutil==5.9.8 
