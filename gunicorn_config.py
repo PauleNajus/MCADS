@@ -11,4 +11,4 @@ keepalive = 5
 errorlog = "/var/log/gunicorn/error.log"
 accesslog = "/var/log/gunicorn/access.log"
 loglevel = "info"
-proc_name = "ldcs_asgi" 
+proc_name = "mcads_asgi" 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Pre-deployment check script for LDCS
+Pre-deployment check script for MCADS
 Verifies system requirements and tests PyTorch/torchxrayvision functionality
 """
 
@@ -214,7 +214,7 @@ def check_database():
         from django.core.management import call_command
         
         # Setup Django environment
-        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ldcs_project.settings')
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mcads_project.settings')
         django.setup()
         
         # Check if we can connect to the database
@@ -234,7 +234,7 @@ def check_database():
 
 def run_all_checks():
     """Run all deployment checks"""
-    print_header("LDCS Deployment Checks")
+    print_header("MCADS Deployment Checks")
     
     checks = [
         ("Python Version", check_python_version),

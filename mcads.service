@@ -1,0 +1,15 @@
+[Unit]
+Description=mcads Django Application
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/mcads
+ExecStart=/var/www/mcads/.venv/bin/gunicorn -c gunicorn_config.py mcads_project.asgi:application
+Restart=on-failure
+Environment="PATH=/var/www/mcads/.venv/bin:/usr/bin"
+EnvironmentFile=/var/www/mcads/.env.production
+
+[Install]
+WantedBy=multi-user.target 

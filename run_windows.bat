@@ -1,6 +1,6 @@
 @echo off
 echo =====================================================
-echo   Setting up Chest X-Ray Analysis Application (ldcs)
+echo   Setting up Chest X-Ray Analysis Application (mcads)
 echo =====================================================
 
 REM Check if Python is installed

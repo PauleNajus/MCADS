@@ -1,6 +1,6 @@
-# Deployment Guide for ldcs on Ubuntu 22.04 (Low Memory Server)
+# Deployment Guide for mcads on Ubuntu 22.04 (Low Memory Server)
 
-This guide will help you deploy the ldcs Django project on Ubuntu 22.04 with limited resources (2GB RAM) using Gunicorn (with ASGI), Nginx, and systemd.
+This guide will help you deploy the mcads Django project on Ubuntu 22.04 with limited resources (2GB RAM) using Gunicorn (with ASGI), Nginx, and systemd.
 
 ## Server Specifications
 
@@ -91,8 +91,8 @@ sudo sysctl -p
 Clone the repository and set up the project:
 
 ```bash
-git clone https://your-repository-url.git /var/www/ldcs
-cd /var/www/ldcs
+git clone https://your-repository-url.git /var/www/mcads
+cd /var/www/mcads
 ```
 
 Create a virtual environment and install dependencies:
@@ -119,7 +119,7 @@ SECRET_KEY=your_secure_random_key_here
 ALLOWED_HOSTS=ldcs18.com,www.ldcs18.com,162.0.223.203
 PYTORCH_NO_CUDA=1
 PYTORCH_CPU_ONLY=1
-DJANGO_SETTINGS_MODULE=ldcs_project.settings
+DJANGO_SETTINGS_MODULE=mcads_project.settings
 ```
 
 Generate a secure random key with:
@@ -157,7 +157,7 @@ keepalive = 5
 errorlog = "/var/log/gunicorn/error.log"
 accesslog = "/var/log/gunicorn/access.log"
 loglevel = "info"
-proc_name = "ldcs_asgi"
+proc_name = "mcads_asgi"
 # Memory optimization
 worker_tmp_dir = "/dev/shm"
 ```
@@ -171,28 +171,28 @@ sudo chown -R www-data:www-data /var/log/gunicorn
 
 ### Systemd Service with Memory Limits
 
-Create a systemd service file (`/etc/systemd/system/ldcs.service`):
+Create a systemd service file (`/etc/systemd/system/mcads.service`):
 
 ```ini
 [Unit]
-Description=ldcs Django Application
+Description=mcads Django Application
 After=network.target
 
 [Service]
 User=www-data
 Group=www-data
-WorkingDirectory=/var/www/ldcs
-ExecStart=/var/www/ldcs/.venv/bin/gunicorn -c gunicorn_config.py ldcs_project.asgi:application
+WorkingDirectory=/var/www/mcads
+ExecStart=/var/www/mcads/.venv/bin/gunicorn -c gunicorn_config.py mcads_project.asgi:application
 Restart=on-failure
 # Memory optimizations
 MemoryLow=512M
 MemoryHigh=1.5G
 MemoryMax=1.8G
 Environment="PYTHONOPTIMIZE=1"
-Environment="PATH=/var/www/ldcs/.venv/bin:/usr/bin"
+Environment="PATH=/var/www/mcads/.venv/bin:/usr/bin"
 Environment="PYTORCH_NO_CUDA=1"
 Environment="PYTORCH_CPU_ONLY=1"
-EnvironmentFile=/var/www/ldcs/.env.production
+EnvironmentFile=/var/www/mcads/.env.production
 
 [Install]
 WantedBy=multi-user.target
@@ -202,13 +202,13 @@ Enable and start the service:
 
 ```bash
 sudo systemctl daemon-reload
-sudo systemctl enable ldcs
-sudo systemctl start ldcs
+sudo systemctl enable mcads
+sudo systemctl start mcads
 ```
 
 ### Nginx Configuration
 
-Create an Nginx configuration file (`/etc/nginx/sites-available/ldcs.conf`):
+Create an Nginx configuration file (`/etc/nginx/sites-available/mcads.conf`):
 
 ```nginx
 server {
@@ -217,14 +217,14 @@ server {
     
     # Static files
     location /static/ {
-        alias /var/www/ldcs/staticfiles/;
+        alias /var/www/mcads/staticfiles/;
         expires 30d;
         add_header Cache-Control "public, max-age=2592000";
     }
     
     # Media files
     location /media/ {
-        alias /var/www/ldcs/media/;
+        alias /var/www/mcads/media/;
         expires 30d;
         add_header Cache-Control "public, max-age=2592000";
     }
@@ -246,15 +246,15 @@ server {
     }
     
     # Logging
-    access_log /var/log/nginx/ldcs_access.log;
-    error_log /var/log/nginx/ldcs_error.log;
+    access_log /var/log/nginx/mcads_access.log;
+    error_log /var/log/nginx/mcads_error.log;
 }
 ```
 
 Enable the configuration:
 
 ```bash
-sudo ln -s /etc/nginx/sites-available/ldcs.conf /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/mcads.conf /etc/nginx/sites-enabled/
 sudo nginx -t  # Test the configuration
 sudo systemctl reload nginx
 ```
@@ -286,9 +286,9 @@ sudo ufw --force enable
 ### Set Proper Permissions
 
 ```bash
-sudo chown -R www-data:www-data /var/www/ldcs
-sudo chmod -R 755 /var/www/ldcs/media
-sudo chmod -R 755 /var/www/ldcs/staticfiles
+sudo chown -R www-data:www-data /var/www/mcads
+sudo chmod -R 755 /var/www/mcads/media
+sudo chmod -R 755 /var/www/mcads/staticfiles
 ```
 
 ## 4. Memory Optimization for PyTorch
@@ -306,14 +306,14 @@ The server has only 2GB of RAM, which is tight for running PyTorch. The followin
 Check the status of your application:
 
 ```bash
-sudo systemctl status ldcs
+sudo systemctl status mcads
 ```
 
 View logs:
 
 ```bash
-sudo journalctl -u ldcs
-sudo tail -f /var/log/nginx/ldcs_error.log
+sudo journalctl -u mcads
+sudo tail -f /var/log/nginx/mcads_error.log
 sudo tail -f /var/log/gunicorn/error.log
 ```
 
@@ -368,18 +368,18 @@ sudo chown www-data:www-data /run/gunicorn
 To update the application:
 
 ```bash
-cd /var/www/ldcs
+cd /var/www/mcads
 git pull
 source .venv/bin/activate
 pip install -r requirements.txt
 python manage.py collectstatic --no-input
 python manage.py migrate
-sudo systemctl restart ldcs
+sudo systemctl restart mcads
 ```
 
 To restart services:
 
 ```bash
-sudo systemctl restart ldcs
+sudo systemctl restart mcads
 sudo systemctl reload nginx
 ``` 

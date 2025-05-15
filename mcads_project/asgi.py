@@ -1,5 +1,5 @@
 """
-ASGI config for ldcs_project project.
+ASGI config for mcads_project project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ldcs_project.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mcads_project.settings')
 
 application = get_asgi_application()

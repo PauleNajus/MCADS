@@ -1,7 +1,7 @@
 {% extends 'xrayapp/base.html' %}
 {% load xrayapp_extras %}
 
-{% block title %}LDCS Results{% endblock %}
+{% block title %}MCADS Results{% endblock %}
 
 {% block extra_css %}
 <style media="print">
@@ -201,7 +201,7 @@
 <div class="container mt-4">
     <div class="row">
         <div class="col-md-10 offset-md-1">
-            <h2 class="mb-4">LDCS Results</h2>
+            <h2 class="mb-4">MCADS Results</h2>
             
             <!-- Patient Information -->
             <div class="card mb-4">
@@ -479,7 +479,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('print-to-pdf')?.addEventListener('click', e => {
         e.preventDefault();
         const originalTitle = document.title;
-        document.title = `LDCS Result - ${new Date().toISOString().split('T')[0]}`;
+        document.title = `MCADS Result - ${new Date().toISOString().split('T')[0]}`;
         window.print();
         setTimeout(() => document.title = originalTitle, 1000);
     });

@@ -1,12 +1,12 @@
 #!/bin/bash
-# Remote deployment script for LDCS
+# Remote deployment script for MCADS
 # Run this from your local machine to deploy to the remote server
 
 # Configuration
 REMOTE_HOST="ldcs18.com"
 REMOTE_USER="root"
 REMOTE_IP="162.0.223.203"
-REMOTE_PATH="/var/www/ldcs"
+REMOTE_PATH="/var/www/mcads"
 LOCAL_PATH="."  # Current directory
 
 # Colors for output
@@ -15,8 +15,8 @@ YELLOW='\033[1;33m'
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
-echo -e "${GREEN}=== LDCS Remote Deployment ===${NC}"
-echo -e "This script will deploy the LDCS application to ${YELLOW}$REMOTE_HOST${NC} ($REMOTE_IP)"
+echo -e "${GREEN}=== MCADS Remote Deployment ===${NC}"
+echo -e "This script will deploy the MCADS application to ${YELLOW}$REMOTE_HOST${NC} ($REMOTE_IP)"
 echo ""
 
 # 1. Check if we can connect to the server
@@ -72,9 +72,9 @@ fi
 
 # 7. Final check
 echo -e "${YELLOW}Verifying deployment...${NC}"
-ssh $REMOTE_USER@$REMOTE_IP "systemctl status ldcs"
+ssh $REMOTE_USER@$REMOTE_IP "systemctl status mcads"
 
 echo -e "${GREEN}=== Deployment Complete ===${NC}"
 echo -e "Your application should now be running at ${YELLOW}https://$REMOTE_HOST${NC}"
-echo -e "To check the status: ${YELLOW}ssh $REMOTE_USER@$REMOTE_IP 'systemctl status ldcs'${NC}"
-echo -e "To view logs: ${YELLOW}ssh $REMOTE_USER@$REMOTE_IP 'journalctl -u ldcs'${NC}" 
+echo -e "To check the status: ${YELLOW}ssh $REMOTE_USER@$REMOTE_IP 'systemctl status mcads'${NC}"
+echo -e "To view logs: ${YELLOW}ssh $REMOTE_USER@$REMOTE_IP 'journalctl -u mcads'${NC}" 

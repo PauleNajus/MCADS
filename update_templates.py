@@ -4,7 +4,7 @@ import re
 from pathlib import Path
 
 def process_file(file_path):
-    """Replace LDCS18 with ldcs in the given file."""
+    """Replace LDCS18 with mcads in the given file."""
     try:
         with open(file_path, 'r', encoding='utf-8') as file:
             content = file.read()
@@ -14,8 +14,8 @@ def process_file(file_path):
         if count > 0:
             print(f"Found {count} occurrences in {file_path}")
             
-            # Replace LDCS18 with ldcs
-            updated_content = content.replace('LDCS18', 'ldcs')
+            # Replace LDCS18 with mcads
+            updated_content = content.replace('LDCS18', 'mcads')
             
             # Write back to the file if changes were made
             if content != updated_content:
@@ -49,7 +49,7 @@ def process_directory(dir_path, extensions=None):
 # Process the main directories
 directories_to_process = [
     'xrayapp/templates',
-    'ldcs_project',
+    'mcads_project',
 ]
 
 for directory in directories_to_process:
