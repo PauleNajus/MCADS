@@ -27,11 +27,15 @@ class XRayImage(models.Model):
     
     # Interpretability visualizations
     has_gradcam = models.BooleanField(default=False)
-    gradcam_visualization = models.ImageField(upload_to='interpretability/gradcam/', null=True, blank=True)
+    gradcam_visualization = models.CharField(max_length=255, null=True, blank=True)
+    gradcam_heatmap = models.CharField(max_length=255, null=True, blank=True)
+    gradcam_overlay = models.CharField(max_length=255, null=True, blank=True)
     gradcam_target_class = models.CharField(max_length=50, null=True, blank=True)
     
     has_pli = models.BooleanField(default=False)
-    pli_visualization = models.ImageField(upload_to='interpretability/pli/', null=True, blank=True)
+    pli_visualization = models.CharField(max_length=255, null=True, blank=True)
+    pli_overlay_visualization = models.CharField(max_length=255, null=True, blank=True)
+    pli_saliency_map = models.CharField(max_length=255, null=True, blank=True)
     pli_target_class = models.CharField(max_length=50, null=True, blank=True)
     
     # Predicted pathologies (values range from 0.0 to 1.0)

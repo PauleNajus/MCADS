@@ -10,7 +10,10 @@ from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 from .forms import XRayUploadForm, PredictionHistoryFilterForm, UserInfoForm, UserProfileForm, ChangePasswordForm
 from .models import XRayImage, PredictionHistory, UserProfile
-from .utils import process_image, process_image_with_interpretability, save_interpretability_visualization
+from .utils import (process_image, process_image_with_interpretability,
+                   save_interpretability_visualization, save_overlay_visualization, save_saliency_map,
+                   save_gradcam_heatmap, save_gradcam_overlay)
+from .interpretability import apply_gradcam, apply_pixel_interpretability
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
@@ -52,74 +55,144 @@ def process_image_async(image_path, xray_instance, model_type):
 
 def process_with_interpretability_async(image_path, xray_instance, model_type, interpretation_method, target_class=None):
     """Process the image with interpretability visualization in a background thread"""
-    results = process_image_with_interpretability(
-        image_path, xray_instance, model_type, interpretation_method, target_class
-    )
-    
-    # Save predictions to the database
-    xray_instance.atelectasis = results.get('Atelectasis', None)
-    xray_instance.cardiomegaly = results.get('Cardiomegaly', None)
-    xray_instance.consolidation = results.get('Consolidation', None)
-    xray_instance.edema = results.get('Edema', None)
-    xray_instance.effusion = results.get('Effusion', None)
-    xray_instance.emphysema = results.get('Emphysema', None)
-    xray_instance.fibrosis = results.get('Fibrosis', None)
-    xray_instance.hernia = results.get('Hernia', None)
-    xray_instance.infiltration = results.get('Infiltration', None)
-    xray_instance.mass = results.get('Mass', None)
-    xray_instance.nodule = results.get('Nodule', None)
-    xray_instance.pleural_thickening = results.get('Pleural_Thickening', None)
-    xray_instance.pneumonia = results.get('Pneumonia', None)
-    xray_instance.pneumothorax = results.get('Pneumothorax', None)
-    xray_instance.fracture = results.get('Fracture', None)
-    xray_instance.lung_opacity = results.get('Lung Opacity', None)
-    
-    # These fields will only be present in DenseNet results
-    if 'Enlarged Cardiomediastinum' in results:
-        xray_instance.enlarged_cardiomediastinum = results.get('Enlarged Cardiomediastinum', None)
-    if 'Lung Lesion' in results:
-        xray_instance.lung_lesion = results.get('Lung Lesion', None)
-    
-    # Save interpretability visualizations
-    if interpretation_method and 'method' in results:
-        if results['method'] == 'gradcam':
-            # Create output directory if it doesn't exist
-            output_dir = Path(settings.MEDIA_ROOT) / 'interpretability' / 'gradcam'
-            output_dir.mkdir(parents=True, exist_ok=True)
-            
-            # Generate filename
-            filename = f"gradcam_{xray_instance.id}_{results['target_class']}.png"
-            output_path = output_dir / filename
-            
-            # Save visualization
-            save_interpretability_visualization(results, output_path)
-            
-            # Update model
-            xray_instance.has_gradcam = True
-            xray_instance.gradcam_visualization = f"interpretability/gradcam/{filename}"
-            xray_instance.gradcam_target_class = results['target_class']
-            
-        elif results['method'] == 'pli':
-            # Create output directory if it doesn't exist
-            output_dir = Path(settings.MEDIA_ROOT) / 'interpretability' / 'pli'
-            output_dir.mkdir(parents=True, exist_ok=True)
-            
-            # Generate filename
-            filename = f"pli_{xray_instance.id}_{results['target_class']}.png"
-            output_path = output_dir / filename
-            
-            # Save visualization
-            save_interpretability_visualization(results, output_path)
-            
-            # Update model
-            xray_instance.has_pli = True
-            xray_instance.pli_visualization = f"interpretability/pli/{filename}"
-            xray_instance.pli_target_class = results['target_class']
-    
-    xray_instance.save()
-    
-    # Create prediction history record
-    create_prediction_history(xray_instance, model_type)
+    try:
+        # Set initial progress
+        xray_instance.progress = 10
+        xray_instance.save()
+        
+        print(f"Starting {interpretation_method} visualization for image {image_path} with model {model_type}")
+        
+        # Process the image with the selected interpretability method
+        if interpretation_method == 'gradcam':
+            try:
+                results = apply_gradcam(image_path, model_type, target_class)
+                results['method'] = 'gradcam'
+                print(f"GradCAM generation completed successfully for {target_class}")
+            except Exception as e:
+                print(f"Error in GradCAM generation: {str(e)}")
+                raise
+        elif interpretation_method == 'pli':
+            try:
+                results = apply_pixel_interpretability(image_path, model_type, target_class)
+                results['method'] = 'pli'
+                print(f"PLI generation completed successfully for {target_class}")
+            except Exception as e:
+                print(f"Error in PLI generation: {str(e)}")
+                raise
+        else:
+            # Invalid method, return error
+            print(f"Invalid interpretation method: {interpretation_method}")
+            xray_instance.processing_status = 'error'
+            xray_instance.save()
+            return
+        
+        # Update progress
+        xray_instance.progress = 70
+        xray_instance.save()
+        
+        print(f"Saving visualization results for {interpretation_method}")
+        
+        # Save interpretability visualizations
+        if interpretation_method and 'method' in results:
+            if results['method'] == 'gradcam':
+                # Create output directory if it doesn't exist
+                output_dir = Path(settings.MEDIA_ROOT) / 'interpretability' / 'gradcam'
+                output_dir.mkdir(parents=True, exist_ok=True)
+                
+                # Generate filenames
+                combined_filename = f"gradcam_{xray_instance.id}_{results['target_class']}.png"
+                heatmap_filename = f"gradcam_heatmap_{xray_instance.id}_{results['target_class']}.png"
+                overlay_filename = f"gradcam_overlay_{xray_instance.id}_{results['target_class']}.png"
+                
+                # Generate paths
+                combined_path = output_dir / combined_filename
+                heatmap_path = output_dir / heatmap_filename
+                overlay_path = output_dir / overlay_filename
+                
+                print(f"Saving Grad-CAM combined visualization to {combined_path}")
+                
+                # Save combined visualization
+                save_interpretability_visualization(results, combined_path)
+                
+                print(f"Saving Grad-CAM heatmap to {heatmap_path}")
+                
+                # Save heatmap separately
+                save_gradcam_heatmap(results, heatmap_path)
+                
+                print(f"Saving Grad-CAM overlay to {overlay_path}")
+                
+                # Save overlay separately
+                save_gradcam_overlay(results, overlay_path)
+                
+                # Update model
+                xray_instance.has_gradcam = True
+                xray_instance.gradcam_visualization = f"interpretability/gradcam/{combined_filename}"
+                xray_instance.gradcam_heatmap = f"interpretability/gradcam/{heatmap_filename}"
+                xray_instance.gradcam_overlay = f"interpretability/gradcam/{overlay_filename}"
+                xray_instance.gradcam_target_class = results['target_class']
+                
+            elif results['method'] == 'pli':
+                try:
+                    # Create output directory if it doesn't exist
+                    output_dir = Path(settings.MEDIA_ROOT) / 'interpretability' / 'pli'
+                    output_dir.mkdir(parents=True, exist_ok=True)
+                    
+                    # Generate filename for saliency map
+                    saliency_filename = f"pli_{xray_instance.id}_{results['target_class']}.png"
+                    saliency_path = output_dir / saliency_filename
+                    
+                    # Generate filename for overlay
+                    overlay_filename = f"pli_overlay_{xray_instance.id}_{results['target_class']}.png"
+                    overlay_path = output_dir / overlay_filename
+                    
+                    # Generate filename for separate saliency map
+                    separate_saliency_filename = f"pli_saliency_{xray_instance.id}_{results['target_class']}.png"
+                    separate_saliency_path = output_dir / separate_saliency_filename
+                    
+                    print(f"Saving PLI visualization to {saliency_path}")
+                    
+                    # Save saliency visualization (combined visualization)
+                    save_interpretability_visualization(results, saliency_path)
+                    
+                    print(f"Saving PLI overlay to {overlay_path}")
+                    
+                    # Save overlay separately
+                    save_overlay_visualization(results, overlay_path)
+                    
+                    print(f"Saving PLI saliency map to {separate_saliency_path}")
+                    
+                    # Save saliency map separately
+                    save_saliency_map(results, separate_saliency_path)
+                    
+                    # Update model
+                    xray_instance.has_pli = True
+                    xray_instance.pli_visualization = f"interpretability/pli/{saliency_filename}"
+                    xray_instance.pli_overlay_visualization = f"interpretability/pli/{overlay_filename}"
+                    xray_instance.pli_saliency_map = f"interpretability/pli/{separate_saliency_filename}"
+                    xray_instance.pli_target_class = results['target_class']
+                except Exception as e:
+                    print(f"Error saving PLI results: {str(e)}")
+                    raise
+        
+        xray_instance.progress = 90
+        xray_instance.processing_status = 'complete'
+        xray_instance.save()
+        
+        # Create prediction history record
+        create_prediction_history(xray_instance, model_type)
+        
+        # Set progress to 100%
+        xray_instance.progress = 100
+        xray_instance.save()
+        
+        print(f"Interpretability visualization complete for {interpretation_method}")
+        
+    except Exception as e:
+        import traceback
+        print(f"Error in interpretability processing: {str(e)}")
+        print(traceback.format_exc())
+        xray_instance.processing_status = 'error'
+        xray_instance.save()
 
 
 def create_prediction_history(xray_instance, model_type):
@@ -456,15 +529,28 @@ def view_interpretability(request, pk):
         'Date Created': xray_instance.image_date_created.strftime("%B %d, %Y %H:%M") if xray_instance.image_date_created else "Unknown",
     }
     
+    # Prepare media URLs for visualizations
+    media_url = settings.MEDIA_URL
+    gradcam_url = f"{media_url}{xray_instance.gradcam_visualization}" if xray_instance.has_gradcam and xray_instance.gradcam_visualization else None
+    gradcam_heatmap_url = f"{media_url}{xray_instance.gradcam_heatmap}" if xray_instance.has_gradcam and xray_instance.gradcam_heatmap else None
+    gradcam_overlay_url = f"{media_url}{xray_instance.gradcam_overlay}" if xray_instance.has_gradcam and xray_instance.gradcam_overlay else None
+    pli_url = f"{media_url}{xray_instance.pli_visualization}" if xray_instance.has_pli and xray_instance.pli_visualization else None
+    pli_overlay_url = f"{media_url}{xray_instance.pli_overlay_visualization}" if xray_instance.has_pli and xray_instance.pli_overlay_visualization else None
+    pli_saliency_url = f"{media_url}{xray_instance.pli_saliency_map}" if xray_instance.has_pli and xray_instance.pli_saliency_map else None
+    
     context = {
         'xray': xray_instance,
         'predictions': predictions,
         'image_url': xray_instance.image.url,
         'has_gradcam': xray_instance.has_gradcam,
-        'gradcam_url': xray_instance.gradcam_visualization.url if xray_instance.has_gradcam else None,
+        'gradcam_url': gradcam_url,
+        'gradcam_heatmap_url': gradcam_heatmap_url,
+        'gradcam_overlay_url': gradcam_overlay_url,
         'gradcam_target': xray_instance.gradcam_target_class,
         'has_pli': xray_instance.has_pli,
-        'pli_url': xray_instance.pli_visualization.url if xray_instance.has_pli else None,
+        'pli_url': pli_url,
+        'pli_overlay_url': pli_overlay_url,
+        'pli_saliency_url': pli_saliency_url,
         'pli_target': xray_instance.pli_target_class,
         'image_metadata': image_metadata,
     }

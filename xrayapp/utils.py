@@ -361,14 +361,14 @@ def save_interpretability_visualization(interpretation_results, output_path, for
     elif interpretation_results.get('method') == 'pli':
         # Plot saliency map
         plt.subplot(1, 3, 2)
-        plt.imshow(interpretation_results['saliency_map'], cmap='hot')
+        plt.imshow(interpretation_results['saliency_map'], cmap='jet')
         plt.title(f'Pixel Saliency Map\n{interpretation_results["target_class"]}')
         plt.axis('off')
         
-        # Plot colored saliency
+        # Plot overlay rather than colored saliency
         plt.subplot(1, 3, 3)
-        plt.imshow(interpretation_results['saliency_colored'])
-        plt.title('Colored Saliency')
+        plt.imshow(interpretation_results['overlay'])
+        plt.title('Pixel-Level Overlay')
         plt.axis('off')
     
     # Add image metadata as text if available
@@ -381,6 +381,122 @@ def save_interpretability_visualization(interpretation_results, output_path, for
     plt.tight_layout()
     plt.savefig(output_path, format=format, dpi=300, bbox_inches='tight', metadata={'Interpretation': interpretation_results.get('method', 'Unknown'), 
                                                                                     'Target': interpretation_results.get('target_class', 'Unknown')})
+    plt.close()
+    
+    return output_path
+
+
+def save_overlay_visualization(interpretation_results, output_path, format='png'):
+    """
+    Save only the overlay visualization to a file for pixel-level interpretability
+    
+    Args:
+        interpretation_results: Results from apply_pixel_interpretability
+        output_path: Path to save the visualization
+        format: Image format to save (png, jpg, etc.)
+        
+    Returns:
+        Path to saved file
+    """
+    # Create a figure for the overlay only
+    plt.figure(figsize=(6, 6))
+    
+    # Save the overlay image
+    if 'overlay' in interpretation_results:
+        plt.imshow(interpretation_results['overlay'])
+        plt.title(f'Pixel-Level Overlay: {interpretation_results["target_class"]}')
+        plt.axis('off')
+        
+    # Save the figure to a file
+    plt.tight_layout()
+    plt.savefig(output_path, format=format, dpi=300)
+    plt.close()
+    
+    return output_path
+
+
+def save_saliency_map(interpretation_results, output_path, format='png'):
+    """
+    Save only the saliency map to a file for pixel-level interpretability
+    
+    Args:
+        interpretation_results: Results from apply_pixel_interpretability
+        output_path: Path to save the visualization
+        format: Image format to save (png, jpg, etc.)
+        
+    Returns:
+        Path to saved file
+    """
+    # Create a figure for the saliency map only
+    plt.figure(figsize=(6, 6))
+    
+    # Save the saliency map image
+    if 'saliency_map' in interpretation_results:
+        plt.imshow(interpretation_results['saliency_map'], cmap='jet')
+        plt.title(f'Pixel Saliency Map: {interpretation_results["target_class"]}')
+        plt.axis('off')
+        
+    # Save the figure to a file
+    plt.tight_layout()
+    plt.savefig(output_path, format=format, dpi=300)
+    plt.close()
+    
+    return output_path
+
+
+def save_gradcam_heatmap(interpretation_results, output_path, format='png'):
+    """
+    Save only the Grad-CAM heatmap to a file
+    
+    Args:
+        interpretation_results: Results from apply_gradcam
+        output_path: Path to save the visualization
+        format: Image format to save (png, jpg, etc.)
+        
+    Returns:
+        Path to saved file
+    """
+    # Create a figure for the heatmap only
+    plt.figure(figsize=(6, 6))
+    
+    # Save the heatmap image
+    if 'heatmap' in interpretation_results:
+        plt.imshow(interpretation_results['heatmap'], cmap='jet')
+        plt.title(f'Grad-CAM Heatmap: {interpretation_results["target_class"]}')
+        plt.axis('off')
+        
+    # Save the figure to a file
+    plt.tight_layout()
+    plt.savefig(output_path, format=format, dpi=300)
+    plt.close()
+    
+    return output_path
+
+
+def save_gradcam_overlay(interpretation_results, output_path, format='png'):
+    """
+    Save only the Grad-CAM overlay to a file
+    
+    Args:
+        interpretation_results: Results from apply_gradcam
+        output_path: Path to save the visualization
+        format: Image format to save (png, jpg, etc.)
+        
+    Returns:
+        Path to saved file
+    """
+    # Create a figure for the overlay only
+    plt.figure(figsize=(6, 6))
+    
+    # Save the overlay image
+    if 'overlay' in interpretation_results:
+        plt.imshow(cv2.cvtColor(interpretation_results['overlay'], cv2.COLOR_BGR2RGB))
+        plt.title(f'Grad-CAM Overlay: {interpretation_results["target_class"]}')
+        plt.axis('off')
+        
+    # Save the figure to a file
+    plt.tight_layout()
+    plt.savefig(output_path, format=format, dpi=300)
     plt.close()
     
     return output_path 

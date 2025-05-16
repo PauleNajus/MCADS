@@ -259,15 +259,20 @@ class PixelLevelInterpretability:
         
         # Get gradients of the input
         grad_data = input_grad.grad.data.clone()  # Clone the gradient data
+        
+        # Use absolute value of gradients for better visualization
         saliency_map = grad_data.abs().squeeze().cpu().numpy()
         
-        # Normalize saliency map
+        # Apply basic Gaussian blur to reduce noise
+        saliency_map = cv2.GaussianBlur(saliency_map, (5, 5), 0)
+        
+        # Normalize saliency map to [0, 1]
         if np.max(saliency_map) > 0:
             saliency_map = saliency_map / np.max(saliency_map)
         
         return saliency_map, output
     
-    def apply_smoothgrad(self, input_tensor, target_class=None, n_samples=20, noise_level=0.1):
+    def apply_smoothgrad(self, input_tensor, target_class=None, n_samples=15, noise_level=0.1):
         """
         Apply SmoothGrad technique to reduce visual noise in saliency maps
         
@@ -317,7 +322,10 @@ class PixelLevelInterpretability:
         # Average the saliency maps
         smooth_saliency = smooth_saliency / n_samples
         
-        # Normalize the smoothed saliency map
+        # Apply simple Gaussian blur for smoothing
+        smooth_saliency = cv2.GaussianBlur(smooth_saliency, (3, 3), 0)
+        
+        # Simple contrast enhancement
         if np.max(smooth_saliency) > 0:
             smooth_saliency = smooth_saliency / np.max(smooth_saliency)
         
@@ -531,19 +539,33 @@ def apply_pixel_interpretability(image_path, model_type='densenet', target_class
     # Scale to [0, 1] for visualization
     original_vis = (original_vis - original_vis.min()) / (original_vis.max() - original_vis.min() + 1e-8)
     
-    # Create colored representation of saliency map
+    # Resize saliency map to match original image size
+    saliency_map_resized = cv2.resize(saliency_map, (original_vis.shape[1], original_vis.shape[0]))
+    
+    # Create colored representation of saliency map (using JET colormap for better contrast)
     saliency_colored = cv2.applyColorMap(
-        np.uint8(255 * saliency_map), 
-        cv2.COLORMAP_HOT
+        np.uint8(255 * saliency_map_resized), 
+        cv2.COLORMAP_JET
     )
     
-    # Convert to RGB for matplotlib
-    saliency_colored = cv2.cvtColor(saliency_colored, cv2.COLOR_BGR2RGB)
+    # Create basic overlay on the original image
+    alpha = 0.6  # Reduce opacity
+    overlay = np.uint8(255 * original_vis)
+    if len(overlay.shape) == 2:
+        overlay = cv2.cvtColor(overlay, cv2.COLOR_GRAY2RGB)
+    
+    saliency_overlay = cv2.addWeighted(
+        overlay, 1 - alpha,
+        cv2.cvtColor(saliency_colored, cv2.COLOR_BGR2RGB), alpha, 
+        0
+    )
     
     # Return results
     return {
         'original': original_vis,
-        'saliency_map': saliency_map,
-        'saliency_colored': saliency_colored,
-        'target_class': target_class
+        'saliency_map': saliency_map_resized,
+        'saliency_colored': cv2.cvtColor(saliency_colored, cv2.COLOR_BGR2RGB),
+        'overlay': saliency_overlay,
+        'target_class': target_class,
+        'method': 'pli'
     } 

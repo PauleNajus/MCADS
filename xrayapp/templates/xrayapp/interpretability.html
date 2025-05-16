@@ -142,10 +142,33 @@
                         </div>
                         <div class="card-body text-center">
                             <!-- Default view -->
-                            <img id="gradcam-default" src="{{ gradcam_url }}?t={% now 'U' %}" alt="Grad-CAM Visualization" class="img-fluid visualization-image" data-original-src="{{ gradcam_url }}" style="max-height: 600px;">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img id="gradcam-original" src="{{ image_url }}" alt="Original X-ray" class="img-fluid visualization-image" style="max-height: 600px;">
+                                    <p class="mt-2 text-center">Original X-ray</p>
+                                </div>
+                                <div class="col-md-4">
+                                    {% if gradcam_heatmap_url %}
+                                    <img id="gradcam-heatmap" src="{{ gradcam_heatmap_url }}?t={% now 'U' %}" alt="Grad-CAM Heatmap" class="img-fluid visualization-image" data-original-src="{{ gradcam_heatmap_url }}" style="max-height: 600px;">
+                                    {% else %}
+                                    <div class="alert alert-warning">Heatmap not available</div>
+                                    {% endif %}
+                                    <p class="mt-2 text-center">Grad-CAM Heatmap</p>
+                                </div>
+                                <div class="col-md-4">
+                                    {% if gradcam_overlay_url %}
+                                    <img id="gradcam-overlay" src="{{ gradcam_overlay_url }}?t={% now 'U' %}" alt="Grad-CAM Overlay" class="img-fluid visualization-image" data-original-src="{{ gradcam_overlay_url }}" style="max-height: 600px;">
+                                    {% else %}
+                                    <div class="alert alert-warning">Overlay not available</div>
+                                    {% endif %}
+                                    <p class="mt-2 text-center">Grad-CAM Overlay</p>
+                                </div>
+                            </div>
                             
                             <!-- Raw gradients view (hidden by default) -->
+                            {% if gradcam_url %}
                             <img id="gradcam-raw" src="{{ gradcam_url }}?t={% now 'U' %}" alt="Grad-CAM Raw Gradients" class="img-fluid visualization-image alt-view" data-original-src="{{ gradcam_url }}" style="filter: hue-rotate(120deg) saturate(3) contrast(1.5);">
+                            {% endif %}
                             
                             <p class="mt-2 text-muted">
                                 Grad-CAM highlights the regions in the image that strongly influenced the model's prediction 
@@ -190,12 +213,35 @@
                         </div>
                         <div class="card-body text-center">
                             <!-- Default view -->
-                            <img id="pli-default" src="{{ pli_url }}?t={% now 'U' %}" alt="Pixel-Level Interpretability" class="img-fluid visualization-image" data-original-src="{{ pli_url }}" style="max-height: 600px;">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img id="pli-original" src="{{ image_url }}" alt="Original X-ray" class="img-fluid visualization-image" style="max-height: 600px;">
+                                    <p class="mt-2 text-center">Original X-ray</p>
+                                </div>
+                                <div class="col-md-4">
+                                    {% if pli_saliency_url %}
+                                    <img id="pli-saliency" src="{{ pli_saliency_url }}?t={% now 'U' %}" alt="Pixel Saliency Map" class="img-fluid visualization-image" data-original-src="{{ pli_saliency_url }}" style="max-height: 600px;">
+                                    {% else %}
+                                    <div class="alert alert-warning">Saliency map not available</div>
+                                    {% endif %}
+                                    <p class="mt-2 text-center">Pixel Saliency Map</p>
+                                </div>
+                                <div class="col-md-4">
+                                    {% if pli_overlay_url %}
+                                    <img id="pli-overlay" src="{{ pli_overlay_url }}?t={% now 'U' %}" alt="Pixel-Level Overlay" class="img-fluid visualization-image" data-original-src="{{ pli_overlay_url }}" style="max-height: 600px; filter: opacity(1);">
+                                    {% else %}
+                                    <div class="alert alert-warning">Overlay not available</div>
+                                    {% endif %}
+                                    <p class="mt-2 text-center">Pixel-Level Overlay</p>
+                                </div>
+                            </div>
                             
                             <!-- Raw gradients view (hidden by default) -->
+                            {% if pli_url %}
                             <img id="pli-raw" src="{{ pli_url }}?t={% now 'U' %}" alt="PLI Raw Gradients" class="img-fluid visualization-image alt-view" data-original-src="{{ pli_url }}" style="filter: hue-rotate(120deg) saturate(3) contrast(1.5);">
+                            {% endif %}
                             
-                            <p class="mt-2 text-muted">
+                            <p class="mt-3 text-muted">
                                 Pixel-Level Interpretability shows which individual pixels had the most influence 
                                 on the model's prediction for {{ pli_target }}.
                             </p>
@@ -459,8 +505,34 @@ document.addEventListener('DOMContentLoaded', () => {
     // Add invert colors functionality
     invertButtons.forEach(button => {
         button.addEventListener('click', function() {
-            const img = this.closest('.card-body').querySelector('img:not(.alt-view)');
-            img.style.filter = img.style.filter.includes('invert(1)') ? '' : 'invert(1)';
+            const cardBody = this.closest('.card-body');
+            
+            // For PLI with multiple images
+            if (cardBody.querySelector('#pli-saliency')) {
+                // For PLI with separate panels
+                const saliencyImg = cardBody.querySelector('#pli-saliency');
+                const overlayImg = cardBody.querySelector('#pli-overlay');
+                
+                // Invert saliency map
+                saliencyImg.style.filter = saliencyImg.style.filter.includes('invert(1)') ? '' : 'invert(1)';
+                
+                // Invert overlay
+                overlayImg.style.filter = overlayImg.style.filter.includes('invert(1)') ? '' : 'invert(1)';
+            } else if (cardBody.querySelector('#gradcam-heatmap')) {
+                // For GradCAM with separate panels
+                const heatmapImg = cardBody.querySelector('#gradcam-heatmap');
+                const overlayImg = cardBody.querySelector('#gradcam-overlay');
+                
+                // Invert heatmap
+                heatmapImg.style.filter = heatmapImg.style.filter.includes('invert(1)') ? '' : 'invert(1)';
+                
+                // Invert overlay
+                overlayImg.style.filter = overlayImg.style.filter.includes('invert(1)') ? '' : 'invert(1)';
+            } else {
+                // For other visualizations with a single image
+                const img = cardBody.querySelector('img:not(.alt-view)');
+                img.style.filter = img.style.filter.includes('invert(1)') ? '' : 'invert(1)';
+            }
         });
     });
     
@@ -468,21 +540,55 @@ document.addEventListener('DOMContentLoaded', () => {
     rawGradientsButtons.forEach(button => {
         button.addEventListener('click', function() {
             const target = this.dataset.target;
-            const defaultImg = document.getElementById(`${target}-default`);
-            const rawImg = document.getElementById(`${target}-raw`);
             
-            if (defaultImg.style.display === 'none') {
-                // Switch to default view
-                defaultImg.style.display = 'inline-block';
-                rawImg.style.display = 'none';
-                this.textContent = 'Raw gradients';
-                this.classList.remove('active');
+            if (target === 'pli') {
+                // For PLI with separate panels
+                const originalImg = document.getElementById('pli-original');
+                const saliencyImg = document.getElementById('pli-saliency');
+                const overlayImg = document.getElementById('pli-overlay');
+                const rawImg = document.getElementById('pli-raw');
+                
+                if (saliencyImg.style.display === 'none') {
+                    // Switch to default view
+                    originalImg.parentElement.style.display = 'block';
+                    saliencyImg.parentElement.style.display = 'block';
+                    overlayImg.parentElement.style.display = 'block';
+                    rawImg.style.display = 'none';
+                    this.textContent = 'Raw gradients';
+                    this.classList.remove('active');
+                } else {
+                    // Switch to raw gradients view
+                    originalImg.parentElement.style.display = 'none';
+                    saliencyImg.parentElement.style.display = 'none';
+                    overlayImg.parentElement.style.display = 'none';
+                    rawImg.style.display = 'inline-block';
+                    this.textContent = 'Normal view';
+                    this.classList.add('active');
+                }
             } else {
-                // Switch to raw gradients view
-                defaultImg.style.display = 'none';
-                rawImg.style.display = 'inline-block';
-                this.textContent = 'Overlay view';
-                this.classList.add('active');
+                // For GradCAM with separate panels
+                const originalImg = document.getElementById('gradcam-original');
+                const heatmapImg = document.getElementById('gradcam-heatmap');
+                const overlayImg = document.getElementById('gradcam-overlay');
+                const rawImg = document.getElementById('gradcam-raw');
+                
+                if (heatmapImg.style.display === 'none') {
+                    // Switch to default view
+                    originalImg.parentElement.style.display = 'block';
+                    heatmapImg.parentElement.style.display = 'block';
+                    overlayImg.parentElement.style.display = 'block';
+                    rawImg.style.display = 'none';
+                    this.textContent = 'Raw gradients';
+                    this.classList.remove('active');
+                } else {
+                    // Switch to raw gradients view
+                    originalImg.parentElement.style.display = 'none';
+                    heatmapImg.parentElement.style.display = 'none';
+                    overlayImg.parentElement.style.display = 'none';
+                    rawImg.style.display = 'inline-block';
+                    this.textContent = 'Normal view';
+                    this.classList.add('active');
+                }
             }
         });
     });
@@ -491,21 +597,52 @@ document.addEventListener('DOMContentLoaded', () => {
     resetButtons.forEach(button => {
         button.addEventListener('click', function() {
             const target = this.dataset.target;
-            const defaultImg = document.getElementById(`${target}-default`);
-            const rawImg = document.getElementById(`${target}-raw`);
             
-            // Show default image
-            defaultImg.style.display = 'inline-block';
-            rawImg.style.display = 'none';
-            
-            // Reset filters
-            defaultImg.style.filter = '';
-            rawImg.style.filter = 'hue-rotate(120deg) saturate(3) contrast(1.5)';
-            
-            // Reset button states
-            const rawBtn = this.previousElementSibling;
-            rawBtn.textContent = 'Raw gradients';
-            rawBtn.classList.remove('active');
+            if (target === 'pli') {
+                // For PLI with separate panels
+                const originalImg = document.getElementById('pli-original');
+                const saliencyImg = document.getElementById('pli-saliency');
+                const overlayImg = document.getElementById('pli-overlay');
+                const rawImg = document.getElementById('pli-raw');
+                
+                // Show default images
+                originalImg.parentElement.style.display = 'block';
+                saliencyImg.parentElement.style.display = 'block';
+                overlayImg.parentElement.style.display = 'block';
+                rawImg.style.display = 'none';
+                
+                // Reset filters
+                saliencyImg.style.filter = '';
+                overlayImg.style.filter = '';
+                rawImg.style.filter = 'hue-rotate(120deg) saturate(3) contrast(1.5)';
+                
+                // Reset button states
+                const rawBtn = this.previousElementSibling;
+                rawBtn.textContent = 'Raw gradients';
+                rawBtn.classList.remove('active');
+            } else {
+                // For GradCAM with separate panels
+                const originalImg = document.getElementById('gradcam-original');
+                const heatmapImg = document.getElementById('gradcam-heatmap');
+                const overlayImg = document.getElementById('gradcam-overlay');
+                const rawImg = document.getElementById('gradcam-raw');
+                
+                // Show default images
+                originalImg.parentElement.style.display = 'block';
+                heatmapImg.parentElement.style.display = 'block';
+                overlayImg.parentElement.style.display = 'block';
+                rawImg.style.display = 'none';
+                
+                // Reset filters
+                heatmapImg.style.filter = '';
+                overlayImg.style.filter = '';
+                rawImg.style.filter = 'hue-rotate(120deg) saturate(3) contrast(1.5)';
+                
+                // Reset button states
+                const rawBtn = this.previousElementSibling;
+                rawBtn.textContent = 'Raw gradients';
+                rawBtn.classList.remove('active');
+            }
         });
     });
 });
