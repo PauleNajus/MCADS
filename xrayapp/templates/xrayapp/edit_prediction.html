@@ -89,4 +89,68 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  // Ensure date inputs use YYYY-MM-DD format
+  document.addEventListener('DOMContentLoaded', function() {
+    const dateOfBirthField = document.getElementById('id_date_of_birth');
+    const dateOfXrayField = document.getElementById('id_date_of_xray');
+    
+    // Force YYYY-MM-DD format for all date fields
+    const formatDate = (date) => {
+      if (!date) return '';
+      const parts = date.split(/[-\/]/);
+      
+      // If format is MM/DD/YYYY, convert to YYYY-MM-DD
+      if (parts.length === 3) {
+        if (parts[2].length === 4) { // Likely MM/DD/YYYY format
+          return `${parts[2]}-${parts[0].padStart(2, '0')}-${parts[1].padStart(2, '0')}`;
+        } else {
+          // Already YYYY-MM-DD or similar
+          return `${parts[0]}-${parts[1].padStart(2, '0')}-${parts[2].padStart(2, '0')}`;
+        }
+      }
+      return date; // return original if cannot parse
+    };
+    
+    // Process date inputs
+    [dateOfBirthField, dateOfXrayField].forEach(field => {
+      if (field) {
+        // Format existing value if needed
+        if (field.value) {
+          field.value = formatDate(field.value);
+        }
+        
+        // Set placeholder explicitly (in case the form widget doesn't)
+        field.setAttribute('placeholder', 'YYYY-MM-DD');
+        
+        field.addEventListener('focus', function() {
+          this.setAttribute('data-original-value', this.value);
+        });
+        
+        field.addEventListener('blur', function() {
+          if (this.value) {
+            this.value = formatDate(this.value);
+            
+            // Validate date format
+            const isValidDate = /^\d{4}-\d{2}-\d{2}$/.test(this.value);
+            if (!isValidDate) {
+              this.value = this.getAttribute('data-original-value') || '';
+              alert('Please use the YYYY-MM-DD format for dates');
+            }
+          }
+        });
+        
+        // Add helper text below the field if not already present
+        if (!field.nextElementSibling || !field.nextElementSibling.classList.contains('date-format-help')) {
+          const helpText = document.createElement('div');
+          helpText.className = 'form-text text-muted date-format-help';
+          field.parentNode.appendChild(helpText);
+        }
+      }
+    });
+  });
+</script>
 {% endblock %} 

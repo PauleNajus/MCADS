@@ -9,8 +9,8 @@ class XRayUploadForm(forms.ModelForm):
         fields = ['image', 'first_name', 'last_name', 'patient_id', 'gender', 
                  'date_of_birth', 'date_of_xray', 'additional_info']
         widgets = {
-            'date_of_birth': forms.DateInput(attrs={'type': 'date'}),
-            'date_of_xray': forms.DateInput(attrs={'type': 'date', 'value': timezone.now().strftime('%Y-%m-%d')}),
+            'date_of_birth': forms.TextInput(attrs={'placeholder': 'YYYY-MM-DD'}),
+            'date_of_xray': forms.TextInput(attrs={'placeholder': 'YYYY-MM-DD', 'value': timezone.now().strftime('%Y-%m-%d')}),
             'gender': forms.Select(choices=[('', '--Select--'), ('male', 'Male'), ('female', 'Female'), ('other', 'Other')]),
             'additional_info': forms.Textarea(attrs={'rows': 3}),
         }
@@ -28,10 +28,10 @@ class PredictionHistoryFilterForm(forms.Form):
                                 widget=forms.NumberInput(attrs={'placeholder': 'Max Age'}))
     date_min = forms.DateField(required=False, 
                               label="From Date",
-                              widget=forms.DateInput(attrs={'type': 'date'}))
+                              widget=forms.TextInput(attrs={'placeholder': 'YYYY-MM-DD'}))
     date_max = forms.DateField(required=False, 
                               label="To Date",
-                              widget=forms.DateInput(attrs={'type': 'date'}))
+                              widget=forms.TextInput(attrs={'placeholder': 'YYYY-MM-DD'}))
     pathology = forms.ChoiceField(
         choices=[], 
         required=False,

@@ -70,11 +70,11 @@
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <label for="id_date_of_birth" class="form-label">Date of Birth:</label>
-                                        <input type="date" name="date_of_birth" id="id_date_of_birth" class="form-control">
+                                        <input type="text" name="date_of_birth" id="id_date_of_birth" class="form-control" placeholder="YYYY-MM-DD">
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="id_date_of_xray" class="form-label">Date of X-ray:</label>
-                                        <input type="date" name="date_of_xray" id="id_date_of_xray" class="form-control" value="{{ today_date|date:'Y-m-d' }}">
+                                        <input type="text" name="date_of_xray" id="id_date_of_xray" class="form-control" value="{{ today_date|date:'Y-m-d' }}" placeholder="YYYY-MM-DD">
                                     </div>
                                 </div>
                                 <div class="mb-3">
@@ -146,14 +146,70 @@
       .catch(err => console.error('Service Worker registration failed:', err));
   }
   
-  // Set today's date as default for X-ray date
+  // Set today's date as default for X-ray date and ensure proper date format (YYYY-MM-DD)
   document.addEventListener('DOMContentLoaded', function() {
     const today = new Date();
     const dateField = document.getElementById('id_date_of_xray');
+    const birthField = document.getElementById('id_date_of_birth');
+    
+    // Format today's date in YYYY-MM-DD format
+    const formattedDate = today.toISOString().split('T')[0];
+    
+    // Set default date for X-ray date field
     if (dateField && !dateField.value) {
-      const formattedDate = today.toISOString().split('T')[0];
       dateField.value = formattedDate;
     }
+    
+    // Force YYYY-MM-DD format for all date fields
+    const formatDate = (date) => {
+      if (!date) return '';
+      const parts = date.split(/[-\/]/);
+      
+      // If format is MM/DD/YYYY, convert to YYYY-MM-DD
+      if (parts.length === 3) {
+        if (parts[2].length === 4) { // Likely MM/DD/YYYY format
+          return `${parts[2]}-${parts[0].padStart(2, '0')}-${parts[1].padStart(2, '0')}`;
+        } else {
+          // Already YYYY-MM-DD or similar
+          return `${parts[0]}-${parts[1].padStart(2, '0')}-${parts[2].padStart(2, '0')}`;
+        }
+      }
+      return date; // return original if cannot parse
+    };
+    
+    // Add input event listeners to ensure correct format
+    [dateField, birthField].forEach(field => {
+      if (field) {
+        // Format existing value if needed
+        if (field.value) {
+          field.value = formatDate(field.value);
+        }
+        
+        field.addEventListener('focus', function() {
+          this.setAttribute('data-original-value', this.value);
+        });
+        
+        field.addEventListener('blur', function() {
+          const value = this.value;
+          if (value) {
+            this.value = formatDate(value);
+            
+            // Validate date format
+            const isValidDate = /^\d{4}-\d{2}-\d{2}$/.test(this.value);
+            if (!isValidDate) {
+              // If invalid, restore original value
+              this.value = this.getAttribute('data-original-value') || '';
+              alert('Please use the YYYY-MM-DD format for dates');
+            }
+          }
+        });
+        
+        // Add helper text below the field
+        const helpText = document.createElement('div');
+        helpText.className = 'form-text text-muted';
+        field.parentNode.appendChild(helpText);
+      }
+    });
   });
 </script>
 {% endblock %} 
