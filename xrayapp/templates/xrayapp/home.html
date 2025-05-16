@@ -22,33 +22,33 @@
                         
                         <!-- Model Selection Toggle -->
                         <div class="mb-3">
-                            <label class="form-label">Select Model:</label>
+                            <label class="form-label">Select model:</label>
                             <div class="btn-group w-100" role="group" aria-label="Model selection">
                                 <input type="radio" class="btn-check" name="model_type" id="densenet_model" value="densenet" checked>
-                                <label class="btn btn-outline-secondary" for="densenet_model">DenseNet (224px, All Classes)</label>
+                                <label class="btn btn-outline-secondary" for="densenet_model">DenseNet (224px, all classes)</label>
                                 
                                 <input type="radio" class="btn-check" name="model_type" id="resnet_model" value="resnet">
-                                <label class="btn btn-outline-secondary" for="resnet_model">ResNet (512px, Filtered Classes)</label>
+                                <label class="btn btn-outline-secondary" for="resnet_model">ResNet (512px, filtered classes)</label>
                             </div>
                             <div class="form-text">
                                 DenseNet: All 18 pathologies included<br>
-                                ResNet: All pathologies except "Enlarged Cardiomediastinum" and "Lung Lesion"
+                                ResNet: All pathologies except "Enlarged cardiomediastinum" and "Lung lesion"
                             </div>
                         </div>
                         
                         <!-- Patient Information Section -->
                         <div class="card mb-3">
                             <div class="card-header">
-                                Patient Information
+                                Patient information
                             </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <label for="id_first_name" class="form-label">First Name:</label>
+                                        <label for="id_first_name" class="form-label">First name:</label>
                                         <input type="text" name="first_name" id="id_first_name" class="form-control">
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label for="id_last_name" class="form-label">Last Name:</label>
+                                        <label for="id_last_name" class="form-label">Last name:</label>
                                         <input type="text" name="last_name" id="id_last_name" class="form-control">
                                     </div>
                                 </div>
@@ -69,7 +69,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <label for="id_date_of_birth" class="form-label">Date of Birth:</label>
+                                        <label for="id_date_of_birth" class="form-label">Date of birth:</label>
                                         <input type="text" name="date_of_birth" id="id_date_of_birth" class="form-control" placeholder="YYYY-MM-DD">
                                     </div>
                                     <div class="col-md-6 mb-3">
@@ -78,34 +78,34 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="id_additional_info" class="form-label">Additional Information:</label>
+                                    <label for="id_additional_info" class="form-label">Additional information:</label>
                                     <textarea name="additional_info" id="id_additional_info" class="form-control" rows="3"></textarea>
                                 </div>
                             </div>
                         </div>
                         
                         <div class="mb-3">
-                            <label for="id_image" class="form-label">Select X-ray Image:</label>
+                            <label for="id_image" class="form-label">Select X-ray image:</label>
                             <input type="file" name="image" id="id_image" accept="image/*" class="form-control" required>
                             <div class="form-text">Supported formats: JPG, PNG, DICOM</div>
                         </div>
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-outline-secondary">Analyze X-Ray</button>
+                            <button type="submit" class="btn btn-outline-secondary">Analyze X-ray</button>
                         </div>
                     </form>
                     
                     <div class="alert alert-warning">
-                        <p class="mb-0"><strong>Warning!</strong> This tool is not meant to be used without supervision of a medical professional. Use DenseNet model for best results.</p>
+                        <p class="mb-0"><strong>Warning!</strong> This tool is not meant to be used without supervision of a medical professional! Use DenseNet model for best results. ResNet is not recommended.</p>
                     </div>
                     
                     <div class="text-center mt-3">
-                        <a href="{% url 'prediction_history' %}" class="btn btn-outline-secondary">View Prediction History</a>
+                        <a href="{% url 'prediction_history' %}" class="btn btn-outline-secondary">View prediction history</a>
                     </div>
                 </div>
                 
                 <!-- Progress Wrapper - Hidden initially, shown during processing -->
                 <div id="progress-wrapper" style="display: none;">
-                    <h4 class="text-center mb-4">Analyzing X-Ray Image</h4>
+                    <h4 class="text-center mb-4">Analyzing X-ray image</h4>
                     
                     <div class="progress mb-3" style="height: 25px;">
                         <div id="analysis-progress-bar" 

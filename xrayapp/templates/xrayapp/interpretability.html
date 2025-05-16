@@ -48,11 +48,11 @@
 <div class="interpretation-container mt-4">
     <div class="row">
         <div class="col-md-12">
-            <h2 class="mb-4">MCADS Interpretability Analysis</h2>
+            <h2 class="mb-4">MCADS interpretability analysis</h2>
             
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Original X-ray Image</h5>
+                    <h5 class="mb-0">Original X-ray image</h5>
                     <small>Uploaded on {{ xray.uploaded_at|date:"F d, Y H:i" }}</small>
                 </div>
                 <div class="card-body text-center">
@@ -68,7 +68,7 @@
             <!-- Interpretability Processing Feedback -->
             <div id="interpretation-progress" class="card mb-4" style="display: none;">
                 <div class="card-header">
-                    <h4 class="text-center mb-4">Generating Visualization...</h4>
+                    <h4 class="text-center mb-4">Generating visualization...</h4>
                 </div>
                 <div class="card-body">
                     <div class="progress mb-3" style="height: 25px;">
@@ -97,7 +97,7 @@
             
             <div class="card mb-4">
                 <div class="card-header">
-                    <h5 class="mb-0">Generate Interpretability Visualizations</h5>
+                    <h5 class="mb-0">Generate interpretability visualizations</h5>
                 </div>
                 <div class="card-body">
                     <form id="interpretability-form" action="{% url 'generate_interpretability' xray.id %}" method="get" class="mb-4">
@@ -106,7 +106,7 @@
                                 <label for="method" class="form-label">Interpretation Method</label>
                                 <select name="method" id="method" class="form-select">
                                     <option value="gradcam">Grad-CAM</option>
-                                    <option value="pli">Pixel-Level Interpretability</option>
+                                    <option value="pli">Pixel-level interpretability</option>
                                 </select>
                             </div>
                             <div class="col-md-4">
@@ -127,7 +127,7 @@
                             </div>
                         </div>
                         <div class="mt-3">
-                            <button type="submit" class="btn btn-outline-secondary">Generate Visualization</button>
+                            <button type="submit" class="btn btn-outline-secondary">Generate visualization</button>
                         </div>
                     </form>
                 </div>
@@ -138,7 +138,7 @@
                 <div class="col-md-12">
                     <div class="card mb-4" id="gradcam-card">
                         <div class="card-header bg-primary text-white">
-                            <h5 class="mb-0">Grad-CAM Visualization - {{ gradcam_target }}</h5>
+                            <h5 class="mb-0">Grad-CAM visualization - {{ gradcam_target }}</h5>
                         </div>
                         <div class="card-body text-center">
                             <!-- Default view -->
@@ -153,7 +153,7 @@
                                     {% else %}
                                     <div class="alert alert-warning">Heatmap not available</div>
                                     {% endif %}
-                                    <p class="mt-2 text-center">Grad-CAM Heatmap</p>
+                                    <p class="mt-2 text-center">Grad-CAM heatmap</p>
                                 </div>
                                 <div class="col-md-4">
                                     {% if gradcam_overlay_url %}
@@ -161,7 +161,7 @@
                                     {% else %}
                                     <div class="alert alert-warning">Overlay not available</div>
                                     {% endif %}
-                                    <p class="mt-2 text-center">Grad-CAM Overlay</p>
+                                    <p class="mt-2 text-center">Grad-CAM overlay</p>
                                 </div>
                             </div>
                             
@@ -209,7 +209,7 @@
                 <div class="col-md-12">
                     <div class="card mb-4" id="pli-card">
                         <div class="card-header bg-primary text-white">
-                            <h5 class="mb-0">Pixel-Level Interpretability - {{ pli_target }}</h5>
+                            <h5 class="mb-0">Pixel-level interpretability - {{ pli_target }}</h5>
                         </div>
                         <div class="card-body text-center">
                             <!-- Default view -->
@@ -224,7 +224,7 @@
                                     {% else %}
                                     <div class="alert alert-warning">Saliency map not available</div>
                                     {% endif %}
-                                    <p class="mt-2 text-center">Pixel Saliency Map</p>
+                                    <p class="mt-2 text-center">Pixel saliency pap</p>
                                 </div>
                                 <div class="col-md-4">
                                     {% if pli_overlay_url %}
@@ -232,7 +232,7 @@
                                     {% else %}
                                     <div class="alert alert-warning">Overlay not available</div>
                                     {% endif %}
-                                    <p class="mt-2 text-center">Pixel-Level Overlay</p>
+                                    <p class="mt-2 text-center">Pixel-level overlay</p>
                                 </div>
                             </div>
                             
@@ -252,7 +252,7 @@
                                     <table class="table table-sm table-bordered">
                                         <thead class="table-light">
                                             <tr>
-                                                <th colspan="4" class="text-center">Image Metadata</th>
+                                                <th colspan="4" class="text-center">Image metadata</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -279,7 +279,7 @@
             
             <div class="card mb-4">
                 <div class="card-header">
-                    <h5 class="mb-0">Prediction Results</h5>
+                    <h5 class="mb-0">Prediction results</h5>
                 </div>
                 <div class="card-body">
                     <table class="table table-hover">
@@ -324,8 +324,8 @@
             </div>
             
             <div class="text-center mb-5">
-                <a href="{% url 'xray_results' xray.id %}" class="btn btn-outline-secondary">Back to Results</a>
-                <a href="{% url 'home' %}" class="btn btn-outline-secondary">Upload New X-ray</a>
+                <a href="{% url 'xray_results' xray.id %}" class="btn btn-outline-secondary">Back to results</a>
+                <a href="{% url 'home' %}" class="btn btn-outline-secondary">Upload new X-ray</a>
             </div>
         </div>
     </div>

@@ -201,12 +201,12 @@
 <div class="container mt-4">
     <div class="row">
         <div class="col-md-10 offset-md-1">
-            <h2 class="mb-4">MCADS Results</h2>
+            <h2 class="mb-4">MCADS results</h2>
             
             <!-- Severity Level Indicator -->
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Severity Level</h5>
+                    <h5 class="mb-0">Severity level</h5>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -241,7 +241,7 @@
             <!-- Patient Information -->
             <div class="card mb-4">
                 <div class="card-header">
-                    <h5 class="mb-0">Patient Information</h5>
+                    <h5 class="mb-0">Patient information</h5>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -281,7 +281,7 @@
             
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">X-ray Image</h5>
+                    <h5 class="mb-0">X-ray image</h5>
                     <small>Uploaded on {{ xray.uploaded_at|date:"F d, Y H:i" }}</small>
                 </div>
                 <div class="card-body text-center">
@@ -298,7 +298,7 @@
                             <table class="table table-sm table-bordered">
                                 <thead>
                                     <tr>
-                                        <th colspan="4" class="text-center">Image Metadata</th>
+                                        <th colspan="4" class="text-center">Image metadata</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -361,7 +361,7 @@
             <!-- Interpretability Processing Feedback -->
             <div id="interpretation-progress" class="card mb-4" style="display: none;">
                 <div class="card-header">
-                    <h4 class="text-center mb-4">Generating Visualization...</h4>
+                    <h4 class="text-center mb-4">Generating visualization...</h4>
                 </div>
                 <div class="card-body">
                     <div class="progress mb-3" style="height: 25px;">
@@ -390,7 +390,7 @@
             
             <div class="card mb-4">
                 <div class="card-header">
-                    <h5 class="mb-0">Interpretability Options</h5>
+                    <h5 class="mb-0">Interpretability options</h5>
                 </div>
                 <div class="card-body">
                     <p>
@@ -399,29 +399,29 @@
                     <div class="d-flex gap-3">
                         <a href="{% url 'generate_interpretability' xray.id %}?method=gradcam" 
                            class="btn btn-outline-secondary interpretation-btn" data-method="gradcam">
-                            Grad-CAM Visualization
+                            Grad-CAM visualization
                         </a>
                         <a href="{% url 'generate_interpretability' xray.id %}?method=pli" 
                            class="btn btn-outline-secondary interpretation-btn" data-method="pli">
-                            Pixel-Level Interpretability
+                            Pixel-Level interpretability
                         </a>
                         <a href="{% url 'view_interpretability' xray.id %}" 
                            class="btn btn-outline-secondary" id="view-interpretations-btn">
-                            View All Interpretability Options
+                            View all interpretability options
                         </a>
                     </div>
                 </div>
             </div>
             
             <div class="text-center mb-5">
-                <a href="{% url 'home' %}" class="btn btn-outline-secondary">Upload New X-ray</a>
-                <a href="{% url 'prediction_history' %}" class="btn btn-outline-secondary">View Prediction History</a>
+                <a href="{% url 'home' %}" class="btn btn-outline-secondary">Upload new X-ray</a>
+                <a href="{% url 'prediction_history' %}" class="btn btn-outline-secondary">View prediction history</a>
                 <div class="btn-group">
                     <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="bi bi-printer"></i> Print
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#" id="print-to-printer"><i class="bi bi-printer"></i> Print to Printer</a></li>
+                        <li><a class="dropdown-item" href="#" id="print-to-printer"><i class="bi bi-printer"></i> Print to printer</a></li>
                         <li><a class="dropdown-item" href="#" id="print-to-pdf"><i class="bi bi-file-pdf"></i> Save as PDF</a></li>
                     </ul>
                 </div>

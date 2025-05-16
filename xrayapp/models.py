@@ -131,7 +131,7 @@ class XRayImage(models.Model):
         """Return formatted patient information"""
         if self.first_name or self.last_name:
             return f"{self.first_name} {self.last_name}".strip()
-        return "Unknown Patient"
+        return "Unknown patient"
 
 
 class PredictionHistory(models.Model):

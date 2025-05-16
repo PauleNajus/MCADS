@@ -52,7 +52,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% if '/prediction-history/' in request.path %}active{% endif %}" href="{% url 'prediction_history' %}">
-                            <i class="bi bi-clock-history"></i> Prediction History
+                            <i class="bi bi-clock-history"></i> Prediction history
                         </a>
                     </li>
                     {% if user.is_staff %}
@@ -73,7 +73,7 @@
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                         <li><span class="dropdown-item-text text-muted small">{{ user.first_name }} {{ user.last_name }}</span></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="{% url 'account_settings' %}"><i class="bi bi-gear"></i> Account Settings</a></li>
+                        <li><a class="dropdown-item" href="{% url 'account_settings' %}"><i class="bi bi-gear"></i> Account settings</a></li>
                         <li><a class="dropdown-item" href="{% url 'logout_confirmation' %}"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
                     </ul>
                 </div>
@@ -98,7 +98,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <p class="mb-0 text-muted small">
-                        &copy; {% now "Y" %} MCADS. All rights reserved. Paulius Bundza and Justas Trinkūnas. Vilnius Tech
+                        &copy; {% now "Y" %} MCADS. All rights reserved. Paulius Bundza and Justas Trinkūnas. Vilnius Tech, faculty of fundamental sciences.
                     </p>
                 </div>
                 <div class="col-md-6 text-md-end">

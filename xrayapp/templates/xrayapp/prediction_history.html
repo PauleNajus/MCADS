@@ -1,17 +1,17 @@
 {% extends 'xrayapp/base.html' %}
 {% load xrayapp_extras %}
 
-{% block title %}MCADS - Prediction History{% endblock %}
+{% block title %}MCADS - Prediction history{% endblock %}
 
 {% block content %}
 <div class="container mt-4">
     <div class="row">
         <div class="col-md-12">
-            <h2 class="mb-4">Prediction History</h2>
+            <h2 class="mb-4">Prediction history</h2>
             
             <div class="card mb-4 advanced-filters">
                 <div class="card-header">
-                    <h5 class="mb-0">Advanced Filters</h5>
+                    <h5 class="mb-0">Advanced filters</h5>
                 </div>
                 <div class="card-body">
                     <form method="get" action="" class="row g-3">
@@ -24,15 +24,15 @@
                             {{ form.age_min|add_class:"form-control" }}
                         </div>
                         <div class="col-md-4 col-lg-2">
-                            <label for="id_age_max" class="form-label">Max Age</label>
+                            <label for="id_age_max" class="form-label">Max age</label>
                             {{ form.age_max|add_class:"form-control" }}
                         </div>
                         <div class="col-md-6 col-lg-2">
-                            <label for="id_date_min" class="form-label">From Date</label>
+                            <label for="id_date_min" class="form-label">From date</label>
                             {{ form.date_min|add_class:"form-control" }}
                         </div>
                         <div class="col-md-6 col-lg-2">
-                            <label for="id_date_max" class="form-label">To Date</label>
+                            <label for="id_date_max" class="form-label">To date</label>
                             {{ form.date_max|add_class:"form-control" }}
                         </div>
                         <div class="col-md-6 col-lg-3">
@@ -46,7 +46,7 @@
                         <div class="col-md-12 col-lg-6 mt-4">
                             <div class="filter-actions">
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-filter me-1"></i> Apply Filters
+                                    <i class="fas fa-filter me-1"></i> Apply filters
                                 </button>
                                 <a href="{% url 'prediction_history' %}" class="btn btn-outline-secondary">
                                     <i class="fas fa-undo me-1"></i> Reset
@@ -64,7 +64,7 @@
                         <span class="badge bg-primary me-3">{{ history_items.count }} Records Found</span>
                         {% if history_items.count > 0 %}
                         <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAllModal">
-                            <i class="fas fa-trash-alt me-1"></i> Delete All
+                            <i class="fas fa-trash-alt me-1"></i> Delete all
                         </button>
                         {% endif %}
                     </div>
@@ -78,11 +78,11 @@
                                     <th>Patient</th>
                                     <th>ID</th>
                                     <th>Gender</th>
-                                    <th>Date of Birth</th>
-                                    <th>X-ray Date</th>
+                                    <th>Date of birth</th>
+                                    <th>X-ray date</th>
                                     <th>Severity</th>
-                                    <th>Model Used</th>
-                                    <th>Prediction Date</th>
+                                    <th>Model used</th>
+                                    <th>Prediction date</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -149,7 +149,7 @@
             </div>
             
             <div class="text-center mt-4 mb-4">
-                <a href="{% url 'home' %}" class="btn btn-primary">Upload New X-ray</a>
+                <a href="{% url 'home' %}" class="btn btn-primary">Upload new X-ray</a>
             </div>
         </div>
     </div>
@@ -159,12 +159,12 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="deleteAllModalLabel">Delete All Records</h5>
+                    <h5 class="modal-title" id="deleteAllModalLabel">Delete all records</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="alert alert-danger">
-                        <i class="fas fa-exclamation-triangle me-2"></i> Warning: This action cannot be undone!
+                        <i class="fas fa-exclamation-triangle me-2"></i> Warning: this action cannot be undone!
                     </div>
                     <p>Are you sure you want to delete all {{ history_items.count }} prediction history records?</p>
                 </div>
@@ -173,7 +173,7 @@
                     <form method="post" action="{% url 'delete_all_prediction_history' %}">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-danger">
-                            <i class="fas fa-trash-alt me-1"></i> Delete All Records
+                            <i class="fas fa-trash-alt me-1"></i> Delete all records
                         </button>
                     </form>
                 </div>

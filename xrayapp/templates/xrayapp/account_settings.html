@@ -64,17 +64,17 @@
                                     {% csrf_token %}
                                     
                                     <div class="mb-3">
-                                        <label for="{{ user_form.first_name.id_for_label }}" class="form-label">First Name</label>
+                                        <label for="{{ user_form.first_name.id_for_label }}" class="form-label">First name</label>
                                         {{ user_form.first_name }}
                                     </div>
                                     
                                     <div class="mb-3">
-                                        <label for="{{ user_form.last_name.id_for_label }}" class="form-label">Last Name</label>
+                                        <label for="{{ user_form.last_name.id_for_label }}" class="form-label">Last name</label>
                                         {{ user_form.last_name }}
                                     </div>
                                     
                                     <div class="mb-3">
-                                        <label for="{{ user_form.email.id_for_label }}" class="form-label">Email Address</label>
+                                        <label for="{{ user_form.email.id_for_label }}" class="form-label">Email address</label>
                                         {{ user_form.email }}
                                         <div class="form-text">
                                             We'll never share your email with anyone else.
@@ -82,14 +82,14 @@
                                     </div>
                                     
                                     <button type="submit" name="update_profile" class="btn btn-primary">
-                                        <i class="bi bi-save"></i> Save Profile
+                                        <i class="bi bi-save"></i> Save profile
                                     </button>
                                 </form>
                             </div>
                             <div class="col-md-6">
                                 <div class="card bg-light">
                                     <div class="card-body">
-                                        <h5 class="card-title">Account Information</h5>
+                                        <h5 class="card-title">Account information</h5>
                                         <p class="card-text"><strong>Username:</strong> {{ user.username }}</p>
                                         <p class="card-text"><strong>Last Login:</strong> {{ user.last_login|date:"F d, Y H:i" }}</p>
                                         <p class="card-text"><strong>Date Joined:</strong> {{ user.date_joined|date:"F d, Y" }}</p>
@@ -120,7 +120,7 @@
                                             </div>
                                             
                                             <div class="mb-3">
-                                                <label for="{{ settings_form.dashboard_view.id_for_label }}" class="form-label">Dashboard Layout</label>
+                                                <label for="{{ settings_form.dashboard_view.id_for_label }}" class="form-label">Dashboard layout</label>
                                                 {{ settings_form.dashboard_view }}
                                                 <div class="form-text">
                                                     Select how you want items to be displayed on your dashboard.
@@ -166,7 +166,7 @@
                                     </div>
                                     
                                     <button type="submit" name="update_settings" class="btn btn-primary">
-                                        <i class="bi bi-save"></i> Save Preferences
+                                        <i class="bi bi-save"></i> Save preferences
                                     </button>
                                 </form>
                             </div>
@@ -179,12 +179,12 @@
                          role="tabpanel">
                         <div class="row">
                             <div class="col-md-6">
-                                <h5>Change Password</h5>
+                                <h5>Change password</h5>
                                 <form method="post">
                                     {% csrf_token %}
                                     
                                     <div class="mb-3">
-                                        <label for="{{ password_form.current_password.id_for_label }}" class="form-label">Current Password</label>
+                                        <label for="{{ password_form.current_password.id_for_label }}" class="form-label">Current password</label>
                                         {{ password_form.current_password }}
                                         {% if password_form.current_password.errors %}
                                             <div class="text-danger small">
@@ -194,7 +194,7 @@
                                     </div>
                                     
                                     <div class="mb-3">
-                                        <label for="{{ password_form.new_password.id_for_label }}" class="form-label">New Password</label>
+                                        <label for="{{ password_form.new_password.id_for_label }}" class="form-label">New password</label>
                                         {{ password_form.new_password }}
                                         <div class="form-text">
                                             Create a strong password with a mix of letters, numbers, and symbols.
@@ -202,7 +202,7 @@
                                     </div>
                                     
                                     <div class="mb-3">
-                                        <label for="{{ password_form.confirm_password.id_for_label }}" class="form-label">Confirm New Password</label>
+                                        <label for="{{ password_form.confirm_password.id_for_label }}" class="form-label">Confirm new password</label>
                                         {{ password_form.confirm_password }}
                                         {% if password_form.confirm_password.errors %}
                                             <div class="text-danger small">
@@ -212,19 +212,19 @@
                                     </div>
                                     
                                     <button type="submit" name="change_password" class="btn btn-primary">
-                                        <i class="bi bi-key"></i> Change Password
+                                        <i class="bi bi-key"></i> Change password
                                     </button>
                                 </form>
                             </div>
                             
                             <div class="col-md-6">
-                                <h5>Two-Factor Authentication</h5>
+                                <h5>Two-factor authentication</h5>
                                 <div class="card bg-light mb-3">
                                     <div class="card-body">
                                         <div class="form-check form-switch mb-3">
                                             {{ settings_form.two_factor_auth_enabled }}
                                             <label class="form-check-label" for="{{ settings_form.two_factor_auth_enabled.id_for_label }}">
-                                                Enable Two-Factor Authentication
+                                                Enable Two-factor authentication
                                             </label>
                                         </div>
                                         <p class="card-text small">
@@ -245,12 +245,12 @@
                                         <i class="bi bi-exclamation-triangle"></i> Danger Zone
                                     </div>
                                     <div class="card-body">
-                                        <h6 class="card-title">Delete Account</h6>
+                                        <h6 class="card-title">Delete account</h6>
                                         <p class="card-text small">
                                             Once you delete your account, there is no going back. Please be certain.
                                         </p>
                                         <button class="btn btn-sm btn-outline-danger" type="button" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">
-                                            <i class="bi bi-trash"></i> Delete Account
+                                            <i class="bi bi-trash"></i> Delete account
                                         </button>
                                     </div>
                                 </div>
@@ -283,7 +283,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger" id="deleteAccountBtn" disabled>Delete Account</button>
+                <button type="button" class="btn btn-danger" id="deleteAccountBtn" disabled>Delete account</button>
             </div>
         </div>
     </div>

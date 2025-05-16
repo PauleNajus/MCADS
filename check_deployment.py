@@ -90,8 +90,14 @@ def check_dependencies():
     missing_packages = []
     for package_spec in required_packages:
         package_name = package_spec.split('==')[0]
+        
+        # Handle special cases with different module names
+        module_name = package_name
+        if package_name == 'django-bootstrap5':
+            module_name = 'django_bootstrap5'
+            
         try:
-            spec = importlib.util.find_spec(package_name)
+            spec = importlib.util.find_spec(module_name)
             if spec is None:
                 missing_packages.append(package_spec)
                 continue
@@ -105,7 +111,7 @@ def check_dependencies():
                 
             # For other packages, just print the version
             if package_name not in ['torch']:
-                module = importlib.import_module(package_name)
+                module = importlib.import_module(module_name)
                 if hasattr(module, '__version__'):
                     print(f"{package_name} version: {module.__version__}")
                 else:
