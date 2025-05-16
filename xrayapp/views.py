@@ -146,6 +146,8 @@ def create_prediction_history(xray_instance, model_type):
         lung_opacity=xray_instance.lung_opacity,
         enlarged_cardiomediastinum=xray_instance.enlarged_cardiomediastinum,
         lung_lesion=xray_instance.lung_lesion,
+        # Copy severity level
+        severity_level=xray_instance.severity_level,
     )
     history.save()
 
@@ -245,6 +247,7 @@ def xray_results(request, pk):
     
     # Create image metadata dictionary
     image_metadata = {
+        'Image name': Path(xray_instance.image.name).name,
         'Format': xray_instance.image_format,
         'Size': xray_instance.image_size,
         'Resolution': xray_instance.image_resolution,
@@ -257,12 +260,19 @@ def xray_results(request, pk):
     # Get image URL
     image_url = xray_instance.image.url
     
+    # Ensure severity level is calculated and stored
+    if xray_instance.severity_level is None:
+        xray_instance.severity_level = xray_instance.calculate_severity_level
+        xray_instance.save()
+    
     context = {
         'xray': xray_instance,
         'image_url': image_url,
         'predictions': predictions,
         'patient_info': patient_info,
         'image_metadata': image_metadata,
+        'severity_level': xray_instance.severity_level,
+        'severity_label': xray_instance.severity_label,
     }
     
     return render(request, 'xrayapp/results.html', context)
@@ -439,6 +449,7 @@ def view_interpretability(request, pk):
     
     # Create image metadata dictionary
     image_metadata = {
+        'Image name': Path(xray_instance.image.name).name,
         'Format': xray_instance.image_format,
         'Size': xray_instance.image_size,
         'Resolution': xray_instance.image_resolution,

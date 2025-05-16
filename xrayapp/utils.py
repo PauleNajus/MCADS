@@ -96,6 +96,7 @@ def extract_image_metadata(image_path):
                     date_created = datetime.fromtimestamp(stats.st_mtime)
             
             return {
+                'name': Path(image_path).name,
                 'format': image_format,
                 'size': size,
                 'resolution': resolution,
@@ -104,6 +105,7 @@ def extract_image_metadata(image_path):
     except Exception as e:
         print(f"Error extracting metadata: {e}")
         return {
+            'name': 'Unknown',
             'format': 'Unknown',
             'size': 'Unknown',
             'resolution': 'Unknown',
@@ -221,8 +223,12 @@ def process_image(image_path, xray_instance=None, model_type='densenet'):
         results = {k: v for k, v in results.items() if k not in excluded_classes}
     # For DenseNet, ensure we include all classes (no filtering)
     
-    # Update progress to 90%
+    # If we have an XRay instance, update its severity level
     if xray_instance:
+        # Calculate severity level
+        xray_instance.severity_level = xray_instance.calculate_severity_level
+        
+        # Update progress to 90%
         xray_instance.progress = 90
         xray_instance.save()
         
@@ -368,7 +374,7 @@ def save_interpretability_visualization(interpretation_results, output_path, for
     # Add image metadata as text if available
     if 'metadata' in interpretation_results:
         metadata = interpretation_results['metadata']
-        metadata_text = f"Format: {metadata.get('format', 'Unknown')} | Size: {metadata.get('size', 'Unknown')} | Resolution: {metadata.get('resolution', 'Unknown')}"
+        metadata_text = f"Image: {metadata.get('name', 'Unknown')} | Format: {metadata.get('format', 'Unknown')} | Size: {metadata.get('size', 'Unknown')} | Resolution: {metadata.get('resolution', 'Unknown')}"
         plt.figtext(0.5, 0.01, metadata_text, ha='center', fontsize=8, bbox={"facecolor":"lightgray", "alpha":0.5, "pad":5})
     
     # Save the figure with metadata preserved

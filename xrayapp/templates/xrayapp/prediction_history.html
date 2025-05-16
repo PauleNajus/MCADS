@@ -80,8 +80,7 @@
                                     <th>Gender</th>
                                     <th>Date of Birth</th>
                                     <th>X-ray Date</th>
-                                    <th>Top Prediction</th>
-                                    <th>Probability</th>
+                                    <th>Severity</th>
                                     <th>Model Used</th>
                                     <th>Prediction Date</th>
                                     <th>Actions</th>
@@ -96,18 +95,10 @@
                                     <td>{{ item.xray.date_of_birth|date:"Y-m-d"|default:"-" }}</td>
                                     <td>{{ item.xray.date_of_xray|date:"Y-m-d"|default:"-" }}</td>
                                     <td>
-                                        {% with top_pathology=item|get_top_pathology %}
-                                            {{ top_pathology.0 }}
-                                        {% endwith %}
-                                    </td>
-                                    <td>
-                                        {% with top_pathology=item|get_top_pathology %}
-                                            <div class="progress">
-                                                <div class="progress-bar {% if top_pathology.1 > 0.5 %}bg-danger{% else %}bg-success{% endif %}" 
-                                                     style="width: {{ top_pathology.1|multiply:100 }}%">
-                                                    {{ top_pathology.1|floatformat:2 }}
-                                                </div>
-                                            </div>
+                                        {% with severity_level=item|get_severity_level %}
+                                            <span class="{{ severity_level|get_severity_color }}">
+                                                {{ item|get_severity_label }}
+                                            </span>
                                         {% endwith %}
                                     </td>
                                     <td>{{ item.model_used }}</td>

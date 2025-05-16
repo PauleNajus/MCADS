@@ -55,6 +55,69 @@ class XRayImage(models.Model):
     lung_lesion = models.FloatField(null=True, blank=True)
     support_devices = models.FloatField(null=True, blank=True)
     
+    # Severity level
+    severity_level = models.IntegerField(null=True, blank=True)
+    
+    @property
+    def calculate_severity_level(self):
+        """Calculate severity level based on average of pathology probabilities
+        1: Insignificant findings (0-20%)
+        2: Moderate findings (21-25%)
+        3: Significant findings (26-100%)
+        """
+        pathology_fields = {
+            'atelectasis': self.atelectasis,
+            'cardiomegaly': self.cardiomegaly,
+            'consolidation': self.consolidation,
+            'edema': self.edema,
+            'effusion': self.effusion,
+            'emphysema': self.emphysema,
+            'fibrosis': self.fibrosis,
+            'hernia': self.hernia,
+            'infiltration': self.infiltration,
+            'mass': self.mass,
+            'nodule': self.nodule,
+            'pleural_thickening': self.pleural_thickening,
+            'pneumonia': self.pneumonia,
+            'pneumothorax': self.pneumothorax,
+            'fracture': self.fracture,
+            'lung_opacity': self.lung_opacity,
+            'enlarged_cardiomediastinum': self.enlarged_cardiomediastinum,
+            'lung_lesion': self.lung_lesion,
+            'support_devices': self.support_devices,
+        }
+        
+        # Filter out None values
+        valid_values = [v for v in pathology_fields.values() if v is not None]
+        
+        if not valid_values:
+            return None
+        
+        # Calculate average probability
+        avg_probability = sum(valid_values) / len(valid_values)
+        
+        # Determine severity level
+        if avg_probability <= 0.20:  # 0-20%
+            return 1
+        elif avg_probability <= 0.25:  # 21-25%
+            return 2
+        else:  # 26-100%
+            return 3
+    
+    @property
+    def severity_label(self):
+        """Get severity level label"""
+        severity_mapping = {
+            1: "Insignificant findings",
+            2: "Moderate findings",
+            3: "Significant findings",
+        }
+        level = self.severity_level
+        if level is None:
+            level = self.calculate_severity_level
+            
+        return severity_mapping.get(level, "Unknown")
+    
     def __str__(self):
         if self.patient_id and (self.first_name or self.last_name):
             return f"{self.first_name} {self.last_name} (ID: {self.patient_id}) - {self.uploaded_at.strftime('%Y-%m-%d %H:%M')}"
@@ -102,6 +165,69 @@ class PredictionHistory(models.Model):
     enlarged_cardiomediastinum = models.FloatField(null=True, blank=True)
     lung_lesion = models.FloatField(null=True, blank=True)
     support_devices = models.FloatField(null=True, blank=True)
+    
+    # Severity level
+    severity_level = models.IntegerField(null=True, blank=True)
+    
+    @property
+    def calculate_severity_level(self):
+        """Calculate severity level based on average of pathology probabilities
+        1: Insignificant findings (0-20%)
+        2: Moderate findings (21-25%)
+        3: Significant findings (26-100%)
+        """
+        pathology_fields = {
+            'atelectasis': self.atelectasis,
+            'cardiomegaly': self.cardiomegaly,
+            'consolidation': self.consolidation,
+            'edema': self.edema,
+            'effusion': self.effusion,
+            'emphysema': self.emphysema,
+            'fibrosis': self.fibrosis,
+            'hernia': self.hernia,
+            'infiltration': self.infiltration,
+            'mass': self.mass,
+            'nodule': self.nodule,
+            'pleural_thickening': self.pleural_thickening,
+            'pneumonia': self.pneumonia,
+            'pneumothorax': self.pneumothorax,
+            'fracture': self.fracture,
+            'lung_opacity': self.lung_opacity,
+            'enlarged_cardiomediastinum': self.enlarged_cardiomediastinum,
+            'lung_lesion': self.lung_lesion,
+            'support_devices': self.support_devices,
+        }
+        
+        # Filter out None values
+        valid_values = [v for v in pathology_fields.values() if v is not None]
+        
+        if not valid_values:
+            return None
+        
+        # Calculate average probability
+        avg_probability = sum(valid_values) / len(valid_values)
+        
+        # Determine severity level
+        if avg_probability <= 0.20:  # 0-20%
+            return 1
+        elif avg_probability <= 0.25:  # 21-25%
+            return 2
+        else:  # 26-100%
+            return 3
+    
+    @property
+    def severity_label(self):
+        """Get severity level label"""
+        severity_mapping = {
+            1: "Insignificant findings",
+            2: "Moderate findings",
+            3: "Significant findings",
+        }
+        level = self.severity_level
+        if level is None:
+            level = self.calculate_severity_level
+            
+        return severity_mapping.get(level, "Unknown")
     
     def __str__(self):
         return f"Prediction #{self.id} for {self.xray} using {self.model_used}"

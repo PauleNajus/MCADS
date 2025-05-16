@@ -53,3 +53,44 @@ def get_top_pathology(prediction_history):
 def add_class(field, css_class):
     """Add a CSS class to a form field"""
     return field.as_widget(attrs={"class": css_class}) 
+
+@register.filter
+def get_severity_level(obj):
+    """Get the severity level (0-3) from a model instance (XRayImage or PredictionHistory)"""
+    if hasattr(obj, 'severity_level') and obj.severity_level is not None:
+        return obj.severity_level
+    elif hasattr(obj, 'calculate_severity_level'):
+        return obj.calculate_severity_level
+    return None
+
+@register.filter
+def get_severity_label(obj):
+    """Get the severity label from a model instance (XRayImage or PredictionHistory)"""
+    if hasattr(obj, 'severity_label'):
+        return obj.severity_label
+        
+    # If no severity_label property, calculate manually
+    severity_mapping = {
+        1: "Insignificant findings",
+        2: "Moderate findings",
+        3: "Significant findings",
+    }
+    
+    level = None
+    if hasattr(obj, 'severity_level') and obj.severity_level is not None:
+        level = obj.severity_level
+    elif hasattr(obj, 'calculate_severity_level'):
+        level = obj.calculate_severity_level
+        
+    return severity_mapping.get(level, "Unknown")
+
+@register.filter
+def get_severity_color(level):
+    """Get appropriate color class based on severity level"""
+    if level == 1:
+        return "text-success"  # green for insignificant findings
+    elif level == 2:
+        return "text-warning"  # yellow for moderate findings
+    elif level == 3:
+        return "text-danger"   # red for significant findings
+    return "" 
