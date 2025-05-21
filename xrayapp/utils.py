@@ -177,10 +177,18 @@ def process_image(image_path, xray_instance=None, model_type='densenet'):
     model, resize_dim = load_model(model_type)
     
     # Apply transforms for model
-    transform = torchvision.transforms.Compose([
-        xrv.datasets.XRayCenterCrop(),
-        xrv.datasets.XRayResizer(resize_dim)
-    ])
+    # For resnet50-res512-all, we need to resize first, then center crop
+    if model_type == 'resnet':
+        transform = torchvision.transforms.Compose([
+            xrv.datasets.XRayResizer(resize_dim),
+            xrv.datasets.XRayCenterCrop()
+        ])
+    else:
+        # For densenet, keep the original order
+        transform = torchvision.transforms.Compose([
+            xrv.datasets.XRayCenterCrop(),
+            xrv.datasets.XRayResizer(resize_dim)
+        ])
     img = transform(img)
     
     # Convert to tensor
@@ -213,15 +221,25 @@ def process_image(image_path, xray_instance=None, model_type='densenet'):
         preds = model(img_tensor).cpu()
     
     # Create a dictionary of pathology predictions
-    # Use the model's pathologies attribute directly
-    pathologies = model.pathologies
-    results = dict(zip(pathologies, preds[0].detach().numpy()))
+    # Map to default pathologies to ensure consistent ordering
+    if model_type == 'resnet':
+        # For ResNet model, map to default pathologies to avoid mis-indexing
+        # First get predictions with model's pathologies
+        model_results = dict(zip(model.pathologies, preds[0].detach().numpy()))
+        
+        # Create a new dictionary with default pathologies
+        results = {}
+        for pathology in xrv.datasets.default_pathologies:
+            if pathology in model_results:
+                results[pathology] = model_results[pathology]
+    else:
+        # For DenseNet, we can use the model's pathologies directly
+        results = dict(zip(model.pathologies, preds[0].detach().numpy()))
     
     # Filter out specific classes for ResNet if needed
     if model_type == 'resnet':
         excluded_classes = ["Enlarged Cardiomediastinum", "Lung Lesion"]
         results = {k: v for k, v in results.items() if k not in excluded_classes}
-    # For DenseNet, ensure we include all classes (no filtering)
     
     # If we have an XRay instance, update its severity level
     if xray_instance:

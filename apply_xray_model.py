@@ -167,8 +167,8 @@ def process_image_example():
     # Next test ResNet
     print("\nTesting ResNet model:")
     resnet_transform = torchvision.transforms.Compose([
-        xrv.datasets.XRayCenterCrop(),
-        xrv.datasets.XRayResizer(512)
+        xrv.datasets.XRayResizer(512),
+        xrv.datasets.XRayCenterCrop()
     ])
     resnet_img = resnet_transform(img)
     resnet_img = torch.from_numpy(resnet_img)
@@ -177,8 +177,15 @@ def process_image_example():
     print(f"ResNet model has {len(resnet_model.pathologies)} pathologies: {resnet_model.pathologies}")
     resnet_outputs = resnet_model(resnet_img[None, ...])
     
-    # Use model's own pathologies for consistent labeling
-    resnet_results = dict(zip(resnet_model.pathologies, resnet_outputs[0].detach().numpy()))
+    # First use model's own pathologies for initial mapping
+    raw_resnet_results = dict(zip(resnet_model.pathologies, resnet_outputs[0].detach().numpy()))
+    
+    # Map to default pathologies to avoid mis-indexing
+    resnet_results = {}
+    for pathology in xrv.datasets.default_pathologies:
+        if pathology in raw_resnet_results:
+            resnet_results[pathology] = raw_resnet_results[pathology]
+    
     print("Raw ResNet predictions:")
     pprint.pprint(resnet_results)
     
@@ -227,11 +234,19 @@ def main():
     # Load model based on selected type
     model, resize_dim = load_model(cfg.model)
     
-    # Apply transforms
-    transform = torchvision.transforms.Compose([
-        xrv.datasets.XRayCenterCrop(),
-        xrv.datasets.XRayResizer(resize_dim)
-    ])
+    # Apply transforms - different order for ResNet vs DenseNet
+    if cfg.model == 'resnet':
+        # For resnet50-res512-all, resize first then center crop
+        transform = torchvision.transforms.Compose([
+            xrv.datasets.XRayResizer(resize_dim),
+            xrv.datasets.XRayCenterCrop()
+        ])
+    else:
+        # For DenseNet (default), keep original order
+        transform = torchvision.transforms.Compose([
+            xrv.datasets.XRayCenterCrop(),
+            xrv.datasets.XRayResizer(resize_dim)
+        ])
     img = transform(img)
     
     # Convert to tensor
@@ -271,7 +286,20 @@ def main():
         
         # Filter problematic classes if using ResNet
         if cfg.model == 'resnet':
+            # First get predictions with model's pathologies
+            raw_results = dict(zip(model.pathologies, preds[0].detach().numpy()))
+            
+            # Map to default pathologies to avoid mis-indexing
+            results = {}
+            for pathology in xrv.datasets.default_pathologies:
+                if pathology in raw_results:
+                    results[pathology] = raw_results[pathology]
+                    
+            # Then filter problematic classes
             results = filter_problematic_classes(cfg.model, results)
+        else:
+            # For DenseNet we can use model's pathologies directly
+            results = dict(zip(model.pathologies, preds[0].detach().numpy()))
         
         output["preds"] = results
     

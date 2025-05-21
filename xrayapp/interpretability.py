@@ -383,11 +383,21 @@ def apply_gradcam(image_path, model_type='densenet', target_class=None):
     # Add channel dimension
     img = img[None, :, :]
     
+    # Set up transformation pipeline
+    if model_type == 'densenet':
+        transform = torchvision.transforms.Compose([
+            xrv.datasets.XRayCenterCrop(),
+            xrv.datasets.XRayResizer(224)
+        ])
+        resize_dim = 224
+    else:  # resnet
+        transform = torchvision.transforms.Compose([
+            xrv.datasets.XRayResizer(512),
+            xrv.datasets.XRayCenterCrop()
+        ])
+        resize_dim = 512
+    
     # Apply transforms
-    transform = torchvision.transforms.Compose([
-        xrv.datasets.XRayCenterCrop(),
-        xrv.datasets.XRayResizer(resize_dim)
-    ])
     img = transform(img)
     
     # Convert to tensor
@@ -483,11 +493,21 @@ def apply_pixel_interpretability(image_path, model_type='densenet', target_class
     # Add channel dimension
     img = img[None, :, :]
     
+    # Set up transformation pipeline
+    if model_type == 'densenet':
+        transform = torchvision.transforms.Compose([
+            xrv.datasets.XRayCenterCrop(),
+            xrv.datasets.XRayResizer(224)
+        ])
+        resize_dim = 224
+    else:  # resnet
+        transform = torchvision.transforms.Compose([
+            xrv.datasets.XRayResizer(512),
+            xrv.datasets.XRayCenterCrop()
+        ])
+        resize_dim = 512
+    
     # Apply transforms
-    transform = torchvision.transforms.Compose([
-        xrv.datasets.XRayCenterCrop(),
-        xrv.datasets.XRayResizer(resize_dim)
-    ])
     img = transform(img)
     
     # Convert to tensor
