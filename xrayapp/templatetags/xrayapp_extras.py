@@ -11,6 +11,14 @@ def multiply(value, arg):
         return ''
 
 @register.filter
+def percentage(value):
+    """Convert a decimal to percentage format for CSS"""
+    try:
+        return f"{float(value) * 100:.1f}"
+    except (ValueError, TypeError):
+        return '0'
+
+@register.filter
 def get_top_pathology(prediction_history):
     """Get the top pathology (highest probability) from a prediction history item
     Returns a tuple (pathology_name, probability)"""

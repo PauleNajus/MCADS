@@ -177,16 +177,10 @@ def process_image_example():
     print(f"ResNet model has {len(resnet_model.pathologies)} pathologies: {resnet_model.pathologies}")
     resnet_outputs = resnet_model(resnet_img[None, ...])
     
-    # First use model's own pathologies for initial mapping
-    raw_resnet_results = dict(zip(resnet_model.pathologies, resnet_outputs[0].detach().numpy()))
+    # ResNet outputs 18 values that should be mapped to default_pathologies
+    resnet_results = dict(zip(xrv.datasets.default_pathologies, resnet_outputs[0].detach().numpy()))
     
-    # Map to default pathologies to avoid mis-indexing
-    resnet_results = {}
-    for pathology in xrv.datasets.default_pathologies:
-        if pathology in raw_resnet_results:
-            resnet_results[pathology] = raw_resnet_results[pathology]
-    
-    print("Raw ResNet predictions:")
+    print("ResNet predictions (correctly mapped):")
     pprint.pprint(resnet_results)
     
     # Filter problematic classes
@@ -286,15 +280,10 @@ def main():
         
         # Filter problematic classes if using ResNet
         if cfg.model == 'resnet':
-            # First get predictions with model's pathologies
-            raw_results = dict(zip(model.pathologies, preds[0].detach().numpy()))
+            # ResNet outputs 18 values mapped to default_pathologies
+            # Use default_pathologies for correct mapping
+            results = dict(zip(xrv.datasets.default_pathologies, preds[0].detach().numpy()))
             
-            # Map to default pathologies to avoid mis-indexing
-            results = {}
-            for pathology in xrv.datasets.default_pathologies:
-                if pathology in raw_results:
-                    results[pathology] = raw_results[pathology]
-                    
             # Then filter problematic classes
             results = filter_problematic_classes(cfg.model, results)
         else:

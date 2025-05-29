@@ -298,8 +298,7 @@
                                     <div class="progress">
                                         <div class="progress-bar {% if prob > 0.5 %}bg-danger{% else %}bg-success{% endif %}" 
                                              role="progressbar" 
-                                             style="width: {{ prob|multiply:100 }}%" 
-                                             aria-valuenow="{{ prob|multiply:100 }}" 
+                                             data-probability="{{ prob|percentage }}"
                                              aria-valuemin="0" 
                                              aria-valuemax="100">
                                             {{ prob|floatformat:3 }}
@@ -333,6 +332,14 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
+    // Set progress bar widths and aria values from data attributes
+    const progressBars = document.querySelectorAll('.progress-bar[data-probability]');
+    progressBars.forEach(bar => {
+        const percentage = bar.getAttribute('data-probability');
+        bar.style.width = percentage + '%';
+        bar.setAttribute('aria-valuenow', percentage);
+    });
+    
     const interpretationForm = document.getElementById('interpretability-form');
     const interpretationButtons = document.querySelectorAll('.interpretation-btn');
     const progressWrapper = document.getElementById('interpretation-progress');

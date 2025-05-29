@@ -221,22 +221,16 @@ def process_image(image_path, xray_instance=None, model_type='densenet'):
         preds = model(img_tensor).cpu()
     
     # Create a dictionary of pathology predictions
-    # Map to default pathologies to ensure consistent ordering
+    # For ResNet, ALWAYS use default_pathologies for correct mapping
     if model_type == 'resnet':
-        # For ResNet model, map to default pathologies to avoid mis-indexing
-        # First get predictions with model's pathologies
-        model_results = dict(zip(model.pathologies, preds[0].detach().numpy()))
-        
-        # Create a new dictionary with default pathologies
-        results = {}
-        for pathology in xrv.datasets.default_pathologies:
-            if pathology in model_results:
-                results[pathology] = model_results[pathology]
+        # ResNet model outputs 18 values in the order of default_pathologies
+        results = dict(zip(xrv.datasets.default_pathologies, preds[0].detach().numpy()))
     else:
         # For DenseNet, we can use the model's pathologies directly
         results = dict(zip(model.pathologies, preds[0].detach().numpy()))
     
     # Filter out specific classes for ResNet if needed
+    # Note: These classes will always output 0.5 for ResNet as they're not trained
     if model_type == 'resnet':
         excluded_classes = ["Enlarged Cardiomediastinum", "Lung Lesion"]
         results = {k: v for k, v in results.items() if k not in excluded_classes}

@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 import torchxrayvision as xrv
 import functools
+from . import utils
 
 
 def disable_inplace_relu(model):
@@ -112,7 +113,14 @@ class GradCAM:
             target_class = torch.argmax(output).item()
         elif isinstance(target_class, str):
             # If target_class is a string (pathology name), get its index
-            if target_class in self.model.pathologies:
+            # For ResNet model, use default_pathologies for correct mapping
+            if hasattr(self.model, 'pathologies') and 'Lung Opacity' in self.model.pathologies:
+                # This is ResNet model, use default_pathologies for indexing
+                if target_class in xrv.datasets.default_pathologies:
+                    target_class = xrv.datasets.default_pathologies.index(target_class)
+                else:
+                    raise ValueError(f"Pathology {target_class} not found in default pathologies.")
+            elif target_class in self.model.pathologies:
                 target_class = self.model.pathologies.index(target_class)
             else:
                 raise ValueError(f"Pathology {target_class} not found in model.")
@@ -247,7 +255,14 @@ class PixelLevelInterpretability:
             target_class = torch.argmax(output).item()
         elif isinstance(target_class, str):
             # If target_class is a string (pathology name), get its index
-            if target_class in self.model.pathologies:
+            # For ResNet model, use default_pathologies for correct mapping
+            if hasattr(self.model, 'pathologies') and 'Lung Opacity' in self.model.pathologies:
+                # This is ResNet model, use default_pathologies for indexing
+                if target_class in xrv.datasets.default_pathologies:
+                    target_class = xrv.datasets.default_pathologies.index(target_class)
+                else:
+                    raise ValueError(f"Pathology {target_class} not found in default pathologies.")
+            elif target_class in self.model.pathologies:
                 target_class = self.model.pathologies.index(target_class)
             else:
                 raise ValueError(f"Pathology {target_class} not found in model.")
@@ -294,7 +309,15 @@ class PixelLevelInterpretability:
         if target_class is None:
             target_class = torch.argmax(output).item()
         elif isinstance(target_class, str):
-            if target_class in self.model.pathologies:
+            # If target_class is a string (pathology name), get its index
+            # For ResNet model, use default_pathologies for correct mapping
+            if hasattr(self.model, 'pathologies') and 'Lung Opacity' in self.model.pathologies:
+                # This is ResNet model, use default_pathologies for indexing
+                if target_class in xrv.datasets.default_pathologies:
+                    target_class = xrv.datasets.default_pathologies.index(target_class)
+                else:
+                    raise ValueError(f"Pathology {target_class} not found in default pathologies.")
+            elif target_class in self.model.pathologies:
                 target_class = self.model.pathologies.index(target_class)
             else:
                 raise ValueError(f"Pathology {target_class} not found in model.")
@@ -417,15 +440,25 @@ def apply_gradcam(image_path, model_type='densenet', target_class=None):
     # If target_class is not provided, use the class with the highest probability
     if target_class is None:
         pred_idx = torch.argmax(preds).item()
-        target_class = wrapped_model.pathologies[pred_idx]
-    elif isinstance(target_class, str):
-        # If target_class is a pathology name, convert to index
-        try:
-            target_class_idx = wrapped_model.pathologies.index(target_class)
-        except ValueError:
-            print(f"Pathology {target_class} not found in model. Using highest probability class.")
-            pred_idx = torch.argmax(preds).item()
+        # For ResNet, we need to get the pathology name from default_pathologies
+        if model_type == 'resnet':
+            target_class = xrv.datasets.default_pathologies[pred_idx]
+        else:
             target_class = wrapped_model.pathologies[pred_idx]
+    elif isinstance(target_class, str):
+        # If target_class is a pathology name, validate it exists
+        if model_type == 'resnet':
+            if target_class not in xrv.datasets.default_pathologies:
+                print(f"Pathology {target_class} not found. Using highest probability class.")
+                pred_idx = torch.argmax(preds).item()
+                target_class = xrv.datasets.default_pathologies[pred_idx]
+        else:
+            try:
+                target_class_idx = wrapped_model.pathologies.index(target_class)
+            except ValueError:
+                print(f"Pathology {target_class} not found in model. Using highest probability class.")
+                pred_idx = torch.argmax(preds).item()
+                target_class = wrapped_model.pathologies[pred_idx]
     
     # Initialize Grad-CAM with explicit target layer
     gradcam = GradCAM(wrapped_model, target_layer=target_layer)
@@ -527,15 +560,25 @@ def apply_pixel_interpretability(image_path, model_type='densenet', target_class
     # If target_class is not provided, use the class with the highest probability
     if target_class is None:
         pred_idx = torch.argmax(preds).item()
-        target_class = wrapped_model.pathologies[pred_idx]
-    elif isinstance(target_class, str):
-        # If target_class is a pathology name, convert to index
-        try:
-            target_class_idx = wrapped_model.pathologies.index(target_class)
-        except ValueError:
-            print(f"Pathology {target_class} not found in model. Using highest probability class.")
-            pred_idx = torch.argmax(preds).item()
+        # For ResNet, we need to get the pathology name from default_pathologies
+        if model_type == 'resnet':
+            target_class = xrv.datasets.default_pathologies[pred_idx]
+        else:
             target_class = wrapped_model.pathologies[pred_idx]
+    elif isinstance(target_class, str):
+        # If target_class is a pathology name, validate it exists
+        if model_type == 'resnet':
+            if target_class not in xrv.datasets.default_pathologies:
+                print(f"Pathology {target_class} not found. Using highest probability class.")
+                pred_idx = torch.argmax(preds).item()
+                target_class = xrv.datasets.default_pathologies[pred_idx]
+        else:
+            try:
+                target_class_idx = wrapped_model.pathologies.index(target_class)
+            except ValueError:
+                print(f"Pathology {target_class} not found in model. Using highest probability class.")
+                pred_idx = torch.argmax(preds).item()
+                target_class = wrapped_model.pathologies[pred_idx]
     
     # Initialize PixelLevelInterpretability
     try:

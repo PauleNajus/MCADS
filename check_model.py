@@ -12,6 +12,27 @@ def print_model_structure(model_name):
         else:  # resnet
             model = xrv.models.ResNet(weights="resnet50-res512-all")
         
+        # Print pathologies information
+        print(f"\nModel pathologies ({len(model.pathologies)} total):")
+        print(model.pathologies)
+        
+        print(f"\nDefault pathologies ({len(xrv.datasets.default_pathologies)} total):")
+        print(xrv.datasets.default_pathologies)
+        
+        # Check for differences
+        if model_name == 'resnet':
+            print("\nDifferences between model.pathologies and default_pathologies:")
+            model_set = set(model.pathologies)
+            default_set = set(xrv.datasets.default_pathologies)
+            
+            only_in_model = model_set - default_set
+            only_in_default = default_set - model_set
+            
+            if only_in_model:
+                print(f"Only in model.pathologies: {only_in_model}")
+            if only_in_default:
+                print(f"Only in default_pathologies: {only_in_default}")
+        
         # Print model structure
         print(f"\nLayers that might be suitable for GradCAM:")
         for name, module in model.named_modules():
