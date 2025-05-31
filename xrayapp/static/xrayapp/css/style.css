@@ -1,8 +1,8 @@
 :root {
-  --primary: #572437;
-  --primary-rgb: 87, 36, 55;
-  --primary-hover: #6f2d46;
-  --primary-dark: #451c2c;
+  --primary: #7b3349;
+  --primary-rgb: 123, 51, 73;
+  --primary-hover: #8e3b55;
+  --primary-dark: #572437;
   --secondary: #495057;
   --light: #f8f9fa;
   --dark: #212529;
@@ -32,19 +32,28 @@
   border-color: var(--primary);
 }
 
-.btn-primary:hover, .btn-primary:focus {
+.btn-primary:hover, 
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active {
   background-color: var(--primary-hover);
   border-color: var(--primary-hover);
 }
 
 .btn-outline-primary {
-  color: var(--primary);
-  border-color: var(--primary);
-}
-
-.btn-outline-primary:hover {
-  background-color: var(--primary);
-  border-color: var(--primary);
+  --bs-btn-color: var(--primary) !important;
+  --bs-btn-border-color: var(--primary) !important;
+  --bs-btn-hover-color: white !important;
+  --bs-btn-hover-bg: var(--primary) !important;
+  --bs-btn-hover-border-color: var(--primary) !important;
+  --bs-btn-focus-shadow-rgb: var(--primary-rgb) !important;
+  --bs-btn-active-color: white !important;
+  --bs-btn-active-bg: var(--primary) !important;
+  --bs-btn-active-border-color: var(--primary) !important;
+  --bs-btn-active-shadow: none !important;
+  --bs-btn-disabled-color: var(--primary) !important;
+  --bs-btn-disabled-bg: transparent !important;
+  --bs-btn-disabled-border-color: var(--primary) !important;
 }
 
 .text-primary {
@@ -168,6 +177,186 @@
   font-weight: 500;
 }
 
+/* Override red and blue Bootstrap classes to match Advanced filters style */
+.btn-danger,
+.btn-warning,
+.btn-success,
+.btn-info {
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+  color: white !important;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  border-radius: 0.375rem;
+  transition: all 0.3s ease;
+}
+
+.btn-danger:hover,
+.btn-warning:hover,
+.btn-success:hover,
+.btn-info:hover,
+.btn-danger:focus,
+.btn-warning:focus,
+.btn-success:focus,
+.btn-info:focus,
+.btn-danger:active,
+.btn-warning:active,
+.btn-success:active,
+.btn-info:active,
+.btn-danger.active,
+.btn-warning.active,
+.btn-success.active,
+.btn-info.active {
+  background-color: var(--primary-hover) !important;
+  border-color: var(--primary-hover) !important;
+  color: white !important;
+}
+
+.btn-sm.btn-danger,
+.btn-sm.btn-warning,
+.btn-sm.btn-success,
+.btn-sm.btn-info {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+
+.btn-outline-danger,
+.btn-outline-warning,
+.btn-outline-success,
+.btn-outline-info {
+  color: var(--primary) !important;
+  border-color: var(--primary) !important;
+  background-color: transparent !important;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  border-radius: 0.375rem;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-danger:hover,
+.btn-outline-warning:hover,
+.btn-outline-success:hover,
+.btn-outline-info:hover,
+.btn-outline-danger:focus,
+.btn-outline-warning:focus,
+.btn-outline-success:focus,
+.btn-outline-info:focus,
+.btn-outline-danger:active,
+.btn-outline-warning:active,
+.btn-outline-success:active,
+.btn-outline-info:active,
+.btn-outline-danger.active,
+.btn-outline-warning.active,
+.btn-outline-success.active,
+.btn-outline-info.active {
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+  color: white !important;
+}
+
+/* Progress bars using primary colors */
+.progress-bar.bg-danger,
+.progress-bar.bg-warning,
+.progress-bar.bg-success,
+.progress-bar.bg-info {
+  background-color: var(--primary) !important;
+}
+
+/* Badge styling */
+.badge.bg-danger,
+.badge.bg-warning,
+.badge.bg-success,
+.badge.bg-info {
+  background-color: var(--primary) !important;
+  color: white !important;
+}
+
+/* Text colors */
+.text-danger,
+.text-warning,
+.text-success,
+.text-info {
+  color: var(--primary) !important;
+}
+
+/* Alert styling */
+.alert-danger,
+.alert-warning,
+.alert-success,
+.alert-info {
+  background-color: rgba(var(--primary-rgb), 0.1) !important;
+  border-color: rgba(var(--primary-rgb), 0.3) !important;
+  color: var(--primary) !important;
+}
+
+/* Card headers with colored backgrounds */
+.card-header.bg-danger,
+.card-header.bg-warning,
+.card-header.bg-success,
+.card-header.bg-info {
+  background-color: rgba(var(--primary-rgb), 0.1) !important;
+  color: var(--primary) !important;
+  border-bottom: 1px solid var(--light-border);
+  padding: 0.75rem 1.25rem;
+  font-weight: 600;
+}
+
+/* Modal headers */
+.modal-header.bg-danger,
+.modal-header.bg-warning,
+.modal-header.bg-success,
+.modal-header.bg-info {
+  background-color: rgba(var(--primary-rgb), 0.1) !important;
+  color: var(--primary) !important;
+  border-bottom: 1px solid var(--light-border);
+}
+
+/* Remove icons from buttons that now use Advanced filters style */
+.btn-danger i,
+.btn-warning i,
+.btn-success i,
+.btn-info i,
+.btn-outline-danger i,
+.btn-outline-warning i,
+.btn-outline-success i,
+.btn-outline-info i {
+  display: none;
+}
+
+/* Ensure border variants also match */
+.border-danger,
+.border-warning,
+.border-success,
+.border-info {
+  border-color: var(--primary) !important;
+}
+
+/* Dark mode adjustments for overridden colors */
+[data-bs-theme="dark"] .btn-danger,
+[data-bs-theme="dark"] .btn-warning,
+[data-bs-theme="dark"] .btn-success,
+[data-bs-theme="dark"] .btn-info {
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+}
+
+[data-bs-theme="dark"] .btn-danger:hover,
+[data-bs-theme="dark"] .btn-warning:hover,
+[data-bs-theme="dark"] .btn-success:hover,
+[data-bs-theme="dark"] .btn-info:hover {
+  background-color: var(--primary-hover) !important;
+  border-color: var(--primary-hover) !important;
+}
+
+[data-bs-theme="dark"] .alert-danger,
+[data-bs-theme="dark"] .alert-warning,
+[data-bs-theme="dark"] .alert-success,
+[data-bs-theme="dark"] .alert-info {
+  background-color: rgba(var(--primary-rgb), 0.2) !important;
+  border-color: rgba(var(--primary-rgb), 0.4) !important;
+  color: var(--primary) !important;
+}
+
 /* Visualization Sections */
 .visualization-image {
   max-width: 100%;
@@ -256,4 +445,61 @@
 
 [data-bs-theme="dark"] .card.border .card-body {
   background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Custom highlights for print dropdown items - using primary color scheme */
+#print-to-printer:hover,
+#print-to-printer:focus,
+#print-to-pdf:hover,
+#print-to-pdf:focus {
+  background-color: var(--primary) !important;
+  color: white !important;
+}
+
+/* Also apply to the main Print button dropdown toggle */
+.btn-outline-primary.dropdown-toggle:hover,
+.btn-outline-primary.dropdown-toggle:focus,
+.btn-outline-primary.dropdown-toggle:active,
+.btn-outline-primary.dropdown-toggle.active {
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+  color: white !important;
+}
+
+/* Handle dropdown states - prevent Bootstrap blue from showing */
+.btn-outline-primary.dropdown-toggle.show,
+.btn-outline-primary.dropdown-toggle[aria-expanded="true"],
+.dropdown.show .btn-outline-primary.dropdown-toggle,
+.btn-group.show .btn-outline-primary.dropdown-toggle {
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+  color: white !important;
+}
+
+/* Override Bootstrap's default primary button states more aggressively */
+.btn-outline-primary.dropdown-toggle:not(.btn-outline-secondary):not(.btn-outline-danger):not(.btn-outline-warning):not(.btn-outline-success):not(.btn-outline-info) {
+  color: var(--primary) !important;
+  border-color: var(--primary) !important;
+  background-color: transparent !important;
+}
+
+.btn-outline-primary.dropdown-toggle:not(.btn-outline-secondary):not(.btn-outline-danger):not(.btn-outline-warning):not(.btn-outline-success):not(.btn-outline-info):hover,
+.btn-outline-primary.dropdown-toggle:not(.btn-outline-secondary):not(.btn-outline-danger):not(.btn-outline-warning):not(.btn-outline-success):not(.btn-outline-info):focus,
+.btn-outline-primary.dropdown-toggle:not(.btn-outline-secondary):not(.btn-outline-danger):not(.btn-outline-warning):not(.btn-outline-success):not(.btn-outline-info):active,
+.btn-outline-primary.dropdown-toggle:not(.btn-outline-secondary):not(.btn-outline-danger):not(.btn-outline-warning):not(.btn-outline-success):not(.btn-outline-info).active,
+.btn-outline-primary.dropdown-toggle:not(.btn-outline-secondary):not(.btn-outline-danger):not(.btn-outline-warning):not(.btn-outline-success):not(.btn-outline-info).show,
+.btn-outline-primary.dropdown-toggle:not(.btn-outline-secondary):not(.btn-outline-danger):not(.btn-outline-warning):not(.btn-outline-success):not(.btn-outline-info)[aria-expanded="true"] {
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+  color: white !important;
+  box-shadow: none !important;
+}
+
+/* Ensure no blue shows when dropdown items are hovered */
+.dropdown-menu.show ~ .btn-outline-primary.dropdown-toggle,
+.dropdown-item:hover ~ .btn-outline-primary.dropdown-toggle,
+.dropdown-item:focus ~ .btn-outline-primary.dropdown-toggle {
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+  color: white !important;
 } 
