@@ -245,4 +245,15 @@
 [data-bs-theme="dark"] .visualization-image {
   background-color: var(--dark-bg);
   border-color: var(--light-border);
+}
+
+/* Ensure cards with border class have proper styling in dark mode */
+[data-bs-theme="dark"] .card.border {
+  background-color: var(--dark-bg);
+  border-color: var(--light-border);
+  color: var(--light);
+}
+
+[data-bs-theme="dark"] .card.border .card-body {
+  background-color: rgba(255, 255, 255, 0.05);
 } 
