@@ -153,10 +153,11 @@
         });
         
         // Style medical warning messages to match header color
-        const alertElements = document.querySelectorAll('.alert-danger');
+        const alertElements = document.querySelectorAll('.alert-danger, .alert-info');
         alertElements.forEach(alert => {
             const strongElements = alert.querySelectorAll('strong');
             const spanElements = alert.querySelectorAll('span');
+            const alertText = alert.textContent.trim();
             
             // Check for medical warning
             strongElements.forEach(strong => {
@@ -164,6 +165,11 @@
                     alert.classList.add('medical-warning');
                 }
             });
+            
+            // Check for no records found message
+            if (alertText.includes('No prediction history found with the current filters')) {
+                alert.classList.add('no-records-info');
+            }
             
             // Check for loading/processing messages
             const loadingTexts = [

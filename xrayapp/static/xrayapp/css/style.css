@@ -251,6 +251,26 @@
   color: var(--primary) !important;
 }
 
+/* Style for "No records found" info messages */
+.no-records-info {
+  background-color: rgba(var(--primary-rgb), 0.1) !important;
+  border-color: rgba(var(--primary-rgb), 0.3) !important;
+  color: var(--primary) !important;
+  position: relative;
+  padding-left: 2.5rem !important;
+}
+
+.no-records-info:before {
+  content: '\f059'; /* info-circle icon */
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--primary);
+}
+
 .table {
   --bs-table-hover-bg: rgba(var(--primary-rgb), 0.05);
 }
@@ -586,6 +606,17 @@
 [data-bs-theme="dark"] .medical-warning strong,
 [data-bs-theme="dark"] .medical-warning span,
 [data-bs-theme="dark"] .medical-warning i {
+  color: var(--primary) !important;
+}
+
+/* Dark mode support for no-records-info */
+[data-bs-theme="dark"] .no-records-info {
+  background-color: rgba(var(--primary-rgb), 0.2) !important;
+  border-color: rgba(var(--primary-rgb), 0.4) !important;
+  color: var(--primary) !important;
+}
+
+[data-bs-theme="dark"] .no-records-info:before {
   color: var(--primary) !important;
 }
 
