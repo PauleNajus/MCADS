@@ -4,6 +4,9 @@ from django.db import models
 
 class XRayImage(models.Model):
     """Model to store X-ray images and analysis results"""
+    # User who uploaded the image
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='xray_images', null=True)
+    
     # Patient Information
     first_name = models.CharField(max_length=100, blank=True)
     last_name = models.CharField(max_length=100, blank=True)
@@ -136,6 +139,7 @@ class XRayImage(models.Model):
 
 class PredictionHistory(models.Model):
     """Model to store prediction history with filtering capabilities"""
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='prediction_history', null=True)
     xray = models.ForeignKey(XRayImage, on_delete=models.CASCADE, related_name='prediction_history')
     created_at = models.DateTimeField(auto_now_add=True)
     model_used = models.CharField(max_length=50)  # densenet, resnet, etc.

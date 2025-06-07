@@ -198,6 +198,7 @@ def process_with_interpretability_async(image_path, xray_instance, model_type, i
 def create_prediction_history(xray_instance, model_type):
     """Create a prediction history record for an XRayImage"""
     history = PredictionHistory(
+        user=xray_instance.user,
         xray=xray_instance,
         model_used=model_type,
         # Copy all pathology values for historical record
@@ -222,16 +223,25 @@ def create_prediction_history(xray_instance, model_type):
         # Copy severity level
         severity_level=xray_instance.severity_level,
     )
-    history.save()
+    # Only save if we have a user assigned
+    if xray_instance.user:
+        history.save()
+    else:
+        print("Warning: XRayImage has no user assigned, skipping prediction history creation")
 
 
+@login_required
 def home(request):
     """Home page with image upload form"""
     if request.method == 'POST':
         form = XRayUploadForm(request.POST, request.FILES)
         if form.is_valid():
-            # Create a new XRayImage instance with all form data
-            xray_instance = form.save()
+            # Create a new XRayImage instance with all form data but don't save yet
+            xray_instance = form.save(commit=False)
+            # Assign the current user
+            xray_instance.user = request.user
+            # Now save the instance
+            xray_instance.save()
             
             # Get the model type from the form
             model_type = request.POST.get('model_type', 'densenet')
@@ -265,9 +275,10 @@ def home(request):
     })
 
 
+@login_required
 def xray_results(request, pk):
     """View the results of the X-ray analysis"""
-    xray_instance = XRayImage.objects.get(pk=pk)
+    xray_instance = XRayImage.objects.get(pk=pk, user=request.user)
     
     # Build predictions dictionary based on model fields
     predictions = {
@@ -351,12 +362,13 @@ def xray_results(request, pk):
     return render(request, 'xrayapp/results.html', context)
 
 
+@login_required
 def prediction_history(request):
     """View prediction history with advanced filtering"""
     form = PredictionHistoryFilterForm(request.GET)
     
-    # Initialize query
-    query = PredictionHistory.objects.all().order_by('-created_at')
+    # Initialize query - filter by current user
+    query = PredictionHistory.objects.filter(user=request.user).order_by('-created_at')
     
     # Apply filters if the form is valid
     if form.is_valid():
@@ -402,10 +414,11 @@ def prediction_history(request):
     return render(request, 'xrayapp/prediction_history.html', context)
 
 
+@login_required
 def delete_prediction_history(request, pk):
     """Delete a prediction history record"""
     try:
-        history_item = PredictionHistory.objects.get(pk=pk)
+        history_item = PredictionHistory.objects.get(pk=pk, user=request.user)
         history_item.delete()
         messages.success(request, 'Prediction history record has been deleted.')
     except PredictionHistory.DoesNotExist:
@@ -414,14 +427,15 @@ def delete_prediction_history(request, pk):
     return redirect('prediction_history')
 
 
+@login_required
 def delete_all_prediction_history(request):
     """Delete all prediction history records"""
     if request.method == 'POST':
-        # Count records before deletion
-        count = PredictionHistory.objects.count()
+        # Count records before deletion for current user
+        count = PredictionHistory.objects.filter(user=request.user).count()
         
-        # Delete all records
-        PredictionHistory.objects.all().delete()
+        # Delete all records for current user
+        PredictionHistory.objects.filter(user=request.user).delete()
         
         if count > 0:
             messages.success(request, f'All {count} prediction history records have been deleted.')
@@ -431,10 +445,11 @@ def delete_all_prediction_history(request):
     return redirect('prediction_history')
 
 
+@login_required
 def edit_prediction_history(request, pk):
     """Edit a prediction history record"""
     try:
-        history_item = PredictionHistory.objects.get(pk=pk)
+        history_item = PredictionHistory.objects.get(pk=pk, user=request.user)
         
         if request.method == 'POST':
             # Handle form submission
@@ -456,9 +471,10 @@ def edit_prediction_history(request, pk):
         return redirect('prediction_history')
 
 
+@login_required
 def generate_interpretability(request, pk):
     """Generate interpretability visualization for an X-ray image"""
-    xray_instance = XRayImage.objects.get(pk=pk)
+    xray_instance = XRayImage.objects.get(pk=pk, user=request.user)
     
     # Get parameters from request
     interpretation_method = request.GET.get('method', 'gradcam')  # Default to Grad-CAM
@@ -484,9 +500,10 @@ def generate_interpretability(request, pk):
     return redirect('xray_results', pk=pk)
 
 
+@login_required
 def view_interpretability(request, pk):
     """View interpretability visualizations for an X-ray image"""
-    xray_instance = XRayImage.objects.get(pk=pk)
+    xray_instance = XRayImage.objects.get(pk=pk, user=request.user)
     
     # Build predictions dictionary
     predictions = {
@@ -558,10 +575,11 @@ def view_interpretability(request, pk):
     return render(request, 'xrayapp/interpretability.html', context)
 
 
+@login_required
 def check_progress(request, pk):
     """AJAX endpoint to check processing progress"""
     try:
-        xray_instance = XRayImage.objects.get(pk=pk)
+        xray_instance = XRayImage.objects.get(pk=pk, user=request.user)
         return JsonResponse({
             'status': xray_instance.processing_status,
             'progress': xray_instance.progress,

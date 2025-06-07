@@ -115,6 +115,75 @@
     <!-- Custom JS -->
     <script src="{% static 'xrayapp/js/theme.js' %}"></script>
     <script src="{% static 'xrayapp/js/image-maximize.js' %}"></script>
+    
+    <!-- Header Icon Assignment Script -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Map header text patterns to CSS classes
+        const headerPatterns = [
+            { pattern: /MCADS/i, className: 'header-mcads' },
+            { pattern: /Patient/i, className: 'header-patient' },
+            { pattern: /Severity/i, className: 'header-severity' },
+            { pattern: /X-ray/i, className: 'header-xray' },
+            { pattern: /Prediction/i, className: 'header-prediction' },
+            { pattern: /History/i, className: 'header-history' },
+            { pattern: /Account/i, className: 'header-account' },
+            { pattern: /Interpretability/i, className: 'header-interpretability' },
+            { pattern: /Advanced.*filter/i, className: 'header-filters' },
+            { pattern: /Filter/i, className: 'header-filters' },
+            { pattern: /Login|Auth/i, className: 'header-auth' },
+            { pattern: /Danger/i, className: 'header-danger' },
+            { pattern: /Settings/i, className: 'header-account' },
+            { pattern: /Generate/i, className: 'header-interpretability' }
+        ];
+        
+        // Find all card headers
+        const cardHeaders = document.querySelectorAll('.card-header');
+        
+        cardHeaders.forEach(header => {
+            const headerText = header.textContent.trim();
+            
+            // Check each pattern
+            for (const { pattern, className } of headerPatterns) {
+                if (pattern.test(headerText)) {
+                    header.classList.add(className);
+                    break; // Use first match
+                }
+            }
+        });
+        
+        // Style medical warning messages to match header color
+        const alertElements = document.querySelectorAll('.alert-danger');
+        alertElements.forEach(alert => {
+            const strongElements = alert.querySelectorAll('strong');
+            const spanElements = alert.querySelectorAll('span');
+            
+            // Check for medical warning
+            strongElements.forEach(strong => {
+                if (strong.textContent.includes('Warning! This tool is not meant to be used without supervision of a medical professional!')) {
+                    alert.classList.add('medical-warning');
+                }
+            });
+            
+            // Check for loading/processing messages
+            const loadingTexts = [
+                'Please wait while the model analyzes',
+                'Please wait while we generate',
+                'Generating',
+                'Analyzing X-ray image'
+            ];
+            
+            const allTextElements = [...strongElements, ...spanElements, ...alert.querySelectorAll('h4')];
+            allTextElements.forEach(element => {
+                const text = element.textContent.trim();
+                if (loadingTexts.some(loadingText => text.includes(loadingText))) {
+                    alert.classList.add('medical-warning');
+                }
+            });
+        });
+    });
+    </script>
+    
     {% block extra_js %}{% endblock %}
 </body>
 </html> 
