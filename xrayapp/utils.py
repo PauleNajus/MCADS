@@ -400,7 +400,7 @@ def save_interpretability_visualization(interpretation_results, output_path, for
 
 def save_overlay_visualization(interpretation_results, output_path, format='png'):
     """
-    Save only the overlay visualization to a file for pixel-level interpretability
+    Save only the overlay visualization to a file for pixel-level interpretability without white spaces
     
     Args:
         interpretation_results: Results from apply_pixel_interpretability
@@ -410,26 +410,20 @@ def save_overlay_visualization(interpretation_results, output_path, format='png'
     Returns:
         Path to saved file
     """
-    # Create a figure for the overlay only
-    plt.figure(figsize=(6, 6))
-    
-    # Save the overlay image
     if 'overlay' in interpretation_results:
-        plt.imshow(interpretation_results['overlay'])
-        plt.title(f'Pixel-Level Overlay: {interpretation_results["target_class"]}')
-        plt.axis('off')
+        # Get the overlay data (should already be in proper RGB format)
+        overlay = interpretation_results['overlay']
         
-    # Save the figure to a file
-    plt.tight_layout()
-    plt.savefig(output_path, format=format, dpi=300)
-    plt.close()
+        # Save directly as image without matplotlib padding
+        from PIL import Image
+        Image.fromarray(overlay).save(output_path, format=format.upper())
     
     return output_path
 
 
 def save_saliency_map(interpretation_results, output_path, format='png'):
     """
-    Save only the saliency map to a file for pixel-level interpretability
+    Save only the saliency map to a file for pixel-level interpretability without white spaces
     
     Args:
         interpretation_results: Results from apply_pixel_interpretability
@@ -439,26 +433,26 @@ def save_saliency_map(interpretation_results, output_path, format='png'):
     Returns:
         Path to saved file
     """
-    # Create a figure for the saliency map only
-    plt.figure(figsize=(6, 6))
-    
-    # Save the saliency map image
     if 'saliency_map' in interpretation_results:
-        plt.imshow(interpretation_results['saliency_map'], cmap='jet')
-        plt.title(f'Pixel Saliency Map: {interpretation_results["target_class"]}')
-        plt.axis('off')
+        # Get the saliency map data
+        saliency_map = interpretation_results['saliency_map']
         
-    # Save the figure to a file
-    plt.tight_layout()
-    plt.savefig(output_path, format=format, dpi=300)
-    plt.close()
+        # Apply colormap to saliency map (convert to 0-255 range)
+        saliency_colored = cv2.applyColorMap(np.uint8(255 * saliency_map), cv2.COLORMAP_JET)
+        
+        # Convert BGR to RGB for proper color display
+        saliency_rgb = cv2.cvtColor(saliency_colored, cv2.COLOR_BGR2RGB)
+        
+        # Save directly as image without matplotlib padding
+        from PIL import Image
+        Image.fromarray(saliency_rgb).save(output_path, format=format.upper())
     
     return output_path
 
 
 def save_gradcam_heatmap(interpretation_results, output_path, format='png'):
     """
-    Save only the Grad-CAM heatmap to a file
+    Save only the Grad-CAM heatmap to a file without white spaces
     
     Args:
         interpretation_results: Results from apply_gradcam
@@ -468,26 +462,30 @@ def save_gradcam_heatmap(interpretation_results, output_path, format='png'):
     Returns:
         Path to saved file
     """
-    # Create a figure for the heatmap only
-    plt.figure(figsize=(6, 6))
-    
-    # Save the heatmap image
-    if 'heatmap' in interpretation_results:
-        plt.imshow(interpretation_results['heatmap'], cmap='jet')
-        plt.title(f'Grad-CAM Heatmap: {interpretation_results["target_class"]}')
-        plt.axis('off')
+    if 'heatmap' in interpretation_results and 'original' in interpretation_results:
+        # Get the heatmap data and original image dimensions
+        heatmap = interpretation_results['heatmap']
+        original_shape = interpretation_results['original'].shape
         
-    # Save the figure to a file
-    plt.tight_layout()
-    plt.savefig(output_path, format=format, dpi=300)
-    plt.close()
+        # Resize heatmap to match original image dimensions
+        heatmap_resized = cv2.resize(heatmap, (original_shape[1], original_shape[0]))
+        
+        # Apply colormap to heatmap (convert to 0-255 range)
+        heatmap_colored = cv2.applyColorMap(np.uint8(255 * heatmap_resized), cv2.COLORMAP_JET)
+        
+        # Convert BGR to RGB for proper color display
+        heatmap_rgb = cv2.cvtColor(heatmap_colored, cv2.COLOR_BGR2RGB)
+        
+        # Save directly as image without matplotlib padding
+        from PIL import Image
+        Image.fromarray(heatmap_rgb).save(output_path, format=format.upper())
     
     return output_path
 
 
 def save_gradcam_overlay(interpretation_results, output_path, format='png'):
     """
-    Save only the Grad-CAM overlay to a file
+    Save only the Grad-CAM overlay to a file without white spaces
     
     Args:
         interpretation_results: Results from apply_gradcam
@@ -497,18 +495,15 @@ def save_gradcam_overlay(interpretation_results, output_path, format='png'):
     Returns:
         Path to saved file
     """
-    # Create a figure for the overlay only
-    plt.figure(figsize=(6, 6))
-    
-    # Save the overlay image
     if 'overlay' in interpretation_results:
-        plt.imshow(cv2.cvtColor(interpretation_results['overlay'], cv2.COLOR_BGR2RGB))
-        plt.title(f'Grad-CAM Overlay: {interpretation_results["target_class"]}')
-        plt.axis('off')
+        # Get the overlay data (already in RGB format from overlay_heatmap method)
+        overlay = interpretation_results['overlay']
         
-    # Save the figure to a file
-    plt.tight_layout()
-    plt.savefig(output_path, format=format, dpi=300)
-    plt.close()
+        # Convert BGR to RGB if needed (overlay_heatmap returns BGR format)
+        overlay_rgb = cv2.cvtColor(overlay, cv2.COLOR_BGR2RGB)
+        
+        # Save directly as image without matplotlib padding
+        from PIL import Image
+        Image.fromarray(overlay_rgb).save(output_path, format=format.upper())
     
     return output_path 
