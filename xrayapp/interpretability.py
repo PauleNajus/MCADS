@@ -10,7 +10,6 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 import torchxrayvision as xrv
 import functools
-from . import utils
 
 
 def disable_inplace_relu(model):

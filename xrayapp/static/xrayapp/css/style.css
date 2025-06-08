@@ -689,14 +689,27 @@
 
 /* Table style for dark mode */
 [data-bs-theme="dark"] .table-light {
-  background-color: var(--dark-bg);
-  color: var(--light);
+  background-color: var(--dark-bg) !important;
+  color: var(--light) !important;
 }
 
 [data-bs-theme="dark"] .table thead.table-light th {
-  background-color: var(--dark-bg);
-  color: var(--light);
-  border-color: var(--light-border);
+  background-color: var(--dark-bg) !important;
+  color: var(--light) !important;
+  border-color: var(--light-border) !important;
+}
+
+/* Specific styling for image metadata table in dark mode */
+[data-bs-theme="dark"] .image-metadata-table .table-sm th {
+  background-color: var(--dark-bg) !important;
+  color: var(--light) !important;
+  border-color: var(--light-border) !important;
+}
+
+[data-bs-theme="dark"] .image-metadata-table .table-sm td {
+  background-color: var(--dark-bg) !important;
+  color: var(--light) !important;
+  border-color: var(--light-border) !important;
 }
 
 [data-bs-theme="dark"] .table-bordered,
