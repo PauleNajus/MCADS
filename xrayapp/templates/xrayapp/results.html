@@ -8,7 +8,7 @@
 @media print {
     /* Hide elements not needed for printing */
     nav, footer, .btn, #interpretation-progress, .interpretation-btn, #print-button, .dropdown-toggle, 
-    .btn-group, #interpretation-progress, .interpretation-options { display: none !important; }
+    .btn-group, #interpretation-progress, .interpretation-options, .interpretability-card { display: none !important; }
     
     /* A4 paper size with standard margins */
     @page {
@@ -50,12 +50,12 @@
     }
     
     /* Heading styles */
-    h2 { font-size: 14pt !important; margin: 3px 0 5px !important; }
+    h2 { font-size: 12pt !important; margin: 2px 0 4px !important; }
     
     /* Card formatting */
     .card { 
         border: 1px solid #ddd !important; 
-        margin-bottom: 8px !important; 
+        margin-bottom: 6px !important; 
         page-break-inside: avoid !important;
         width: 100% !important;
         box-sizing: border-box !important;
@@ -64,7 +64,7 @@
     
     /* X-ray image adjustments */
     img.img-fluid { 
-        max-height: 170px !important; 
+        max-height: 280px !important; 
         margin: 2px auto !important; 
         display: block !important; 
     }
@@ -80,15 +80,15 @@
     
     /* Card header and body */
     .card-header { padding: 2px 5px !important; }
-    .card-header h5 { margin: 2px 0 !important; font-size: 11pt !important; font-weight: bold !important; }
+    .card-header h5 { margin: 1px 0 !important; font-size: 10pt !important; font-weight: bold !important; }
     .card-body { padding: 3px !important; overflow: visible !important; }
     
     /* Table styling */
     .table { margin-bottom: 0 !important; }
     .table th, .table td { 
-        padding: 1px 4px !important; 
-        font-size: 9pt !important;
-        line-height: 1.1 !important;
+        padding: 1px 3px !important; 
+        font-size: 8pt !important;
+        line-height: 1.0 !important;
         border-bottom: 1px solid #eee !important;
         overflow: visible !important;
         word-break: normal !important;
@@ -97,14 +97,14 @@
     
     .table thead th { 
         border-bottom: 1px solid #ddd !important; 
-        font-size: 9pt !important;
+        font-size: 8pt !important;
     }
     
     /* Patient info section */
     .table-borderless td, .table-borderless th { 
         padding: 1px 3px !important;
-        font-size: 9pt !important;
-        line-height: 1.1 !important;
+        font-size: 8pt !important;
+        line-height: 1.0 !important;
     }
     
     /* Remove progress bars */
@@ -148,9 +148,9 @@
     }
     
     .table {
-        font-size: 9pt !important;
+        font-size: 8pt !important;
         break-inside: avoid;
-        margin-bottom: 8px !important;
+        margin-bottom: 6px !important;
         width: 100% !important;
     }
     
@@ -203,6 +203,68 @@
     /* Hide unnecessary elements */
     .position-absolute, .text-center.mb-5 {
         display: none !important;
+    }
+    
+    /* GRAD-CAM print styles */
+    .gradcam-print-section {
+        page-break-inside: avoid !important;
+        margin-bottom: 6px !important;
+    }
+    
+    .gradcam-print-images {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: flex-start !important;
+        gap: 5px !important;
+    }
+    
+    .gradcam-print-images > div {
+        width: 30% !important;
+        text-align: center !important;
+    }
+    
+    .gradcam-print-images img {
+        width: 100% !important;
+        max-height: 200px !important;
+        object-fit: contain !important;
+        border: 1px solid #ddd !important;
+    }
+    
+    .gradcam-print-images p {
+        font-size: 8pt !important;
+        margin: 2px 0 0 0 !important;
+        font-weight: bold !important;
+    }
+}
+
+/* Screen styles for GRAD-CAM section */
+@media screen {
+    .gradcam-print-images {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 15px;
+        margin-bottom: 15px;
+    }
+    
+    .gradcam-print-images > div {
+        flex: 1;
+        text-align: center;
+    }
+    
+    .gradcam-print-images img {
+        width: 100%;
+        max-height: 200px;
+        object-fit: contain;
+        border: 2px solid #dee2e6;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .gradcam-print-images p {
+        margin-top: 10px;
+        font-weight: bold;
+        color: #495057;
     }
 }
 </style>
@@ -368,6 +430,34 @@
                 </div>
             </div>
             
+            <!-- GRAD-CAM Section -->
+            {% if has_gradcam and gradcam_heatmap_url and gradcam_overlay_url %}
+            <div class="card mb-4 gradcam-print-section">
+                <div class="card-header">
+                    <h5 class="mb-0">GRAD-CAM Visualization - {{ gradcam_target }}</h5>
+                </div>
+                <div class="card-body">
+                    <div class="gradcam-print-images">
+                        <div>
+                            <img src="{{ image_url }}" alt="Original X-ray">
+                            <p>Original X-ray</p>
+                        </div>
+                        <div>
+                            <img src="{{ gradcam_heatmap_url }}?t={% now 'U' %}" alt="GRAD-CAM Heatmap">
+                            <p>GRAD-CAM Heatmap</p>
+                        </div>
+                        <div>
+                            <img src="{{ gradcam_overlay_url }}?t={% now 'U' %}" alt="GRAD-CAM Overlay">
+                            <p>GRAD-CAM Overlay</p>
+                        </div>
+                    </div>
+                    <p class="mt-2 text-muted" style="font-size: 8pt;">
+                        GRAD-CAM highlights the regions in the image that strongly influenced the model's prediction for {{ gradcam_target }}.
+                    </p>
+                </div>
+            </div>
+            {% endif %}
+            
             <!-- Interpretability Processing Feedback -->
             <div id="interpretation-progress" class="card mb-4" style="display: none;">
                 <div class="card-header">
@@ -401,7 +491,7 @@
                 </div>
             </div>
             
-            <div class="card mb-4">
+            <div class="card mb-4 interpretability-card">
                 <div class="card-header">
                     <h5 class="mb-0">Interpretability options</h5>
                 </div>

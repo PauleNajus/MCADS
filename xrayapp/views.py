@@ -349,6 +349,12 @@ def xray_results(request, pk):
         xray_instance.severity_level = xray_instance.calculate_severity_level
         xray_instance.save()
     
+    # Prepare GRAD-CAM URLs for display
+    media_url = settings.MEDIA_URL
+    gradcam_url = f"{media_url}{xray_instance.gradcam_visualization}" if xray_instance.has_gradcam and xray_instance.gradcam_visualization else None
+    gradcam_heatmap_url = f"{media_url}{xray_instance.gradcam_heatmap}" if xray_instance.has_gradcam and xray_instance.gradcam_heatmap else None
+    gradcam_overlay_url = f"{media_url}{xray_instance.gradcam_overlay}" if xray_instance.has_gradcam and xray_instance.gradcam_overlay else None
+
     context = {
         'xray': xray_instance,
         'image_url': image_url,
@@ -357,6 +363,11 @@ def xray_results(request, pk):
         'image_metadata': image_metadata,
         'severity_level': xray_instance.severity_level,
         'severity_label': xray_instance.severity_label,
+        'has_gradcam': xray_instance.has_gradcam,
+        'gradcam_url': gradcam_url,
+        'gradcam_heatmap_url': gradcam_heatmap_url,
+        'gradcam_overlay_url': gradcam_overlay_url,
+        'gradcam_target': xray_instance.gradcam_target_class,
     }
     
     return render(request, 'xrayapp/results.html', context)
