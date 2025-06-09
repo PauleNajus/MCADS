@@ -817,4 +817,27 @@
   background-color: var(--primary) !important;
   border-color: var(--primary) !important;
   color: white !important;
-} 
+}
+
+/* Style user dropdown items to match nav-link colors */
+.navbar .dropdown-menu .dropdown-item {
+  color: #6c757d !important;
+  transition: all 0.15s ease-in-out;
+}
+
+.navbar .dropdown-menu .dropdown-item:hover,
+.navbar .dropdown-menu .dropdown-item:focus {
+  background-color: #6c757d !important;
+  color: white !important;
+}
+
+/* Dark theme styling for dropdown items */
+[data-bs-theme="dark"] .navbar .dropdown-menu .dropdown-item {
+  color: #6c757d !important;
+}
+
+[data-bs-theme="dark"] .navbar .dropdown-menu .dropdown-item:hover,
+[data-bs-theme="dark"] .navbar .dropdown-menu .dropdown-item:focus {
+  background-color: #6c757d !important;
+  color: white !important;
+}
