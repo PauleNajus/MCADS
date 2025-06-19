@@ -13,7 +13,7 @@ from .models import XRayImage, PredictionHistory, UserProfile
 from .utils import (process_image, process_image_with_interpretability,
                    save_interpretability_visualization, save_overlay_visualization, save_saliency_map,
                    save_gradcam_heatmap, save_gradcam_overlay)
-from .interpretability import apply_gradcam, apply_pixel_interpretability
+from .interpretability import apply_gradcam, apply_pixel_interpretability, apply_combined_gradcam, apply_combined_pixel_interpretability
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
@@ -78,6 +78,20 @@ def process_with_interpretability_async(image_path, xray_instance, model_type, i
                 print(f"PLI generation completed successfully for {target_class}")
             except Exception as e:
                 print(f"Error in PLI generation: {str(e)}")
+                raise
+        elif interpretation_method == 'combined_gradcam':
+            try:
+                results = apply_combined_gradcam(image_path, model_type)
+                print(f"Combined GradCAM generation completed successfully for {len(results['selected_pathologies'])} pathologies")
+            except Exception as e:
+                print(f"Error in Combined GradCAM generation: {str(e)}")
+                raise
+        elif interpretation_method == 'combined_pli':
+            try:
+                results = apply_combined_pixel_interpretability(image_path, model_type)
+                print(f"Combined PLI generation completed successfully for {len(results['selected_pathologies'])} pathologies")
+            except Exception as e:
+                print(f"Error in Combined PLI generation: {str(e)}")
                 raise
         else:
             # Invalid method, return error
@@ -173,6 +187,80 @@ def process_with_interpretability_async(image_path, xray_instance, model_type, i
                 except Exception as e:
                     print(f"Error saving PLI results: {str(e)}")
                     raise
+                
+            elif results['method'] == 'combined_gradcam':
+                # Create output directory if it doesn't exist
+                output_dir = Path(settings.MEDIA_ROOT) / 'interpretability' / 'combined_gradcam'
+                output_dir.mkdir(parents=True, exist_ok=True)
+                
+                # Generate filenames
+                combined_filename = f"combined_gradcam_{xray_instance.id}_threshold_{results['threshold']}.png"
+                heatmap_filename = f"combined_gradcam_heatmap_{xray_instance.id}_threshold_{results['threshold']}.png"
+                overlay_filename = f"combined_gradcam_overlay_{xray_instance.id}_threshold_{results['threshold']}.png"
+                
+                # Generate paths
+                combined_path = output_dir / combined_filename
+                heatmap_path = output_dir / heatmap_filename
+                overlay_path = output_dir / overlay_filename
+                
+                print(f"Saving Combined Grad-CAM visualization to {combined_path}")
+                
+                # Save combined visualization
+                save_interpretability_visualization(results, combined_path)
+                
+                print(f"Saving Combined Grad-CAM heatmap to {heatmap_path}")
+                
+                # Save heatmap separately
+                save_gradcam_heatmap(results, heatmap_path)
+                
+                print(f"Saving Combined Grad-CAM overlay to {overlay_path}")
+                
+                # Save overlay separately
+                save_gradcam_overlay(results, overlay_path)
+                
+                # Update model with combined visualization paths
+                xray_instance.has_gradcam = True  # Use the same field as regular gradcam
+                xray_instance.gradcam_visualization = f"interpretability/combined_gradcam/{combined_filename}"
+                xray_instance.gradcam_heatmap = f"interpretability/combined_gradcam/{heatmap_filename}"
+                xray_instance.gradcam_overlay = f"interpretability/combined_gradcam/{overlay_filename}"
+                xray_instance.gradcam_target_class = results['pathology_summary']  # Store summary of selected pathologies
+            
+            elif results['method'] == 'combined_pli':
+                # Create output directory if it doesn't exist
+                output_dir = Path(settings.MEDIA_ROOT) / 'interpretability' / 'combined_pli'
+                output_dir.mkdir(parents=True, exist_ok=True)
+                
+                # Generate filenames
+                combined_filename = f"combined_pli_{xray_instance.id}_threshold_{results['threshold']}.png"
+                saliency_filename = f"combined_pli_saliency_{xray_instance.id}_threshold_{results['threshold']}.png"
+                overlay_filename = f"combined_pli_overlay_{xray_instance.id}_threshold_{results['threshold']}.png"
+                
+                # Generate paths
+                combined_path = output_dir / combined_filename
+                saliency_path = output_dir / saliency_filename
+                overlay_path = output_dir / overlay_filename
+                
+                print(f"Saving Combined PLI visualization to {combined_path}")
+                
+                # Save combined visualization
+                save_interpretability_visualization(results, combined_path)
+                
+                print(f"Saving Combined PLI saliency map to {saliency_path}")
+                
+                # Save saliency map separately
+                save_saliency_map(results, saliency_path)
+                
+                print(f"Saving Combined PLI overlay to {overlay_path}")
+                
+                # Save overlay separately
+                save_overlay_visualization(results, overlay_path)
+                
+                # Update model with combined PLI visualization paths
+                xray_instance.has_pli = True  # Use the same field as regular PLI
+                xray_instance.pli_visualization = f"interpretability/combined_pli/{combined_filename}"
+                xray_instance.pli_saliency_map = f"interpretability/combined_pli/{saliency_filename}"
+                xray_instance.pli_overlay_visualization = f"interpretability/combined_pli/{overlay_filename}"
+                xray_instance.pli_target_class = results['pathology_summary']  # Store summary of selected pathologies
         
         xray_instance.progress = 90
         xray_instance.processing_status = 'complete'

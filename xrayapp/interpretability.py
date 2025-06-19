@@ -187,6 +187,112 @@ class GradCAM:
         # Release hooks when object is deleted
         if hasattr(self, 'hook_forward') and hasattr(self, 'hook_backward'):
             self._release_hooks()
+    
+    def get_combined_heatmap(self, input_tensor, probability_threshold=0.5):
+        """
+        Generate a combined class activation heatmap for all pathologies above threshold
+        
+        Args:
+            input_tensor: Input tensor of shape (1, C, H, W)
+            probability_threshold: Minimum probability threshold (default: 0.5)
+        
+        Returns:
+            combined_heatmap: Numpy array representing the combined heatmap
+            selected_pathologies: List of pathology names and their probabilities above threshold
+            output: Model output logits
+        """
+        # Forward pass to get predictions
+        self.model.zero_grad()
+        output = self.model(input_tensor)
+        
+        # Convert output to probabilities using sigmoid (for multi-label classification)
+        probabilities = torch.sigmoid(output).squeeze().cpu().detach().numpy()
+        
+        # Determine pathology names based on model type
+        if hasattr(self.model, 'pathologies') and 'Lung Opacity' in self.model.pathologies:
+            # This is ResNet model, use default_pathologies for correct mapping
+            pathology_names = xrv.datasets.default_pathologies
+        else:
+            # This is DenseNet or other model
+            pathology_names = self.model.pathologies
+        
+        # Find pathologies above threshold
+        selected_pathologies = []
+        selected_indices = []
+        
+        for i, (pathology, prob) in enumerate(zip(pathology_names, probabilities)):
+            if prob >= probability_threshold:
+                selected_pathologies.append((pathology, prob))
+                selected_indices.append(i)
+        
+        if not selected_indices:
+            print(f"No pathologies found above threshold {probability_threshold}")
+            print("Top 3 pathologies:")
+            top_indices = np.argsort(probabilities)[-3:][::-1]
+            for idx in top_indices:
+                print(f"  {pathology_names[idx]}: {probabilities[idx]:.3f}")
+            # Use the top pathology if none above threshold
+            selected_indices = [top_indices[0]]
+            selected_pathologies = [(pathology_names[top_indices[0]], probabilities[top_indices[0]])]
+        
+        print(f"Selected pathologies above {probability_threshold} threshold:")
+        for pathology, prob in selected_pathologies:
+            print(f"  {pathology}: {prob:.3f}")
+        
+        # Generate combined heatmap
+        combined_heatmap = None
+        
+        for i, target_class in enumerate(selected_indices):
+            # Reset gradients for each pathology
+            self.model.zero_grad()
+            
+            # Forward pass (reuse the same output for efficiency)
+            if i == 0:
+                current_output = self.model(input_tensor)
+            else:
+                current_output = self.model(input_tensor)
+            
+            # Backward pass for this specific pathology
+            one_hot = torch.zeros_like(current_output)
+            one_hot[0, target_class] = 1
+            current_output.backward(gradient=one_hot, retain_graph=(i < len(selected_indices) - 1))
+            
+            # Calculate weights based on global average pooling of gradients
+            pooled_gradients = torch.mean(self.gradients, dim=[0, 2, 3])
+            
+            # Create a copy of activations to avoid in-place modifications
+            activations = self.activations.clone()
+            
+            # Weight activation maps with gradients
+            weighted_activations = torch.zeros_like(activations)
+            for j in range(pooled_gradients.shape[0]):
+                weighted_activations[:, j, :, :] = activations[:, j, :, :] * pooled_gradients[j]
+            
+            # Global average pooling of weighted activation maps
+            heatmap = torch.mean(weighted_activations, dim=1).squeeze().cpu().detach().numpy()
+            
+            # ReLU on heatmap
+            heatmap = np.maximum(heatmap, 0)
+            
+            # Normalize heatmap
+            if np.max(heatmap) > 0:
+                heatmap = heatmap / np.max(heatmap)
+            
+            # Weight the heatmap by the probability
+            pathology_prob = selected_pathologies[i][1]
+            weighted_heatmap = heatmap * pathology_prob
+            
+            # Combine with existing heatmap
+            if combined_heatmap is None:
+                combined_heatmap = weighted_heatmap
+            else:
+                combined_heatmap += weighted_heatmap
+        
+        # Normalize the combined heatmap
+        if np.max(combined_heatmap) > 0:
+            combined_heatmap = combined_heatmap / np.max(combined_heatmap)
+        
+        return combined_heatmap, selected_pathologies, output
 
 
 class PixelLevelInterpretability:
@@ -356,6 +462,86 @@ class PixelLevelInterpretability:
     def __del__(self):
         # Release hooks when object is deleted
         self._release_hooks()
+    
+    def get_combined_saliency(self, input_tensor, probability_threshold=0.5, use_smoothgrad=True, n_samples=15, noise_level=0.1):
+        """
+        Generate a combined saliency map for all pathologies above threshold
+        
+        Args:
+            input_tensor: Input tensor with shape (1, C, H, W)
+            probability_threshold: Minimum probability threshold (default: 0.5)
+            use_smoothgrad: Whether to use SmoothGrad technique (default: True)
+            n_samples: Number of samples for SmoothGrad (default: 15)
+            noise_level: Noise level for SmoothGrad (default: 0.1)
+        
+        Returns:
+            combined_saliency: Numpy array representing the combined saliency map
+            selected_pathologies: List of pathology names and their probabilities above threshold
+            output: Model output logits
+        """
+        # Forward pass to get predictions
+        with torch.no_grad():
+            output = self.model(input_tensor.clone())
+        
+        # Convert output to probabilities using sigmoid (for multi-label classification)
+        probabilities = torch.sigmoid(output).squeeze().cpu().detach().numpy()
+        
+        # Determine pathology names based on model type
+        if hasattr(self.model, 'pathologies') and 'Lung Opacity' in self.model.pathologies:
+            # This is ResNet model, use default_pathologies for correct mapping
+            pathology_names = xrv.datasets.default_pathologies
+        else:
+            # This is DenseNet or other model
+            pathology_names = self.model.pathologies
+        
+        # Find pathologies above threshold
+        selected_pathologies = []
+        selected_indices = []
+        
+        for i, (pathology, prob) in enumerate(zip(pathology_names, probabilities)):
+            if prob >= probability_threshold:
+                selected_pathologies.append((pathology, prob))
+                selected_indices.append(i)
+        
+        if not selected_indices:
+            print(f"No pathologies found above threshold {probability_threshold}")
+            print("Top 3 pathologies:")
+            top_indices = np.argsort(probabilities)[-3:][::-1]
+            for idx in top_indices:
+                print(f"  {pathology_names[idx]}: {probabilities[idx]:.3f}")
+            # Use the top pathology if none above threshold
+            selected_indices = [top_indices[0]]
+            selected_pathologies = [(pathology_names[top_indices[0]], probabilities[top_indices[0]])]
+        
+        print(f"Selected pathologies above {probability_threshold} threshold:")
+        for pathology, prob in selected_pathologies:
+            print(f"  {pathology}: {prob:.3f}")
+        
+        # Generate combined saliency map
+        combined_saliency = None
+        
+        for i, target_class in enumerate(selected_indices):
+            # Generate saliency map for this specific pathology
+            if use_smoothgrad:
+                saliency_map, _ = self.apply_smoothgrad(input_tensor, target_class, n_samples, noise_level)
+            else:
+                saliency_map, _ = self.generate_saliency(input_tensor, target_class)
+            
+            # Weight the saliency map by the probability
+            pathology_prob = selected_pathologies[i][1]
+            weighted_saliency = saliency_map * pathology_prob
+            
+            # Combine with existing saliency map
+            if combined_saliency is None:
+                combined_saliency = weighted_saliency
+            else:
+                combined_saliency += weighted_saliency
+        
+        # Normalize the combined saliency map
+        if np.max(combined_saliency) > 0:
+            combined_saliency = combined_saliency / np.max(combined_saliency)
+        
+        return combined_saliency, selected_pathologies, output
 
 
 def apply_gradcam(image_path, model_type='densenet', target_class=None):
@@ -482,6 +668,113 @@ def apply_gradcam(image_path, model_type='densenet', target_class=None):
         'heatmap': heatmap,
         'overlay': overlaid_img,
         'target_class': target_class
+    }
+
+
+def apply_combined_gradcam(image_path, model_type='densenet', probability_threshold=0.5):
+    """
+    Apply combined Grad-CAM to an X-ray image for all pathologies above threshold
+    
+    Args:
+        image_path: Path to the image
+        model_type: 'densenet' or 'resnet'
+        probability_threshold: Minimum probability threshold (default: 0.5)
+        
+    Returns:
+        Dictionary with combined visualization results
+    """
+    # Load model
+    if model_type == 'resnet':
+        model = xrv.models.ResNet(weights="resnet50-res512-all")
+        resize_dim = 512
+    else:
+        model = xrv.models.DenseNet(weights="densenet121-res224-all")
+        resize_dim = 224
+    
+    # Wrap model to prevent in-place operations
+    wrapped_model = NoInplaceReLU(model)
+    
+    # Determine appropriate target layer based on model type
+    if model_type == 'resnet':
+        # Explicitly specify target layer for ResNet
+        target_layer = wrapped_model.model.model.layer4[-1]
+    else:
+        # Explicitly specify target layer for DenseNet
+        target_layer = wrapped_model.model.features.denseblock4.denselayer16.norm2
+    
+    # Load and preprocess the image
+    img = skimage.io.imread(image_path)
+    img = xrv.datasets.normalize(img, 255)
+    
+    # Preserve original image for visualization
+    original_img = img.copy()
+    
+    # Check that images are 2D arrays
+    if len(img.shape) > 2:
+        img = img[:, :, 0]  # Take first channel instead of averaging
+    if len(img.shape) < 2:
+        raise ValueError("Input image must have at least 2 dimensions")
+    
+    # Add channel dimension
+    img = img[None, :, :]
+    
+    # Set up transformation pipeline
+    if model_type == 'densenet':
+        transform = torchvision.transforms.Compose([
+            xrv.datasets.XRayCenterCrop(),
+            xrv.datasets.XRayResizer(224)
+        ])
+        resize_dim = 224
+    else:  # resnet
+        transform = torchvision.transforms.Compose([
+            xrv.datasets.XRayResizer(512),
+            xrv.datasets.XRayCenterCrop()
+        ])
+        resize_dim = 512
+    
+    # Apply transforms
+    img = transform(img)
+    
+    # Convert to tensor
+    img_tensor = torch.from_numpy(img)
+    
+    # Add batch dimension
+    if len(img_tensor.shape) < 3:
+        img_tensor = img_tensor.unsqueeze(0).unsqueeze(0)
+    elif len(img_tensor.shape) == 3:
+        img_tensor = img_tensor.unsqueeze(0)
+    
+    # Initialize Grad-CAM with explicit target layer
+    gradcam = GradCAM(wrapped_model, target_layer=target_layer)
+    
+    # Get combined heatmap for pathologies above threshold
+    combined_heatmap, selected_pathologies, predictions = gradcam.get_combined_heatmap(
+        img_tensor, probability_threshold=probability_threshold
+    )
+    
+    # Convert original image to a suitable format for visualization
+    original_vis = original_img
+    if len(original_vis.shape) > 2:
+        original_vis = original_vis[:, :, 0]  # Take first channel for visualization
+    
+    # Scale to [0, 1] for visualization
+    original_vis = (original_vis - original_vis.min()) / (original_vis.max() - original_vis.min() + 1e-8)
+    
+    # Overlay heatmap on original image
+    overlaid_img = gradcam.overlay_heatmap(original_vis, combined_heatmap)
+    
+    # Create pathology summary string
+    pathology_summary = ", ".join([f"{name} ({prob:.3f})" for name, prob in selected_pathologies])
+    
+    # Return results
+    return {
+        'original': original_vis,
+        'heatmap': combined_heatmap,
+        'overlay': overlaid_img,
+        'selected_pathologies': selected_pathologies,
+        'pathology_summary': pathology_summary,
+        'method': 'combined_gradcam',
+        'threshold': probability_threshold
     }
 
 
@@ -630,4 +923,120 @@ def apply_pixel_interpretability(image_path, model_type='densenet', target_class
         'overlay': saliency_overlay,
         'target_class': target_class,
         'method': 'pli'
+    }
+
+
+def apply_combined_pixel_interpretability(image_path, model_type='densenet', probability_threshold=0.5, use_smoothgrad=True):
+    """
+    Apply combined Pixel-Level Interpretability to an X-ray image for all pathologies above threshold
+    
+    Args:
+        image_path: Path to the image
+        model_type: 'densenet' or 'resnet'
+        probability_threshold: Minimum probability threshold (default: 0.5)
+        use_smoothgrad: Whether to use SmoothGrad technique (default: True)
+        
+    Returns:
+        Dictionary with combined visualization results
+    """
+    # Load model
+    if model_type == 'resnet':
+        model = xrv.models.ResNet(weights="resnet50-res512-all")
+        resize_dim = 512
+    else:
+        model = xrv.models.DenseNet(weights="densenet121-res224-all")
+        resize_dim = 224
+    
+    # Wrap model to prevent in-place operations
+    wrapped_model = NoInplaceReLU(model)
+    
+    # Load and preprocess the image
+    img = skimage.io.imread(image_path)
+    img = xrv.datasets.normalize(img, 255)
+    
+    # Preserve original image for visualization
+    original_img = img.copy()
+    
+    # Check that images are 2D arrays
+    if len(img.shape) > 2:
+        img = img[:, :, 0]  # Take first channel instead of averaging
+    if len(img.shape) < 2:
+        raise ValueError("Input image must have at least 2 dimensions")
+    
+    # Add channel dimension
+    img = img[None, :, :]
+    
+    # Set up transformation pipeline
+    if model_type == 'densenet':
+        transform = torchvision.transforms.Compose([
+            xrv.datasets.XRayCenterCrop(),
+            xrv.datasets.XRayResizer(224)
+        ])
+    else:  # resnet
+        transform = torchvision.transforms.Compose([
+            xrv.datasets.XRayResizer(512),
+            xrv.datasets.XRayCenterCrop()
+        ])
+    
+    # Apply transforms
+    img = transform(img)
+    
+    # Convert to tensor
+    img_tensor = torch.from_numpy(img)
+    
+    # Add batch dimension
+    if len(img_tensor.shape) < 3:
+        img_tensor = img_tensor.unsqueeze(0).unsqueeze(0)
+    elif len(img_tensor.shape) == 3:
+        img_tensor = img_tensor.unsqueeze(0)
+    
+    # Initialize Pixel-Level Interpretability
+    pli = PixelLevelInterpretability(wrapped_model)
+    
+    # Get combined saliency map for pathologies above threshold
+    combined_saliency, selected_pathologies, predictions = pli.get_combined_saliency(
+        img_tensor, probability_threshold=probability_threshold, use_smoothgrad=use_smoothgrad
+    )
+    
+    # Convert original image to a suitable format for visualization
+    original_vis = original_img
+    if len(original_vis.shape) > 2:
+        original_vis = original_vis[:, :, 0]  # Take first channel for visualization
+    
+    # Scale to [0, 1] for visualization
+    original_vis = (original_vis - original_vis.min()) / (original_vis.max() - original_vis.min() + 1e-8)
+    
+    # Create colored saliency map
+    saliency_colored = cv2.applyColorMap(np.uint8(255 * combined_saliency), cv2.COLORMAP_JET)
+    saliency_colored = cv2.cvtColor(saliency_colored, cv2.COLOR_BGR2RGB)
+    
+    # Create overlay visualization (saliency over original image)
+    # Resize saliency to match original image dimensions
+    original_shape = original_vis.shape
+    saliency_resized = cv2.resize(combined_saliency, (original_shape[1], original_shape[0]))
+    
+    # Convert original to RGB for overlay
+    original_rgb = cv2.cvtColor(np.uint8(original_vis * 255), cv2.COLOR_GRAY2RGB)
+    
+    # Apply colormap to saliency
+    saliency_colored_resized = cv2.applyColorMap(np.uint8(255 * saliency_resized), cv2.COLORMAP_JET)
+    saliency_colored_resized = cv2.cvtColor(saliency_colored_resized, cv2.COLOR_BGR2RGB)
+    
+    # Create overlay with transparency
+    alpha = 0.4  # Transparency factor
+    overlaid_img = cv2.addWeighted(original_rgb, 1 - alpha, saliency_colored_resized, alpha, 0)
+    
+    # Create pathology summary string
+    pathology_summary = ", ".join([f"{name} ({prob:.3f})" for name, prob in selected_pathologies])
+    
+    # Return results
+    return {
+        'original': original_vis,
+        'saliency_map': combined_saliency,
+        'saliency_colored': saliency_colored,
+        'overlay': overlaid_img,
+        'selected_pathologies': selected_pathologies,
+        'pathology_summary': pathology_summary,
+        'method': 'combined_pli',
+        'threshold': probability_threshold
     } 

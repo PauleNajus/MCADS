@@ -12,7 +12,7 @@ import os
 from PIL import Image
 from PIL.ExifTags import TAGS
 from datetime import datetime
-from .interpretability import apply_gradcam, apply_pixel_interpretability
+from .interpretability import apply_gradcam, apply_pixel_interpretability, apply_combined_gradcam, apply_combined_pixel_interpretability
 
 
 def load_model(model_type='densenet'):
@@ -318,6 +318,33 @@ def process_image_with_interpretability(image_path, xray_instance=None, model_ty
                 'target_class': pli_results['target_class'],
                 'metadata': metadata  # Include metadata
             }
+        elif interpretation_method == 'combined_gradcam':
+            # Apply Combined Grad-CAM for pathologies above 0.5 threshold
+            combined_results = apply_combined_gradcam(image_path, model_type)
+            interpretation_results = {
+                'method': 'combined_gradcam',
+                'original': combined_results['original'],
+                'heatmap': combined_results['heatmap'],
+                'overlay': combined_results['overlay'],
+                'selected_pathologies': combined_results['selected_pathologies'],
+                'pathology_summary': combined_results['pathology_summary'],
+                'threshold': combined_results['threshold'],
+                'metadata': metadata  # Include metadata
+            }
+        elif interpretation_method == 'combined_pli':
+            # Apply Combined Pixel-Level Interpretability for pathologies above 0.5 threshold
+            combined_pli_results = apply_combined_pixel_interpretability(image_path, model_type)
+            interpretation_results = {
+                'method': 'combined_pli',
+                'original': combined_pli_results['original'],
+                'saliency_map': combined_pli_results['saliency_map'],
+                'saliency_colored': combined_pli_results['saliency_colored'],
+                'overlay': combined_pli_results['overlay'],
+                'selected_pathologies': combined_pli_results['selected_pathologies'],
+                'pathology_summary': combined_pli_results['pathology_summary'],
+                'threshold': combined_pli_results['threshold'],
+                'metadata': metadata  # Include metadata
+            }
     
     # Update status to completed if xray_instance is provided
     if xray_instance:
@@ -368,6 +395,32 @@ def save_interpretability_visualization(interpretation_results, output_path, for
         plt.subplot(1, 3, 3)
         plt.imshow(cv2.cvtColor(interpretation_results['overlay'], cv2.COLOR_BGR2RGB))
         plt.title('Grad-CAM Overlay')
+        plt.axis('off')
+    
+    elif interpretation_results.get('method') == 'combined_gradcam':
+        # Plot combined heatmap
+        plt.subplot(1, 3, 2)
+        plt.imshow(interpretation_results['heatmap'], cmap='jet')
+        plt.title(f'Combined Grad-CAM\n{len(interpretation_results["selected_pathologies"])} pathologies > {interpretation_results["threshold"]}')
+        plt.axis('off')
+        
+        # Plot overlay
+        plt.subplot(1, 3, 3)
+        plt.imshow(cv2.cvtColor(interpretation_results['overlay'], cv2.COLOR_BGR2RGB))
+        plt.title('Combined Overlay')
+        plt.axis('off')
+    
+    elif interpretation_results.get('method') == 'combined_pli':
+        # Plot combined saliency map
+        plt.subplot(1, 3, 2)
+        plt.imshow(interpretation_results['saliency_map'], cmap='jet')
+        plt.title(f'Combined PLI Saliency\n{len(interpretation_results["selected_pathologies"])} pathologies > {interpretation_results["threshold"]}')
+        plt.axis('off')
+        
+        # Plot overlay
+        plt.subplot(1, 3, 3)
+        plt.imshow(interpretation_results['overlay'])
+        plt.title('Combined PLI Overlay')
         plt.axis('off')
     
     elif interpretation_results.get('method') == 'pli':
