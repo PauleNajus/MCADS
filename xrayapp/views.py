@@ -5,7 +5,10 @@ from pathlib import Path
 from django.conf import settings
 from django.http import JsonResponse
 from django.utils import timezone
-from django.db.models import Q
+from django.db.models import Q, Prefetch
+from django.core.paginator import Paginator
+from django.views.decorators.cache import cache_page
+from django.core.cache import cache
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 from .forms import XRayUploadForm, PredictionHistoryFilterForm, UserInfoForm, UserProfileForm, ChangePasswordForm
@@ -17,40 +20,50 @@ from .interpretability import apply_gradcam, apply_pixel_interpretability, apply
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
+import logging
+
+# Set up logging
+logger = logging.getLogger(__name__)
 
 
 def process_image_async(image_path, xray_instance, model_type):
     """Process the image in a background thread and update the model with progress"""
-    results = process_image(image_path, xray_instance, model_type)
-    
-    # Save predictions to the database - only save what's available in the results
-    xray_instance.atelectasis = results.get('Atelectasis', None)
-    xray_instance.cardiomegaly = results.get('Cardiomegaly', None)
-    xray_instance.consolidation = results.get('Consolidation', None)
-    xray_instance.edema = results.get('Edema', None)
-    xray_instance.effusion = results.get('Effusion', None)
-    xray_instance.emphysema = results.get('Emphysema', None)
-    xray_instance.fibrosis = results.get('Fibrosis', None)
-    xray_instance.hernia = results.get('Hernia', None)
-    xray_instance.infiltration = results.get('Infiltration', None)
-    xray_instance.mass = results.get('Mass', None)
-    xray_instance.nodule = results.get('Nodule', None)
-    xray_instance.pleural_thickening = results.get('Pleural_Thickening', None)
-    xray_instance.pneumonia = results.get('Pneumonia', None)
-    xray_instance.pneumothorax = results.get('Pneumothorax', None)
-    xray_instance.fracture = results.get('Fracture', None)
-    xray_instance.lung_opacity = results.get('Lung Opacity', None)
-    
-    # These fields will only be present in DenseNet results
-    if 'Enlarged Cardiomediastinum' in results:
-        xray_instance.enlarged_cardiomediastinum = results.get('Enlarged Cardiomediastinum', None)
-    if 'Lung Lesion' in results:
-        xray_instance.lung_lesion = results.get('Lung Lesion', None)
-    
-    xray_instance.save()
-    
-    # Create prediction history record
-    create_prediction_history(xray_instance, model_type)
+    try:
+        results = process_image(image_path, xray_instance, model_type)
+        
+        # Save predictions to the database - only save what's available in the results
+        xray_instance.atelectasis = results.get('Atelectasis', None)
+        xray_instance.cardiomegaly = results.get('Cardiomegaly', None)
+        xray_instance.consolidation = results.get('Consolidation', None)
+        xray_instance.edema = results.get('Edema', None)
+        xray_instance.effusion = results.get('Effusion', None)
+        xray_instance.emphysema = results.get('Emphysema', None)
+        xray_instance.fibrosis = results.get('Fibrosis', None)
+        xray_instance.hernia = results.get('Hernia', None)
+        xray_instance.infiltration = results.get('Infiltration', None)
+        xray_instance.mass = results.get('Mass', None)
+        xray_instance.nodule = results.get('Nodule', None)
+        xray_instance.pleural_thickening = results.get('Pleural_Thickening', None)
+        xray_instance.pneumonia = results.get('Pneumonia', None)
+        xray_instance.pneumothorax = results.get('Pneumothorax', None)
+        xray_instance.fracture = results.get('Fracture', None)
+        xray_instance.lung_opacity = results.get('Lung Opacity', None)
+        
+        # These fields will only be present in DenseNet results
+        if 'Enlarged Cardiomediastinum' in results:
+            xray_instance.enlarged_cardiomediastinum = results.get('Enlarged Cardiomediastinum', None)
+        if 'Lung Lesion' in results:
+            xray_instance.lung_lesion = results.get('Lung Lesion', None)
+        
+        xray_instance.save()
+        
+        # Create prediction history record
+        create_prediction_history(xray_instance, model_type)
+        
+    except Exception as e:
+        logger.error(f"Error processing image {image_path}: {str(e)}")
+        xray_instance.processing_status = 'error'
+        xray_instance.save()
 
 
 def process_with_interpretability_async(image_path, xray_instance, model_type, interpretation_method, target_class=None):
@@ -60,42 +73,42 @@ def process_with_interpretability_async(image_path, xray_instance, model_type, i
         xray_instance.progress = 10
         xray_instance.save()
         
-        print(f"Starting {interpretation_method} visualization for image {image_path} with model {model_type}")
+        logger.info(f"Starting {interpretation_method} visualization for image {image_path} with model {model_type}")
         
         # Process the image with the selected interpretability method
         if interpretation_method == 'gradcam':
             try:
                 results = apply_gradcam(image_path, model_type, target_class)
                 results['method'] = 'gradcam'
-                print(f"GradCAM generation completed successfully for {target_class}")
+                logger.info(f"GradCAM generation completed successfully for {target_class}")
             except Exception as e:
-                print(f"Error in GradCAM generation: {str(e)}")
+                logger.error(f"Error in GradCAM generation: {str(e)}")
                 raise
         elif interpretation_method == 'pli':
             try:
                 results = apply_pixel_interpretability(image_path, model_type, target_class)
                 results['method'] = 'pli'
-                print(f"PLI generation completed successfully for {target_class}")
+                logger.info(f"PLI generation completed successfully for {target_class}")
             except Exception as e:
-                print(f"Error in PLI generation: {str(e)}")
+                logger.error(f"Error in PLI generation: {str(e)}")
                 raise
         elif interpretation_method == 'combined_gradcam':
             try:
                 results = apply_combined_gradcam(image_path, model_type)
-                print(f"Combined GradCAM generation completed successfully for {len(results['selected_pathologies'])} pathologies")
+                logger.info(f"Combined GradCAM generation completed successfully for {len(results['selected_pathologies'])} pathologies")
             except Exception as e:
-                print(f"Error in Combined GradCAM generation: {str(e)}")
+                logger.error(f"Error in Combined GradCAM generation: {str(e)}")
                 raise
         elif interpretation_method == 'combined_pli':
             try:
                 results = apply_combined_pixel_interpretability(image_path, model_type)
-                print(f"Combined PLI generation completed successfully for {len(results['selected_pathologies'])} pathologies")
+                logger.info(f"Combined PLI generation completed successfully for {len(results['selected_pathologies'])} pathologies")
             except Exception as e:
-                print(f"Error in Combined PLI generation: {str(e)}")
+                logger.error(f"Error in Combined PLI generation: {str(e)}")
                 raise
         else:
             # Invalid method, return error
-            print(f"Invalid interpretation method: {interpretation_method}")
+            logger.error(f"Invalid interpretation method: {interpretation_method}")
             xray_instance.processing_status = 'error'
             xray_instance.save()
             return
@@ -104,7 +117,7 @@ def process_with_interpretability_async(image_path, xray_instance, model_type, i
         xray_instance.progress = 70
         xray_instance.save()
         
-        print(f"Saving visualization results for {interpretation_method}")
+        logger.info(f"Saving visualization results for {interpretation_method}")
         
         # Save interpretability visualizations
         if interpretation_method and 'method' in results:
@@ -123,17 +136,17 @@ def process_with_interpretability_async(image_path, xray_instance, model_type, i
                 heatmap_path = output_dir / heatmap_filename
                 overlay_path = output_dir / overlay_filename
                 
-                print(f"Saving Grad-CAM combined visualization to {combined_path}")
+                logger.info(f"Saving Grad-CAM combined visualization to {combined_path}")
                 
                 # Save combined visualization
                 save_interpretability_visualization(results, combined_path)
                 
-                print(f"Saving Grad-CAM heatmap to {heatmap_path}")
+                logger.info(f"Saving Grad-CAM heatmap to {heatmap_path}")
                 
                 # Save heatmap separately
                 save_gradcam_heatmap(results, heatmap_path)
                 
-                print(f"Saving Grad-CAM overlay to {overlay_path}")
+                logger.info(f"Saving Grad-CAM overlay to {overlay_path}")
                 
                 # Save overlay separately
                 save_gradcam_overlay(results, overlay_path)
@@ -163,17 +176,17 @@ def process_with_interpretability_async(image_path, xray_instance, model_type, i
                     separate_saliency_filename = f"pli_saliency_{xray_instance.id}_{results['target_class']}.png"
                     separate_saliency_path = output_dir / separate_saliency_filename
                     
-                    print(f"Saving PLI visualization to {saliency_path}")
+                    logger.info(f"Saving PLI visualization to {saliency_path}")
                     
                     # Save saliency visualization (combined visualization)
                     save_interpretability_visualization(results, saliency_path)
                     
-                    print(f"Saving PLI overlay to {overlay_path}")
+                    logger.info(f"Saving PLI overlay to {overlay_path}")
                     
                     # Save overlay separately
                     save_overlay_visualization(results, overlay_path)
                     
-                    print(f"Saving PLI saliency map to {separate_saliency_path}")
+                    logger.info(f"Saving PLI saliency map to {separate_saliency_path}")
                     
                     # Save saliency map separately
                     save_saliency_map(results, separate_saliency_path)
@@ -185,7 +198,7 @@ def process_with_interpretability_async(image_path, xray_instance, model_type, i
                     xray_instance.pli_saliency_map = f"interpretability/pli/{separate_saliency_filename}"
                     xray_instance.pli_target_class = results['target_class']
                 except Exception as e:
-                    print(f"Error saving PLI results: {str(e)}")
+                    logger.error(f"Error saving PLI results: {str(e)}")
                     raise
                 
             elif results['method'] == 'combined_gradcam':
@@ -203,17 +216,17 @@ def process_with_interpretability_async(image_path, xray_instance, model_type, i
                 heatmap_path = output_dir / heatmap_filename
                 overlay_path = output_dir / overlay_filename
                 
-                print(f"Saving Combined Grad-CAM visualization to {combined_path}")
+                logger.info(f"Saving Combined Grad-CAM visualization to {combined_path}")
                 
                 # Save combined visualization
                 save_interpretability_visualization(results, combined_path)
                 
-                print(f"Saving Combined Grad-CAM heatmap to {heatmap_path}")
+                logger.info(f"Saving Combined Grad-CAM heatmap to {heatmap_path}")
                 
                 # Save heatmap separately
                 save_gradcam_heatmap(results, heatmap_path)
                 
-                print(f"Saving Combined Grad-CAM overlay to {overlay_path}")
+                logger.info(f"Saving Combined Grad-CAM overlay to {overlay_path}")
                 
                 # Save overlay separately
                 save_gradcam_overlay(results, overlay_path)
@@ -240,17 +253,17 @@ def process_with_interpretability_async(image_path, xray_instance, model_type, i
                 saliency_path = output_dir / saliency_filename
                 overlay_path = output_dir / overlay_filename
                 
-                print(f"Saving Combined PLI visualization to {combined_path}")
+                logger.info(f"Saving Combined PLI visualization to {combined_path}")
                 
                 # Save combined visualization
                 save_interpretability_visualization(results, combined_path)
                 
-                print(f"Saving Combined PLI saliency map to {saliency_path}")
+                logger.info(f"Saving Combined PLI saliency map to {saliency_path}")
                 
                 # Save saliency map separately
                 save_saliency_map(results, saliency_path)
                 
-                print(f"Saving Combined PLI overlay to {overlay_path}")
+                logger.info(f"Saving Combined PLI overlay to {overlay_path}")
                 
                 # Save overlay separately
                 save_overlay_visualization(results, overlay_path)
@@ -273,12 +286,12 @@ def process_with_interpretability_async(image_path, xray_instance, model_type, i
         xray_instance.progress = 100
         xray_instance.save()
         
-        print(f"Interpretability visualization complete for {interpretation_method}")
+        logger.info(f"Interpretability visualization complete for {interpretation_method}")
         
     except Exception as e:
         import traceback
-        print(f"Error in interpretability processing: {str(e)}")
-        print(traceback.format_exc())
+        logger.error(f"Error in interpretability processing: {str(e)}")
+        logger.error(traceback.format_exc())
         xray_instance.processing_status = 'error'
         xray_instance.save()
 
@@ -315,7 +328,7 @@ def create_prediction_history(xray_instance, model_type):
     if xray_instance.user:
         history.save()
     else:
-        print("Warning: XRayImage has no user assigned, skipping prediction history creation")
+        logger.warning("Warning: XRayImage has no user assigned, skipping prediction history creation")
 
 
 @login_required
@@ -463,11 +476,14 @@ def xray_results(request, pk):
 
 @login_required
 def prediction_history(request):
-    """View prediction history with advanced filtering"""
+    """View prediction history with advanced filtering and pagination"""
     form = PredictionHistoryFilterForm(request.GET)
     
-    # Initialize query - filter by current user
-    query = PredictionHistory.objects.filter(user=request.user).order_by('-created_at')
+    # Initialize query with optimized select_related to avoid N+1 queries
+    query = PredictionHistory.objects.filter(user=request.user)\
+                                    .select_related('xray', 'user')\
+                                    .prefetch_related('xray__user')\
+                                    .order_by('-created_at')
     
     # Apply filters if the form is valid
     if form.is_valid():
@@ -502,8 +518,10 @@ def prediction_history(request):
             filter_kwargs = {f"{field_name}__gte": threshold}
             query = query.filter(**filter_kwargs)
     
-    # Execute query
-    history_items = query
+    # Add pagination for better performance
+    paginator = Paginator(query, 20)  # Show 20 items per page
+    page_number = request.GET.get('page')
+    history_items = paginator.get_page(page_number)
     
     context = {
         'form': form,

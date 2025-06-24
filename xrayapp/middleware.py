@@ -1,6 +1,10 @@
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.contrib import messages
+from django.core.cache import cache
+from django.http import HttpResponse
+from django.utils import timezone
+import hashlib
 
 class AuthenticationMiddleware:
     def __init__(self, get_response):
@@ -11,7 +15,7 @@ class AuthenticationMiddleware:
         public_paths = [
             '/accounts/login/',
             '/accounts/logout/',
-            '/admin/login/',
+            '/secure-admin-mcads-2024/login/',  # Updated admin path
             '/favicon.ico',
             '/static/',
             '/media/',
@@ -25,4 +29,59 @@ class AuthenticationMiddleware:
             return redirect(f"{reverse('login')}?next={request.path}")
             
         response = self.get_response(request)
-        return response 
+        return response
+
+
+class RateLimitMiddleware:
+    """Rate limiting middleware to prevent brute force attacks"""
+    
+    def __init__(self, get_response):
+        self.get_response = get_response
+        self.max_attempts = 5
+        self.lockout_duration = 300  # 5 minutes in seconds
+        
+    def __call__(self, request):
+        # Only apply rate limiting to login attempts
+        if request.path == '/accounts/login/' and request.method == 'POST':
+            if not self._check_rate_limit(request):
+                response = HttpResponse(
+                    "Too many login attempts. Please try again later.",
+                    status=429,
+                    content_type="text/plain"
+                )
+                return response
+        
+        response = self.get_response(request)
+        
+        # Track failed login attempts
+        if (request.path == '/accounts/login/' and 
+            request.method == 'POST' and 
+            response.status_code in [200, 302] and 
+            not request.user.is_authenticated):
+            self._record_failed_attempt(request)
+            
+        return response
+    
+    def _get_cache_key(self, request):
+        """Generate cache key based on IP address"""
+        ip = self._get_client_ip(request)
+        return f"login_attempts:{hashlib.sha256(ip.encode()).hexdigest()}"
+    
+    def _get_client_ip(self, request):
+        """Get client IP address"""
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            return x_forwarded_for.split(',')[0]
+        return request.META.get('REMOTE_ADDR', '0.0.0.0')
+    
+    def _check_rate_limit(self, request):
+        """Check if request is within rate limit"""
+        cache_key = self._get_cache_key(request)
+        attempts = cache.get(cache_key, 0)
+        return attempts < self.max_attempts
+    
+    def _record_failed_attempt(self, request):
+        """Record a failed login attempt"""
+        cache_key = self._get_cache_key(request)
+        attempts = cache.get(cache_key, 0)
+        cache.set(cache_key, attempts + 1, self.lockout_duration) 

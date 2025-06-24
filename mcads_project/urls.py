@@ -19,7 +19,7 @@ from django.urls import path, include
 from django.views.generic.base import RedirectView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('secure-admin-mcads-2024/', admin.site.urls),  # Changed from 'admin/' for security
     path('accounts/', include('django.contrib.auth.urls')),
     path('', include('xrayapp.urls')),
     # Add favicon redirect
