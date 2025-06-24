@@ -1,0 +1,156 @@
+{% extends 'xrayapp/base.html' %}
+{% load xrayapp_extras %}
+
+{% block title %}MCADS - Edit prediction record{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="mb-4">Edit prediction record</h2>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Edit Patient Information</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="id_first_name" class="form-label">First Name</label>
+                                {{ form.first_name|add_class:"form-control" }}
+                            </div>
+                            <div class="col-md-6">
+                                <label for="id_last_name" class="form-label">Last Name</label>
+                                {{ form.last_name|add_class:"form-control" }}
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label for="id_patient_id" class="form-label">Patient ID</label>
+                                {{ form.patient_id|add_class:"form-control" }}
+                            </div>
+                            <div class="col-md-4">
+                                <label for="id_gender" class="form-label">Gender</label>
+                                {{ form.gender|add_class:"form-select" }}
+                            </div>
+                            <div class="col-md-4">
+                                <label for="id_date_of_birth" class="form-label">Date of birth</label>
+                                {{ form.date_of_birth|add_class:"form-control" }}
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="id_date_of_xray" class="form-label">Date of X-ray</label>
+                                {{ form.date_of_xray|add_class:"form-control" }}
+                            </div>
+                            <div class="col-md-6">
+                                <label for="id_additional_info" class="form-label">Additional information</label>
+                                {{ form.additional_info|add_class:"form-control" }}
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between mt-4">
+                            <a href="{% url 'prediction_history' %}" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left me-1"></i> Back to history
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-1"></i> Save changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Prediction details</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Model used:</strong> {{ history_item.model_used }}</p>
+                            <p><strong>Prediction date:</strong> {{ history_item.created_at|date:"Y-m-d H:i" }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-end">
+                                <a href="{% url 'xray_results' history_item.xray.id %}" class="btn btn-info">
+                                    <i class="fas fa-eye me-1"></i> View full results
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  // Ensure date inputs use YYYY-MM-DD format
+  document.addEventListener('DOMContentLoaded', function() {
+    const dateOfBirthField = document.getElementById('id_date_of_birth');
+    const dateOfXrayField = document.getElementById('id_date_of_xray');
+    
+    // Force YYYY-MM-DD format for all date fields
+    const formatDate = (date) => {
+      if (!date) return '';
+      const parts = date.split(/[-\/]/);
+      
+      // If format is MM/DD/YYYY, convert to YYYY-MM-DD
+      if (parts.length === 3) {
+        if (parts[2].length === 4) { // Likely MM/DD/YYYY format
+          return `${parts[2]}-${parts[0].padStart(2, '0')}-${parts[1].padStart(2, '0')}`;
+        } else {
+          // Already YYYY-MM-DD or similar
+          return `${parts[0]}-${parts[1].padStart(2, '0')}-${parts[2].padStart(2, '0')}`;
+        }
+      }
+      return date; // return original if cannot parse
+    };
+    
+    // Process date inputs
+    [dateOfBirthField, dateOfXrayField].forEach(field => {
+      if (field) {
+        // Format existing value if needed
+        if (field.value) {
+          field.value = formatDate(field.value);
+        }
+        
+        // Set placeholder explicitly (in case the form widget doesn't)
+        field.setAttribute('placeholder', 'YYYY-MM-DD');
+        
+        field.addEventListener('focus', function() {
+          this.setAttribute('data-original-value', this.value);
+        });
+        
+        field.addEventListener('blur', function() {
+          if (this.value) {
+            this.value = formatDate(this.value);
+            
+            // Validate date format
+            const isValidDate = /^\d{4}-\d{2}-\d{2}$/.test(this.value);
+            if (!isValidDate) {
+              this.value = this.getAttribute('data-original-value') || '';
+              alert('Please use the YYYY-MM-DD format for dates');
+            }
+          }
+        });
+        
+        // Add helper text below the field if not already present
+        if (!field.nextElementSibling || !field.nextElementSibling.classList.contains('date-format-help')) {
+          const helpText = document.createElement('div');
+          helpText.className = 'form-text text-muted date-format-help';
+          field.parentNode.appendChild(helpText);
+        }
+      }
+    });
+  });
+</script>
+{% endblock %} 
