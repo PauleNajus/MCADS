@@ -9,7 +9,6 @@ matplotlib.use('Agg')  # Use non-interactive backend to avoid Tkinter threading 
 import matplotlib.pyplot as plt
 from pathlib import Path
 import torchxrayvision as xrv
-import functools
 
 
 def disable_inplace_relu(model):
