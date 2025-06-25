@@ -80,9 +80,9 @@ class XRayImage(models.Model):
     @property
     def calculate_severity_level(self):
         """Calculate severity level based on average of pathology probabilities
-        1: Insignificant findings (0-20%)
-        2: Moderate findings (21-25%)
-        3: Significant findings (26-100%)
+        1: Insignificant findings (0-19%)
+        2: Moderate findings (20-30%)
+        3: Significant findings (31-100%)
         """
         pathology_fields = {
             'atelectasis': self.atelectasis,
@@ -116,11 +116,11 @@ class XRayImage(models.Model):
         avg_probability = sum(valid_values) / len(valid_values)
         
         # Determine severity level
-        if avg_probability <= 0.20:  # 0-20%
+        if avg_probability <= 0.19:  # 0-19%
             return 1
-        elif avg_probability <= 0.25:  # 21-25%
+        elif avg_probability <= 0.30:  # 20-30%
             return 2
-        else:  # 26-100%
+        else:  # 31-100%
             return 3
     
     @property
@@ -204,9 +204,9 @@ class PredictionHistory(models.Model):
     @property
     def calculate_severity_level(self):
         """Calculate severity level based on average of pathology probabilities
-        1: Insignificant findings (0-20%)
-        2: Moderate findings (21-25%)
-        3: Significant findings (26-100%)
+        1: Insignificant findings (0-19%)
+        2: Moderate findings (20-30%)
+        3: Significant findings (31-100%)
         """
         pathology_fields = {
             'atelectasis': self.atelectasis,
@@ -240,11 +240,11 @@ class PredictionHistory(models.Model):
         avg_probability = sum(valid_values) / len(valid_values)
         
         # Determine severity level
-        if avg_probability <= 0.20:  # 0-20%
+        if avg_probability <= 0.19:  # 0-19%
             return 1
-        elif avg_probability <= 0.25:  # 21-25%
+        elif avg_probability <= 0.30:  # 20-30%
             return 2
-        else:  # 26-100%
+        else:  # 31-100%
             return 3
     
     @property

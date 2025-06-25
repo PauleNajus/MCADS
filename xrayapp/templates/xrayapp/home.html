@@ -34,6 +34,11 @@
                                 DenseNet: All 18 pathologies included<br>
                                 ResNet: All pathologies except "Enlarged cardiomediastinum" and "Lung lesion"
                             </div>
+                            <!-- ResNet Warning Message -->
+                            <div id="resnet-warning" class="alert alert-warning mt-2" style="display: none;">
+                                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                                <strong>ResNet 512 model is not available. Please use DenseNet 224 instead.</strong>
+                            </div>
                         </div>
                         
                         <!-- Patient Information Section -->
@@ -154,6 +159,37 @@
     const today = new Date();
     const dateField = document.getElementById('id_date_of_xray');
     const birthField = document.getElementById('id_date_of_birth');
+    
+    // Model selection warning functionality
+    const densenetRadio = document.getElementById('densenet_model');
+    const resnetRadio = document.getElementById('resnet_model');
+    const resnetWarning = document.getElementById('resnet-warning');
+    
+    // Function to handle ResNet selection and show warning
+    const handleResnetSelection = () => {
+      if (resnetRadio && resnetRadio.checked) {
+        // Show warning message
+        if (resnetWarning) {
+          resnetWarning.style.display = 'block';
+        }
+        // Automatically switch back to DenseNet
+        if (densenetRadio) {
+          densenetRadio.checked = true;
+          resnetRadio.checked = false;
+        }
+        // Hide warning after a brief moment to let user see it
+        setTimeout(() => {
+          if (resnetWarning) {
+            resnetWarning.style.display = 'none';
+          }
+        }, 3000); // Hide after 3 seconds
+      }
+    };
+    
+    // Add event listener to ResNet radio button only
+    if (resnetRadio) {
+      resnetRadio.addEventListener('change', handleResnetSelection);
+    }
     
     // Format today's date in YYYY-MM-DD format
     const formattedDate = today.toISOString().split('T')[0];

@@ -61,8 +61,8 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">History Records</h5>
                     <div class="d-flex align-items-center">
-                        <span class="badge bg-primary me-3">{{ history_items.count }} Records Found</span>
-                        {% if history_items.count > 0 %}
+                        <span class="badge bg-primary me-3">{{ total_count }} Records Found</span>
+                        {% if total_count > 0 %}
                         <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAllModal">
                             <i class="fas fa-trash-alt me-1"></i> Delete all
                         </button>
@@ -166,7 +166,7 @@
                     <div class="alert alert-danger">
                         <i class="fas fa-exclamation-triangle me-2"></i> Warning: this action cannot be undone!
                     </div>
-                    <p>Are you sure you want to delete all {{ history_items.count }} prediction history records?</p>
+                    <p>Are you sure you want to delete all {{ total_count }} prediction history records?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>

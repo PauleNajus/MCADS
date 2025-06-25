@@ -317,16 +317,21 @@
                         <tbody>
                             {% for pathology, prob in predictions.items %}
                             <tr>
-                                <td>{{ pathology }}</td>
                                 <td>
-                                    <div class="progress">
+                                    {{ pathology }}
+                                    <button type="button" class="btn-info-pathology ms-2" data-pathology="{{ pathology }}" title="Learn more about {{ pathology }}">
+                                        <i class="fas fa-question-circle"></i>
+                                    </button>
+                                </td>
+                                <td>
+                                    <div class="progress position-relative">
                                         <div class="progress-bar {% if prob > 0.5 %}bg-danger{% else %}bg-success{% endif %}" 
                                              role="progressbar" 
                                              data-probability="{{ prob|percentage }}"
                                              aria-valuemin="0" 
                                              aria-valuemax="100">
-                                            {{ prob|floatformat:3 }}
                                         </div>
+                                        <span class="progress-text">{{ prob|floatformat:3 }}</span>
                                     </div>
                                 </td>
                                 <td>
@@ -354,6 +359,35 @@
     </div>
 </div>
 
+<!-- Pathology Explanation Modal -->
+<div class="modal fade" id="pathologyModal" tabindex="-1" aria-labelledby="pathologyModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pathologyModalLabel">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <span id="pathologyName">Pathology Information</span>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-info">
+                    <strong><i class="fas fa-exclamation-triangle me-2"></i>Medical Disclaimer:</strong>
+                    Always consult with a qualified healthcare professional for proper medical evaluation and treatment.
+                </div>
+                <p id="pathologyDescription" class="text-justify">
+                    <!-- Pathology description will be inserted here -->
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-1"></i>Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     // Set progress bar widths and aria values from data attributes
@@ -362,6 +396,33 @@ document.addEventListener('DOMContentLoaded', () => {
         const percentage = bar.getAttribute('data-probability');
         bar.style.width = percentage + '%';
         bar.setAttribute('aria-valuenow', percentage);
+    });
+    
+    // Pathology explanations data
+    const pathologyExplanations = {
+        {% for pathology, explanation in pathology_explanations.items %}
+        '{{ pathology|escapejs }}': '{{ explanation|escapejs }}',
+        {% endfor %}
+    };
+    
+    // Handle pathology info button clicks
+    document.querySelectorAll('.btn-info-pathology').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const pathology = this.getAttribute('data-pathology');
+            const explanation = pathologyExplanations[pathology];
+            
+            if (explanation) {
+                document.getElementById('pathologyName').textContent = pathology;
+                document.getElementById('pathologyDescription').textContent = explanation;
+                
+                // Show the modal
+                const modal = new bootstrap.Modal(document.getElementById('pathologyModal'));
+                modal.show();
+            }
+        });
     });
     
     const interpretationForm = document.getElementById('interpretability-form');

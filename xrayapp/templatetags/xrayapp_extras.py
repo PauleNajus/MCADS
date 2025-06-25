@@ -34,7 +34,7 @@ def get_top_pathology(prediction_history):
         'Infiltration': prediction_history.infiltration,
         'Mass': prediction_history.mass,
         'Nodule': prediction_history.nodule,
-        'Pleural_Thickening': prediction_history.pleural_thickening,
+        'Pleural Thickening': prediction_history.pleural_thickening,
         'Pneumonia': prediction_history.pneumonia,
         'Pneumothorax': prediction_history.pneumothorax,
         'Fracture': prediction_history.fracture,
