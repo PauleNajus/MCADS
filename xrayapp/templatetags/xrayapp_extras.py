@@ -1,4 +1,7 @@
 from django import template
+from django.utils import timezone
+import pytz
+from datetime import datetime
 
 register = template.Library()
 
@@ -102,3 +105,10 @@ def get_severity_color(level):
     elif level == 3:
         return "text-danger"   # red for significant findings
     return "" 
+
+@register.simple_tag
+def current_eest_time():
+    """Get current server time in EEST timezone with seconds precision"""
+    eest = pytz.timezone('Europe/Tallinn')  # EEST (UTC+3)
+    current_time = timezone.now().astimezone(eest)
+    return current_time.strftime('%Y-%m-%d %H:%M:%S EEST') 

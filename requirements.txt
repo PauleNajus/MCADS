@@ -22,6 +22,7 @@ scikit-image==0.25.2
 
 # Utilities and Core Libraries
 python-dateutil==2.8.2
+pytz==2024.2
 
 # Data Structures and Parsing (Django dependencies)
 sqlparse==0.5.3

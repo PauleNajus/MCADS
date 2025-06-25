@@ -439,6 +439,63 @@
   color: white !important;
 }
 
+/* Keyframe for spinning stripe animation */
+@keyframes spin-stripes {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 40px 0;
+  }
+}
+
+/* Keyframe for glowing effect */
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(123, 51, 73, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(123, 51, 73, 0.8), 0 0 25px rgba(123, 51, 73, 0.6);
+  }
+}
+
+/* Loading progress bars with custom colors */
+.progress-bar.bg-loading {
+  background: linear-gradient(90deg, #f8f9fa 0%, #7B3349 100%) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animated loading progress bar with spinning stripes */
+.progress-bar.bg-loading.progress-bar-animated {
+  background-image: 
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      rgba(255, 255, 255, 0.3) 10px,
+      rgba(255, 255, 255, 0.3) 20px
+    ),
+    linear-gradient(90deg, #f8f9fa 0%, #7B3349 100%) !important;
+  background-size: 40px 40px, 100% 100%;
+  animation: spin-stripes 1s linear infinite, glow-pulse 2s ease-in-out infinite;
+}
+
+/* For striped version, use the same animation */
+.progress-bar.bg-loading.progress-bar-striped.progress-bar-animated {
+  background-image: 
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      rgba(255, 255, 255, 0.4) 10px,
+      rgba(255, 255, 255, 0.4) 20px
+    ),
+    linear-gradient(90deg, #f8f9fa 0%, #7B3349 100%) !important;
+  background-size: 40px 40px, 100% 100%;
+  animation: spin-stripes 1s linear infinite, glow-pulse 2s ease-in-out infinite;
+}
+
 /* Progress bars using secondary colors - except severity indicators */
 .progress-bar.bg-primary,
 .progress-bar.bg-info {
