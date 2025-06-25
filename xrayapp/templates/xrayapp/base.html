@@ -101,7 +101,7 @@
                         &copy; {% now "Y" %} MCADS. All rights reserved. Paulius Bundza and Justas Trinkūnas. Vilnius Tech.
                     </p>
                     <p class="mb-0 text-muted small">
-                        {% load xrayapp_extras %}{% current_eest_time %}
+                        <span id="server-time"></span>
                     </p>
                 </div>
                 <div class="col-md-6 text-md-end">
@@ -191,6 +191,27 @@
             });
         });
     });
+    
+    // Real-time EEST clock
+    function updateEESTTime() {
+        const now = new Date();
+        const eestTime = new Date(now.toLocaleString("en-US", {timeZone: "Europe/Tallinn"}));
+        const timeString = eestTime.getFullYear() + '-' + 
+                          String(eestTime.getMonth() + 1).padStart(2, '0') + '-' + 
+                          String(eestTime.getDate()).padStart(2, '0') + ' ' + 
+                          String(eestTime.getHours()).padStart(2, '0') + ':' + 
+                          String(eestTime.getMinutes()).padStart(2, '0') + ':' + 
+                          String(eestTime.getSeconds()).padStart(2, '0') + ' EEST (UTC+3)';
+        
+        const serverTimeElement = document.getElementById('server-time');
+        if (serverTimeElement) {
+            serverTimeElement.textContent = timeString;
+        }
+    }
+    
+    // Update time immediately and then every second
+    updateEESTTime();
+    setInterval(updateEESTTime, 1000);
     </script>
     
     {% block extra_js %}{% endblock %}
