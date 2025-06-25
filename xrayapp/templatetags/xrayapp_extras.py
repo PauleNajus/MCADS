@@ -111,4 +111,4 @@ def current_eest_time():
     """Get current server time in EEST timezone with seconds precision"""
     eest = pytz.timezone('Europe/Tallinn')  # EEST (UTC+3)
     current_time = timezone.now().astimezone(eest)
-    return current_time.strftime('%Y-%m-%d %H:%M:%S EEST') 
+    return current_time.strftime('%Y-%m-%d %H:%M:%S EEST (UTC+3)') 
