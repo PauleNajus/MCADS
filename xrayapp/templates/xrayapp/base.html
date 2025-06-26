@@ -72,8 +72,14 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                         <li><span class="dropdown-item-text text-muted small">{{ user.first_name }} {{ user.last_name }}</span></li>
+                        {% if user.profile %}
+                        <li><span class="dropdown-item-text text-muted small"><i class="bi bi-person-badge"></i> {{ user.profile.role }}</span></li>
+                        {% endif %}
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="{% url 'account_settings' %}"><i class="bi bi-gear"></i> Account settings</a></li>
+                        {% if user.profile.can_access_admin %}
+                        <li><a class="dropdown-item" href="/secure-admin-mcads-2024/"><i class="bi bi-shield-fill-check"></i> Admin Panel</a></li>
+                        {% endif %}
                         <li><a class="dropdown-item" href="{% url 'logout_confirmation' %}"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
                     </ul>
                 </div>

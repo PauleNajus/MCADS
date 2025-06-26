@@ -1,4 +1,14 @@
 from django.db import models
+from django.contrib.auth.models import Group, Permission
+from django.contrib.contenttypes.models import ContentType
+
+# User Roles Choices
+USER_ROLES = [
+    ('Administrator', 'Administrator'),
+    ('Radiographer', 'Radiographer'),
+    ('Technologist', 'Technologist'),
+    ('Radiologist', 'Radiologist'),
+]
 
 # Create your models here.
 
@@ -268,6 +278,16 @@ class PredictionHistory(models.Model):
 class UserProfile(models.Model):
     """Model to store additional user settings and preferences"""
     user = models.OneToOneField('auth.User', on_delete=models.CASCADE, related_name='profile')
+    
+    # Role-based access control
+    role = models.CharField(
+        max_length=20,
+        choices=USER_ROLES,
+        default='Radiographer',
+        db_index=True
+    )
+    
+    # User preferences
     preferred_theme = models.CharField(
         max_length=10,
         choices=[('auto', 'System Default'), ('light', 'Light'), ('dark', 'Dark')],
@@ -289,5 +309,46 @@ class UserProfile(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
+    # Role-based permission methods
+    def can_access_admin(self):
+        """Check if user can access admin panel"""
+        return self.role == 'Administrator'
+    
+    def can_upload_xrays(self):
+        """Check if user can upload X-ray images"""
+        return self.role in ['Administrator', 'Radiographer', 'Technologist']
+    
+    def can_view_all_patients(self):
+        """Check if user can view all patients' data"""
+        return self.role in ['Administrator', 'Radiographer', 'Radiologist']
+    
+    def can_edit_predictions(self):
+        """Check if user can edit prediction results"""
+        return self.role in ['Administrator', 'Radiographer', 'Radiologist']
+    
+    def can_delete_data(self):
+        """Check if user can delete X-ray data"""
+        return self.role in ['Administrator', 'Radiographer']
+    
+    def can_generate_interpretability(self):
+        """Check if user can generate interpretability visualizations"""
+        return self.role in ['Administrator', 'Radiographer', 'Radiologist']
+    
+    def can_view_interpretability(self):
+        """Check if user can view interpretability visualizations"""
+        return True  # All users can view interpretability
+    
+    def can_manage_users(self):
+        """Check if user can manage other users"""
+        return self.role == 'Administrator'
+    
+    def can_view_prediction_history(self):
+        """Check if user can view prediction history"""
+        return True  # All users can view their own history
+    
+    def can_change_settings(self):
+        """Check if user can change account settings"""
+        return True  # All users can change their own settings
+
     def __str__(self):
-        return f"Profile for {self.user.username}"
+        return f"{self.user.username} - {self.role}"

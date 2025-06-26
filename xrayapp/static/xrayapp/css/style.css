@@ -183,11 +183,17 @@
   content: '\f0b0'; /* filter icon */
 }
 
-/* Login/Authentication - Key icon */
+/* Login/Authentication - No automatic icon (they have their own Bootstrap icons) */
 .card-header.header-auth h2:before,
 .card-header.header-auth h5:before,
-.card-header.header-auth .mb-0:before {
-  content: '\f084'; /* key icon */
+.card-header.header-auth .mb-0:before,
+.card-header.header-auth h4:before {
+  content: none !important; /* Remove automatic icon */
+}
+
+/* Additional override for login pages - target by content */
+.card-header h4:before {
+  content: none !important; /* Remove default icon from h4 elements in card headers */
 }
 
 /* Danger Zone - Warning icon */

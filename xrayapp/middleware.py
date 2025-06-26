@@ -2,8 +2,9 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from django.contrib import messages
 from django.core.cache import cache
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 from django.utils import timezone
+from django.template.loader import render_to_string
 import hashlib
 
 class AuthenticationMiddleware:
@@ -84,4 +85,61 @@ class RateLimitMiddleware:
         """Record a failed login attempt"""
         cache_key = self._get_cache_key(request)
         attempts = cache.get(cache_key, 0)
-        cache.set(cache_key, attempts + 1, self.lockout_duration) 
+        cache.set(cache_key, attempts + 1, self.lockout_duration)
+
+
+class RoleBasedAccessMiddleware:
+    """Middleware to enforce role-based access control"""
+    
+    def __init__(self, get_response):
+        self.get_response = get_response
+        # Define URL patterns and required permissions
+        self.protected_patterns = {
+            '/secure-admin-mcads-2024/': 'can_access_admin',
+            '/admin/': 'can_access_admin',
+            '/prediction-history/delete': 'can_delete_data',
+            '/interpretability/': 'can_generate_interpretability',
+        }
+        
+    def __call__(self, request):
+        # Skip check for public paths
+        public_paths = [
+            '/accounts/login/',
+            '/accounts/logout/',
+            '/favicon.ico',
+            '/static/',
+            '/media/',
+        ]
+        
+        is_public = any(request.path.startswith(path) for path in public_paths)
+        
+        # Only check authenticated users for non-public paths
+        if not is_public and request.user.is_authenticated:
+            if not self._check_access(request):
+                # Return 403 Forbidden with custom error page
+                return HttpResponseForbidden(
+                    render_to_string('errors/403.html', {'request': request})
+                )
+        
+        response = self.get_response(request)
+        return response
+    
+    def _check_access(self, request):
+        """Check if user has access to the requested resource"""
+        try:
+            # Get user profile
+            profile = getattr(request.user, 'profile', None)
+            if not profile:
+                return False
+            
+            # Check against protected patterns
+            for pattern, permission in self.protected_patterns.items():
+                if request.path.startswith(pattern):
+                    return getattr(profile, permission, lambda: False)()
+            
+            # Allow access if no specific protection is defined
+            return True
+            
+        except Exception:
+            # If there's any error, deny access
+            return False 

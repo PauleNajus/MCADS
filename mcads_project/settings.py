@@ -68,6 +68,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'xrayapp.middleware.RateLimitMiddleware',  # Add rate limiting
     'xrayapp.middleware.AuthenticationMiddleware',
+    'xrayapp.middleware.RoleBasedAccessMiddleware',  # Role-based access control
 ]
 
 ROOT_URLCONF = 'mcads_project.urls'
