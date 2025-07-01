@@ -96,7 +96,10 @@
                             <div class="form-text">Supported formats: JPG, PNG, DICOM</div>
                         </div>
                         <div class="text-center">
-                            <button type="submit" class="btn btn-outline-secondary">Analyze X-ray</button>
+                            <button type="submit" class="btn btn-outline-secondary me-2">Analyze X-ray</button>
+                            <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#acceptableImagesModal">
+                                <i class="bi bi-info-circle"></i> Acceptable images
+                            </button>
                         </div>
                     </form>
                     
@@ -144,6 +147,100 @@
     
     <!-- Add spacing between MCADS section and footer -->
     <div class="mb-5"></div>
+</div>
+
+<!-- Acceptable Images Modal -->
+<div class="modal fade" id="acceptableImagesModal" tabindex="-1" aria-labelledby="acceptableImagesModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="acceptableImagesModalLabel">
+                    <i class="bi bi-info-circle"></i> Acceptable Images Guidelines
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <h6 class="text-success"><i class="bi bi-check-circle"></i> Good X-ray Images</h6>
+                        <p class="small text-muted mb-3">These images will produce the best analysis results:</p>
+                        <ul class="small mb-3">
+                            <li>Clear frontal chest X-rays (PA or AP view)</li>
+                            <li>High contrast with good visibility of anatomical structures</li>
+                            <li>Properly centered patient positioning</li>
+                            <li>Adequate penetration (spine visible through heart)</li>
+                            <li>No artifacts, text overlays, or measurement markers</li>
+                        </ul>
+                        
+                        <div class="row mb-4">
+                            {% load static %}
+                            <div class="col-md-4 mb-2">
+                                <img src="{% static 'xrayapp/images/examples/good/Good1.jpg' %}" 
+                                     class="img-fluid rounded border" 
+                                     alt="Good X-ray example 1"
+                                     style="height: 150px; object-fit: cover; width: 100%;">
+                                <p class="small text-center mt-1 text-success">Good Example 1</p>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <img src="{% static 'xrayapp/images/examples/good/Good2.jpeg' %}" 
+                                     class="img-fluid rounded border" 
+                                     alt="Good X-ray example 2"
+                                     style="height: 150px; object-fit: cover; width: 100%;">
+                                <p class="small text-center mt-1 text-success">Good Example 2</p>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <img src="{% static 'xrayapp/images/examples/good/Good3.jpeg' %}" 
+                                     class="img-fluid rounded border" 
+                                     alt="Good X-ray example 3"
+                                     style="height: 150px; object-fit: cover; width: 100%;">
+                                <p class="small text-center mt-1 text-success">Good Example 3</p>
+                            </div>
+                        </div>
+                        
+                        <h6 class="text-danger"><i class="bi bi-x-circle"></i> Poor Quality Images</h6>
+                        <p class="small text-muted mb-3">These types of images may produce inaccurate results:</p>
+                        <ul class="small mb-3">
+                            <li>Lateral or oblique views (side views)</li>
+                            <li>Poor image quality, low contrast, or overexposed images</li>
+                            <li>Images with significant artifacts or medical devices</li>
+                            <li>Cropped images or partial chest views</li>
+                            <li>Images with text overlays, annotations, or watermarks</li>
+                            <li>Screenshots or photos of X-rays on monitors</li>
+                        </ul>
+                        
+                        <div class="row">
+                            <div class="col-md-4 mb-2">
+                                <img src="{% static 'xrayapp/images/examples/bad/Bad1.jpeg' %}" 
+                                     class="img-fluid rounded border" 
+                                     alt="Bad X-ray example 1"
+                                     style="height: 150px; object-fit: cover; width: 100%;">
+                                <p class="small text-center mt-1 text-danger">Poor Example 1</p>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <img src="{% static 'xrayapp/images/examples/bad/Bad2.jpeg' %}" 
+                                     class="img-fluid rounded border" 
+                                     alt="Bad X-ray example 2"
+                                     style="height: 150px; object-fit: cover; width: 100%;">
+                                <p class="small text-center mt-1 text-danger">Poor Example 2</p>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <img src="{% static 'xrayapp/images/examples/bad/Bad3.jpeg' %}" 
+                                     class="img-fluid rounded border" 
+                                     alt="Bad X-ray example 3"
+                                     style="height: 150px; object-fit: cover; width: 100%;">
+                                <p class="small text-center mt-1 text-danger">Poor Example 3</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="bi bi-x-lg"></i> Close
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
 
