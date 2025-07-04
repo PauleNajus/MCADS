@@ -469,9 +469,9 @@
                                             <i class="fas fa-question-circle"></i>
                                         </button>
                                     </td>
-                                    <td data-value="{{ prob|floatformat:3 }}" data-color="{% if prob > 0.5 %}#dc3545{% else %}#198754{% endif %}">
+                                    <td data-value="{{ prob|floatformat:3 }}" data-color="{% if prob >= 0.45 and prob <= 0.55 %}#ffc107{% elif prob > 0.5 %}#dc3545{% else %}#198754{% endif %}">
                                         <div class="progress position-relative">
-                                            <div class="progress-bar {% if prob > 0.5 %}bg-danger{% else %}bg-success{% endif %}" 
+                                            <div class="progress-bar {% if prob >= 0.45 and prob <= 0.55 %}bg-warning{% elif prob > 0.5 %}bg-danger{% else %}bg-success{% endif %}" 
                                                  role="progressbar" 
                                                  data-probability="{{ prob|percentage }}"
                                                  aria-valuemin="0" 

@@ -325,7 +325,7 @@
                                 </td>
                                 <td>
                                     <div class="progress position-relative">
-                                        <div class="progress-bar {% if prob > 0.5 %}bg-danger{% else %}bg-success{% endif %}" 
+                                        <div class="progress-bar {% if prob >= 0.45 and prob <= 0.55 %}bg-warning{% elif prob > 0.5 %}bg-danger{% else %}bg-success{% endif %}" 
                                              role="progressbar" 
                                              data-probability="{{ prob|percentage }}"
                                              aria-valuemin="0" 

@@ -15,6 +15,7 @@ urlpatterns = [
     path('prediction-history/delete-all/', views.delete_all_prediction_history, name='delete_all_prediction_history'),
     path('account/settings/', views.account_settings, name='account_settings'),
     path('accounts/logout-confirmation/', views.logout_confirmation, name='logout_confirmation'),
+    path('terms/', views.terms_of_service, name='terms_of_service'),
 ]
 
 # Add media URL patterns for development

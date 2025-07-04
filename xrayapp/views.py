@@ -872,3 +872,6 @@ def handler503(request):
 def handler504(request):
     """504 Gateway Timeout handler."""
     return render(request, 'errors/504.html', status=504)
+
+def terms_of_service(request):
+    return render(request, 'xrayapp/terms_of_service.html')
