@@ -445,23 +445,49 @@
   color: white !important;
 }
 
-/* Keyframe for spinning stripe animation */
+/* Keyframe for ultra-fast rightward-moving stripe animation */
 @keyframes spin-stripes {
   0% {
-    background-position: 0 0;
+    background-position: 0 0, 0 0;
   }
   100% {
-    background-position: 40px 0;
+    background-position: 16px 0, 0 0;
   }
 }
 
-/* Keyframe for glowing effect */
+/* Reduced glowing effect (3x less intense) */
 @keyframes glow-pulse {
   0%, 100% {
-    box-shadow: 0 0 5px rgba(123, 51, 73, 0.4);
+    box-shadow: 0 0 5px rgba(123, 51, 73, 0.3), 0 0 8px rgba(123, 51, 73, 0.2);
   }
   50% {
-    box-shadow: 0 0 15px rgba(123, 51, 73, 0.8), 0 0 25px rgba(123, 51, 73, 0.6);
+    box-shadow: 0 0 13px rgba(123, 51, 73, 0.4), 0 0 20px rgba(123, 51, 73, 0.3), 0 0 27px rgba(123, 51, 73, 0.2), inset 0 0 7px rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* New intensive shimmer animation */
+@keyframes intense-shimmer {
+  0% {
+    transform: translateX(-100%) scale(1);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(0%) scale(1.1);
+  }
+  100% {
+    transform: translateX(100%) scale(1);
+    opacity: 0;
+  }
+}
+
+/* Reduced pulsing border animation (3x less intense) */
+@keyframes border-pulse {
+  0%, 100% {
+    border: 2px solid rgba(123, 51, 73, 0.1);
+  }
+  50% {
+    border: 2px solid rgba(123, 51, 73, 0.3);
   }
 }
 
@@ -470,36 +496,112 @@
   background: linear-gradient(90deg, #f8f9fa 0%, #7B3349 100%) !important;
   position: relative;
   overflow: hidden;
+  /* Ensure the progress bar container clips content */
+  background-clip: padding-box;
 }
 
-/* Animated loading progress bar with spinning stripes */
+/* Enhanced progress container for ultra-intense animations */
+.progress {
+  overflow: visible; /* Allow glow effects to show */
+  background-clip: padding-box;
+  position: relative;
+  border-radius: 6px;
+  /* Add subtle container glow for loading bars */
+}
+
+.progress:has(.progress-bar.bg-loading.progress-bar-animated) {
+  box-shadow: 0 0 3px rgba(123, 51, 73, 0.1);
+  animation: border-pulse 0.6s ease-in-out infinite;
+}
+
+/* Progress bars with loading animations - ensure they only show in filled area */
+.progress .progress-bar.bg-loading.progress-bar-animated,
+.progress .progress-bar.bg-loading.progress-bar-striped.progress-bar-animated {
+  /* The progress-bar element width is set by JavaScript to the percentage complete */
+  /* Stripes will only be visible within this width */
+  overflow: hidden;
+  position: relative;
+}
+
+/* Ultra-intensified animated loading progress bar with dramatic effects */
 .progress-bar.bg-loading.progress-bar-animated {
   background-image: 
     repeating-linear-gradient(
       45deg,
-      transparent,
-      transparent 10px,
-      rgba(255, 255, 255, 0.3) 10px,
-      rgba(255, 255, 255, 0.3) 20px
+      rgba(255, 255, 255, 0.9),
+      rgba(255, 255, 255, 0.9) 8px,
+      rgba(255, 255, 255, 0.3) 8px,
+      rgba(255, 255, 255, 0.3) 16px
     ),
     linear-gradient(90deg, #f8f9fa 0%, #7B3349 100%) !important;
-  background-size: 40px 40px, 100% 100%;
-  animation: spin-stripes 1s linear infinite, glow-pulse 2s ease-in-out infinite;
+  background-size: 32px 32px, 100% 100%;
+  animation: 
+    spin-stripes 0.16s linear infinite, 
+    glow-pulse 0.4s ease-in-out infinite,
+    border-pulse 0.6s ease-in-out infinite;
+  /* Performance optimizations */
+  will-change: background-position, box-shadow, border;
+  transform: translateZ(0); /* Enable hardware acceleration */
+  /* Ensure stripes only show in filled area */
+  background-repeat: repeat, no-repeat;
+  background-clip: padding-box;
+  /* Add dramatic border effects */
+  border-radius: 4px;
+  position: relative;
+  overflow: visible;
 }
 
-/* For striped version, use the same animation */
+/* Ultra-intensified striped version with maximum dramatic effects */
 .progress-bar.bg-loading.progress-bar-striped.progress-bar-animated {
   background-image: 
     repeating-linear-gradient(
       45deg,
-      transparent,
-      transparent 10px,
-      rgba(255, 255, 255, 0.4) 10px,
-      rgba(255, 255, 255, 0.4) 20px
+      rgba(255, 255, 255, 1.0),
+      rgba(255, 255, 255, 1.0) 8px,
+      rgba(255, 255, 255, 0.4) 8px,
+      rgba(255, 255, 255, 0.4) 16px
     ),
     linear-gradient(90deg, #f8f9fa 0%, #7B3349 100%) !important;
-  background-size: 40px 40px, 100% 100%;
-  animation: spin-stripes 1s linear infinite, glow-pulse 2s ease-in-out infinite;
+  background-size: 32px 32px, 100% 100%;
+  animation: 
+    spin-stripes 0.16s linear infinite, 
+    glow-pulse 0.4s ease-in-out infinite,
+    border-pulse 0.6s ease-in-out infinite;
+  /* Performance optimizations */
+  will-change: background-position, box-shadow, border;
+  transform: translateZ(0); /* Enable hardware acceleration */
+  /* Ensure stripes only show in filled area */
+  background-repeat: repeat, no-repeat;
+  background-clip: padding-box;
+  /* Add dramatic border effects */
+  border-radius: 4px;
+  position: relative;
+  overflow: visible;
+}
+
+/* Add ultra-intense shimmer effect overlay for maximum drama */
+.progress-bar.bg-loading.progress-bar-animated::before,
+.progress-bar.bg-loading.progress-bar-striped.progress-bar-animated::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 1.0),
+    rgba(255, 255, 255, 0.8),
+    transparent
+  );
+  animation: intense-shimmer 0.8s ease-in-out infinite;
+  border-radius: 4px;
+  /* Performance optimizations for pseudo-element */
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  pointer-events: none;
 }
 
 /* Progress bars using secondary colors - except severity indicators */
@@ -511,14 +613,48 @@
 /* Keep original Bootstrap colors for severity level progress bars */
 .progress-bar.bg-success {
   background-color: #198754 !important; /* Green for Insignificant findings */
+  /* Explicitly disable animations for static bars */
+  animation: none !important;
+  background-image: none !important;
 }
 
 .progress-bar.bg-warning {
   background-color: #ffc107 !important; /* Yellow for Moderate findings */
+  /* Explicitly disable animations for static bars */
+  animation: none !important;
+  background-image: none !important;
 }
 
 .progress-bar.bg-danger {
   background-color: #dc3545 !important; /* Red for Significant findings */
+  /* Explicitly disable animations for static bars */
+  animation: none !important;
+  background-image: none !important;
+}
+
+/* Ensure primary and info progress bars (if any) are also static */
+.progress-bar.bg-primary:not(.bg-loading),
+.progress-bar.bg-info:not(.bg-loading) {
+  background-color: #6c757d !important;
+  /* Explicitly disable animations for static bars */
+  animation: none !important;
+  background-image: none !important;
+}
+
+/* Enhanced hover effect for static progress bars */
+.progress-bar.bg-success:hover,
+.progress-bar.bg-warning:hover,
+.progress-bar.bg-danger:hover {
+  transform: scale(1.02);
+  transition: transform 0.2s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Ensure loading bars have proper z-index for shimmer effect */
+.progress-bar.bg-loading.progress-bar-animated,
+.progress-bar.bg-loading.progress-bar-striped.progress-bar-animated {
+  position: relative;
+  z-index: 1;
 }
 
 /* Progress text positioning */
