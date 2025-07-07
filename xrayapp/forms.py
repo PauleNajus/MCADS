@@ -221,8 +221,7 @@ class ChangePasswordForm(forms.Form):
     new_password = forms.CharField(
         widget=forms.PasswordInput(attrs={'class': 'form-control'}),
         label="New Password",
-        min_length=8,
-        help_text="Password must be at least 8 characters long."
+        min_length=8
     )
     confirm_password = forms.CharField(
         widget=forms.PasswordInput(attrs={'class': 'form-control'}),
