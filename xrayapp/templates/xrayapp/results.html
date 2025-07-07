@@ -456,21 +456,21 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th>Pathology</th>
-                                    <th>Probability</th>
+                                    <th style="width: 40%;">Pathology</th>
+                                    <th style="width: 60%;">Probability</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for pathology, prob in predictions.items %}
                                 <tr>
-                                    <td>
+                                    <td style="width: 40%;">
                                         {{ pathology }}
                                         <button type="button" class="btn-info-pathology ms-2" data-pathology="{{ pathology }}" title="Learn more about {{ pathology }}">
                                             <i class="fas fa-question-circle"></i>
                                         </button>
                                     </td>
-                                    <td data-value="{{ prob|floatformat:3 }}" data-color="{% if prob >= 0.45 and prob <= 0.55 %}#ffc107{% elif prob > 0.5 %}#dc3545{% else %}#198754{% endif %}">
-                                        <div class="progress position-relative">
+                                    <td style="width: 60%;" data-value="{{ prob|floatformat:3 }}" data-color="{% if prob >= 0.45 and prob <= 0.55 %}#ffc107{% elif prob > 0.5 %}#dc3545{% else %}#198754{% endif %}">
+                                        <div class="progress position-relative" style="min-width: 200px;">
                                             <div class="progress-bar {% if prob >= 0.45 and prob <= 0.55 %}bg-warning{% elif prob > 0.5 %}bg-danger{% else %}bg-success{% endif %}" 
                                                  role="progressbar" 
                                                  data-probability="{{ prob|percentage }}"
