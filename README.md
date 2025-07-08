@@ -25,12 +25,14 @@ A Django web application for analyzing chest X-ray images using the TorchXRayVis
 ### Quick Setup (Recommended)
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/yourusername/mcads.git
 cd mcads
 ```
 
-2. Run the setup script:
+1. Run the setup script:
+
 ```bash
 # On Windows
 python setup.py
@@ -39,9 +41,10 @@ python setup.py
 python3 setup.py
 ```
 
-3. Follow the prompts to set up your virtual environment, install dependencies, and configure Django.
+1. Follow the prompts to set up your virtual environment, install dependencies, and configure Django.
 
-4. Start the development server:
+1. Start the development server:
+
 ```bash
 # On Windows
 .\.venv\Scripts\activate
@@ -55,12 +58,14 @@ python manage.py runserver
 ### Manual Setup
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/yourusername/mcads.git
 cd mcads
 ```
 
-2. Create and activate a virtual environment:
+1. Create and activate a virtual environment:
+
 ```bash
 # On Windows
 python -m venv .venv
@@ -71,34 +76,39 @@ python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-3. Install dependencies:
+1. Install dependencies:
+
 ```bash
 pip install -r requirements.txt
 ```
 
-4. Create a .env file in the project root with the following content:
-```
+1. Create a .env file in the project root with the following content:
+
+```text
 DEBUG=True
 SECRET_KEY=your-secret-key
 ALLOWED_HOSTS=localhost,127.0.0.1
 ```
 
-5. Run migrations:
+1. Run migrations:
+
 ```bash
 python manage.py migrate
 ```
 
-6. Collect static files:
+1. Collect static files:
+
 ```bash
 python manage.py collectstatic
 ```
 
-7. Start the development server:
+1. Start the development server:
+
 ```bash
 python manage.py runserver
 ```
 
-8. Open your browser and navigate to http://127.0.0.1:8000/
+1. Open your browser and navigate to <http://127.0.0.1:8000/>
 
 ### Additional Steps for Linux Users
 
@@ -113,9 +123,9 @@ sudo apt-get install -y python3-dev libjpeg-dev zlib1g-dev
 ## Usage
 
 1. Upload a chest X-ray image (JPG, PNG, or DICOM format)
-2. Wait for the analysis to complete
-3. View the pathology prediction results
-4. Toggle between light and dark modes using the theme toggle button in the navigation bar
+1. Wait for the analysis to complete
+1. View the pathology prediction results
+1. Toggle between light and dark modes using the theme toggle button in the navigation bar
 
 ## Model Details
 
@@ -213,7 +223,7 @@ chmod +x run_linux.sh
 For GPU acceleration with NVIDIA GPUs on Linux:
 
 1. Install the appropriate NVIDIA drivers for your distribution
-2. Install CUDA and cuDNN following the [official PyTorch documentation](https://pytorch.org/get-started/locally/)
+1. Install CUDA and cuDNN following the [official PyTorch documentation](https://pytorch.org/get-started/locally/)
 
 Example for Ubuntu with CUDA 12.1:
 
@@ -259,4 +269,5 @@ This project uses the [TorchXRayVision](https://github.com/mlmed/torchxrayvision
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE). 
+This project is licensed under the [MIT License](LICENSE).
+

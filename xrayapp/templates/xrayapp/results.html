@@ -626,7 +626,10 @@
     </div>
 </div>
 
+{{ pathology_explanations|json_script:"pathology-data" }}
+{{ xray.id|json_script:"xray-id" }}
 <script>
+const XRAY_ID = JSON.parse(document.getElementById('xray-id').textContent);
 document.addEventListener('DOMContentLoaded', () => {
     // Set progress bar widths and aria values from data attributes
     const progressBars = document.querySelectorAll('.progress-bar[data-probability]');
@@ -637,11 +640,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     // Pathology explanations data
-    const pathologyExplanations = {
-        {% for pathology, explanation in pathology_explanations.items %}
-        '{{ pathology|escapejs }}': '{{ explanation|escapejs }}',
-        {% endfor %}
-    };
+    const pathologyExplanations = JSON.parse(document.getElementById('pathology-data').textContent);
     
     // Handle pathology info button clicks
     document.querySelectorAll('.btn-info-pathology').forEach(button => {
@@ -705,7 +704,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Check progress from the server
         function checkProgress() {
-            fetch(`/progress/{{ xray.id }}/`)
+            fetch(`/progress/${XRAY_ID}/`)
                 .then(response => response.json())
                 .then(data => {
                     progress = data.progress;
@@ -719,7 +718,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         // Complete - redirect to view page after a short delay
                         statusText.textContent = 'Visualization complete! Redirecting...';
                         setTimeout(() => {
-                            window.location.href = "{% url 'view_interpretability' xray.id %}";
+                            window.location.href = `/view-interpretability/${XRAY_ID}/`;
                         }, 1000);
                     }
                 })

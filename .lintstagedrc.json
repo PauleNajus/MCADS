@@ -1,0 +1,15 @@
+{
+  "*.{css,scss}": [
+    "stylelint --fix"
+  ],
+  "*.{md,markdown}": [
+    "markdownlint --fix"
+  ],
+  "*.py": [
+    "flake8",
+    "black --check"
+  ],
+  "*.{js,jsx,ts,tsx}": [
+    "eslint --fix"
+  ]
+} 
