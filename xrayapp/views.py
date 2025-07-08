@@ -789,6 +789,9 @@ def account_settings(request):
             user_form.save()
             messages.success(request, 'Your profile information has been updated successfully.')
             active_tab = 'profile'
+        else:
+            messages.error(request, 'Please correct the errors below.')
+            active_tab = 'profile'
     else:
         user_form = UserInfoForm(instance=request.user)
     
@@ -797,7 +800,10 @@ def account_settings(request):
         settings_form = UserProfileForm(request.POST, instance=profile)
         if settings_form.is_valid():
             settings_form.save()
-            messages.success(request, 'Your settings have been updated successfully.')
+            messages.success(request, 'Your preferences have been updated successfully. Please refresh the page to see theme changes.')
+            active_tab = 'settings'
+        else:
+            messages.error(request, 'Please correct the errors in your preferences.')
             active_tab = 'settings'
     else:
         settings_form = UserProfileForm(instance=profile)
@@ -813,6 +819,9 @@ def account_settings(request):
             # Update the session to prevent the user from being logged out
             update_session_auth_hash(request, user)
             messages.success(request, 'Your password has been changed successfully.')
+            active_tab = 'security'
+        else:
+            messages.error(request, 'Please correct the errors in your password form.')
             active_tab = 'security'
     else:
         password_form = ChangePasswordForm(request.user)

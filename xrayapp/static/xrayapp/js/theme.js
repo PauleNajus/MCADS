@@ -11,15 +11,35 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Function to toggle the theme
   const toggleTheme = () => {
-    if (localStorage.getItem('theme') === 'dark') {
+    const currentTheme = getCurrentTheme();
+    if (currentTheme === 'dark') {
       setTheme('light');
     } else {
       setTheme('dark');
     }
   };
   
+  // Function to get current theme, respecting user preferences
+  const getCurrentTheme = () => {
+    // If user is authenticated and has preferences, use those
+    if (window.userPreferences && window.userPreferences.theme && window.userPreferences.theme !== 'auto') {
+      return window.userPreferences.theme;
+    }
+    
+    // Fall back to localStorage or system preference
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme && storedTheme !== 'auto') {
+      return storedTheme;
+    }
+    
+    // Use system preference for 'auto' or if no preference is set
+    return prefersDarkScheme.matches ? 'dark' : 'light';
+  };
+  
   // Function to update the icon
   const updateThemeIcon = (themeName) => {
+    if (!themeToggle) return;
+    
     if (themeName === 'dark') {
       themeToggle.innerHTML = '<i class="bi bi-sun-fill"></i>';
       themeToggle.setAttribute('title', 'Switch to light mode');
@@ -29,20 +49,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
   
-  // Set the initial theme based on localStorage or system preferences
-  if (localStorage.getItem('theme') === null) {
-    if (prefersDarkScheme.matches) {
-      setTheme('dark');
-    } else {
-      setTheme('light');
-    }
-  } else {
-    const theme = localStorage.getItem('theme');
+  // Initialize theme based on user preferences or stored preferences
+  const initializeTheme = () => {
+    const theme = getCurrentTheme();
     setTheme(theme);
-  }
+  };
   
   // Add event listener to theme toggle button
   if (themeToggle) {
     themeToggle.addEventListener('click', toggleTheme);
   }
+  
+  // Listen for system theme changes when user preference is 'auto'
+  prefersDarkScheme.addEventListener('change', (e) => {
+    const userTheme = window.userPreferences?.theme || localStorage.getItem('theme');
+    if (!userTheme || userTheme === 'auto') {
+      setTheme(e.matches ? 'dark' : 'light');
+    }
+  });
+  
+  // Initialize the theme
+  initializeTheme();
 }); 

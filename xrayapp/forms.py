@@ -189,6 +189,9 @@ class UserProfileForm(forms.ModelForm):
             'preferred_theme': forms.Select(attrs={'class': 'form-select'}),
             'preferred_language': forms.Select(attrs={'class': 'form-select'}),
             'dashboard_view': forms.Select(attrs={'class': 'form-select'}),
+            'email_notifications': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'processing_complete_notification': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'two_factor_auth_enabled': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
 
 
