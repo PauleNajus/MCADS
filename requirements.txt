@@ -1,5 +1,5 @@
 # Core Django and Web Framework
-Django==5.2.3
+Django==5.2.4
 django-bootstrap5==25.1
 django-environ==0.12.0
 
@@ -7,28 +7,28 @@ django-environ==0.12.0
 python-magic==0.4.27  # For MIME type validation
 django-ratelimit==4.1.0  # Additional rate limiting
 django-csp==3.8  # Content Security Policy
-Pillow==11.0.0  # Keep updated for security
+Pillow==11.3.0  # Keep updated for security
 
 # Machine Learning and Scientific Computing
 torch==2.7.1
 torchvision==0.22.1
 torchxrayvision==1.3.4
-numpy==2.3.0
-matplotlib==3.10.1
+numpy==2.2.6  # Constrained by PyTorch compatibility
+matplotlib==3.10.3
 
 # Image Processing and Computer Vision
-opencv-python==4.11.0.86
+opencv-python==4.12.0.88
 scikit-image==0.25.2
 
 # Utilities and Core Libraries
-python-dateutil==2.8.2
+python-dateutil==2.9.0.post0
 pytz==2024.2
 
 # Data Structures and Parsing (Django dependencies)
 sqlparse==0.5.3
 
 # System and Compatibility (Django/HTTP dependencies)
-asgiref==3.8.1
+asgiref==3.9.1
 tzdata==2025.2
 
 # Development and monitoring
