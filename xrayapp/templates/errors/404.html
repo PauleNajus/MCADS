@@ -1,11 +1,12 @@
 {% extends "errors/error_base.html" %}
+{% load i18n %}
 
 {% block title %}404 Not Found - MCADS{% endblock %}
 
 {% block error_code %}404{% endblock %}
 
-{% block error_message %}Page Not Found{% endblock %}
+{% block error_message %}{% trans "Page Not Found" %}{% endblock %}
 
 {% block error_description %}
-The server cannot locate the requested resource. This is by far the most common client-side error.
+{% trans "The server cannot locate the requested resource. This is by far the most common client-side error." %}
 {% endblock %} 

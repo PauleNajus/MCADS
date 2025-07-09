@@ -21,6 +21,7 @@ from django.views.generic.base import RedirectView
 urlpatterns = [
     path('secure-admin-mcads-2024/', admin.site.urls),  # Changed from 'admin/' for security
     path('accounts/', include('django.contrib.auth.urls')),
+    path('i18n/', include('django.conf.urls.i18n')),  # Language switching URLs
     path('', include('xrayapp.urls')),
     # Add favicon redirect
     path('favicon.ico', 

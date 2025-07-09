@@ -1,0 +1,3792 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: MCADS 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-09 10:51+0300\n"
+"PO-Revision-Date: 2025-07-08 23:30+0300\n"
+"Last-Translator: MCADS Team\n"
+"Language-Team: Lithuanian\n"
+"Language: lt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
+"1 : n % 1 != 0 ? 2: 3);\n"
+
+#: .\venv\Lib\site-packages\click\_termui_impl.py:556
+#, python-brace-format
+msgid "{editor}: Editing failed"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\_termui_impl.py:560
+#, python-brace-format
+msgid "{editor}: Editing failed: {e}"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\core.py:1124
+msgid "Aborted!"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\core.py:1349
+#: .\venv\Lib\site-packages\click\core.py:1379
+#, python-brace-format
+msgid "(Deprecated) {text}"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\core.py:1396
+#, fuzzy
+#| msgid "Actions"
+msgid "Options"
+msgstr "Veiksmai"
+
+#: .\venv\Lib\site-packages\click\core.py:1422
+#, python-brace-format
+msgid "Got unexpected extra argument ({args})"
+msgid_plural "Got unexpected extra arguments ({args})"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: .\venv\Lib\site-packages\click\core.py:1438
+msgid "DeprecationWarning: The command {name!r} is deprecated."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\core.py:1645
+msgid "Commands"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\core.py:1677
+msgid "Missing command."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\core.py:1755
+msgid "No such command {name!r}."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\core.py:2313
+msgid "Value must be an iterable."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\core.py:2334
+#, python-brace-format
+msgid "Takes {nargs} values but 1 was given."
+msgid_plural "Takes {nargs} values but {len} were given."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: .\venv\Lib\site-packages\click\core.py:2783
+#, python-brace-format
+msgid "env var: {var}"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\core.py:2813
+msgid "(dynamic)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\core.py:2828
+#, python-brace-format
+msgid "default: {default}"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\core.py:2841
+msgid "required"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\decorators.py:457
+#, python-format
+msgid "%(prog)s, version %(version)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\decorators.py:520
+msgid "Show the version and exit."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\decorators.py:541
+msgid "Show this message and exit."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\exceptions.py:49
+#: .\venv\Lib\site-packages\click\exceptions.py:88
+#, python-brace-format
+msgid "Error: {message}"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\exceptions.py:80
+#, python-brace-format
+msgid "Try '{command} {option}' for help."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\exceptions.py:129
+#, python-brace-format
+msgid "Invalid value: {message}"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\exceptions.py:131
+#, python-brace-format
+msgid "Invalid value for {param_hint}: {message}"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\exceptions.py:187
+msgid "Missing argument"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\exceptions.py:189
+msgid "Missing option"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\exceptions.py:191
+msgid "Missing parameter"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\exceptions.py:193
+#, python-brace-format
+msgid "Missing {param_type}"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\exceptions.py:200
+#, python-brace-format
+msgid "Missing parameter: {param_name}"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\exceptions.py:220
+#, python-brace-format
+msgid "No such option: {name}"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\exceptions.py:232
+#, python-brace-format
+msgid "Did you mean {possibility}?"
+msgid_plural "(Possible options: {possibilities})"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: .\venv\Lib\site-packages\click\exceptions.py:270
+#, fuzzy
+#| msgid "Unknown"
+msgid "unknown error"
+msgstr "Nežinoma"
+
+#: .\venv\Lib\site-packages\click\exceptions.py:277
+msgid "Could not open file {filename!r}: {message}"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\formatting.py:156
+msgid "Usage:"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\parser.py:233
+msgid "Argument {name!r} takes {nargs} values."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\parser.py:415
+msgid "Option {name!r} does not take a value."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\parser.py:476
+msgid "Option {name!r} requires an argument."
+msgid_plural "Option {name!r} requires {nargs} arguments."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: .\venv\Lib\site-packages\click\shell_completion.py:326
+msgid "Shell completion is not supported for Bash versions older than 4.4."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\shell_completion.py:333
+msgid "Couldn't detect Bash version, shell completion is not supported."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\termui.py:158
+#, fuzzy
+#| msgid "Role Information"
+msgid "Repeat for confirmation"
+msgstr "Vaidmens informacija"
+
+#: .\venv\Lib\site-packages\click\termui.py:174
+msgid "Error: The value you entered was invalid."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\termui.py:176
+#, python-brace-format
+msgid "Error: {e.message}"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\termui.py:187
+#, fuzzy
+#| msgid "New passwords do not match."
+msgid "Error: The two entered values do not match."
+msgstr "Nauji slaptažodžiai nesutampa."
+
+#: .\venv\Lib\site-packages\click\termui.py:243
+msgid "Error: invalid input"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\termui.py:773
+msgid "Press any key to continue..."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\types.py:267
+#, python-brace-format
+msgid ""
+"Choose from:\n"
+"\t{choices}"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\types.py:299
+msgid "{value!r} is not {choice}."
+msgid_plural "{value!r} is not one of {choices}."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: .\venv\Lib\site-packages\click\types.py:393
+msgid "{value!r} does not match the format {format}."
+msgid_plural "{value!r} does not match the formats {formats}."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: .\venv\Lib\site-packages\click\types.py:415
+msgid "{value!r} is not a valid {number_type}."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\types.py:471
+#, python-brace-format
+msgid "{value} is not in the range {range}."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\types.py:612
+msgid "{value!r} is not a valid boolean."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\types.py:636
+msgid "{value!r} is not a valid UUID."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\types.py:826
+#, fuzzy
+#| msgid "Profile"
+msgid "file"
+msgstr "Profilis"
+
+#: .\venv\Lib\site-packages\click\types.py:828
+msgid "directory"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\types.py:830
+msgid "path"
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\types.py:881
+msgid "{name} {filename!r} does not exist."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\types.py:890
+msgid "{name} {filename!r} is a file."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\types.py:898
+msgid "{name} {filename!r} is a directory."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\types.py:907
+msgid "{name} {filename!r} is not readable."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\types.py:916
+msgid "{name} {filename!r} is not writable."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\types.py:925
+msgid "{name} {filename!r} is not executable."
+msgstr ""
+
+#: .\venv\Lib\site-packages\click\types.py:992
+#, python-brace-format
+msgid "{len_type} values are required, but {len_value} was given."
+msgid_plural "{len_type} values are required, but {len_value} were given."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: .\venv\Lib\site-packages\django\contrib\messages\apps.py:16
+msgid "Messages"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\contrib\sitemaps\apps.py:8
+msgid "Site Maps"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\contrib\staticfiles\apps.py:9
+msgid "Static Files"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\contrib\syndication\apps.py:7
+#, fuzzy
+#| msgid "Indemnification"
+msgid "Syndication"
+msgstr "Žalos atlyginimas"
+
+#. Translators: String used to replace omitted page numbers in elided page
+#. range generated by paginators, e.g. [1, 2, '…', 5, 6, 7, '…', 9, 10].
+#: .\venv\Lib\site-packages\django\core\paginator.py:30
+msgid "…"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\paginator.py:32
+msgid "That page number is not an integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\paginator.py:33
+msgid "That page number is less than 1"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\paginator.py:34
+msgid "That page contains no results"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:22
+msgid "Enter a valid value."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:70
+msgid "Enter a valid domain name."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:153
+#: .\venv\Lib\site-packages\django\forms\fields.py:775
+msgid "Enter a valid URL."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:200
+msgid "Enter a valid integer."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:211
+#, fuzzy
+#| msgid "Email address"
+msgid "Enter a valid email address."
+msgstr "El. pašto adresas"
+
+#. Translators: "letters" means latin letters: a-z and A-Z.
+#: .\venv\Lib\site-packages\django\core\validators.py:289
+msgid ""
+"Enter a valid “slug” consisting of letters, numbers, underscores or hyphens."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:297
+msgid ""
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
+"hyphens."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:309
+#: .\venv\Lib\site-packages\django\core\validators.py:318
+#: .\venv\Lib\site-packages\django\core\validators.py:332
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2220
+#, python-format
+msgid "Enter a valid %(protocol)s address."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:311
+msgid "IPv4"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:320
+#: .\venv\Lib\site-packages\django\utils\ipv6.py:43
+msgid "IPv6"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:334
+msgid "IPv4 or IPv6"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:375
+msgid "Enter only digits separated by commas."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:381
+#, python-format
+msgid "Ensure this value is %(limit_value)s (it is %(show_value)s)."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:416
+#, python-format
+msgid "Ensure this value is less than or equal to %(limit_value)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:425
+#, python-format
+msgid "Ensure this value is greater than or equal to %(limit_value)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:434
+#, python-format
+msgid "Ensure this value is a multiple of step size %(limit_value)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:441
+#, python-format
+msgid ""
+"Ensure this value is a multiple of step size %(limit_value)s, starting from "
+"%(offset)s, e.g. %(offset)s, %(valid_value1)s, %(valid_value2)s, and so on."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:473
+#, python-format
+msgid ""
+"Ensure this value has at least %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at least %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:491
+#, python-format
+msgid ""
+"Ensure this value has at most %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at most %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:514
+#: .\venv\Lib\site-packages\django\forms\fields.py:366
+#: .\venv\Lib\site-packages\django\forms\fields.py:405
+msgid "Enter a number."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:516
+#, python-format
+msgid "Ensure that there are no more than %(max)s digit in total."
+msgid_plural "Ensure that there are no more than %(max)s digits in total."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:521
+#, python-format
+msgid "Ensure that there are no more than %(max)s decimal place."
+msgid_plural "Ensure that there are no more than %(max)s decimal places."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:526
+#, python-format
+msgid ""
+"Ensure that there are no more than %(max)s digit before the decimal point."
+msgid_plural ""
+"Ensure that there are no more than %(max)s digits before the decimal point."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:597
+#, python-format
+msgid ""
+"File extension “%(extension)s” is not allowed. Allowed extensions are: "
+"%(allowed_extensions)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:659
+msgid "Null characters are not allowed."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\base.py:1600
+#: .\venv\Lib\site-packages\django\forms\models.py:908
+#: .\xrayapp\templates\errors\error_base.html:77
+#: .\xrayapp\templates\xrayapp\base.html:139
+#: .\xrayapp\templates\xrayapp\home.html:36
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:60
+msgid "and"
+msgstr "ir"
+
+#: .\venv\Lib\site-packages\django\db\models\base.py:1602
+#, python-format
+msgid "%(model_name)s with this %(field_labels)s already exists."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\constraints.py:22
+#, python-format
+msgid "Constraint “%(name)s” is violated."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:134
+#, python-format
+msgid "Value %(value)r is not a valid choice."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:135
+msgid "This field cannot be null."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:136
+msgid "This field cannot be blank."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:137
+#, python-format
+msgid "%(model_name)s with this %(field_label)s already exists."
+msgstr ""
+
+#. Translators: The 'lookup_type' is one of 'date', 'year' or
+#. 'month'. Eg: "Title must be unique for pub_date year"
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:141
+#, python-format
+msgid ""
+"%(field_label)s must be unique for %(date_field_label)s %(lookup_type)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:180
+#, python-format
+msgid "Field of type: %(field_type)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1162
+#, python-format
+msgid "“%(value)s” value must be either True or False."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1163
+#, python-format
+msgid "“%(value)s” value must be either True, False, or None."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1165
+msgid "Boolean (Either True or False)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1215
+#, python-format
+msgid "String (up to %(max_length)s)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1217
+msgid "String (unlimited)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1326
+msgid "Comma-separated integers"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1427
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid date format. It must be in YYYY-MM-DD "
+"format."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1431
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1566
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD) but it is an invalid "
+"date."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1435
+msgid "Date (without time)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1562
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD "
+"HH:MM[:ss[.uuuuuu]][TZ] format."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1570
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1575
+msgid "Date (with time)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1702
+#, python-format
+msgid "“%(value)s” value must be a decimal number."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1704
+msgid "Decimal number"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1864
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in [DD] "
+"[[HH:]MM:]ss[.uuuuuu] format."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1868
+#, fuzzy
+#| msgid "Termination"
+msgid "Duration"
+msgstr "Nutraukimas"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1920
+#: .\xrayapp\templates\xrayapp\account_settings.html:78
+msgid "Email address"
+msgstr "El. pašto adresas"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1945
+msgid "File path"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2023
+#, python-format
+msgid "“%(value)s” value must be a float."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2025
+msgid "Floating point number"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2065
+#, python-format
+msgid "“%(value)s” value must be an integer."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2067
+msgid "Integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2163
+msgid "Big (8 byte) integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2180
+msgid "Small integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2188
+#, fuzzy
+#| msgid "Email address"
+msgid "IPv4 address"
+msgstr "El. pašto adresas"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2219
+#, fuzzy
+#| msgid "Email address"
+msgid "IP address"
+msgstr "El. pašto adresas"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2310
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2311
+#, python-format
+msgid "“%(value)s” value must be either None, True or False."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2313
+msgid "Boolean (Either True, False or None)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2364
+msgid "Positive big integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2379
+msgid "Positive integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2394
+msgid "Positive small integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2410
+#, python-format
+msgid "Slug (up to %(max_length)s)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2446
+msgid "Text"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2526
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in HH:MM[:ss[.uuuuuu]] "
+"format."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2530
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (HH:MM[:ss[.uuuuuu]]) but it is an "
+"invalid time."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2534
+msgid "Time"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2642
+msgid "URL"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2666
+msgid "Raw binary data"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2731
+#, python-format
+msgid "“%(value)s” is not a valid UUID."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2733
+msgid "Universally unique identifier"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\files.py:244
+msgid "File"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\files.py:420
+msgid "Image"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\json.py:24
+msgid "A JSON object"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\json.py:26
+msgid "Value must be valid JSON."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:978
+#, python-format
+msgid "%(model)s instance with %(field)s %(value)r is not a valid choice."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:981
+msgid "Foreign Key (type determined by related field)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1275
+msgid "One-to-one relationship"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1332
+#, python-format
+msgid "%(from)s-%(to)s relationship"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1334
+#, python-format
+msgid "%(from)s-%(to)s relationships"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1382
+msgid "Many-to-many relationship"
+msgstr ""
+
+#. Translators: If found as last label character, these punctuation
+#. characters will prevent the default label_suffix to be appended to the label
+#: .\venv\Lib\site-packages\django\forms\boundfield.py:185
+msgid ":?.!"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:95
+msgid "This field is required."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:315
+msgid "Enter a whole number."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:486
+#: .\venv\Lib\site-packages\django\forms\fields.py:1267
+msgid "Enter a valid date."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:509
+#: .\venv\Lib\site-packages\django\forms\fields.py:1268
+msgid "Enter a valid time."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:536
+msgid "Enter a valid date/time."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:570
+#, fuzzy
+#| msgid "Generate visualization"
+msgid "Enter a valid duration."
+msgstr "Generuoti vizualizaciją"
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:571
+#, python-brace-format
+msgid "The number of days must be between {min_days} and {max_days}."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:640
+msgid "No file was submitted. Check the encoding type on the form."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:641
+msgid "No file was submitted."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:642
+msgid "The submitted file is empty."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:644
+#, python-format
+msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid_plural ""
+"Ensure this filename has at most %(max)d characters (it has %(length)d)."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:649
+msgid "Please either submit a file or check the clear checkbox, not both."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:717
+msgid ""
+"Upload a valid image. The file you uploaded was either not an image or a "
+"corrupted image."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:889
+#: .\venv\Lib\site-packages\django\forms\fields.py:975
+#: .\venv\Lib\site-packages\django\forms\models.py:1592
+#, python-format
+msgid "Select a valid choice. %(value)s is not one of the available choices."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:977
+#: .\venv\Lib\site-packages\django\forms\fields.py:1096
+#: .\venv\Lib\site-packages\django\forms\models.py:1590
+msgid "Enter a list of values."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:1097
+msgid "Enter a complete value."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:1339
+msgid "Enter a valid UUID."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:1369
+msgid "Enter a valid JSON."
+msgstr ""
+
+#. Translators: This is the default suffix added to form field labels
+#: .\venv\Lib\site-packages\django\forms\forms.py:97
+msgid ":"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\forms.py:239
+#, python-format
+msgid "(Hidden field %(name)s) %(error)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:61
+#, python-format
+msgid ""
+"ManagementForm data is missing or has been tampered with. Missing fields: "
+"%(field_names)s. You may need to file a bug report if the issue persists."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:65
+#, python-format
+msgid "Please submit at most %(num)d form."
+msgid_plural "Please submit at most %(num)d forms."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:70
+#, python-format
+msgid "Please submit at least %(num)d form."
+msgid_plural "Please submit at least %(num)d forms."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:484
+#: .\venv\Lib\site-packages\django\forms\formsets.py:491
+msgid "Order"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:499 .\xrayapp\admin.py:153
+#: .\xrayapp\templates\xrayapp\prediction_history.html:195
+msgid "Delete"
+msgstr "Šalinti"
+
+#: .\venv\Lib\site-packages\django\forms\models.py:901
+#, fuzzy, python-format
+#| msgid "Please correct the errors below."
+msgid "Please correct the duplicate data for %(field)s."
+msgstr "Prašome ištaisyti klaidas žemiau."
+
+#: .\venv\Lib\site-packages\django\forms\models.py:906
+#, python-format
+msgid "Please correct the duplicate data for %(field)s, which must be unique."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:913
+#, python-format
+msgid ""
+"Please correct the duplicate data for %(field_name)s which must be unique "
+"for the %(lookup)s in %(date_field)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:922
+#, fuzzy
+#| msgid "Please correct the errors below."
+msgid "Please correct the duplicate values below."
+msgstr "Prašome ištaisyti klaidas žemiau."
+
+#: .\venv\Lib\site-packages\django\forms\models.py:1359
+msgid "The inline value did not match the parent instance."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:1450
+msgid "Select a valid choice. That choice is not one of the available choices."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:1594
+#, python-format
+msgid "“%(pk)s” is not a valid value."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\utils.py:229
+#, python-format
+msgid ""
+"%(datetime)s couldn’t be interpreted in time zone %(current_timezone)s; it "
+"may be ambiguous or it may not exist."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:527
+msgid "Clear"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:528
+#, fuzzy
+#| msgid "Current Role"
+msgid "Currently"
+msgstr "Dabartinis vaidmuo"
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:529
+msgid "Change"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:866 .\xrayapp\admin.py:279
+#: .\xrayapp\admin.py:327 .\xrayapp\models.py:149 .\xrayapp\models.py:273
+#: .\xrayapp\templates\xrayapp\interpretability.html:215
+#: .\xrayapp\templates\xrayapp\interpretability.html:286
+#: .\xrayapp\templates\xrayapp\results.html:440
+#: .\xrayapp\templatetags\xrayapp_extras.py:97 .\xrayapp\views.py:480
+#: .\xrayapp\views.py:709
+msgid "Unknown"
+msgstr "Nežinoma"
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:867
+msgid "Yes"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:868
+msgid "No"
+msgstr ""
+
+#. Translators: Please do not add spaces around commas.
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:873
+msgid "yes,no,maybe"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:903
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:920
+#, python-format
+msgid "%(size)d byte"
+msgid_plural "%(size)d bytes"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:922
+#, python-format
+msgid "%s KB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:924
+#, python-format
+msgid "%s MB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:926
+#, python-format
+msgid "%s GB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:928
+#, python-format
+msgid "%s TB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:930
+#, python-format
+msgid "%s PB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:74
+msgid "p.m."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:75
+msgid "a.m."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:80
+msgid "PM"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:81
+msgid "AM"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:153
+#, fuzzy
+#| msgid "Light"
+msgid "midnight"
+msgstr "Šviesi"
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:155
+msgid "noon"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:7
+msgid "Monday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:8
+msgid "Tuesday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:9
+msgid "Wednesday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:10
+msgid "Thursday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:11
+msgid "Friday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:12
+msgid "Saturday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:13
+msgid "Sunday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:16
+msgid "Mon"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:17
+msgid "Tue"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:18
+msgid "Wed"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:19
+msgid "Thu"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:20
+msgid "Fri"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:21
+msgid "Sat"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:22
+msgid "Sun"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:25
+msgid "January"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:26
+msgid "February"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:27
+msgid "March"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:28
+msgid "April"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:29
+msgid "May"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:30
+msgid "June"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:31
+msgid "July"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:32
+msgid "August"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:33
+msgid "September"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:34
+msgid "October"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:35
+msgid "November"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:36
+msgid "December"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:39
+#, fuzzy
+#| msgid "and"
+msgid "jan"
+msgstr "ir"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:40
+msgid "feb"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:41
+msgid "mar"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:42
+msgid "apr"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:43
+msgid "may"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:44
+msgid "jun"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:45
+msgid "jul"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:46
+msgid "aug"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:47
+msgid "sep"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:48
+msgid "oct"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:49
+msgid "nov"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:50
+msgid "dec"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:53
+msgctxt "abbrev. month"
+msgid "Jan."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:54
+msgctxt "abbrev. month"
+msgid "Feb."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:55
+msgctxt "abbrev. month"
+msgid "March"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:56
+msgctxt "abbrev. month"
+msgid "April"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:57
+msgctxt "abbrev. month"
+msgid "May"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:58
+msgctxt "abbrev. month"
+msgid "June"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:59
+msgctxt "abbrev. month"
+msgid "July"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:60
+msgctxt "abbrev. month"
+msgid "Aug."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:61
+msgctxt "abbrev. month"
+msgid "Sept."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:62
+msgctxt "abbrev. month"
+msgid "Oct."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:63
+msgctxt "abbrev. month"
+msgid "Nov."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:64
+msgctxt "abbrev. month"
+msgid "Dec."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:67
+msgctxt "alt. month"
+msgid "January"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:68
+msgctxt "alt. month"
+msgid "February"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:69
+msgctxt "alt. month"
+msgid "March"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:70
+msgctxt "alt. month"
+msgid "April"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:71
+msgctxt "alt. month"
+msgid "May"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:72
+msgctxt "alt. month"
+msgid "June"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:73
+msgctxt "alt. month"
+msgid "July"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:74
+msgctxt "alt. month"
+msgid "August"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:75
+msgctxt "alt. month"
+msgid "September"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:76
+msgctxt "alt. month"
+msgid "October"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:77
+msgctxt "alt. month"
+msgid "November"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:78
+msgctxt "alt. month"
+msgid "December"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\ipv6.py:20
+msgid "This is not a valid IPv6 address."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\text.py:76
+#, python-format
+msgctxt "String to return when truncating text"
+msgid "%(truncated_text)s…"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\text.py:287
+msgid "or"
+msgstr ""
+
+#. Translators: This string is used as a separator between list elements
+#: .\venv\Lib\site-packages\django\utils\text.py:306
+#: .\venv\Lib\site-packages\django\utils\timesince.py:135
+msgid ", "
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:8
+#, python-format
+msgid "%(num)d year"
+msgid_plural "%(num)d years"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:9
+#, python-format
+msgid "%(num)d month"
+msgid_plural "%(num)d months"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:10
+#, python-format
+msgid "%(num)d week"
+msgid_plural "%(num)d weeks"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:11
+#, python-format
+msgid "%(num)d day"
+msgid_plural "%(num)d days"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:12
+#, python-format
+msgid "%(num)d hour"
+msgid_plural "%(num)d hours"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:13
+#, python-format
+msgid "%(num)d minute"
+msgid_plural "%(num)d minutes"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:29
+#: .\xrayapp\templates\errors\403.html:8
+msgid "Forbidden"
+msgstr "Uždrausta"
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:30
+msgid "CSRF verification failed. Request aborted."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:34
+msgid ""
+"You are seeing this message because this HTTPS site requires a “Referer "
+"header” to be sent by your web browser, but none was sent. This header is "
+"required for security reasons, to ensure that your browser is not being "
+"hijacked by third parties."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:40
+msgid ""
+"If you have configured your browser to disable “Referer” headers, please re-"
+"enable them, at least for this site, or for HTTPS connections, or for “same-"
+"origin” requests."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:45
+msgid ""
+"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or "
+"including the “Referrer-Policy: no-referrer” header, please remove them. The "
+"CSRF protection requires the “Referer” header to do strict referer checking. "
+"If you’re concerned about privacy, use alternatives like <a "
+"rel=\"noreferrer\" …> for links to third-party sites."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:54
+msgid ""
+"You are seeing this message because this site requires a CSRF cookie when "
+"submitting forms. This cookie is required for security reasons, to ensure "
+"that your browser is not being hijacked by third parties."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:60
+msgid ""
+"If you have configured your browser to disable cookies, please re-enable "
+"them, at least for this site, or for “same-origin” requests."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:66
+#, fuzzy
+#| msgid "No profile information available"
+msgid "More information is available with DEBUG=True."
+msgstr "Profilio informacija nepasiekiama"
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:44
+msgid "No year specified"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:64
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:115
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:214
+#, fuzzy
+#| msgid "Date of X-ray"
+msgid "Date out of range"
+msgstr "Rentgeno data"
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:94
+msgid "No month specified"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:147
+msgid "No day specified"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:194
+msgid "No week specified"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:353
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:384
+#, python-format
+msgid "No %(verbose_name_plural)s available"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:680
+#, python-format
+msgid ""
+"Future %(verbose_name_plural)s not available because "
+"%(class_name)s.allow_future is False."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:720
+#, python-format
+msgid "Invalid date string “%(datestr)s” given format “%(format)s”"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\detail.py:56
+#, python-format
+msgid "No %(verbose_name)s found matching the query"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\list.py:70
+msgid "Page is not “last”, nor can it be converted to an int."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\list.py:77
+#, python-format
+msgid "Invalid page (%(page_number)s): %(message)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\list.py:173
+#, python-format
+msgid "Empty list and “%(class_name)s.allow_empty” is False."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\static.py:49
+msgid "Directory indexes are not allowed here."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\static.py:51
+#, python-format
+msgid "“%(path)s” does not exist"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\static.py:68
+#: .\venv\Lib\site-packages\django\views\templates\directory_index.html:8
+#: .\venv\Lib\site-packages\django\views\templates\directory_index.html:11
+#, python-format
+msgid "Index of %(directory)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:7
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:204
+msgid "The install worked successfully! Congratulations!"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:206
+#, python-format
+msgid ""
+"View <a href=\"https://docs.djangoproject.com/en/%(version)s/releases/\" "
+"target=\"_blank\" rel=\"noopener\">release notes</a> for Django %(version)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:208
+#, python-format
+msgid ""
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" "
+"rel=\"noopener\">DEBUG=True</a> is in your settings file and you have not "
+"configured any URLs."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:217
+msgid "Django Documentation"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:218
+msgid "Topics, references, &amp; how-to’s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:226
+msgid "Tutorial: A Polling App"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:227
+msgid "Get started with Django"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:235
+msgid "Django Community"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:236
+msgid "Connect, get help, or contribute"
+msgstr ""
+
+# Account Settings translations
+#: .\venv\Lib\site-packages\django_bootstrap5\components.py:26
+#, fuzzy
+#| msgid "Close"
+msgid "close"
+msgstr "Uždaryti"
+
+#: .\venv\Lib\site-packages\sympy\solvers\simplex.py:563
+msgid "x"
+msgstr ""
+
+#: .\venv\Lib\site-packages\sympy\solvers\simplex.py:564
+msgid "y"
+msgstr ""
+
+# Admin translations
+#: .\xrayapp\admin.py:39
+msgid "No Profile"
+msgstr "Nėra profilio"
+
+#: .\xrayapp\admin.py:40 .\xrayapp\admin.py:262
+msgid "Role"
+msgstr "Vaidmuo"
+
+#: .\xrayapp\admin.py:50
+msgid "Personal info"
+msgstr "Asmeninė informacija"
+
+#: .\xrayapp\admin.py:62
+msgid "Current Role"
+msgstr "Dabartinis vaidmuo"
+
+#: .\xrayapp\admin.py:65
+msgid "Edit Profile & Role"
+msgstr "Redaguoti profilį ir vaidmenį"
+
+#: .\xrayapp\admin.py:71
+msgid "No profile found"
+msgstr "Profilis nerastas"
+
+#: .\xrayapp\admin.py:73
+msgid "Create Profile"
+msgstr "Sukurti profilį"
+
+#: .\xrayapp\admin.py:75
+msgid "Role Information"
+msgstr "Vaidmens informacija"
+
+#: .\xrayapp\admin.py:92
+msgid "User"
+msgstr "Naudotojas"
+
+#: .\xrayapp\admin.py:95
+msgid "Role & Permissions"
+msgstr "Vaidmuo ir leidimai"
+
+#: .\xrayapp\admin.py:97
+msgid "Role determines what actions the user can perform in the system."
+msgstr "Vaidmuo nustato, kokius veiksmus naudotojas gali atlikti sistemoje."
+
+#: .\xrayapp\admin.py:99 .\xrayapp\templates\xrayapp\account_settings.html:42
+msgid "Preferences"
+msgstr "Nustatymai"
+
+#: .\xrayapp\admin.py:103 .\xrayapp\templates\xrayapp\account_settings.html:146
+msgid "Notifications"
+msgstr "Pranešimai"
+
+#: .\xrayapp\admin.py:107 .\xrayapp\templates\xrayapp\account_settings.html:52
+#: .\xrayapp\templates\xrayapp\account_settings.html:169
+msgid "Security"
+msgstr "Saugumas"
+
+#: .\xrayapp\admin.py:111
+msgid "Timestamps"
+msgstr "Laiko žymos"
+
+#: .\xrayapp\admin.py:122
+msgid "Full Name"
+msgstr "Pilnas vardas"
+
+#: .\xrayapp\admin.py:134 .\xrayapp\templates\registration\login.html:23
+msgid "Username"
+msgstr "Naudotojo vardas"
+
+#: .\xrayapp\admin.py:135
+msgid "Email"
+msgstr "El. paštas"
+
+#: .\xrayapp\admin.py:136
+msgid "Staff"
+msgstr "Personalas"
+
+#: .\xrayapp\admin.py:137
+msgid "Superuser"
+msgstr "Supernaudotojas"
+
+#: .\xrayapp\admin.py:139
+msgid "Edit User Details"
+msgstr "Redaguoti naudotojo duomenis"
+
+#: .\xrayapp\admin.py:141 .\xrayapp\admin.py:205
+msgid "User Information"
+msgstr "Naudotojo informacija"
+
+#: .\xrayapp\admin.py:147 .\xrayapp\templates\xrayapp\base.html:62
+msgid "Admin"
+msgstr "Administracija"
+
+#: .\xrayapp\admin.py:149
+msgid "Upload"
+msgstr "Įkelti"
+
+#: .\xrayapp\admin.py:151
+#: .\xrayapp\templates\xrayapp\prediction_history.html:192
+msgid "Edit"
+msgstr "Redaguoti"
+
+#: .\xrayapp\admin.py:155
+msgid "View Only"
+msgstr "Tik peržiūra"
+
+#: .\xrayapp\admin.py:156
+msgid "Key Permissions"
+msgstr "Pagrindiniai leidimai"
+
+#: .\xrayapp\admin.py:161
+msgid "Access Admin Panel"
+msgstr "Prieiga prie administracijos skydelio"
+
+#: .\xrayapp\admin.py:162
+msgid "Upload X-rays"
+msgstr "Įkelti rentgeno nuotraukas"
+
+#: .\xrayapp\admin.py:163
+msgid "View All Patients"
+msgstr "Peržiūrėti visus pacientus"
+
+#: .\xrayapp\admin.py:164
+msgid "Edit Predictions"
+msgstr "Redaguoti prognozes"
+
+#: .\xrayapp\admin.py:165
+msgid "Delete Data"
+msgstr "Šalinti duomenis"
+
+#: .\xrayapp\admin.py:166
+msgid "Generate Interpretability"
+msgstr "Generuoti interpretavimą"
+
+#: .\xrayapp\admin.py:167
+msgid "View Interpretability"
+msgstr "Peržiūrėti interpretavimą"
+
+#: .\xrayapp\admin.py:168
+msgid "Manage Users"
+msgstr "Valdyti naudotojus"
+
+#: .\xrayapp\admin.py:178
+msgid "Role Permissions"
+msgstr "Vaidmens leidimai"
+
+#: .\xrayapp\admin.py:208
+msgid "Patient Information"
+msgstr "Paciento informacija"
+
+#: .\xrayapp\admin.py:211
+msgid "Image Processing"
+msgstr "Nuotraukos apdorojimas"
+
+#: .\xrayapp\admin.py:214
+msgid "Pathology Predictions"
+msgstr "Patologijos prognozės"
+
+#: .\xrayapp\admin.py:224
+msgid "Interpretability Visualizations"
+msgstr "Interpretavimo vizualizacijos"
+
+#: .\xrayapp\admin.py:251 .\xrayapp\admin.py:315
+msgid "User (Role)"
+msgstr "Naudotojas (vaidmuo)"
+
+#: .\xrayapp\admin.py:263
+msgid "Can Edit Predictions"
+msgstr "Gali redaguoti prognozes"
+
+#: .\xrayapp\admin.py:264
+msgid "Can Delete"
+msgstr "Gali šalinti"
+
+#: .\xrayapp\admin.py:267
+msgid "No profile information available"
+msgstr "Profilio informacija nepasiekiama"
+
+#: .\xrayapp\admin.py:268
+msgid "User Role Info"
+msgstr "Naudotojo vaidmens informacija"
+
+#: .\xrayapp\admin.py:274 .\xrayapp\admin.py:322
+msgid "Insignificant"
+msgstr "Nereikšmingi radiniai"
+
+#: .\xrayapp\admin.py:276 .\xrayapp\admin.py:324
+msgid "Moderate"
+msgstr "Vidutinio sunkumo radiniai"
+
+#: .\xrayapp\admin.py:278 .\xrayapp\admin.py:326
+msgid "Significant"
+msgstr "Reikšmingi radiniai"
+
+#: .\xrayapp\admin.py:280 .\xrayapp\admin.py:328
+#: .\xrayapp\templates\xrayapp\prediction_history.html:86
+msgid "Severity"
+msgstr "Sunkumas"
+
+#: .\xrayapp\admin.py:332
+msgid "MCADS Administration"
+msgstr "MCADS administracija"
+
+#: .\xrayapp\admin.py:333
+msgid "MCADS Admin"
+msgstr "MCADS administracija"
+
+#: .\xrayapp\admin.py:334
+msgid "Multi-label Chest Abnormality Detection System"
+msgstr "Krūtinės anomalijų aptikimo sistema"
+
+# Form field labels and choices
+#: .\xrayapp\forms.py:22 .\xrayapp\templates\xrayapp\home.html:69
+msgid "--Select--"
+msgstr "--Pasirinkite--"
+
+#: .\xrayapp\forms.py:22 .\xrayapp\forms.py:106
+#: .\xrayapp\templates\xrayapp\home.html:70
+msgid "Male"
+msgstr "Vyras"
+
+#: .\xrayapp\forms.py:22 .\xrayapp\forms.py:106
+#: .\xrayapp\templates\xrayapp\home.html:71
+msgid "Female"
+msgstr "Moteris"
+
+#: .\xrayapp\forms.py:22 .\xrayapp\forms.py:106
+#: .\xrayapp\templates\xrayapp\home.html:72
+msgid "Other"
+msgstr "Kita"
+
+#: .\xrayapp\forms.py:45
+msgid "Image file too large. Maximum size is 10MB."
+msgstr "Nuotraukos failas per didelis. Maksimalus dydis yra 10MB."
+
+#: .\xrayapp\forms.py:59
+msgid "Invalid file type. Only image files are allowed."
+msgstr "Neteisingas failo tipas. Leidžiami tik nuotraukų failai."
+
+#: .\xrayapp\forms.py:70
+msgid ""
+"First name should only contain letters, spaces, hyphens, and apostrophes."
+msgstr ""
+"Vardas turi būti sudarytas tik iš raidžių, tarpų, brūkšnelių ir apostrofų."
+
+#: .\xrayapp\forms.py:77
+msgid ""
+"Last name should only contain letters, spaces, hyphens, and apostrophes."
+msgstr ""
+"Pavardė turi būti sudaryta tik iš raidžių, tarpų, brūkšnelių ir apostrofų."
+
+#: .\xrayapp\forms.py:84
+msgid ""
+"Patient ID should only contain letters, numbers, hyphens, and underscores."
+msgstr ""
+"Paciento ID turi būti sudarytas tik iš raidžių, skaičių, brūkšnelių ir "
+"pabraukimų."
+
+#: .\xrayapp\forms.py:91
+msgid "Date of birth cannot be in the future."
+msgstr "Gimimo data negali būti ateityje."
+
+#: .\xrayapp\forms.py:93
+msgid "Date of birth seems too old."
+msgstr "Gimimo data atrodo per sena."
+
+#: .\xrayapp\forms.py:100
+msgid "X-ray date cannot be in the future."
+msgstr "Rentgeno data negali būti ateityje."
+
+#: .\xrayapp\forms.py:106 .\xrayapp\forms.py:139
+msgid "All"
+msgstr "Visi"
+
+#: .\xrayapp\forms.py:110
+msgid "Minimum Age"
+msgstr "Minimalus amžius"
+
+#: .\xrayapp\forms.py:111
+#: .\xrayapp\templates\xrayapp\prediction_history.html:24
+msgid "Min Age"
+msgstr "Min. amžius"
+
+#: .\xrayapp\forms.py:113
+msgid "Maximum Age"
+msgstr "Maksimalus amžius"
+
+#: .\xrayapp\forms.py:114
+msgid "Max Age"
+msgstr "Maks. amžius"
+
+#: .\xrayapp\forms.py:116
+msgid "From Date"
+msgstr "Nuo datos"
+
+#: .\xrayapp\forms.py:119
+msgid "To Date"
+msgstr "Iki datos"
+
+#: .\xrayapp\forms.py:124
+#: .\xrayapp\templates\xrayapp\prediction_history.html:40
+#: .\xrayapp\templates\xrayapp\results.html:460
+msgid "Pathology"
+msgstr "Patologija"
+
+#: .\xrayapp\forms.py:130
+msgid "Minimum Probability"
+msgstr "Minimali tikimybė"
+
+# Medical pathologies
+#: .\xrayapp\forms.py:140
+msgid "Atelectasis"
+msgstr "Atelektazė"
+
+#: .\xrayapp\forms.py:141
+msgid "Cardiomegaly"
+msgstr "Kardiomegalija"
+
+#: .\xrayapp\forms.py:142
+msgid "Consolidation"
+msgstr "Konsolidacija"
+
+#: .\xrayapp\forms.py:143
+msgid "Edema"
+msgstr "Edema"
+
+#: .\xrayapp\forms.py:144
+msgid "Effusion"
+msgstr "Išpila"
+
+#: .\xrayapp\forms.py:145
+msgid "Emphysema"
+msgstr "Emfizema"
+
+#: .\xrayapp\forms.py:146
+msgid "Fibrosis"
+msgstr "Fibrozė"
+
+#: .\xrayapp\forms.py:147
+msgid "Hernia"
+msgstr "Išvarža"
+
+#: .\xrayapp\forms.py:148
+msgid "Infiltration"
+msgstr "Infiltracija"
+
+#: .\xrayapp\forms.py:149
+msgid "Mass"
+msgstr "Masė"
+
+#: .\xrayapp\forms.py:150
+msgid "Nodule"
+msgstr "Mazgelis"
+
+#: .\xrayapp\forms.py:151
+msgid "Pleural Thickening"
+msgstr "Pleuros storėjimas"
+
+#: .\xrayapp\forms.py:152
+msgid "Pneumonia"
+msgstr "Pneumonija"
+
+#: .\xrayapp\forms.py:153
+msgid "Pneumothorax"
+msgstr "Pneumotoraksas"
+
+#: .\xrayapp\forms.py:154
+msgid "Fracture"
+msgstr "Lūžis"
+
+#: .\xrayapp\forms.py:155
+msgid "Lung Opacity"
+msgstr "Plaučių drumstumas"
+
+#: .\xrayapp\forms.py:156
+msgid "Enlarged Cardiomediastinum"
+msgstr "Išplėstas kardiomédiastinum"
+
+#: .\xrayapp\forms.py:157
+msgid "Lung Lesion"
+msgstr "Plaučių pažeidimas"
+
+#: .\xrayapp\forms.py:170
+msgid "Minimum age cannot be greater than maximum age."
+msgstr "Minimalus amžius negali būti didesnis už maksimalų amžių."
+
+#: .\xrayapp\forms.py:173
+msgid "Start date cannot be after end date."
+msgstr "Pradžios data negali būti vėlesnė už pabaigos datą."
+
+#: .\xrayapp\forms.py:209 .\xrayapp\templates\xrayapp\edit_prediction.html:23
+msgid "First Name"
+msgstr "Vardas"
+
+#: .\xrayapp\forms.py:210 .\xrayapp\templates\xrayapp\edit_prediction.html:27
+msgid "Last Name"
+msgstr "Pavardė"
+
+#: .\xrayapp\forms.py:211
+msgid "Email Address"
+msgstr "El. pašto adresas"
+
+#: .\xrayapp\forms.py:218
+msgid "This email address is already in use."
+msgstr "Šis el. pašto adresas jau naudojamas."
+
+#: .\xrayapp\forms.py:225
+msgid "Current Password"
+msgstr "Dabartinis slaptažodis"
+
+#: .\xrayapp\forms.py:229
+msgid "New Password"
+msgstr "Naujas slaptažodis"
+
+#: .\xrayapp\forms.py:234
+msgid "Confirm New Password"
+msgstr "Patvirtinkite naują slaptažodį"
+
+#: .\xrayapp\forms.py:245
+msgid "Current password is incorrect."
+msgstr "Dabartinis slaptažodis neteisingas."
+
+#: .\xrayapp\forms.py:254
+msgid "Password must be at least 8 characters long."
+msgstr "Slaptažodis turi būti bent 8 simbolių ilgio."
+
+#: .\xrayapp\forms.py:258
+msgid "Password must contain at least one digit."
+msgstr "Slaptažodis turi turėti bent vieną skaitmenį."
+
+#: .\xrayapp\forms.py:262
+msgid "Password must contain at least one uppercase letter."
+msgstr "Slaptažodis turi turėti bent vieną didžiąją raidę."
+
+#: .\xrayapp\forms.py:266
+msgid "Password must contain at least one lowercase letter."
+msgstr "Slaptažodis turi turėti bent vieną mažąją raidę."
+
+#: .\xrayapp\forms.py:277
+msgid "New passwords do not match."
+msgstr "Nauji slaptažodžiai nesutampa."
+
+# Model choices - User roles
+#: .\xrayapp\models.py:8
+msgid "Administrator"
+msgstr "Administratorius"
+
+#: .\xrayapp\models.py:9
+msgid "Radiographer"
+msgstr "Radiologijos technologas"
+
+#: .\xrayapp\models.py:10
+msgid "Technologist"
+msgstr "Technologas"
+
+#: .\xrayapp\models.py:11
+msgid "Radiologist"
+msgstr "Radiologas"
+
+#: .\xrayapp\models.py:141 .\xrayapp\models.py:265
+#: .\xrayapp\templatetags\xrayapp_extras.py:86
+#, fuzzy
+#| msgid "Insignificant"
+msgid "Insignificant findings"
+msgstr "Nereikšmingi radiniai"
+
+#: .\xrayapp\models.py:142 .\xrayapp\models.py:266
+#: .\xrayapp\templatetags\xrayapp_extras.py:87
+#, fuzzy
+#| msgid "Moderate"
+msgid "Moderate findings"
+msgstr "Vidutinio sunkumo radiniai"
+
+#: .\xrayapp\models.py:143 .\xrayapp\models.py:267
+#: .\xrayapp\templatetags\xrayapp_extras.py:88
+#, fuzzy
+#| msgid "Significant"
+msgid "Significant findings"
+msgstr "Reikšmingi radiniai"
+
+#: .\xrayapp\models.py:160
+msgid "Unknown patient"
+msgstr "Nežinomas pacientas"
+
+#: .\xrayapp\models.py:294
+msgid "System Default"
+msgstr "Sistemos numatytoji"
+
+#: .\xrayapp\models.py:294
+msgid "Light"
+msgstr "Šviesi"
+
+#: .\xrayapp\models.py:294
+msgid "Dark"
+msgstr "Tamsi"
+
+#: .\xrayapp\models.py:299
+msgid "English"
+msgstr "Anglų kalba"
+
+#: .\xrayapp\models.py:299
+msgid "Lithuanian"
+msgstr "Lietuvių kalba"
+
+#: .\xrayapp\models.py:304
+msgid "Grid View"
+msgstr "Tinklelio vaizdas"
+
+#: .\xrayapp\models.py:304
+msgid "List View"
+msgstr "Sąrašo vaizdas"
+
+# Template translations - Error pages
+#: .\xrayapp\templates\errors\400.html:8
+msgid "Bad Request"
+msgstr "Neteisingas užklausimas"
+
+#: .\xrayapp\templates\errors\400.html:11
+msgid ""
+"The server cannot process the request due to malformed syntax or invalid "
+"request framing."
+msgstr ""
+"Serveris negali apdoroti užklausos dėl neteisingos sintaksės arba "
+"neteisingos užklausos struktūros."
+
+#: .\xrayapp\templates\errors\401.html:8
+msgid "Unauthorized"
+msgstr "Neautorizuota"
+
+#: .\xrayapp\templates\errors\401.html:11
+msgid "Authentication is required and has either not been provided or failed."
+msgstr "Reikalingas autentifikavimas, kuris nebuvo pateiktas arba nepavyko."
+
+#: .\xrayapp\templates\errors\403.html:11
+msgid ""
+"The server understands the request but refuses to authorize it, often due to "
+"insufficient permissions."
+msgstr ""
+"Serveris supranta užklausą, bet atsisako jos autorizuoti, dažnai dėl "
+"nepakankamų leidimų."
+
+#: .\xrayapp\templates\errors\404.html:8
+msgid "Page Not Found"
+msgstr "Puslapis nerastas"
+
+#: .\xrayapp\templates\errors\404.html:11
+msgid ""
+"The server cannot locate the requested resource. This is by far the most "
+"common client-side error."
+msgstr ""
+"Serveris negali rasti prašomo ištekliaus. Tai yra pati dažniausia kliento "
+"pusės klaida."
+
+#: .\xrayapp\templates\errors\408.html:8
+msgid "Request Timeout"
+msgstr "Užklausos laikas baigėsi"
+
+#: .\xrayapp\templates\errors\408.html:11
+msgid ""
+"The client did not produce a request within the time the server was prepared "
+"to wait."
+msgstr ""
+"Klientas nesukūrė užklausos per laiką, kurį serveris buvo pasiruošęs laukti."
+
+#: .\xrayapp\templates\errors\429.html:8
+msgid "Too Many Requests"
+msgstr "Per daug užklausų"
+
+#: .\xrayapp\templates\errors\429.html:11
+msgid "The client has sent too many requests in a given amount of time."
+msgstr "Klientas išsiuntė per daug užklausų per nustatytą laiko tarpą."
+
+#: .\xrayapp\templates\errors\500.html:8
+msgid "Internal Server Error"
+msgstr "Vidaus serverio klaida"
+
+#: .\xrayapp\templates\errors\500.html:11
+msgid ""
+"A generic catch-all for unexpected conditions on the server that prevent it "
+"from fulfilling the request."
+msgstr ""
+"Bendrinis terminas netikėtoms serverio sąlygoms, kurios neleidžia įvykdyti "
+"užklausos."
+
+#: .\xrayapp\templates\errors\502.html:8
+msgid "Bad Gateway"
+msgstr "Neteisingas šliuzas"
+
+#: .\xrayapp\templates\errors\502.html:11
+msgid ""
+"Occurs when a gateway or proxy server receives an invalid response from an "
+"upstream server."
+msgstr ""
+"Atsitinka, kai šliuzo arba tarpinio serveris gauna neteisingą atsakymą iš "
+"aukštesnio lygio serverio."
+
+#: .\xrayapp\templates\errors\503.html:8
+msgid "Service Unavailable"
+msgstr "Paslauga nepasiekiama"
+
+#: .\xrayapp\templates\errors\503.html:11
+msgid ""
+"Indicates that the server is temporarily unable to handle the request (e.g., "
+"due to maintenance or overload)."
+msgstr ""
+"Rodo, kad serveris laikinai negali apdoroti užklausos (pvz., dėl priežiūros "
+"ar perkrovos)."
+
+#: .\xrayapp\templates\errors\504.html:8
+msgid "Gateway Timeout"
+msgstr "Šliuzo laikas baigėsi"
+
+#: .\xrayapp\templates\errors\504.html:11
+msgid "Upstream servers failed to respond in time."
+msgstr "Aukštesnio lygio serveriai nesugebėjo laiku atsakyti."
+
+#: .\xrayapp\templates\errors\error_base.html:67
+msgid "Go to Homepage"
+msgstr "Eiti į pagrindinį puslapį"
+
+#: .\xrayapp\templates\errors\error_base.html:77
+#: .\xrayapp\templates\xrayapp\base.html:139
+msgid "All rights reserved."
+msgstr "Visos teisės saugomos."
+
+#: .\xrayapp\templates\errors\error_base.html:85
+#: .\xrayapp\templates\xrayapp\base.html:155
+msgid "Powered by"
+msgstr "Veikia su"
+
+# Authentication templates
+#: .\xrayapp\templates\registration\logged_out.html:11
+msgid "Logged out"
+msgstr "Atsijungta"
+
+#: .\xrayapp\templates\registration\logged_out.html:14
+msgid "You have been successfully logged out."
+msgstr "Jūs sėkmingai atsijungėte."
+
+#: .\xrayapp\templates\registration\logged_out.html:16
+msgid "Log in again"
+msgstr "Prisijungti vėl"
+
+#: .\xrayapp\templates\registration\login.html:11
+#: .\xrayapp\templates\registration\login.html:31
+msgid "Log In"
+msgstr "Prisijungti"
+
+#: .\xrayapp\templates\registration\login.html:16
+msgid "Your username and password didn't match. Please try again."
+msgstr ""
+"Jūsų naudotojo vardas ir slaptažodis nesutampa. Prašome bandyti dar kartą."
+
+#: .\xrayapp\templates\registration\login.html:27
+msgid "Password"
+msgstr "Slaptažodis"
+
+#: .\xrayapp\templates\registration\logout.html:9
+msgid "Confirm logout"
+msgstr "Patvirtinti atsijungimą"
+
+#: .\xrayapp\templates\registration\logout.html:10
+msgid "Are you sure you want to log out?"
+msgstr "Ar tikrai norite atsijungti?"
+
+#: .\xrayapp\templates\registration\logout.html:13
+msgid "Yes, logout"
+msgstr "Taip, atsijungti"
+
+#: .\xrayapp\templates\registration\logout.html:14
+#: .\xrayapp\templates\xrayapp\account_settings.html:277
+#: .\xrayapp\templates\xrayapp\prediction_history.html:215
+#: .\xrayapp\templates\xrayapp\prediction_history.html:238
+#: .\xrayapp\templates\xrayapp\prediction_history.html:276
+msgid "Cancel"
+msgstr "Atšaukti"
+
+# Main application templates
+#: .\xrayapp\templates\xrayapp\account_settings.html:11
+msgid "Account Settings"
+msgstr "Paskyros nustatymai"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:32
+msgid "Profile"
+msgstr "Profilis"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:68
+msgid "First name"
+msgstr "Vardas"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:73
+msgid "Last name"
+msgstr "Pavardė"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:81
+msgid "We'll never share your email with anyone else."
+msgstr "Mes niekada nedalinsimės jūsų el. paštu su kitais."
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:86
+msgid "Save profile"
+msgstr "Išsaugoti profilį"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:93
+msgid "Account information"
+msgstr "Paskyros informacija"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:94
+msgid "Username:"
+msgstr "Naudotojo vardas:"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:95
+msgid "Last Login:"
+msgstr "Paskutinis prisijungimas:"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:96
+msgid "Date Joined:"
+msgstr "Registracijos data:"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:114
+msgid "Appearance"
+msgstr "Išvaizda"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:116
+msgid "Theme"
+msgstr "Tema"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:119
+msgid "Choose your preferred theme for the application."
+msgstr "Pasirinkite norimą aplikacijos temą."
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:124
+msgid "Dashboard layout"
+msgstr "Skydelio išdėstymas"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:127
+msgid "Select how you want items to be displayed on your dashboard."
+msgstr "Pasirinkite, kaip norite, kad elementai būtų rodomi jūsų skydelyje."
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:133
+msgid "Language & Localization"
+msgstr "Kalba ir lokalizacija"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:135
+msgid "Language"
+msgstr "Kalba"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:138
+msgid "Select your preferred language for the application."
+msgstr "Pasirinkite norimą aplikacijos kalbą."
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:150
+msgid "Receive email notifications"
+msgstr "Gauti el. pašto pranešimus"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:153
+msgid "Get notifications about important updates and changes."
+msgstr "Gaukite pranešimus apie svarbius atnaujinimus ir pakeitimus."
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:160
+msgid "Notify when image processing is complete"
+msgstr "Pranešti, kai vaizdų apdorojimas baigtas"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:163
+msgid "Receive notifications when X-ray image processing is finished."
+msgstr "Gaukite pranešimus, kai rentgeno vaizdų apdorojimas baigtas."
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:173
+msgid "Enable Two-factor authentication"
+msgstr "Įjungti dviejų veiksnių autentifikavimą"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:176
+msgid ""
+"Two-factor authentication adds an extra layer of security to your account. "
+"In addition to your password, you'll need a code from your phone to log in."
+msgstr ""
+"Dviejų veiksnių autentifikavimas prideda papildomą saugumo sluoksnį jūsų "
+"paskyroje. Be slaptažodžio, jums reikės kodo iš telefono, kad "
+"prisijungtumėte."
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:183
+msgid "Save preferences"
+msgstr "Išsaugoti nustatymus"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:196
+#: .\xrayapp\templates\xrayapp\account_settings.html:229
+msgid "Change password"
+msgstr "Keisti slaptažodį"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:201
+msgid "Current password"
+msgstr "Dabartinis slaptažodis"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:211
+msgid "New password"
+msgstr "Naujas slaptažodis"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:214
+msgid "Create a strong password with a mix of letters, numbers, and symbols."
+msgstr "Sukurkite stiprų slaptažodį su raidžių, skaičių ir simbolių deriniu."
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:219
+msgid "Confirm new password"
+msgstr "Patvirtinkite naują slaptažodį"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:237
+msgid "Danger Zone"
+msgstr "Pavojaus zona"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:240
+#: .\xrayapp\templates\xrayapp\account_settings.html:245
+#: .\xrayapp\templates\xrayapp\account_settings.html:278
+msgid "Delete account"
+msgstr "Ištrinti paskyrą"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:242
+msgid ""
+"Once you delete your account, there is no going back. Please be certain."
+msgstr "Kai ištrinate savo paskyrą, kelio atgal nėra. Būkite tikri."
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:264
+msgid "Delete Account"
+msgstr "Ištrinti paskyrą"
+
+# Account Settings translations
+#: .\xrayapp\templates\xrayapp\account_settings.html:266
+#: .\xrayapp\templates\xrayapp\home.html:239
+#: .\xrayapp\templates\xrayapp\interpretability.html:385
+#: .\xrayapp\templates\xrayapp\results.html:622
+msgid "Close"
+msgstr "Uždaryti"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:269
+msgid "Are you absolutely sure you want to delete your account?"
+msgstr "Ar tikrai norite ištrinti savo paskyrą?"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:270
+msgid "Warning:"
+msgstr "Įspėjimas:"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:270
+msgid ""
+"This action cannot be undone. This will permanently delete your account and "
+"all data associated with it."
+msgstr ""
+"Šis veiksmas negalės būti atšauktas. Tai visam laikui ištrins jūsų paskyrą "
+"ir visus su ja susijusius duomenis."
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:272
+msgid "Type \\"
+msgstr ""
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:273
+msgid "DELETE"
+msgstr "DELETE"
+
+#: .\xrayapp\templates\xrayapp\base.html:51
+msgid "Home"
+msgstr "Pagrindinis"
+
+#: .\xrayapp\templates\xrayapp\base.html:56
+#: .\xrayapp\templates\xrayapp\prediction_history.html:11
+msgid "Prediction history"
+msgstr "Prognozių istorija"
+
+#: .\xrayapp\templates\xrayapp\base.html:80
+msgid "Account settings"
+msgstr "Paskyros nustatymai"
+
+#: .\xrayapp\templates\xrayapp\base.html:82
+msgid "Admin Panel"
+msgstr "Administracijos skydas"
+
+#: .\xrayapp\templates\xrayapp\base.html:84
+msgid "Logout"
+msgstr "Atsijungti"
+
+#: .\xrayapp\templates\xrayapp\base.html:89
+msgid "Login"
+msgstr "Prisijungti"
+
+#: .\xrayapp\templates\xrayapp\base.html:96
+msgid "Change language"
+msgstr "Keisti kalbą"
+
+#: .\xrayapp\templates\xrayapp\base.html:143
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:3
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:13
+msgid "Terms of Service"
+msgstr "Paslaugų teikimo sąlygos"
+
+#: .\xrayapp\templates\xrayapp\base.html:147
+msgid "Server time"
+msgstr "Serverio laikas"
+
+#: .\xrayapp\templates\xrayapp\edit_prediction.html:11
+msgid "Edit prediction record"
+msgstr "Redaguoti prognozės įrašą"
+
+#: .\xrayapp\templates\xrayapp\edit_prediction.html:15
+msgid "Edit Patient Information"
+msgstr "Redaguoti paciento informaciją"
+
+#: .\xrayapp\templates\xrayapp\edit_prediction.html:34 .\xrayapp\views.py:465
+msgid "Patient ID"
+msgstr "Paciento ID"
+
+#: .\xrayapp\templates\xrayapp\edit_prediction.html:38
+#: .\xrayapp\templates\xrayapp\prediction_history.html:20
+#: .\xrayapp\templates\xrayapp\prediction_history.html:83
+#: .\xrayapp\views.py:467
+msgid "Gender"
+msgstr "Lytis"
+
+#: .\xrayapp\templates\xrayapp\edit_prediction.html:42
+#: .\xrayapp\templates\xrayapp\prediction_history.html:84
+msgid "Date of birth"
+msgstr "Gimimo data"
+
+#: .\xrayapp\templates\xrayapp\edit_prediction.html:49
+msgid "Date of X-ray"
+msgstr "Rentgeno data"
+
+#: .\xrayapp\templates\xrayapp\edit_prediction.html:53
+msgid "Additional information"
+msgstr "Papildoma informacija"
+
+#: .\xrayapp\templates\xrayapp\edit_prediction.html:60
+msgid "Back to history"
+msgstr "Grįžti į istoriją"
+
+#: .\xrayapp\templates\xrayapp\edit_prediction.html:63
+msgid "Save changes"
+msgstr "Išsaugoti pakeitimus"
+
+#: .\xrayapp\templates\xrayapp\edit_prediction.html:72
+msgid "Prediction details"
+msgstr "Prognozės detalės"
+
+#: .\xrayapp\templates\xrayapp\edit_prediction.html:77
+msgid "Model used:"
+msgstr "Naudojamas modelis:"
+
+#: .\xrayapp\templates\xrayapp\edit_prediction.html:78
+msgid "Prediction date:"
+msgstr "Prognozės data:"
+
+#: .\xrayapp\templates\xrayapp\edit_prediction.html:83
+msgid "View full results"
+msgstr "Peržiūrėti pilnus rezultatus"
+
+# Additional translations for untranslated text (JavaScript and modal content)
+# X-Ray Upload modal
+#: .\xrayapp\templates\xrayapp\home.html:4
+msgid "X-Ray Upload"
+msgstr "Rentgeno įkėlimas"
+
+# Home page templates
+#: .\xrayapp\templates\xrayapp\home.html:18
+msgid ""
+"Upload a chest X-ray image for automatic analysis using a pre-trained model "
+"from TorchXRayVision."
+msgstr ""
+"Įkelkite krūtinės rentgeno nuotrauką automatiniam analizavimui naudojant iš "
+"anksto išmokytą TorchXRayVision modelį."
+
+#: .\xrayapp\templates\xrayapp\home.html:26
+msgid "Select model:"
+msgstr "Pasirinkite modelį:"
+
+#: .\xrayapp\templates\xrayapp\home.html:35
+msgid "DenseNet: All 18 pathologies included"
+msgstr "DenseNet: Visos 18 patologijų įtrauktos"
+
+#: .\xrayapp\templates\xrayapp\home.html:36
+#, fuzzy
+#| msgid "DenseNet: All 18 pathologies included"
+msgid "ResNet: All pathologies except \\"
+msgstr "DenseNet: Visos 18 patologijų įtrauktos"
+
+#: .\xrayapp\templates\xrayapp\home.html:36
+msgid "\\"
+msgstr ""
+
+#: .\xrayapp\templates\xrayapp\home.html:48
+#: .\xrayapp\templates\xrayapp\results.html:377
+msgid "Patient information"
+msgstr "Paciento informacija"
+
+#: .\xrayapp\templates\xrayapp\home.html:53
+msgid "First name:"
+msgstr "Vardas:"
+
+#: .\xrayapp\templates\xrayapp\home.html:57
+msgid "Last name:"
+msgstr "Pavardė:"
+
+#: .\xrayapp\templates\xrayapp\home.html:63
+#: .\xrayapp\templates\xrayapp\prediction_history.html:143
+msgid "Patient ID:"
+msgstr "Paciento ID:"
+
+#: .\xrayapp\templates\xrayapp\home.html:67
+#: .\xrayapp\templates\xrayapp\prediction_history.html:147
+msgid "Gender:"
+msgstr "Lytis:"
+
+#: .\xrayapp\templates\xrayapp\home.html:78
+msgid "Date of birth:"
+msgstr "Gimimo data:"
+
+#: .\xrayapp\templates\xrayapp\home.html:82
+msgid "Date of X-ray:"
+msgstr "Rentgeno data:"
+
+#: .\xrayapp\templates\xrayapp\home.html:87
+msgid "Additional information:"
+msgstr "Papildoma informacija:"
+
+#: .\xrayapp\templates\xrayapp\home.html:94
+msgid "Select X-ray image:"
+msgstr "Pasirinkite rentgeno nuotrauką:"
+
+#: .\xrayapp\templates\xrayapp\home.html:96
+msgid "Supported formats: JPG, PNG, DICOM"
+msgstr "Palaikomi formatai: JPG, PNG, DICOM"
+
+#: .\xrayapp\templates\xrayapp\home.html:99
+msgid "Analyze X-ray"
+msgstr "Analizuoti rentgeną"
+
+#: .\xrayapp\templates\xrayapp\home.html:101
+msgid "Acceptable images"
+msgstr "Tinkamos nuotraukos"
+
+#: .\xrayapp\templates\xrayapp\home.html:109
+msgid ""
+"Warning! This tool is not meant to be used without supervision of a medical "
+"professional!"
+msgstr ""
+"Įspėjimas! Šis įrankis nėra skirtas naudoti be medicinos specialisto "
+"priežiūros!"
+
+#: .\xrayapp\templates\xrayapp\home.html:114
+#: .\xrayapp\templates\xrayapp\results.html:585
+msgid "View prediction history"
+msgstr "Peržiūrėti prognozių istoriją"
+
+#: .\xrayapp\templates\xrayapp\home.html:120
+msgid "Analyzing X-ray image"
+msgstr "Analizuojamas rentgeno vaizdas"
+
+#: .\xrayapp\templates\xrayapp\home.html:134
+msgid "Complete"
+msgstr "Užbaigta"
+
+#: .\xrayapp\templates\xrayapp\home.html:140
+msgid "Please wait while the model analyzes your X-ray image"
+msgstr "Prašome palaukti, kol modelis analizuoja jūsų rentgeno vaizdą"
+
+# Interpretability templates
+#: .\xrayapp\templates\xrayapp\interpretability.html:71
+msgid "MCADS interpretability analysis"
+msgstr "MCADS interpretavimo analizė"
+
+#: .\xrayapp\templates\xrayapp\interpretability.html:75
+msgid "Original X-ray image"
+msgstr "Originalus rentgeno vaizdas"
+
+#: .\xrayapp\templates\xrayapp\interpretability.html:76
+msgid "Uploaded on"
+msgstr "Įkelta"
+
+# Image-related messages
+#: .\xrayapp\templates\xrayapp\interpretability.html:82
+#: .\xrayapp\templates\xrayapp\results.html:424
+msgid "Click to enlarge"
+msgstr "Spustelėkite padidinti"
+
+#: .\xrayapp\templates\xrayapp\interpretability.html:123
+msgid "Generate interpretability visualizations"
+msgstr "Generuoti interpretavimo vizualizacijas"
+
+#: .\xrayapp\templates\xrayapp\interpretability.html:129
+msgid "Interpretation Method"
+msgstr "Interpretavimo metodas"
+
+#: .\xrayapp\templates\xrayapp\interpretability.html:131
+msgid "Grad-CAM"
+msgstr "Grad-CAM"
+
+#: .\xrayapp\templates\xrayapp\interpretability.html:132
+msgid "Combined Grad-CAM (pathologies > 0.5)"
+msgstr "Kombinuotas Grad-CAM (patologijos > 0,5)"
+
+#: .\xrayapp\templates\xrayapp\interpretability.html:133
+msgid "Pixel-level interpretability"
+msgstr "Pikselių lygio interpretavimas"
+
+#: .\xrayapp\templates\xrayapp\interpretability.html:134
+msgid "Combined Pixel-level interpretability (pathologies > 0.5)"
+msgstr "Kombinuotas pikselių lygio interpretavimas (patologijos > 0,5)"
+
+#: .\xrayapp\templates\xrayapp\interpretability.html:138
+msgid "Model Type"
+msgstr "Modelio tipas"
+
+#: .\xrayapp\templates\xrayapp\interpretability.html:145
+msgid "Target Class (optional)"
+msgstr "Tikslinis klasės (neprivaloma)"
+
+#: .\xrayapp\templates\xrayapp\interpretability.html:147
+msgid "Use highest probability class"
+msgstr "Naudoti aukščiausios tikimybės klasę"
+
+#: .\xrayapp\templates\xrayapp\interpretability.html:155
+msgid "Generate visualization"
+msgstr "Generuoti vizualizaciją"
+
+#: .\xrayapp\templates\xrayapp\interpretability.html:225
+#: .\xrayapp\templates\xrayapp\interpretability.html:296
+#: .\xrayapp\templates\xrayapp\interpretability.html:649
+#: .\xrayapp\templates\xrayapp\interpretability.html:673
+#: .\xrayapp\templates\xrayapp\interpretability.html:713
+#: .\xrayapp\templates\xrayapp\interpretability.html:735
+msgid "Raw gradients"
+msgstr "Neapdoroti gradientai"
+
+#: .\xrayapp\templates\xrayapp\interpretability.html:226
+#: .\xrayapp\templates\xrayapp\interpretability.html:297
+msgid "Reset layers"
+msgstr "Atstatyti sluoksnius"
+
+#: .\xrayapp\templates\xrayapp\interpretability.html:357
+#: .\xrayapp\templates\xrayapp\prediction_history.html:256
+#: .\xrayapp\templates\xrayapp\results.html:584
+msgid "Upload new X-ray"
+msgstr "Įkelti naują rentgeną"
+
+#: .\xrayapp\templates\xrayapp\interpretability.html:370
+#: .\xrayapp\templates\xrayapp\results.html:607
+msgid "Pathology Information"
+msgstr "Patologijos informacija"
+
+# Prediction history templates
+#: .\xrayapp\templates\xrayapp\prediction_history.html:15
+msgid "Advanced filters"
+msgstr "Išplėstiniai filtrai"
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:28
+msgid "Max age"
+msgstr "Maks. amžius"
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:32
+msgid "From date"
+msgstr "Nuo datos"
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:36
+msgid "To date"
+msgstr "Iki datos"
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:44
+msgid "Min Probability"
+msgstr "Min. tikimybė"
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:50
+msgid "Apply filters"
+msgstr "Taikyti filtrus"
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:53
+msgid "Reset"
+msgstr "Atkurti"
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:63
+msgid "History Records"
+msgstr "Istorijos įrašai"
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:65
+msgid "Records Found"
+msgstr "Rasta įrašų"
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:68
+msgid "Delete all"
+msgstr "Šalinti visus"
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:81
+msgid "Patient"
+msgstr "Pacientas"
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:82
+msgid "ID"
+msgstr "ID"
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:85
+msgid "X-ray date"
+msgstr "Rentgeno data"
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:87
+msgid "Model used"
+msgstr "Naudotas modelis"
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:88
+msgid "Prediction date"
+msgstr "Prognozės data"
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:89
+msgid "Actions"
+msgstr "Veiksmai"
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:154
+msgid "Date of Birth:"
+msgstr "Gimimo data:"
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:158
+msgid "X-ray Date:"
+msgstr "Rentgeno data:"
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:165
+msgid "Severity:"
+msgstr "Sunkumas:"
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:173
+msgid "Model:"
+msgstr "Modelis:"
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:180
+msgid "Prediction Date:"
+msgstr "Prognozės data:"
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:189
+msgid "View"
+msgstr "Peržiūrėti"
+
+# Deletion confirmation modal
+#: .\xrayapp\templates\xrayapp\prediction_history.html:208
+#: .\xrayapp\templates\xrayapp\prediction_history.html:231
+msgid "Confirm Deletion"
+msgstr "Patvirtinti trynimą"
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:249
+msgid "No prediction history found with the current filters."
+msgstr "Su dabartiniais filtrais nerasta prognozių istorijos."
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:266
+#: .\xrayapp\templates\xrayapp\prediction_history.html:280
+msgid "Delete all records"
+msgstr "Šalinti visus įrašus"
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:271
+msgid "Warning: this action cannot be undone!"
+msgstr "Įspėjimas: šio veiksmo negalima anuliuoti!"
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:273
+msgid "Are you sure you want to delete all"
+msgstr "Ar tikrai norite ištrinti visus"
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:273
+msgid "prediction history records?"
+msgstr "prognozių istorijos įrašus?"
+
+# Results templates
+#: .\xrayapp\templates\xrayapp\results.html:337
+msgid "MCADS results"
+msgstr "MCADS rezultatai"
+
+#: .\xrayapp\templates\xrayapp\results.html:342
+msgid "Severity level"
+msgstr "Sunkumo lygis"
+
+#: .\xrayapp\templates\xrayapp\results.html:366
+msgid ""
+"Severity level is calculated as the average of all pathology probabilities."
+msgstr "Sunkumo lygis apskaičiuojamas kaip visų patologijų tikimybių vidurkis."
+
+#: .\xrayapp\templates\xrayapp\results.html:417
+msgid "X-ray image"
+msgstr "Rentgeno nuotrauka"
+
+#: .\xrayapp\templates\xrayapp\results.html:434
+msgid "Image Metadata"
+msgstr "Nuotraukos metaduomenys"
+
+#: .\xrayapp\templates\xrayapp\results.html:452
+msgid "Prediction Results"
+msgstr "Prognozių rezultatai"
+
+#: .\xrayapp\templates\xrayapp\results.html:461
+msgid "Probability"
+msgstr "Tikimybė"
+
+#: .\xrayapp\templates\xrayapp\results.html:491
+msgid ""
+"No predictions available yet. This might be because the image is still being "
+"processed. Please refresh the page in a few moments."
+msgstr ""
+"Prognozės dar nepasiekiamos. Tai gali būti todėl, kad vaizdas vis dar "
+"apdorojamas. Prašome atnaujinti puslapį po kelių akimirkų."
+
+#: .\xrayapp\templates\xrayapp\results.html:501
+msgid "GRAD-CAM Visualization"
+msgstr "GRAD-CAM vizualizacija"
+
+#: .\xrayapp\templates\xrayapp\results.html:507
+msgid "Original X-ray"
+msgstr "Originalus rentgenas"
+
+#: .\xrayapp\templates\xrayapp\results.html:511
+msgid "GRAD-CAM Heatmap"
+msgstr "GRAD-CAM šilumos žemėlapis"
+
+#: .\xrayapp\templates\xrayapp\results.html:515
+msgid "GRAD-CAM Overlay"
+msgstr "GRAD-CAM perdanga"
+
+#: .\xrayapp\templates\xrayapp\results.html:519
+msgid ""
+"GRAD-CAM highlights the regions in the image that strongly influenced the "
+"model's prediction for"
+msgstr ""
+"GRAD-CAM pažymi vaizdo sritis, kurios stipriai paveikė modelio prognozę"
+
+#: .\xrayapp\templates\xrayapp\results.html:560
+msgid "Interpretability options"
+msgstr "Interpretavimo galimybės"
+
+#: .\xrayapp\templates\xrayapp\results.html:564
+msgid ""
+"Want to understand why the model made these predictions? Try "
+"interpretability tools:"
+msgstr ""
+"Norite suprasti, kodėl modelis pateikė šias prognozes? Išbandykite "
+"interpretavimo įrankius:"
+
+#: .\xrayapp\templates\xrayapp\results.html:569
+msgid "Grad-CAM visualization"
+msgstr "Grad-CAM vizualizacija"
+
+#: .\xrayapp\templates\xrayapp\results.html:573
+msgid "Pixel-Level interpretability"
+msgstr "Pikselių lygio interpretavimas"
+
+#: .\xrayapp\templates\xrayapp\results.html:577
+msgid "View all interpretability options"
+msgstr "Peržiūrėti visas interpretavimo galimybes"
+
+#: .\xrayapp\templates\xrayapp\results.html:588
+msgid "Print"
+msgstr "Spausdinti"
+
+#: .\xrayapp\templates\xrayapp\results.html:591
+msgid "Print to printer"
+msgstr "Spausdinti spausdintuvu"
+
+#: .\xrayapp\templates\xrayapp\results.html:592
+msgid "Save as PDF"
+msgstr "Išsaugoti kaip PDF"
+
+# Terms of service
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:14
+msgid "Multi-label Chest Abnormality Detection System (MCADS)"
+msgstr "Daugiaetiketė krūtinės anomalijų aptikimo sistema (MCADS)"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:15
+msgid "Last Updated:"
+msgstr "Paskutinį kartą atnaujinta:"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:16
+msgid "Version:"
+msgstr "Versija:"
+
+# Terms of Service translations
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:21
+msgid "CRITICAL MEDICAL DISCLAIMER"
+msgstr "KRITINIS MEDICINOS ATSISAKYMAS"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:22
+msgid ""
+"WARNING: MCADS IS NOT A MEDICAL DIAGNOSTIC TOOL AND IS NOT INTENDED FOR "
+"CLINICAL USE"
+msgstr ""
+"ĮSPĖJIMAS: MCADS NĖRA MEDICINOS DIAGNOSTIKOS ĮRANKIS IR NESKIRTAS "
+"KLINIKINIAM NAUDOJIMUI"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:23
+msgid ""
+"MCADS IS FOR RESEARCH, EDUCATIONAL, AND DEMONSTRATION PURPOSES ONLY. THIS "
+"SOFTWARE IS NOT DESIGNED, INTENDED, OR APPROVED FOR USE IN THE DIAGNOSIS, "
+"TREATMENT, CURE, MITIGATION, OR PREVENTION OF DISEASE OR OTHER CONDITIONS. "
+"MCADS SHOULD NEVER BE USED AS A SUBSTITUTE FOR PROFESSIONAL MEDICAL ADVICE, "
+"DIAGNOSIS, OR TREATMENT."
+msgstr ""
+"MCADS SKIRTAS TIK MOKSLINIŲ TYRIMŲ, ŠVIETIMO IR DEMONSTRAVIMO TIKSLAMS. ŠI "
+"PROGRAMINĖ ĮRANGA NĖRA SUKURTA, SKIRTA AR PATVIRTINTA NAUDOTI LIGŲ AR KITŲ "
+"BŪKLIŲ DIAGNOZAVIMUI, GYDYMUI, IŠGYDYMUI, SUŠVELNINIMUI AR PREVENCIJAI. "
+"MCADS NIEKADA NETURĖTŲ BŪTI NAUDOJAMAS KAIP PROFESIONALIŲ MEDICINOS "
+"PATARIMŲ, DIAGNOZĖS AR GYDYMO PAKAITALAS."
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:24
+msgid ""
+"THE AUTHORS, DEVELOPERS, AND CONTRIBUTORS OF MCADS EXPRESSLY DISCLAIM ANY "
+"AND ALL LIABILITY FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, "
+"CONSEQUENTIAL, OR PUNITIVE DAMAGES ARISING FROM OR RELATED TO THE USE OF "
+"THIS SOFTWARE, INCLUDING BUT NOT LIMITED TO ANY WRONG PREDICTIONS, "
+"MISDIAGNOSES, OR MEDICAL DECISIONS BASED ON SOFTWARE OUTPUT."
+msgstr ""
+"MCADS AUTORIAI, KŪRĖJAI IR PRISIDĖJĘ ASMENYS AIŠKIAI ATSISAKO BET KOKIOS "
+"ATSAKOMYBĖS UŽ BET KOKIUS TIESIOGINIUS, NETIESIOGINIUS, ATSITIKTINIUS, "
+"SPECIALIUS, PASEKMIŲ AR BAUDŽIAMUOSIUS NUOSTOLIUS, KYLANCIUS IŠ ŠOS "
+"PROGRAMINĖS ĮRANGOS NAUDOJIMO AR SU JUO SUSIJUSIUS, ĮSKAITANT, BET "
+"NEAPSIRIBOJANT, BET KOKIAS NETEISINGAS PROGNOZES, KLAIDINGAS DIAGNOZES AR "
+"MEDICINOS SPRENDIMUS, PAREMTUS PROGRAMINĖS ĮRANGOS IŠVESTIMI."
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:29
+msgid "Acceptance of Terms"
+msgstr "Sąlygų priėmimas"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:31
+msgid ""
+"By accessing and using MCADS, you agree to be bound by these Terms of "
+"Service. If you do not agree, you must not use the Software."
+msgstr ""
+"Prisijungdami ir naudodami MCADS, sutinkate laikytis šių paslaugų teikimo "
+"sąlygų. Jei nesutinkate, neturite naudoti programinės įrangos."
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:35
+msgid "Description of Service"
+msgstr "Paslaugos aprašymas"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:37
+msgid ""
+"MCADS is a research demonstration software developed using Django, PyTorch, "
+"and TorchXRayVision libraries. The Software provides:"
+msgstr ""
+"MCADS yra mokslinių tyrimų demonstracinė programinė įranga, sukurta "
+"naudojant Django, PyTorch ir TorchXRayVision bibliotekas. Programinė įranga "
+"teikia:"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:39
+msgid ""
+"Image analysis of chest X-ray images using pre-trained deep learning models"
+msgstr ""
+"Krūtinės rentgeno nuotraukų analizę naudojant iš anksto apmokytus giluminio "
+"mokymosi modelius"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:40
+msgid "Probability scores for various pathological conditions"
+msgstr "Tikimybės balus įvairioms patologinėms būklėms"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:41
+msgid "Educational visualization tools"
+msgstr "Švietimo vizualizacijos įrankius"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:42
+msgid "Research and academic demonstration capabilities"
+msgstr "Mokslinių tyrimų ir akademinio demonstravimo galimybes"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:47
+msgid "Medical Disclaimers and Limitations"
+msgstr "Medicinos atsisakymai ir apribojimai"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:49
+msgid "Not for Clinical Use"
+msgstr "Neskirta klinikiniam naudojimui"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:51
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:52
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:53
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:54
+msgid "MCADS is"
+msgstr "MCADS yra"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:51
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:52
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:53
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:54
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:59
+msgid "NOT"
+msgstr "NE"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:51
+msgid "a medical device"
+msgstr "medicinos prietaisas"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:52
+msgid "validated for clinical diagnosis"
+msgstr "patvirtintas klinikiniam diagnozavimui"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:53
+msgid ""
+"approved by any medical regulatory authority (FDA, CE, Health Canada, etc.)"
+msgstr ""
+"patvirtintas jokios medicinos reguliavimo institucijos (FDA, CE, Health "
+"Canada ir kt.)"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:54
+msgid "intended to replace professional medical judgment"
+msgstr "skirtas pakeisti profesionalų medicinos sprendimą"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:57
+msgid "Accuracy Limitations"
+msgstr "Tikslumo apribojimai"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:59
+msgid "The Software provides probability scores,"
+msgstr "Programinė įranga teikia tikimybės balus,"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:59
+msgid "definitive diagnoses"
+msgstr "galutines diagnozes"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:60
+msgid "The underlying AI models may produce"
+msgstr "Pagrindiniai AI modeliai gali generuoti"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:60
+msgid "false positives"
+msgstr "klaidingas teigiamas prognozes"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:60
+msgid "false negatives"
+msgstr "klaidingas neigiamas prognozes"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:61
+msgid ""
+"The Software's predictions may be inaccurate, unreliable, or completely wrong"
+msgstr ""
+"Programinės įrangos prognozės gali būti netikslios, nepatikimos arba "
+"visiškai klaidingos"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:62
+msgid "The Software has not been clinically validated for accuracy"
+msgstr "Programinės įrangos tikslumas nėra kliniškai patvirtintas"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:63
+msgid ""
+"Performance may vary significantly across different populations, imaging "
+"conditions, and pathologies"
+msgstr ""
+"Veikimas gali žymiai skirtis tarp skirtingų populiacijų, vaizdavimo sąlygų "
+"ir patologijų"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:66
+msgid "Professional Medical Consultation Required"
+msgstr "Reikalinga profesionali medicinos konsultacija"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:68
+msgid "ALWAYS"
+msgstr "VISADA"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:68
+msgid "consult qualified healthcare professionals for medical decisions"
+msgstr ""
+"konsultuokitės su kvalifikuotais sveikatos priežiūros specialistais dėl "
+"medicinos sprendimų"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:69
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:70
+msgid "NEVER"
+msgstr "NIEKADA"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:69
+msgid "make medical decisions based solely on MCADS output"
+msgstr "priimkite medicinos sprendimų vien tik pagal MCADS išvestį"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:70
+msgid "delay seeking medical attention based on Software results"
+msgstr ""
+"atidėliokite medicinos pagalbos ieškojimo pagal programinės įrangos "
+"rezultatus"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:71
+msgid ""
+"Any medical concerns require immediate consultation with licensed medical "
+"professionals"
+msgstr ""
+"Bet kokie medicinos rūpesčiai reikalauja nedelsiant konsultuotis su "
+"licencijuotais medicinos specialistais"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:77
+msgid "Limitation of Liability"
+msgstr "Atsakomybės apribojimas"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:79
+msgid "No Liability for Medical Decisions"
+msgstr "Jokia atsakomybė už medicinos sprendimus"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:81
+#, fuzzy
+#| msgid ""
+#| "The authors, developers, contributors, and affiliated institutions "
+#| "(\"Providers\") shall not be liable for:"
+msgid "The authors, developers, contributors, and affiliated institutions (\\"
+msgstr ""
+"Autoriai, kūrėjai, prisidėję asmenys ir susijusios institucijos "
+"(\"Teikėjai\") nebus atsakingi už:"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:83
+msgid "Any medical decisions made based on Software output"
+msgstr ""
+"Bet kokius medicinos sprendimus, priimtus pagal programinės įrangos išvestį"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:84
+msgid "Any misdiagnosis or delayed diagnosis"
+msgstr "Bet kokią klaidingą diagnozę ar vėluojančią diagnozę"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:85
+msgid "Any adverse health outcomes"
+msgstr "Bet kokius neigiamus sveikatos pasekmės"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:86
+msgid "Any reliance on Software predictions"
+msgstr "Bet kokį pasitikėjimą programinės įrangos prognozėmis"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:87
+msgid ""
+"Any direct, indirect, incidental, special, consequential, or punitive damages"
+msgstr ""
+"Bet kokius tiesioginius, netiesioginius, atsitiktinius, specialius, pasekmių "
+"ar baudžiamuosius nuostolius"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:91
+msgid "Maximum Liability"
+msgstr "Maksimali atsakomybė"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:93
+msgid ""
+"To the maximum extent permitted by law, the total liability of the Providers "
+"shall not exceed zero euros (€0.00)."
+msgstr ""
+"Maksimaliu įstatymu leistinu mastu, bendra teikėjų atsakomybė neviršys nulio "
+"eurų (€0,00)."
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:99
+msgid "No Warranties"
+msgstr "Jokių garantijų"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:101
+msgid "Disclaimer of All Warranties"
+msgstr "Visų garantijų atsisakymas"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:103
+#, fuzzy
+#| msgid "The Software provides probability scores,"
+msgid "The Software is provided \\"
+msgstr "Programinė įranga teikia tikimybės balus,"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:105
+msgid "Warranties of merchantability"
+msgstr "Prekybos tinkumo garantijos"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:106
+msgid "Fitness for a particular purpose"
+msgstr "Tinkamumas konkrečiam tikslui"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:107
+msgid "Non-infringement"
+msgstr "Nepažeidimas"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:108
+msgid "Accuracy or reliability"
+msgstr "Tikslumas ar patikimumas"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:109
+msgid "Continuous availability"
+msgstr "Nuolatinis prieinamumas"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:110
+msgid "Error-free operation"
+msgstr "Veikimas be klaidų"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:114
+msgid "No Medical Warranty"
+msgstr "Jokių medicinos garantijų"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:116
+msgid "The Providers make no warranties regarding:"
+msgstr "Teikėjai neteikia jokių garantijų dėl:"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:118
+msgid "The medical accuracy of predictions"
+msgstr "Prognozių medicinos tikslumo"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:119
+msgid "The clinical validity of results"
+msgstr "Rezultatų klinikinio pagrįstumo"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:120
+msgid "The Software's fitness for medical use"
+msgstr "Programinės įrangos tinkamumo medicinos naudojimui"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:121
+msgid "The completeness or correctness of pathology detection"
+msgstr "Patologijos aptikimo išsamumo ar teisingumo"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:128
+msgid "User Responsibilities"
+msgstr "Naudotojo atsakomybės"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:130
+msgid "Appropriate Use"
+msgstr "Tinkamas naudojimas"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:132
+msgid ""
+"Use the Software only for research, educational, or demonstration purposes"
+msgstr ""
+"Naudokite programinę įrangą tik mokslinių tyrimų, švietimo ar demonstravimo "
+"tikslais"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:133
+msgid "Understand the Software's limitations and disclaimers"
+msgstr "Suprantate programinės įrangos apribojimus ir atsisakymus"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:134
+msgid "Not rely on the Software for medical decisions"
+msgstr "Nesivadovaukite programine įranga medicinos sprendimams"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:135
+msgid "Seek professional medical advice for health concerns"
+msgstr "Kreipkitės profesionalaus medicinos patarimo dėl sveikatos problemų"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:136
+msgid "Comply with all applicable laws and regulations"
+msgstr "Laikykitės visų taikomų įstatymų ir reglamentų"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:139
+msgid "Data and Privacy"
+msgstr "Duomenys ir privatumas"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:141
+msgid "Ensure proper authorization before uploading any medical images"
+msgstr ""
+"Užtikrinkite tinkamą autorizaciją prieš įkeliant bet kokias medicinos "
+"nuotraukas"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:142
+msgid "Comply with HIPAA, GDPR, and other privacy regulations"
+msgstr "Laikykitės HIPAA, BDAR ir kitų privatumo reglamentų"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:143
+msgid "Protect patient confidentiality"
+msgstr "Apsaugokite pacientų konfidencialumą"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:144
+msgid "Use only properly anonymized images when required"
+msgstr "Naudokite tik tinkamai anonimintas nuotraukas, kai reikia"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:150
+msgid "Prohibited Uses"
+msgstr "Draudžiami naudojimai"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:152
+msgid "Users"
+msgstr "Naudotojai"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:152
+msgid "SHALL NOT"
+msgstr "NEGALI"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:154
+msgid "Use the Software for clinical diagnosis or treatment decisions"
+msgstr ""
+"Naudoti programinę įrangą klinikiniam diagnozavimui ar gydymo sprendimams"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:155
+msgid "Present Software output as medical advice"
+msgstr "Pateikti programinės įrangos išvestį kaip medicinos patarimus"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:156
+msgid "Use the Software in any life-critical applications"
+msgstr "Naudoti programinę įrangą bet kokiose gyvybės svarbos programose"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:157
+msgid "Violate any applicable laws or regulations"
+msgstr "Pažeisti bet kokius taikomus įstatymus ar reglamentus"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:158
+msgid "Claim the Software is medically validated or approved"
+msgstr ""
+"Teigti, kad programinė įranga yra medicinos požiūriu patvirtinta ar "
+"patvirtinta"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:159
+msgid ""
+"Use the Software without proper medical supervision when analyzing patient "
+"data"
+msgstr ""
+"Naudoti programinę įrangą be tinkamo medicinos priežiūros, analizuojant "
+"pacientų duomenis"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:164
+msgid "Intellectual Property"
+msgstr "Intelektualus turtas"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:166
+msgid "Software License"
+msgstr "Programinės įrangos licencija"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:168
+msgid ""
+"MCADS is provided under the terms specified in the project's LICENSE file. "
+"The Software incorporates:"
+msgstr ""
+"MCADS teikiamas pagal projekto LICENSE faile nurodytas sąlygas. Programinė "
+"įranga apima:"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:170
+msgid "TorchXRayVision library"
+msgstr "TorchXRayVision biblioteką"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:171
+msgid "Pre-trained neural network models"
+msgstr "Iš anksto apmokytus neuroninių tinklų modelius"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:172
+msgid "Django framework"
+msgstr "Django karkasą"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:173
+msgid "Various open-source components"
+msgstr "Įvairius atvirojo kodo komponentus"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:177
+msgid "Third-Party Components"
+msgstr "Trečiųjų šalių komponentai"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:179
+msgid ""
+"Users acknowledge that the Software includes third-party components with "
+"their own licenses and terms."
+msgstr ""
+"Naudotojai pripažįsta, kad programinė įranga apima trečiųjų šalių "
+"komponentus su jų pačių licencijomis ir sąlygomis."
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:185
+msgid "Indemnification"
+msgstr "Žalos atlyginimas"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:187
+msgid ""
+"Users agree to indemnify, defend, and hold harmless the Providers from any "
+"claims, damages, losses, or expenses arising from:"
+msgstr ""
+"Naudotojai sutinka atlyginti žalą, ginti ir apsaugoti teikėjus nuo bet kokių "
+"reikalavimų, žalos, nuostolių ar išlaidų, kylantin iš:"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:189
+msgid "User's violation of these Terms"
+msgstr "Naudotojo šių sąlygų pažeidimo"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:190
+msgid "User's misuse of the Software"
+msgstr "Naudotojo programinės įrangos netinkamo naudojimo"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:191
+msgid "Any medical decisions based on Software output"
+msgstr "Bet kokių medicinos sprendimų, paremtų programinės įrangos išvestimi"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:192
+msgid "Any breach of applicable laws or regulations"
+msgstr "Bet kokio taikomų įstatymų ar reglamentų pažeidimo"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:197
+msgid "Research and Academic Use"
+msgstr "Mokslinių tyrimų ir akademinis naudojimas"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:199
+msgid "Intended Use"
+msgstr "Numatytas naudojimas"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:201
+msgid "MCADS is intended for:"
+msgstr "MCADS yra skirtas:"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:203
+msgid "Academic research purposes"
+msgstr "Akademinių tyrimų tikslams"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:204
+msgid "Educational demonstrations"
+msgstr "Švietimo demonstracijoms"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:205
+msgid "Algorithm development and testing"
+msgstr "Algoritmų kūrimui ir testavimui"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:206
+msgid "Non-clinical research studies"
+msgstr "Neklinikinių tyrimų studijoms"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:210
+msgid "Publication and Citation"
+msgstr "Publikacija ir citavimas"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:212
+msgid "When using MCADS in research or publications, users should:"
+msgstr "Naudojant MCADS tyrimuose ar publikacijose, naudotojai turėtų:"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:214
+msgid "Properly cite the Software and underlying models"
+msgstr "Tinkamai cituoti programinę įrangą ir pagrindinius modelius"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:215
+msgid "Acknowledge the limitations and disclaimers"
+msgstr "Pripažinti apribojimus ir atsisakymus"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:216
+msgid "Include appropriate medical disclaimers in publications"
+msgstr "Įtraukti tinkamus medicinos atsisakymus publikacijose"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:223
+msgid "Updates and Modifications"
+msgstr "Atnaujinimai ir modifikacijos"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:225
+msgid "Software Updates"
+msgstr "Programinės įrangos atnaujinimai"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:227
+msgid "The Providers may update the Software without notice"
+msgstr "Teikėjai gali atnaujinti programinę įrangą be pranešimo"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:228
+msgid "Updates may change functionality, accuracy, or behavior"
+msgstr "Atnaujinimai gali pakeisti funkcionalumą, tikslumą ar elgesį"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:229
+msgid "Users should regularly review these Terms for changes"
+msgstr "Naudotojai turėtų reguliariai peržiūrėti šias sąlygas dėl pakeitimų"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:232
+msgid "Terms Updates"
+msgstr "Sąlygų atnaujinimai"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:234
+msgid "These Terms may be updated at any time"
+msgstr "Šios sąlygos gali būti atnaujintos bet kuriuo metu"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:235
+msgid "Continued use of the Software constitutes acceptance of updated Terms"
+msgstr "Toliau naudojant programinę įrangą reiškia atnaujintų sąlygų priėmimą"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:236
+msgid "Material changes will be communicated through appropriate channels"
+msgstr "Esminiai pakeitimai bus pranešti tinkamais kanalais"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:242
+msgid "Termination"
+msgstr "Nutraukimas"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:244
+msgid "Termination Rights"
+msgstr "Nutraukimo teisės"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:246
+msgid "Users may stop using the Software at any time"
+msgstr "Naudotojai gali nustoti naudoti programinę įrangą bet kuriuo metu"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:247
+msgid "Providers may terminate access for violations of these Terms"
+msgstr "Teikėjai gali nutraukti prieigą už šių sąlygų pažeidimus"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:248
+msgid "Termination does not affect accrued rights or obligations"
+msgstr "Nutraukimas nepaveiks sukauptų teisių ar įsipareigojimų"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:254
+msgid "Governing Law and Jurisdiction"
+msgstr "Taikomi įstatymai ir jurisdikcija"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:256
+msgid ""
+"These Terms shall be governed by the laws of [Your Jurisdiction]. Any "
+"disputes shall be resolved in the courts of [Your Jurisdiction]."
+msgstr ""
+"Šios sąlygos reglamentuojamos [Jūsų jurisdikcijos] įstatymais. Bet kokie "
+"ginčai sprendžiami [Jūsų jurisdikcijos] teismuose."
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:260
+msgid "Severability"
+msgstr "Atskyrimmas"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:262
+msgid ""
+"If any provision of these Terms is found invalid or unenforceable, the "
+"remaining provisions shall remain in full force and effect."
+msgstr ""
+"Jei bet kuris šių sąlygų punktas pripažįstamas negaliojančiu ar "
+"neįgyvendinamu, likę punktai išlieka galioti ir veikti."
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:266
+msgid "Contact Information"
+msgstr "Kontaktinė informacija"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:268
+msgid "For questions about these Terms or the Software, contact:"
+msgstr "Dėl klausimų apie šias sąlygas ar programinę įrangą kreipkitės:"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:270
+msgid "MCADS Development Team"
+msgstr "MCADS kūrimo komanda"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:271
+msgid "Paulius Bundza and Justas Trinkūnas"
+msgstr "Paulius Bundža ir Justas Trinkūnas"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:272
+msgid "Vilnius Tech"
+msgstr "Vilniaus Tech"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:273
+msgid "Email:"
+msgstr "El. paštas:"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:281
+msgid "FINAL MEDICAL WARNING"
+msgstr "GALUTINIS MEDICINOS ĮSPĖJIMAS"
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:282
+msgid ""
+"BY USING MCADS, YOU ACKNOWLEDGE THAT YOU HAVE READ, UNDERSTOOD, AND AGREED "
+"TO ALL MEDICAL DISCLAIMERS AND LIMITATIONS. YOU UNDERSTAND THAT MCADS IS NOT "
+"A MEDICAL DEVICE AND SHALL NOT BE USED FOR CLINICAL PURPOSES. YOU AGREE THAT "
+"THE AUTHORS BEAR NO RESPONSIBILITY FOR ANY MEDICAL DECISIONS OR OUTCOMES "
+"RELATED TO THE USE OF THIS SOFTWARE."
+msgstr ""
+"NAUDODAMI MCADS, JŪS PRIPAŽĮSTATE, KAD PERSKAITUS, SUPRATOTE IR SUTINKATE SU "
+"VISAIS MEDICINOS ATSISAKYMAIS IR APRIBOJIMAIS. JŪS SUPRANTATE, KAD MCADS "
+"NĖRA MEDICINOS PRIETAISAS IR NETURĖTŲ BŪTI NAUDOJAMAS KLINIKINIAMS TIKSLAMS. "
+"JŪS SUTINKATE, KAD AUTORIAI NEPRISIIMA JOKIOS ATSAKOMYBĖS UŽ BET KOKIUS "
+"MEDICINOS SPRENDIMUS AR PASEKMES, SUSIJUSIAS SU ŠOS PROGRAMINĖS ĮRANGOS "
+"NAUDOJIMU."
+
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:283
+msgid ""
+"IF YOU HAVE ANY MEDICAL CONCERNS, CONSULT A QUALIFIED HEALTHCARE "
+"PROFESSIONAL IMMEDIATELY."
+msgstr ""
+"JEI TURITE BET KOKIŲ MEDICINOS RŪPESČIŲ, NEDELSIANT KREIPKITĖS Į "
+"KVALIFIKUOTĄ SVEIKATOS PRIEŽIŪROS SPECIALISTĄ."
+
+#: .\xrayapp\views.py:466
+#, fuzzy
+#| msgid "Full Name"
+msgid "Name"
+msgstr "Pilnas vardas"
+
+#: .\xrayapp\views.py:468
+#, fuzzy
+#| msgid "Min Age"
+msgid "Age"
+msgstr "Min. amžius"
+
+#: .\xrayapp\views.py:468
+msgid "years"
+msgstr "metai"
+
+#: .\xrayapp\views.py:469
+#, fuzzy
+#| msgid "Date of Birth:"
+msgid "Date of Birth"
+msgstr "Gimimo data:"
+
+#: .\xrayapp\views.py:470
+#, fuzzy
+#| msgid "X-ray Date:"
+msgid "X-ray Date"
+msgstr "Rentgeno data:"
+
+#: .\xrayapp\views.py:471
+#, fuzzy
+#| msgid "Additional information"
+msgid "Additional Information"
+msgstr "Papildoma informacija"
+
+#: .\xrayapp\views.py:476 .\xrayapp\views.py:705
+#, fuzzy
+#| msgid "Last name"
+msgid "Image name"
+msgstr "Pavardė"
+
+#: .\xrayapp\views.py:477 .\xrayapp\views.py:706
+msgid "Format"
+msgstr "Formatas"
+
+#: .\xrayapp\views.py:478 .\xrayapp\views.py:707
+msgid "Size"
+msgstr "Dydis"
+
+#: .\xrayapp\views.py:479 .\xrayapp\views.py:708
+#, fuzzy
+#| msgid "Consolidation"
+msgid "Resolution"
+msgstr "Konsolidacija"
+
+#: .\xrayapp\views.py:480 .\xrayapp\views.py:709
+msgid "Date Created"
+msgstr "Sukūrimo data"
+
+# Views messages
+#: .\xrayapp\views.py:586
+msgid "Prediction history record has been deleted."
+msgstr "Prognozių istorijos įrašas ištrintas."
+
+#: .\xrayapp\views.py:588 .\xrayapp\views.py:633
+msgid "Prediction history record not found."
+msgstr "Prognozių istorijos įrašas nerastas."
+
+#: .\xrayapp\views.py:604
+#, python-format
+msgid "All %(count)d prediction history records have been deleted."
+msgstr "Visi %(count)d prognozių istorijos įrašai ištrinti."
+
+#: .\xrayapp\views.py:606
+msgid "No prediction history records to delete."
+msgstr "Nėra prognozių istorijos įrašų šalinimui."
+
+#: .\xrayapp\views.py:622
+msgid "Prediction record has been updated."
+msgstr "Prognozės įrašas atnaujintas."
+
+#: .\xrayapp\views.py:792
+msgid "Your profile information has been updated successfully."
+msgstr "Jūsų profilio informacija sėkmingai atnaujinta."
+
+#: .\xrayapp\views.py:795
+msgid "Please correct the errors below."
+msgstr "Prašome ištaisyti klaidas žemiau."
+
+#: .\xrayapp\views.py:805
+msgid ""
+"Your preferences have been updated successfully. Please refresh the page to "
+"see theme changes."
+msgstr ""
+"Jūsų nustatymai sėkmingai atnaujinti. Prašome atnaujinti puslapį, kad "
+"pamatytumėte temos pakeitimus."
+
+#: .\xrayapp\views.py:808
+msgid "Please correct the errors in your preferences."
+msgstr "Prašome ištaisyti klaidas jūsų nustatymuose."
+
+#: .\xrayapp\views.py:823
+msgid "Your password has been changed successfully."
+msgstr "Jūsų slaptažodis sėkmingai pakeistas."
+
+#: .\xrayapp\views.py:826
+msgid "Please correct the errors in your password form."
+msgstr "Prašome ištaisyti klaidas slaptažodžio formoje."
+
+#~ msgid "Type \"DELETE\" to confirm"
+#~ msgstr "Įveskite \"DELETE\" kad patvirtintumėte"
+
+#~ msgid ""
+#~ "ResNet: All pathologies except \"Enlarged cardiomediastinum\" and \"Lung "
+#~ "lesion\""
+#~ msgstr ""
+#~ "ResNet: Visos patologijos, išskyrus \"Padidėjęs vidurio krūtinės tarpas\" "
+#~ "ir \"Plaučių pažeidimas\""

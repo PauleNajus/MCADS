@@ -1,11 +1,12 @@
 {% extends "errors/error_base.html" %}
+{% load i18n %}
 
 {% block title %}401 Unauthorized - MCADS{% endblock %}
 
 {% block error_code %}401{% endblock %}
 
-{% block error_message %}Unauthorized{% endblock %}
+{% block error_message %}{% trans "Unauthorized" %}{% endblock %}
 
 {% block error_description %}
-Authentication is required and has either not been provided or failed.
+{% trans "Authentication is required and has either not been provided or failed." %}
 {% endblock %} 

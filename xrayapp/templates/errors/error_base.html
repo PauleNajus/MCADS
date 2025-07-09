@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load i18n %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -63,7 +64,7 @@
             <h2 class="error-message">{% block error_message %}{% endblock %}</h2>
             <p class="error-description">{% block error_description %}{% endblock %}</p>
             <a href="/" class="btn btn-primary home-button">
-                <i class="bi bi-house-door me-2"></i>Go to Homepage
+                <i class="bi bi-house-door me-2"></i>{% trans "Go to Homepage" %}
             </a>
         </div>
     </div>
@@ -73,7 +74,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <p class="mb-0 text-muted small">
-                        &copy; {% now "Y" %} MCADS. All rights reserved. Paulius Bundza and Justas Trinkūnas. Vilnius Tech
+                        &copy; {% now "Y" %} MCADS. {% trans "All rights reserved." %} Paulius Bundza {% trans "and" %} Justas Trinkūnas. Vilnius Tech
                     </p>
                     <p class="mb-0 text-muted small">
                         <span id="server-time"></span>
@@ -81,7 +82,7 @@
                 </div>
                 <div class="col-md-6 text-md-end">
                     <p class="mb-0 text-muted small">
-                        Powered by TorchXRayVision
+                        {% trans "Powered by" %} TorchXRayVision
                     </p>
                 </div>
             </div>

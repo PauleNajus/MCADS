@@ -1,6 +1,7 @@
 {% extends 'xrayapp/base.html' %}
+{% load i18n %}
 
-{% block title %}MCADS - X-Ray Upload{% endblock %}
+{% block title %}MCADS - {% trans "X-Ray Upload" %}{% endblock %}
 
 {% block content %}
 <div class="container mt-4">
@@ -14,8 +15,7 @@
                 <!-- Form Wrapper - Will be hidden during processing -->
                 <div id="form-wrapper">
                     <p class="lead text-center mb-4">
-                        Upload a chest X-ray image for automatic analysis using a pre-trained model
-                        from TorchXRayVision.
+                        {% trans "Upload a chest X-ray image for automatic analysis using a pre-trained model from TorchXRayVision." %}
                     </p>
                     
                     <form method="post" enctype="multipart/form-data" class="mb-4" id="analysis-form">
@@ -23,7 +23,7 @@
                         
                         <!-- Model Selection Toggle -->
                         <div class="mb-3">
-                            <label class="form-label">Select model:</label>
+                            <label class="form-label">{% trans "Select model:" %}</label>
                             <div class="btn-group w-100" role="group" aria-label="Model selection">
                                 <input type="radio" class="btn-check" name="model_type" id="densenet_model" value="densenet" checked>
                                 <label class="btn btn-outline-secondary" for="densenet_model">DenseNet (224px, all classes)</label>
@@ -32,8 +32,8 @@
                                 <label class="btn btn-outline-secondary" for="resnet_model">ResNet (512px, filtered classes)</label>
                             </div>
                             <div class="form-text">
-                                DenseNet: All 18 pathologies included<br>
-                                ResNet: All pathologies except "Enlarged cardiomediastinum" and "Lung lesion"
+                                {% trans "DenseNet: All 18 pathologies included" %}<br>
+                                {% trans "ResNet: All pathologies except \"Enlarged cardiomediastinum\"" %} {% trans "and" %} {% trans "\"Lung lesion\"" %}
                             </div>
                             <!-- ResNet Warning Message -->
                             <div id="resnet-warning" class="alert alert-warning mt-2" style="display: none;">
@@ -45,60 +45,60 @@
                         <!-- Patient Information Section -->
                         <div class="card mb-3">
                             <div class="card-header">
-                                Patient information
+                                {% trans "Patient information" %}
                             </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <label for="id_first_name" class="form-label">First name:</label>
+                                        <label for="id_first_name" class="form-label">{% trans "First name:" %}</label>
                                         <input type="text" name="first_name" id="id_first_name" class="form-control">
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label for="id_last_name" class="form-label">Last name:</label>
+                                        <label for="id_last_name" class="form-label">{% trans "Last name:" %}</label>
                                         <input type="text" name="last_name" id="id_last_name" class="form-control">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <label for="id_patient_id" class="form-label">Patient ID:</label>
+                                        <label for="id_patient_id" class="form-label">{% trans "Patient ID:" %}</label>
                                         <input type="text" name="patient_id" id="id_patient_id" class="form-control">
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label for="id_gender" class="form-label">Gender:</label>
+                                        <label for="id_gender" class="form-label">{% trans "Gender:" %}</label>
                                         <select name="gender" id="id_gender" class="form-select">
-                                            <option value="">--Select--</option>
-                                            <option value="male">Male</option>
-                                            <option value="female">Female</option>
-                                            <option value="other">Other</option>
+                                            <option value="">{% trans "--Select--" %}</option>
+                                            <option value="male">{% trans "Male" %}</option>
+                                            <option value="female">{% trans "Female" %}</option>
+                                            <option value="other">{% trans "Other" %}</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <label for="id_date_of_birth" class="form-label">Date of birth:</label>
+                                        <label for="id_date_of_birth" class="form-label">{% trans "Date of birth:" %}</label>
                                         <input type="text" name="date_of_birth" id="id_date_of_birth" class="form-control" placeholder="YYYY-MM-DD">
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label for="id_date_of_xray" class="form-label">Date of X-ray:</label>
+                                        <label for="id_date_of_xray" class="form-label">{% trans "Date of X-ray:" %}</label>
                                         <input type="text" name="date_of_xray" id="id_date_of_xray" class="form-control" value="{{ today_date|date:'Y-m-d' }}" placeholder="YYYY-MM-DD">
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="id_additional_info" class="form-label">Additional information:</label>
+                                    <label for="id_additional_info" class="form-label">{% trans "Additional information:" %}</label>
                                     <textarea name="additional_info" id="id_additional_info" class="form-control" rows="3"></textarea>
                                 </div>
                             </div>
                         </div>
                         
                         <div class="mb-3">
-                            <label for="id_image" class="form-label">Select X-ray image:</label>
+                            <label for="id_image" class="form-label">{% trans "Select X-ray image:" %}</label>
                             <input type="file" name="image" id="id_image" accept="image/*" class="form-control" required>
-                            <div class="form-text">Supported formats: JPG, PNG, DICOM</div>
+                            <div class="form-text">{% trans "Supported formats: JPG, PNG, DICOM" %}</div>
                         </div>
                         <div class="text-center">
-                            <button type="submit" class="btn btn-outline-secondary me-2">Analyze X-ray</button>
+                            <button type="submit" class="btn btn-outline-secondary me-2">{% trans "Analyze X-ray" %}</button>
                             <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#acceptableImagesModal">
-                                <i class="bi bi-info-circle"></i> Acceptable images
+                                <i class="bi bi-info-circle"></i> {% trans "Acceptable images" %}
                             </button>
                         </div>
                     </form>
@@ -106,18 +106,18 @@
                     <div class="alert alert-danger">
                         <p class="mb-0 text-center">
                             <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                            <strong>Warning! This tool is not meant to be used without supervision of a medical professional!</strong>
+                            <strong>{% trans "Warning! This tool is not meant to be used without supervision of a medical professional!" %}</strong>
                         </p>
                     </div>
                     
                     <div class="text-center mt-3">
-                        <a href="{% url 'prediction_history' %}" class="btn btn-outline-secondary">View prediction history</a>
+                        <a href="{% url 'prediction_history' %}" class="btn btn-outline-secondary">{% trans "View prediction history" %}</a>
                     </div>
                 </div>
                 
                 <!-- Progress Wrapper - Hidden initially, shown during processing -->
                 <div id="progress-wrapper" style="display: none;">
-                    <h4 class="text-center mb-4">Analyzing X-ray image</h4>
+                    <h4 class="text-center mb-4">{% trans "Analyzing X-ray image" %}</h4>
                     
                     <div class="progress mb-3" style="height: 25px;">
                         <div id="analysis-progress-bar" 
@@ -131,13 +131,13 @@
                     </div>
                     
                     <p class="text-center">
-                        <span id="progress-percentage">0%</span> Complete
+                        <span id="progress-percentage">0%</span> {% trans "Complete" %}
                     </p>
                     
                     <div class="alert alert-danger mt-4">
                         <p class="mb-0 text-center">
                             <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                            <strong>Please wait while the model analyzes your X-ray image</strong>
+                            <strong>{% trans "Please wait while the model analyzes your X-ray image" %}</strong>
                         </p>
                     </div>
                 </div>
@@ -236,7 +236,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    <i class="bi bi-x-lg"></i> Close
+                    <i class="bi bi-x-lg"></i> {% trans "Close" %}
                 </button>
             </div>
         </div>

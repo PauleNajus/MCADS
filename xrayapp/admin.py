@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.utils.html import format_html
 from django.urls import reverse
 from django.utils.safestring import mark_safe
+from django.utils.translation import gettext_lazy as _
 from .models import XRayImage, PredictionHistory, UserProfile, USER_ROLES
 
 
@@ -35,8 +36,8 @@ class CustomUserAdmin(UserAdmin):
                 color, role
             )
         except:
-            return format_html('<span style="color: #dc3545;">No Profile</span>')
-    get_role.short_description = 'Role'
+            return format_html('<span style="color: #dc3545;">{}</span>', _('No Profile'))
+    get_role.short_description = _('Role')
     get_role.admin_order_field = 'profile__role'
 
     def get_fieldsets(self, request, obj=None):
@@ -46,7 +47,7 @@ class CustomUserAdmin(UserAdmin):
             # Add role information to personal info
             fieldsets = list(fieldsets)
             fieldsets[1] = (
-                'Personal info',
+                _('Personal info'),
                 {'fields': ('first_name', 'last_name', 'email', 'get_role_info')}
             )
         return fieldsets
@@ -56,18 +57,22 @@ class CustomUserAdmin(UserAdmin):
         try:
             profile = obj.profile
             return format_html(
-                '<strong>Current Role:</strong> {} <br>'
-                '<a href="{}" class="button">Edit Profile & Role</a>',
+                '<strong>{}:</strong> {} <br>'
+                '<a href="{}" class="button">{}</a>',
+                _('Current Role'),
                 profile.role,
-                reverse('admin:xrayapp_userprofile_change', args=[profile.pk])
+                reverse('admin:xrayapp_userprofile_change', args=[profile.pk]),
+                _('Edit Profile & Role')
             )
         except:
             return format_html(
-                '<span style="color: red;">No profile found</span><br>'
-                '<a href="{}" class="button">Create Profile</a>',
-                reverse('admin:xrayapp_userprofile_add') + f'?user={obj.pk}'
+                '<span style="color: red;">{}</span><br>'
+                '<a href="{}" class="button">{}</a>',
+                _('No profile found'),
+                reverse('admin:xrayapp_userprofile_add') + f'?user={obj.pk}',
+                _('Create Profile')
             )
-    get_role_info.short_description = 'Role Information'
+    get_role_info.short_description = _('Role Information')
 
     readonly_fields = UserAdmin.readonly_fields + ('get_role_info',)
 
@@ -84,26 +89,26 @@ class UserProfileAdmin(admin.ModelAdmin):
     ordering = ('user__username',)
     
     fieldsets = (
-        ('User', {
+        (_('User'), {
             'fields': ('user', 'get_user_info')
         }),
-        ('Role & Permissions', {
+        (_('Role & Permissions'), {
             'fields': ('role', 'get_permissions_display'),
-            'description': 'Role determines what actions the user can perform in the system.'
+            'description': _('Role determines what actions the user can perform in the system.')
         }),
-        ('Preferences', {
+        (_('Preferences'), {
             'fields': ('preferred_theme', 'preferred_language', 'dashboard_view'),
             'classes': ('collapse',)
         }),
-        ('Notifications', {
+        (_('Notifications'), {
             'fields': ('email_notifications', 'processing_complete_notification'),
             'classes': ('collapse',)
         }),
-        ('Security', {
+        (_('Security'), {
             'fields': ('two_factor_auth_enabled',),
             'classes': ('collapse',)
         }),
-        ('Timestamps', {
+        (_('Timestamps'), {
             'fields': ('created_at', 'updated_at'),
             'classes': ('collapse',)
         })
@@ -114,52 +119,53 @@ class UserProfileAdmin(admin.ModelAdmin):
     def get_user_full_name(self, obj):
         """Get user's full name"""
         return f"{obj.user.first_name} {obj.user.last_name}".strip() or obj.user.username
-    get_user_full_name.short_description = 'Full Name'
+    get_user_full_name.short_description = _('Full Name')
     get_user_full_name.admin_order_field = 'user__first_name'
 
     def get_user_info(self, obj):
         """Display user information"""
         user = obj.user
         return format_html(
-            '<strong>Username:</strong> {}<br>'
-            '<strong>Email:</strong> {}<br>'
-            '<strong>Staff:</strong> {}<br>'
-            '<strong>Superuser:</strong> {}<br>'
-            '<a href="{}" class="button">Edit User Details</a>',
-            user.username,
-            user.email,
-            '✅' if user.is_staff else '❌',
-            '✅' if user.is_superuser else '❌',
-            reverse('admin:auth_user_change', args=[user.pk])
+            '<strong>{}:</strong> {}<br>'
+            '<strong>{}:</strong> {}<br>'
+            '<strong>{}:</strong> {}<br>'
+            '<strong>{}:</strong> {}<br>'
+            '<a href="{}" class="button">{}</a>',
+            _('Username'), user.username,
+            _('Email'), user.email,
+            _('Staff'), '✅' if user.is_staff else '❌',
+            _('Superuser'), '✅' if user.is_superuser else '❌',
+            reverse('admin:auth_user_change', args=[user.pk]),
+            _('Edit User Details')
         )
-    get_user_info.short_description = 'User Information'
+    get_user_info.short_description = _('User Information')
 
     def get_role_permissions(self, obj):
         """Show key permissions for the role"""
         perms = []
         if obj.can_access_admin():
-            perms.append('Admin')
+            perms.append(_('Admin'))
         if obj.can_upload_xrays():
-            perms.append('Upload')
+            perms.append(_('Upload'))
         if obj.can_edit_predictions():
-            perms.append('Edit')
+            perms.append(_('Edit'))
         if obj.can_delete_data():
-            perms.append('Delete')
+            perms.append(_('Delete'))
         
-        return ', '.join(perms) if perms else 'View Only'
-    get_role_permissions.short_description = 'Key Permissions'
+        return ', '.join(perms) if perms else _('View Only')
+    get_role_permissions.short_description = _('Key Permissions')
 
     def get_permissions_display(self, obj):
         """Display all permissions for the role"""
         permissions = [
-            ('Access Admin Panel', obj.can_access_admin()),
-            ('Upload X-rays', obj.can_upload_xrays()),
-            ('View All Patients', obj.can_view_all_patients()),
-            ('Edit Predictions', obj.can_edit_predictions()),
-            ('Delete Data', obj.can_delete_data()),
-            ('Generate Interpretability', obj.can_generate_interpretability()),
-            ('View Interpretability', obj.can_view_interpretability()),
-            ('Manage Users', obj.can_manage_users()),
+            (_('Access Admin Panel'), obj.can_access_admin()),
+            (_('Upload X-rays'), obj.can_upload_xrays()),
+            (_('View All Patients'), obj.can_view_all_patients()),
+            (_('Edit Predictions'), obj.can_edit_predictions()),
+            (_('Delete Data'), obj.can_delete_data()),
+            (_('Generate Interpretability'), obj.can_generate_interpretability()),
+            (_('View Interpretability'), obj.can_view_interpretability()),
+            (_('Manage Users'), obj.can_manage_users()),
         ]
         
         html = '<table style="width: 100%;">'
@@ -169,7 +175,7 @@ class UserProfileAdmin(admin.ModelAdmin):
         html += '</table>'
         
         return format_html(html)
-    get_permissions_display.short_description = 'Role Permissions'
+    get_permissions_display.short_description = _('Role Permissions')
 
 
 @admin.register(XRayImage)
@@ -196,16 +202,16 @@ class XRayImageAdmin(admin.ModelAdmin):
     )
     
     fieldsets = (
-        ('User Information', {
+        (_('User Information'), {
             'fields': ('user', 'get_user_role_info')
         }),
-        ('Patient Information', {
+        (_('Patient Information'), {
             'fields': ('first_name', 'last_name', 'patient_id', 'gender', 'date_of_birth', 'date_of_xray', 'additional_info')
         }),
-        ('Image Processing', {
+        (_('Image Processing'), {
             'fields': ('image', 'uploaded_at', 'processing_status', 'progress', 'image_format', 'image_size', 'image_resolution')
         }),
-        ('Pathology Predictions', {
+        (_('Pathology Predictions'), {
             'fields': (
                 'atelectasis', 'cardiomegaly', 'consolidation', 'edema', 
                 'effusion', 'emphysema', 'fibrosis', 'hernia', 'infiltration',
@@ -215,7 +221,7 @@ class XRayImageAdmin(admin.ModelAdmin):
             ),
             'classes': ('collapse',)
         }),
-        ('Interpretability Visualizations', {
+        (_('Interpretability Visualizations'), {
             'fields': (
                 'has_gradcam', 'gradcam_visualization', 'gradcam_heatmap',
                 'gradcam_overlay', 'gradcam_target_class', 'has_pli', 'pli_visualization',
@@ -242,7 +248,7 @@ class XRayImageAdmin(admin.ModelAdmin):
             )
         except:
             return obj.user.username
-    get_user_with_role.short_description = 'User (Role)'
+    get_user_with_role.short_description = _('User (Role)')
     get_user_with_role.admin_order_field = 'user__username'
 
     def get_user_role_info(self, obj):
@@ -250,28 +256,28 @@ class XRayImageAdmin(admin.ModelAdmin):
         try:
             profile = obj.user.profile
             return format_html(
-                '<strong>Role:</strong> {}<br>'
-                '<strong>Can Edit Predictions:</strong> {}<br>'
-                '<strong>Can Delete:</strong> {}',
-                profile.role,
-                '✅' if profile.can_edit_predictions() else '❌',
-                '✅' if profile.can_delete_data() else '❌'
+                '<strong>{}:</strong> {}<br>'
+                '<strong>{}:</strong> {}<br>'
+                '<strong>{}:</strong> {}',
+                _('Role'), profile.role,
+                _('Can Edit Predictions'), '✅' if profile.can_edit_predictions() else '❌',
+                _('Can Delete'), '✅' if profile.can_delete_data() else '❌'
             )
         except:
-            return 'No profile information available'
-    get_user_role_info.short_description = 'User Role Info'
+            return _('No profile information available')
+    get_user_role_info.short_description = _('User Role Info')
 
     def get_severity_display(self, obj):
         """Display severity with color coding"""
         level = obj.severity_level or obj.calculate_severity_level
         if level == 1:
-            return format_html('<span style="color: #28a745;">Insignificant</span>')
+            return format_html('<span style="color: #28a745;">{}</span>', _('Insignificant'))
         elif level == 2:
-            return format_html('<span style="color: #ffc107;">Moderate</span>')
+            return format_html('<span style="color: #ffc107;">{}</span>', _('Moderate'))
         elif level == 3:
-            return format_html('<span style="color: #dc3545;">Significant</span>')
-        return 'Unknown'
-    get_severity_display.short_description = 'Severity'
+            return format_html('<span style="color: #dc3545;">{}</span>', _('Significant'))
+        return _('Unknown')
+    get_severity_display.short_description = _('Severity')
 
 
 @admin.register(PredictionHistory)
@@ -306,23 +312,23 @@ class PredictionHistoryAdmin(admin.ModelAdmin):
             )
         except:
             return obj.user.username
-    get_user_with_role.short_description = 'User (Role)'
+    get_user_with_role.short_description = _('User (Role)')
     get_user_with_role.admin_order_field = 'user__username'
 
     def get_severity_display(self, obj):
         """Display severity with color coding"""
         level = obj.severity_level or obj.calculate_severity_level
         if level == 1:
-            return format_html('<span style="color: #28a745;">Insignificant</span>')
+            return format_html('<span style="color: #28a745;">{}</span>', _('Insignificant'))
         elif level == 2:
-            return format_html('<span style="color: #ffc107;">Moderate</span>')
+            return format_html('<span style="color: #ffc107;">{}</span>', _('Moderate'))
         elif level == 3:
-            return format_html('<span style="color: #dc3545;">Significant</span>')
-        return 'Unknown'
-    get_severity_display.short_description = 'Severity'
+            return format_html('<span style="color: #dc3545;">{}</span>', _('Significant'))
+        return _('Unknown')
+    get_severity_display.short_description = _('Severity')
 
 
 # Customize admin site headers
-admin.site.site_header = "MCADS Administration"
-admin.site.site_title = "MCADS Admin"
-admin.site.index_title = "Multi-label Chest Abnormality Detection System"
+admin.site.site_header = _("MCADS Administration")
+admin.site.site_title = _("MCADS Admin")
+admin.site.index_title = _("Multi-label Chest Abnormality Detection System")

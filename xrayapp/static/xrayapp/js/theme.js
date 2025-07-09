@@ -42,10 +42,10 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (themeName === 'dark') {
       themeToggle.innerHTML = '<i class="bi bi-sun-fill"></i>';
-      themeToggle.setAttribute('title', 'Switch to light mode');
+      themeToggle.setAttribute('title', gettext('Switch to light mode'));
     } else {
       themeToggle.innerHTML = '<i class="bi bi-moon-fill"></i>';
-      themeToggle.setAttribute('title', 'Switch to dark mode');
+      themeToggle.setAttribute('title', gettext('Switch to dark mode'));
     }
   };
   

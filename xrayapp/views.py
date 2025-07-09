@@ -4,7 +4,7 @@ import os
 from pathlib import Path
 from django.conf import settings
 from django.http import JsonResponse
-from django.utils import timezone
+from django.utils import timezone, translation
 from django.db.models import Q, Prefetch
 from django.core.paginator import Paginator
 from django.views.decorators.cache import cache_page
@@ -20,6 +20,8 @@ from .interpretability import apply_gradcam, apply_pixel_interpretability, apply
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
+from django.utils.translation import activate, gettext_lazy as _
 import logging
 
 # Set up logging
@@ -460,22 +462,22 @@ def xray_results(request, pk):
     
     # Format patient information for display
     patient_info = {
-        'Patient ID': xray_instance.patient_id,
-        'Name': f"{xray_instance.first_name} {xray_instance.last_name}".strip() if xray_instance.first_name or xray_instance.last_name else None,
-        'Gender': xray_instance.gender.capitalize() if xray_instance.gender else None,
-        'Age': f"{patient_age} years" if patient_age is not None else None,
-        'Date of Birth': xray_instance.date_of_birth.strftime("%B %d, %Y") if xray_instance.date_of_birth else None,
-        'X-ray Date': xray_instance.date_of_xray.strftime("%B %d, %Y") if xray_instance.date_of_xray else None,
-        'Additional Information': xray_instance.additional_info if xray_instance.additional_info else None,
+        _('Patient ID'): xray_instance.patient_id,
+        _('Name'): f"{xray_instance.first_name} {xray_instance.last_name}".strip() if xray_instance.first_name or xray_instance.last_name else None,
+        _('Gender'): xray_instance.gender.capitalize() if xray_instance.gender else None,
+        _('Age'): f"{patient_age} {_('years')}" if patient_age is not None else None,
+        _('Date of Birth'): xray_instance.date_of_birth.strftime("%B %d, %Y") if xray_instance.date_of_birth else None,
+        _('X-ray Date'): xray_instance.date_of_xray.strftime("%B %d, %Y") if xray_instance.date_of_xray else None,
+        _('Additional Information'): xray_instance.additional_info if xray_instance.additional_info else None,
     }
     
     # Create image metadata dictionary
     image_metadata = {
-        'Image name': Path(xray_instance.image.name).name,
-        'Format': xray_instance.image_format,
-        'Size': xray_instance.image_size,
-        'Resolution': xray_instance.image_resolution,
-        'Date Created': xray_instance.image_date_created.strftime("%B %d, %Y %H:%M") if xray_instance.image_date_created else "Unknown",
+        _('Image name'): Path(xray_instance.image.name).name,
+        _('Format'): xray_instance.image_format,
+        _('Size'): xray_instance.image_size,
+        _('Resolution'): xray_instance.image_resolution,
+        _('Date Created'): xray_instance.image_date_created.strftime("%B %d, %Y %H:%M") if xray_instance.image_date_created else _("Unknown"),
     }
     
     # Filter out None values
@@ -581,9 +583,9 @@ def delete_prediction_history(request, pk):
     try:
         history_item = PredictionHistory.objects.get(pk=pk, user=request.user)
         history_item.delete()
-        messages.success(request, 'Prediction history record has been deleted.')
+        messages.success(request, _('Prediction history record has been deleted.'))
     except PredictionHistory.DoesNotExist:
-        messages.error(request, 'Prediction history record not found.')
+        messages.error(request, _('Prediction history record not found.'))
     
     return redirect('prediction_history')
 
@@ -599,9 +601,9 @@ def delete_all_prediction_history(request):
         PredictionHistory.objects.filter(user=request.user).delete()
         
         if count > 0:
-            messages.success(request, f'All {count} prediction history records have been deleted.')
+            messages.success(request, _('All %(count)d prediction history records have been deleted.') % {'count': count})
         else:
-            messages.info(request, 'No prediction history records to delete.')
+            messages.info(request, _('No prediction history records to delete.'))
     
     return redirect('prediction_history')
 
@@ -617,7 +619,7 @@ def edit_prediction_history(request, pk):
             form = XRayUploadForm(request.POST, instance=history_item.xray)
             if form.is_valid():
                 form.save()
-                messages.success(request, 'Prediction record has been updated.')
+                messages.success(request, _('Prediction record has been updated.'))
                 return redirect('prediction_history')
         else:
             # Display form with current values
@@ -628,7 +630,7 @@ def edit_prediction_history(request, pk):
             'history_item': history_item
         })
     except PredictionHistory.DoesNotExist:
-        messages.error(request, 'Prediction history record not found.')
+        messages.error(request, _('Prediction history record not found.'))
         return redirect('prediction_history')
 
 
@@ -700,11 +702,11 @@ def view_interpretability(request, pk):
     
     # Create image metadata dictionary
     image_metadata = {
-        'Image name': Path(xray_instance.image.name).name,
-        'Format': xray_instance.image_format,
-        'Size': xray_instance.image_size,
-        'Resolution': xray_instance.image_resolution,
-        'Date Created': xray_instance.image_date_created.strftime("%B %d, %Y %H:%M") if xray_instance.image_date_created else "Unknown",
+        _('Image name'): Path(xray_instance.image.name).name,
+        _('Format'): xray_instance.image_format,
+        _('Size'): xray_instance.image_size,
+        _('Resolution'): xray_instance.image_resolution,
+        _('Date Created'): xray_instance.image_date_created.strftime("%B %d, %Y %H:%M") if xray_instance.image_date_created else _("Unknown"),
     }
     
     # Prepare media URLs for visualizations
@@ -787,10 +789,10 @@ def account_settings(request):
         user_form = UserInfoForm(request.POST, instance=request.user)
         if user_form.is_valid():
             user_form.save()
-            messages.success(request, 'Your profile information has been updated successfully.')
+            messages.success(request, _('Your profile information has been updated successfully.'))
             active_tab = 'profile'
         else:
-            messages.error(request, 'Please correct the errors below.')
+            messages.error(request, _('Please correct the errors below.'))
             active_tab = 'profile'
     else:
         user_form = UserInfoForm(instance=request.user)
@@ -800,10 +802,10 @@ def account_settings(request):
         settings_form = UserProfileForm(request.POST, instance=profile)
         if settings_form.is_valid():
             settings_form.save()
-            messages.success(request, 'Your preferences have been updated successfully. Please refresh the page to see theme changes.')
+            messages.success(request, _('Your preferences have been updated successfully. Please refresh the page to see theme changes.'))
             active_tab = 'settings'
         else:
-            messages.error(request, 'Please correct the errors in your preferences.')
+            messages.error(request, _('Please correct the errors in your preferences.'))
             active_tab = 'settings'
     else:
         settings_form = UserProfileForm(instance=profile)
@@ -818,10 +820,10 @@ def account_settings(request):
             user.save()
             # Update the session to prevent the user from being logged out
             update_session_auth_hash(request, user)
-            messages.success(request, 'Your password has been changed successfully.')
+            messages.success(request, _('Your password has been changed successfully.'))
             active_tab = 'security'
         else:
-            messages.error(request, 'Please correct the errors in your password form.')
+            messages.error(request, _('Please correct the errors in your password form.'))
             active_tab = 'security'
     else:
         password_form = ChangePasswordForm(request.user)
@@ -839,6 +841,45 @@ def account_settings(request):
 def logout_confirmation(request):
     """Display a confirmation page before logging out the user."""
     return render(request, 'registration/logout.html')
+
+
+@require_POST
+def set_language(request):
+    """Custom language switching view that integrates with user profile"""
+    language = request.POST.get('language')
+    
+    if language and language in [lang[0] for lang in settings.LANGUAGES]:
+        # Activate the language for this session
+        translation.activate(language)
+        
+        # Get the redirect URL before creating the response
+        redirect_url = request.META.get('HTTP_REFERER', '/')
+        response = redirect(redirect_url)
+        
+        # Set language in session using Django's standard session key
+        # Django's LocaleMiddleware looks for 'django_language' in the session
+        request.session['django_language'] = language
+        
+        # Also set the language cookie for immediate effect
+        response.set_cookie(
+            settings.LANGUAGE_COOKIE_NAME,
+            language,
+            max_age=settings.LANGUAGE_COOKIE_AGE,
+        )
+        
+        # Update user profile if user is authenticated
+        if request.user.is_authenticated:
+            try:
+                profile, created = UserProfile.objects.get_or_create(user=request.user)
+                profile.preferred_language = language
+                profile.save()
+            except Exception as e:
+                logger.error(f"Error updating user language preference: {str(e)}")
+        
+        return response
+    
+    # If invalid language, redirect to home
+    return redirect('/')
 
 
 # Error handler views

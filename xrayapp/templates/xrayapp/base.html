@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+{% load i18n %}
+<html lang="{% get_current_language as LANGUAGE_CODE %}{{ LANGUAGE_CODE }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,18 +48,18 @@
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'home' %}">
-                            <i class="bi bi-house"></i> Home
+                            <i class="bi bi-house"></i> {% trans "Home" %}
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% if '/prediction-history/' in request.path %}active{% endif %}" href="{% url 'prediction_history' %}">
-                            <i class="bi bi-clock-history"></i> Prediction history
+                            <i class="bi bi-clock-history"></i> {% trans "Prediction history" %}
                         </a>
                     </li>
                     {% if user.is_staff %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'admin:index' %}">
-                            <i class="bi bi-gear-fill"></i> Admin
+                            <i class="bi bi-gear-fill"></i> {% trans "Admin" %}
                         </a>
                     </li>
                     {% endif %}
@@ -76,18 +77,49 @@
                         <li><span class="dropdown-item-text text-muted small"><i class="bi bi-person-badge"></i> {{ user.profile.role }}</span></li>
                         {% endif %}
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="{% url 'account_settings' %}"><i class="bi bi-gear"></i> Account settings</a></li>
+                        <li><a class="dropdown-item" href="{% url 'account_settings' %}"><i class="bi bi-gear"></i> {% trans "Account settings" %}</a></li>
                         {% if user.profile.can_access_admin %}
-                        <li><a class="dropdown-item" href="/secure-admin-mcads-2024/"><i class="bi bi-shield-fill-check"></i> Admin Panel</a></li>
+                        <li><a class="dropdown-item" href="/secure-admin-mcads-2024/"><i class="bi bi-shield-fill-check"></i> {% trans "Admin Panel" %}</a></li>
                         {% endif %}
-                        <li><a class="dropdown-item" href="{% url 'logout_confirmation' %}"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+                        <li><a class="dropdown-item" href="{% url 'logout_confirmation' %}"><i class="bi bi-box-arrow-right"></i> {% trans "Logout" %}</a></li>
                     </ul>
                 </div>
                 {% else %}
                 <a href="{% url 'login' %}" class="btn btn-outline-primary me-3">
-                    <i class="bi bi-box-arrow-in-right"></i> Login
+                    <i class="bi bi-box-arrow-in-right"></i> {% trans "Login" %}
                 </a>
                 {% endif %}
+                
+                <!-- Language Switcher -->
+                {% load i18n %}
+                <div class="dropdown me-2">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="{% trans 'Change language' %}">
+                        <i class="bi bi-translate"></i>
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% if LANGUAGE_CODE == 'lt' %}LT{% else %}EN{% endif %}
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+                        <li>
+                            <form method="post" action="{% url 'set_language' %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="language" value="en">
+                                <button type="submit" class="dropdown-item {% if LANGUAGE_CODE == 'en' %}active{% endif %}">
+                                    🇺🇸 English
+                                </button>
+                            </form>
+                        </li>
+                        <li>
+                            <form method="post" action="{% url 'set_language' %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="language" value="lt">
+                                <button type="submit" class="dropdown-item {% if LANGUAGE_CODE == 'lt' %}active{% endif %}">
+                                    🇱🇹 Lietuvių
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+                
                 <button class="theme-toggle" title="Switch to dark mode">
                     <i class="bi bi-moon-fill"></i>
                 </button>
@@ -104,23 +136,23 @@
             <div class="row">
                 <div class="col-md-6">
                     <p class="mb-0 text-muted small">
-                        &copy; {% now "Y" %} MCADS. All rights reserved. Paulius Bundza and Justas Trinkūnas. Vilnius Tech.
+                        &copy; {% now "Y" %} MCADS. {% trans "All rights reserved." %} Paulius Bundza {% trans "and" %} Justas Trinkūnas. Vilnius Tech.
                     </p>
                     <p class="mb-0 text-muted small">
                         <a href="{% url 'terms_of_service' %}" class="link-secondary text-decoration-none">
-                            <i class="bi bi-file-earmark-text"></i> Terms of Service
+                            <i class="bi bi-file-earmark-text"></i> {% trans "Terms of Service" %}
                         </a>
                     </p>
                     <p class="mb-0 text-muted small">
-                        Server time: <span id="server-time"></span>
+                        {% trans "Server time" %}: <span id="server-time"></span>
                     </p>
                 </div>
                 <div class="col-md-6 text-md-end">
                     <p class="mb-0 text-muted small">
-                        MCADS (Multi-label Chest Abnormality Detection System) demo v1.1.0
+                        MCADS (Multi-label Chest Abnormality Detection System) demo v1.2.0
                     </p>
                     <p class="mb-0 text-muted small">
-                        Powered by TorchXRayVision
+                        {% trans "Powered by" %} TorchXRayVision
                     </p>
                 </div>
             </div>
@@ -133,9 +165,9 @@
     <script>
         // Pass user preferences to JavaScript
         window.userPreferences = {
-            theme: {% if user.is_authenticated and user.profile %}'{{ user.profile.preferred_theme }}'{% else %}'auto'{% endif %},
-            language: {% if user.is_authenticated and user.profile %}'{{ user.profile.preferred_language }}'{% else %}'en'{% endif %},
-            dashboardView: {% if user.is_authenticated and user.profile %}'{{ user.profile.dashboard_view }}'{% else %}'grid'{% endif %}
+            theme: '{{ user.profile.preferred_theme|default:"auto" }}',
+            language: '{{ user.profile.preferred_language|default:"en" }}',
+            dashboardView: '{{ user.profile.dashboard_view|default:"grid" }}'
         };
     </script>
     <script src="{% static 'xrayapp/js/theme.js' %}"></script>

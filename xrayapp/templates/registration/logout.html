@@ -1,16 +1,17 @@
 {% extends "xrayapp/base.html" %}
+{% load i18n %}
 
 {% block title %}Logout - MCADS{% endblock %}
 
 {% block content %}
 <div class="card shadow">
   <div class="card-body text-center py-5">
-    <h2>Confirm logout</h2>
-    <p>Are you sure you want to log out?</p>
+    <h2>{% trans "Confirm logout" %}</h2>
+    <p>{% trans "Are you sure you want to log out?" %}</p>
     <form method="post" action="{% url 'logout' %}">
       {% csrf_token %}
-      <button type="submit" class="btn btn-primary">Yes, logout</button>
-      <a href="{% url 'home' %}" class="btn btn-outline-secondary">Cancel</a>
+      <button type="submit" class="btn btn-primary">{% trans "Yes, logout" %}</button>
+      <a href="{% url 'home' %}" class="btn btn-outline-secondary">{% trans "Cancel" %}</a>
     </form>
   </div>
 </div>

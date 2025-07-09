@@ -1,5 +1,6 @@
 {% extends 'xrayapp/base.html' %}
 {% load xrayapp_extras %}
+{% load i18n %}
 
 {% block title %}MCADS Results{% endblock %}
 
@@ -333,12 +334,12 @@
 <div class="container mt-4">
     <div class="row">
         <div class="col-md-10 offset-md-1">
-            <h2 class="mb-4">MCADS results</h2>
+            <h2 class="mb-4">{% trans "MCADS results" %}</h2>
             
             <!-- Severity Level Indicator -->
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Severity level</h5>
+                    <h5 class="mb-0">{% trans "Severity level" %}</h5>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -362,7 +363,7 @@
                                 </div>
                             </div>
                             <p class="text-muted mb-0">
-                                <small>Severity level is calculated as the average of all pathology probabilities.</small>
+                                <small>{% trans "Severity level is calculated as the average of all pathology probabilities." %}</small>
                             </p>
                             {% endwith %}
                         </div>
@@ -373,7 +374,7 @@
             <!-- Patient Information -->
             <div class="card mb-4">
                 <div class="card-header">
-                    <h5 class="mb-0">Patient information</h5>
+                    <h5 class="mb-0">{% trans "Patient information" %}</h5>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -413,14 +414,14 @@
             
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">X-ray image</h5>
+                    <h5 class="mb-0">{% trans "X-ray image" %}</h5>
                     <small>Uploaded on {{ xray.uploaded_at|date:"F d, Y H:i" }}</small>
                 </div>
                 <div class="card-body text-center">
                     <div class="position-relative d-inline-block">
                         <img src="{{ image_url }}" alt="X-ray Image" class="img-fluid" style="max-height: 400px;">
                         <div class="position-absolute bottom-0 end-0 m-2 bg-dark bg-opacity-50 text-white px-2 py-1 rounded small">
-                            <i class="bi bi-zoom-in"></i> Click to enlarge
+                            <i class="bi bi-zoom-in"></i> {% trans "Click to enlarge" %}
                         </div>
                     </div>
                     
@@ -430,13 +431,13 @@
                             <table class="table table-sm table-bordered">
                                 <thead class="table-light">
                                     <tr>
-                                        <th colspan="{{ image_metadata|length }}" class="text-center">Image Metadata</th>
+                                        <th colspan="{{ image_metadata|length }}" class="text-center">{% trans "Image Metadata" %}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         {% for field, value in image_metadata.items %}
-                                        <td><strong>{{ field }}:</strong> {{ value|default:"Unknown" }}</td>
+                                        <td><strong>{{ field }}:</strong> {{ value|default:_("Unknown") }}</td>
                                         {% endfor %}
                                     </tr>
                                 </tbody>
@@ -448,7 +449,7 @@
             
             <div class="card mb-4">
                 <div class="card-header">
-                    <h5 class="mb-0">Prediction Results</h5>
+                    <h5 class="mb-0">{% trans "Prediction Results" %}</h5>
                 </div>
                 <div class="card-body">
                     {% if predictions %}
@@ -456,8 +457,8 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th style="width: 40%;">Pathology</th>
-                                    <th style="width: 60%;">Probability</th>
+                                    <th style="width: 40%;">{% trans "Pathology" %}</th>
+                                    <th style="width: 60%;">{% trans "Probability" %}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -487,8 +488,7 @@
                     </div>
                     {% else %}
                     <div class="alert alert-info">
-                        No predictions available yet. This might be because the image is still being processed. 
-                        Please refresh the page in a few moments.
+                        {% trans "No predictions available yet. This might be because the image is still being processed. Please refresh the page in a few moments." %}
                     </div>
                     {% endif %}
                 </div>
@@ -498,25 +498,25 @@
             {% if has_gradcam and gradcam_heatmap_url and gradcam_overlay_url %}
             <div class="card mb-4 gradcam-print-section">
                 <div class="card-header">
-                    <h5 class="mb-0">GRAD-CAM Visualization - {{ gradcam_target }}</h5>
+                    <h5 class="mb-0">{% trans "GRAD-CAM Visualization" %} - {{ gradcam_target }}</h5>
                 </div>
                 <div class="card-body">
                     <div class="gradcam-print-images">
                         <div>
                             <img src="{{ image_url }}" alt="Original X-ray">
-                            <p>Original X-ray</p>
+                            <p>{% trans "Original X-ray" %}</p>
                         </div>
                         <div>
                             <img src="{{ gradcam_heatmap_url }}?t={% now 'U' %}" alt="GRAD-CAM Heatmap">
-                            <p>GRAD-CAM Heatmap</p>
+                            <p>{% trans "GRAD-CAM Heatmap" %}</p>
                         </div>
                         <div>
                             <img src="{{ gradcam_overlay_url }}?t={% now 'U' %}" alt="GRAD-CAM Overlay">
-                            <p>GRAD-CAM Overlay</p>
+                            <p>{% trans "GRAD-CAM Overlay" %}</p>
                         </div>
                     </div>
                     <p class="mt-2 text-muted" style="font-size: 8pt;">
-                        GRAD-CAM highlights the regions in the image that strongly influenced the model's prediction for {{ gradcam_target }}.
+                        {% trans "GRAD-CAM highlights the regions in the image that strongly influenced the model's prediction for" %} {{ gradcam_target }}.
                     </p>
                 </div>
             </div>
@@ -557,39 +557,39 @@
             
             <div class="card mb-4 interpretability-card">
                 <div class="card-header">
-                    <h5 class="mb-0">Interpretability options</h5>
+                    <h5 class="mb-0">{% trans "Interpretability options" %}</h5>
                 </div>
                 <div class="card-body">
                     <p>
-                        Want to understand why the model made these predictions? Try interpretability tools:
+                        {% trans "Want to understand why the model made these predictions? Try interpretability tools:" %}
                     </p>
                     <div class="d-flex gap-3">
                         <a href="{% url 'generate_interpretability' xray.id %}?method=gradcam" 
                            class="btn btn-outline-secondary interpretation-btn" data-method="gradcam">
-                            Grad-CAM visualization
+                            {% trans "Grad-CAM visualization" %}
                         </a>
                         <a href="{% url 'generate_interpretability' xray.id %}?method=pli" 
                            class="btn btn-outline-secondary interpretation-btn" data-method="pli">
-                            Pixel-Level interpretability
+                            {% trans "Pixel-Level interpretability" %}
                         </a>
                         <a href="{% url 'view_interpretability' xray.id %}" 
                            class="btn btn-outline-secondary" id="view-interpretations-btn">
-                            View all interpretability options
+                            {% trans "View all interpretability options" %}
                         </a>
                     </div>
                 </div>
             </div>
             
             <div class="text-center mb-5">
-                <a href="{% url 'home' %}" class="btn btn-outline-secondary">Upload new X-ray</a>
-                <a href="{% url 'prediction_history' %}" class="btn btn-outline-secondary">View prediction history</a>
+                <a href="{% url 'home' %}" class="btn btn-outline-secondary">{% trans "Upload new X-ray" %}</a>
+                <a href="{% url 'prediction_history' %}" class="btn btn-outline-secondary">{% trans "View prediction history" %}</a>
                 <div class="btn-group">
                     <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-printer"></i> Print
+                        <i class="bi bi-printer"></i> {% trans "Print" %}
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#" id="print-to-printer"><i class="bi bi-printer"></i> Print to printer</a></li>
-                        <li><a class="dropdown-item" href="#" id="print-to-pdf"><i class="bi bi-file-pdf"></i> Save as PDF</a></li>
+                        <li><a class="dropdown-item" href="#" id="print-to-printer"><i class="bi bi-printer"></i> {% trans "Print to printer" %}</a></li>
+                        <li><a class="dropdown-item" href="#" id="print-to-pdf"><i class="bi bi-file-pdf"></i> {% trans "Save as PDF" %}</a></li>
                     </ul>
                 </div>
             </div>
@@ -604,7 +604,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="pathologyModalLabel">
                     <i class="fas fa-info-circle me-2"></i>
-                    <span id="pathologyName">Pathology Information</span>
+                    <span id="pathologyName">{% trans "Pathology Information" %}</span>
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -619,7 +619,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    <i class="fas fa-times me-1"></i>Close
+                    <i class="fas fa-times me-1"></i>{% trans "Close" %}
                 </button>
             </div>
         </div>

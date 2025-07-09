@@ -19,7 +19,7 @@ import environ
 env = environ.Env(
     # Set default values
     DEBUG=(bool, False),
-    SECRET_KEY=(str, get_random_secret_key()),
+    SECRET_KEY=(str, ''.join([get_random_secret_key(), get_random_secret_key()[:20]])),  # Generate longer key
     ALLOWED_HOSTS=(list, []),
 )
 
@@ -60,6 +60,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',  # Static file optimization
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',  # Language detection and switching
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'csp.middleware.CSPMiddleware',  # Content Security Policy
@@ -81,6 +82,7 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.request',
+                'django.template.context_processors.i18n',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -124,7 +126,8 @@ AUTH_PASSWORD_VALIDATORS = [
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = 'DENY'
-SECURE_HSTS_SECONDS = 31536000  # 1 year
+SECURE_SSL_REDIRECT = not DEBUG  # Force HTTPS in production
+SECURE_HSTS_SECONDS = 31536000 if not DEBUG else 0  # 1 year for production
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 SECURE_REFERRER_POLICY = 'strict-origin-when-cross-origin'
@@ -133,6 +136,7 @@ SECURE_REFERRER_POLICY = 'strict-origin-when-cross-origin'
 SESSION_COOKIE_AGE = 3600  # 1 hour
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SECURE = not DEBUG  # Secure cookies for production
 SESSION_COOKIE_SAMESITE = 'Strict'
 
 # CSRF protection
@@ -236,11 +240,21 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
+
+LANGUAGES = [
+    ('en', 'English'),
+    ('lt', 'Lietuvių'),  # Lithuanian
+]
+
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',
+]
 
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
+USE_L10N = True
 
 USE_TZ = True
 

@@ -1,5 +1,6 @@
 {% extends 'xrayapp/base.html' %}
-{% block title %}Terms of Service | MCADS{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Terms of Service" %} | MCADS{% endblock %}
 {% block content %}
 <style>
   .alert-danger .bi-exclamation-triangle-fill {
@@ -9,267 +10,267 @@
 <div class="container my-5">
   <div class="card shadow-lg">
     <div class="card-body p-4">
-      <h1 class="display-5 mb-3"><i class="bi bi-file-earmark-text"></i> Terms of Service</h1>
-      <h2 class="h4 mb-4">Multi-label Chest Abnormality Detection System (MCADS)</h2>
-      <p class="text-muted mb-1"><strong>Last Updated:</strong> 2025-07-05</p>
-      <p class="text-muted mb-4"><strong>Version:</strong> 1.1.0</p>
+      <h1 class="display-5 mb-3"><i class="bi bi-file-earmark-text"></i> {% trans "Terms of Service" %}</h1>
+      <h2 class="h4 mb-4">{% trans "Multi-label Chest Abnormality Detection System (MCADS)" %}</h2>
+      <p class="text-muted mb-1"><strong>{% trans "Last Updated:" %}</strong> 2025-07-05</p>
+      <p class="text-muted mb-4"><strong>{% trans "Version:" %}</strong> 1.2.0</p>
       <hr>
       <div class="alert alert-danger d-flex align-items-center" role="alert">
         <i class="bi bi-exclamation-triangle-fill me-2 fs-3"></i>
         <div>
-          <strong>CRITICAL MEDICAL DISCLAIMER</strong><br>
-          <span class="fw-bold">WARNING: MCADS IS NOT A MEDICAL DIAGNOSTIC TOOL AND IS NOT INTENDED FOR CLINICAL USE</span><br>
-          MCADS IS FOR RESEARCH, EDUCATIONAL, AND DEMONSTRATION PURPOSES ONLY. THIS SOFTWARE IS NOT DESIGNED, INTENDED, OR APPROVED FOR USE IN THE DIAGNOSIS, TREATMENT, CURE, MITIGATION, OR PREVENTION OF DISEASE OR OTHER CONDITIONS. MCADS SHOULD NEVER BE USED AS A SUBSTITUTE FOR PROFESSIONAL MEDICAL ADVICE, DIAGNOSIS, OR TREATMENT.<br>
-          THE AUTHORS, DEVELOPERS, AND CONTRIBUTORS OF MCADS EXPRESSLY DISCLAIM ANY AND ALL LIABILITY FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES ARISING FROM OR RELATED TO THE USE OF THIS SOFTWARE, INCLUDING BUT NOT LIMITED TO ANY WRONG PREDICTIONS, MISDIAGNOSES, OR MEDICAL DECISIONS BASED ON SOFTWARE OUTPUT.
+          <strong>{% trans "CRITICAL MEDICAL DISCLAIMER" %}</strong><br>
+          <span class="fw-bold">{% trans "WARNING: MCADS IS NOT A MEDICAL DIAGNOSTIC TOOL AND IS NOT INTENDED FOR CLINICAL USE" %}</span><br>
+          {% trans "MCADS IS FOR RESEARCH, EDUCATIONAL, AND DEMONSTRATION PURPOSES ONLY. THIS SOFTWARE IS NOT DESIGNED, INTENDED, OR APPROVED FOR USE IN THE DIAGNOSIS, TREATMENT, CURE, MITIGATION, OR PREVENTION OF DISEASE OR OTHER CONDITIONS. MCADS SHOULD NEVER BE USED AS A SUBSTITUTE FOR PROFESSIONAL MEDICAL ADVICE, DIAGNOSIS, OR TREATMENT." %}<br>
+          {% trans "THE AUTHORS, DEVELOPERS, AND CONTRIBUTORS OF MCADS EXPRESSLY DISCLAIM ANY AND ALL LIABILITY FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES ARISING FROM OR RELATED TO THE USE OF THIS SOFTWARE, INCLUDING BUT NOT LIMITED TO ANY WRONG PREDICTIONS, MISDIAGNOSES, OR MEDICAL DECISIONS BASED ON SOFTWARE OUTPUT." %}
         </div>
       </div>
       <ol class="lh-lg">
         <li>
-          <strong>Acceptance of Terms</strong>
+          <strong>{% trans "Acceptance of Terms" %}</strong>
           <ul>
-            <li>By accessing and using MCADS, you agree to be bound by these Terms of Service. If you do not agree, you must not use the Software.</li>
+            <li>{% trans "By accessing and using MCADS, you agree to be bound by these Terms of Service. If you do not agree, you must not use the Software." %}</li>
           </ul>
         </li>
         <li>
-          <strong>Description of Service</strong>
+          <strong>{% trans "Description of Service" %}</strong>
           <ul>
-            <li>MCADS is a research demonstration software developed using Django, PyTorch, and TorchXRayVision libraries. The Software provides:</li>
+            <li>{% trans "MCADS is a research demonstration software developed using Django, PyTorch, and TorchXRayVision libraries. The Software provides:" %}</li>
             <ul>
-              <li>Image analysis of chest X-ray images using pre-trained deep learning models</li>
-              <li>Probability scores for various pathological conditions</li>
-              <li>Educational visualization tools</li>
-              <li>Research and academic demonstration capabilities</li>
+              <li>{% trans "Image analysis of chest X-ray images using pre-trained deep learning models" %}</li>
+              <li>{% trans "Probability scores for various pathological conditions" %}</li>
+              <li>{% trans "Educational visualization tools" %}</li>
+              <li>{% trans "Research and academic demonstration capabilities" %}</li>
             </ul>
           </ul>
         </li>
         <li>
-          <strong>Medical Disclaimers and Limitations</strong>
+          <strong>{% trans "Medical Disclaimers and Limitations" %}</strong>
           <ul>
-            <li><strong>Not for Clinical Use</strong>
+            <li><strong>{% trans "Not for Clinical Use" %}</strong>
               <ul>
-                <li>MCADS is <span class="text-danger fw-bold">NOT</span> a medical device</li>
-                <li>MCADS is <span class="text-danger fw-bold">NOT</span> validated for clinical diagnosis</li>
-                <li>MCADS is <span class="text-danger fw-bold">NOT</span> approved by any medical regulatory authority (FDA, CE, Health Canada, etc.)</li>
-                <li>MCADS is <span class="text-danger fw-bold">NOT</span> intended to replace professional medical judgment</li>
+                <li>{% trans "MCADS is" %} <span class="text-danger fw-bold">{% trans "NOT" %}</span> {% trans "a medical device" %}</li>
+                <li>{% trans "MCADS is" %} <span class="text-danger fw-bold">{% trans "NOT" %}</span> {% trans "validated for clinical diagnosis" %}</li>
+                <li>{% trans "MCADS is" %} <span class="text-danger fw-bold">{% trans "NOT" %}</span> {% trans "approved by any medical regulatory authority (FDA, CE, Health Canada, etc.)" %}</li>
+                <li>{% trans "MCADS is" %} <span class="text-danger fw-bold">{% trans "NOT" %}</span> {% trans "intended to replace professional medical judgment" %}</li>
               </ul>
             </li>
-            <li><strong>Accuracy Limitations</strong>
+            <li><strong>{% trans "Accuracy Limitations" %}</strong>
               <ul>
-                <li>The Software provides probability scores, <span class="fw-bold">NOT</span> definitive diagnoses</li>
-                <li>The underlying AI models may produce <span class="text-danger">false positives</span> and <span class="text-danger">false negatives</span></li>
-                <li>The Software's predictions may be inaccurate, unreliable, or completely wrong</li>
-                <li>The Software has not been clinically validated for accuracy</li>
-                <li>Performance may vary significantly across different populations, imaging conditions, and pathologies</li>
+                <li>{% trans "The Software provides probability scores," %} <span class="fw-bold">{% trans "NOT" %}</span> {% trans "definitive diagnoses" %}</li>
+                <li>{% trans "The underlying AI models may produce" %} <span class="text-danger">{% trans "false positives" %}</span> {% trans "and" %} <span class="text-danger">{% trans "false negatives" %}</span></li>
+                <li>{% trans "The Software's predictions may be inaccurate, unreliable, or completely wrong" %}</li>
+                <li>{% trans "The Software has not been clinically validated for accuracy" %}</li>
+                <li>{% trans "Performance may vary significantly across different populations, imaging conditions, and pathologies" %}</li>
               </ul>
             </li>
-            <li><strong>Professional Medical Consultation Required</strong>
+            <li><strong>{% trans "Professional Medical Consultation Required" %}</strong>
               <ul>
-                <li><span class="fw-bold">ALWAYS</span> consult qualified healthcare professionals for medical decisions</li>
-                <li><span class="fw-bold">NEVER</span> make medical decisions based solely on MCADS output</li>
-                <li><span class="fw-bold">NEVER</span> delay seeking medical attention based on Software results</li>
-                <li>Any medical concerns require immediate consultation with licensed medical professionals</li>
+                <li><span class="fw-bold">{% trans "ALWAYS" %}</span> {% trans "consult qualified healthcare professionals for medical decisions" %}</li>
+                <li><span class="fw-bold">{% trans "NEVER" %}</span> {% trans "make medical decisions based solely on MCADS output" %}</li>
+                <li><span class="fw-bold">{% trans "NEVER" %}</span> {% trans "delay seeking medical attention based on Software results" %}</li>
+                <li>{% trans "Any medical concerns require immediate consultation with licensed medical professionals" %}</li>
               </ul>
             </li>
           </ul>
         </li>
         <li>
-          <strong>Limitation of Liability</strong>
+          <strong>{% trans "Limitation of Liability" %}</strong>
           <ul>
-            <li><strong>No Liability for Medical Decisions</strong>
+            <li><strong>{% trans "No Liability for Medical Decisions" %}</strong>
               <ul>
-                <li>The authors, developers, contributors, and affiliated institutions ("Providers") shall not be liable for:</li>
+                <li>{% trans "The authors, developers, contributors, and affiliated institutions (\"Providers\") shall not be liable for:" %}</li>
                 <ul>
-                  <li>Any medical decisions made based on Software output</li>
-                  <li>Any misdiagnosis or delayed diagnosis</li>
-                  <li>Any adverse health outcomes</li>
-                  <li>Any reliance on Software predictions</li>
-                  <li>Any direct, indirect, incidental, special, consequential, or punitive damages</li>
+                  <li>{% trans "Any medical decisions made based on Software output" %}</li>
+                  <li>{% trans "Any misdiagnosis or delayed diagnosis" %}</li>
+                  <li>{% trans "Any adverse health outcomes" %}</li>
+                  <li>{% trans "Any reliance on Software predictions" %}</li>
+                  <li>{% trans "Any direct, indirect, incidental, special, consequential, or punitive damages" %}</li>
                 </ul>
               </ul>
             </li>
-            <li><strong>Maximum Liability</strong>
+            <li><strong>{% trans "Maximum Liability" %}</strong>
               <ul>
-                <li>To the maximum extent permitted by law, the total liability of the Providers shall not exceed zero euros (€0.00).</li>
+                <li>{% trans "To the maximum extent permitted by law, the total liability of the Providers shall not exceed zero euros (€0.00)." %}</li>
               </ul>
             </li>
           </ul>
         </li>
         <li>
-          <strong>No Warranties</strong>
+          <strong>{% trans "No Warranties" %}</strong>
           <ul>
-            <li><strong>Disclaimer of All Warranties</strong>
+            <li><strong>{% trans "Disclaimer of All Warranties" %}</strong>
               <ul>
-                <li>The Software is provided "as is" without warranty of any kind, including but not limited to:</li>
+                <li>{% trans "The Software is provided \"as is\" without warranty of any kind, including but not limited to:" %}</li>
                 <ul>
-                  <li>Warranties of merchantability</li>
-                  <li>Fitness for a particular purpose</li>
-                  <li>Non-infringement</li>
-                  <li>Accuracy or reliability</li>
-                  <li>Continuous availability</li>
-                  <li>Error-free operation</li>
+                  <li>{% trans "Warranties of merchantability" %}</li>
+                  <li>{% trans "Fitness for a particular purpose" %}</li>
+                  <li>{% trans "Non-infringement" %}</li>
+                  <li>{% trans "Accuracy or reliability" %}</li>
+                  <li>{% trans "Continuous availability" %}</li>
+                  <li>{% trans "Error-free operation" %}</li>
                 </ul>
               </ul>
             </li>
-            <li><strong>No Medical Warranty</strong>
+            <li><strong>{% trans "No Medical Warranty" %}</strong>
               <ul>
-                <li>The Providers make no warranties regarding:</li>
+                <li>{% trans "The Providers make no warranties regarding:" %}</li>
                 <ul>
-                  <li>The medical accuracy of predictions</li>
-                  <li>The clinical validity of results</li>
-                  <li>The Software's fitness for medical use</li>
-                  <li>The completeness or correctness of pathology detection</li>
+                  <li>{% trans "The medical accuracy of predictions" %}</li>
+                  <li>{% trans "The clinical validity of results" %}</li>
+                  <li>{% trans "The Software's fitness for medical use" %}</li>
+                  <li>{% trans "The completeness or correctness of pathology detection" %}</li>
                 </ul>
               </ul>
             </li>
           </ul>
         </li>
         <li>
-          <strong>User Responsibilities</strong>
+          <strong>{% trans "User Responsibilities" %}</strong>
           <ul>
-            <li><strong>Appropriate Use</strong>
+            <li><strong>{% trans "Appropriate Use" %}</strong>
               <ul>
-                <li>Use the Software only for research, educational, or demonstration purposes</li>
-                <li>Understand the Software's limitations and disclaimers</li>
-                <li>Not rely on the Software for medical decisions</li>
-                <li>Seek professional medical advice for health concerns</li>
-                <li>Comply with all applicable laws and regulations</li>
+                <li>{% trans "Use the Software only for research, educational, or demonstration purposes" %}</li>
+                <li>{% trans "Understand the Software's limitations and disclaimers" %}</li>
+                <li>{% trans "Not rely on the Software for medical decisions" %}</li>
+                <li>{% trans "Seek professional medical advice for health concerns" %}</li>
+                <li>{% trans "Comply with all applicable laws and regulations" %}</li>
               </ul>
             </li>
-            <li><strong>Data and Privacy</strong>
+            <li><strong>{% trans "Data and Privacy" %}</strong>
               <ul>
-                <li>Ensure proper authorization before uploading any medical images</li>
-                <li>Comply with HIPAA, GDPR, and other privacy regulations</li>
-                <li>Protect patient confidentiality</li>
-                <li>Use only properly anonymized images when required</li>
+                <li>{% trans "Ensure proper authorization before uploading any medical images" %}</li>
+                <li>{% trans "Comply with HIPAA, GDPR, and other privacy regulations" %}</li>
+                <li>{% trans "Protect patient confidentiality" %}</li>
+                <li>{% trans "Use only properly anonymized images when required" %}</li>
               </ul>
             </li>
           </ul>
         </li>
         <li>
-          <strong>Prohibited Uses</strong>
+          <strong>{% trans "Prohibited Uses" %}</strong>
           <ul>
-            <li>Users <span class="fw-bold text-danger">SHALL NOT</span>:</li>
+            <li>{% trans "Users" %} <span class="fw-bold text-danger">{% trans "SHALL NOT" %}</span>:</li>
             <ul>
-              <li>Use the Software for clinical diagnosis or treatment decisions</li>
-              <li>Present Software output as medical advice</li>
-              <li>Use the Software in any life-critical applications</li>
-              <li>Violate any applicable laws or regulations</li>
-              <li>Claim the Software is medically validated or approved</li>
-              <li>Use the Software without proper medical supervision when analyzing patient data</li>
+              <li>{% trans "Use the Software for clinical diagnosis or treatment decisions" %}</li>
+              <li>{% trans "Present Software output as medical advice" %}</li>
+              <li>{% trans "Use the Software in any life-critical applications" %}</li>
+              <li>{% trans "Violate any applicable laws or regulations" %}</li>
+              <li>{% trans "Claim the Software is medically validated or approved" %}</li>
+              <li>{% trans "Use the Software without proper medical supervision when analyzing patient data" %}</li>
             </ul>
           </ul>
         </li>
         <li>
-          <strong>Intellectual Property</strong>
+          <strong>{% trans "Intellectual Property" %}</strong>
           <ul>
-            <li><strong>Software License</strong>
+            <li><strong>{% trans "Software License" %}</strong>
               <ul>
-                <li>MCADS is provided under the terms specified in the project's LICENSE file. The Software incorporates:</li>
+                <li>{% trans "MCADS is provided under the terms specified in the project's LICENSE file. The Software incorporates:" %}</li>
                 <ul>
-                  <li>TorchXRayVision library</li>
-                  <li>Pre-trained neural network models</li>
-                  <li>Django framework</li>
-                  <li>Various open-source components</li>
+                  <li>{% trans "TorchXRayVision library" %}</li>
+                  <li>{% trans "Pre-trained neural network models" %}</li>
+                  <li>{% trans "Django framework" %}</li>
+                  <li>{% trans "Various open-source components" %}</li>
                 </ul>
               </ul>
             </li>
-            <li><strong>Third-Party Components</strong>
+            <li><strong>{% trans "Third-Party Components" %}</strong>
               <ul>
-                <li>Users acknowledge that the Software includes third-party components with their own licenses and terms.</li>
+                <li>{% trans "Users acknowledge that the Software includes third-party components with their own licenses and terms." %}</li>
               </ul>
             </li>
           </ul>
         </li>
         <li>
-          <strong>Indemnification</strong>
+          <strong>{% trans "Indemnification" %}</strong>
           <ul>
-            <li>Users agree to indemnify, defend, and hold harmless the Providers from any claims, damages, losses, or expenses arising from:</li>
+            <li>{% trans "Users agree to indemnify, defend, and hold harmless the Providers from any claims, damages, losses, or expenses arising from:" %}</li>
             <ul>
-              <li>User's violation of these Terms</li>
-              <li>User's misuse of the Software</li>
-              <li>Any medical decisions based on Software output</li>
-              <li>Any breach of applicable laws or regulations</li>
+              <li>{% trans "User's violation of these Terms" %}</li>
+              <li>{% trans "User's misuse of the Software" %}</li>
+              <li>{% trans "Any medical decisions based on Software output" %}</li>
+              <li>{% trans "Any breach of applicable laws or regulations" %}</li>
             </ul>
           </ul>
         </li>
         <li>
-          <strong>Research and Academic Use</strong>
+          <strong>{% trans "Research and Academic Use" %}</strong>
           <ul>
-            <li><strong>Intended Use</strong>
+            <li><strong>{% trans "Intended Use" %}</strong>
               <ul>
-                <li>MCADS is intended for:</li>
+                <li>{% trans "MCADS is intended for:" %}</li>
                 <ul>
-                  <li>Academic research purposes</li>
-                  <li>Educational demonstrations</li>
-                  <li>Algorithm development and testing</li>
-                  <li>Non-clinical research studies</li>
+                  <li>{% trans "Academic research purposes" %}</li>
+                  <li>{% trans "Educational demonstrations" %}</li>
+                  <li>{% trans "Algorithm development and testing" %}</li>
+                  <li>{% trans "Non-clinical research studies" %}</li>
                 </ul>
               </ul>
             </li>
-            <li><strong>Publication and Citation</strong>
+            <li><strong>{% trans "Publication and Citation" %}</strong>
               <ul>
-                <li>When using MCADS in research or publications, users should:</li>
+                <li>{% trans "When using MCADS in research or publications, users should:" %}</li>
                 <ul>
-                  <li>Properly cite the Software and underlying models</li>
-                  <li>Acknowledge the limitations and disclaimers</li>
-                  <li>Include appropriate medical disclaimers in publications</li>
+                  <li>{% trans "Properly cite the Software and underlying models" %}</li>
+                  <li>{% trans "Acknowledge the limitations and disclaimers" %}</li>
+                  <li>{% trans "Include appropriate medical disclaimers in publications" %}</li>
                 </ul>
               </ul>
             </li>
           </ul>
         </li>
         <li>
-          <strong>Updates and Modifications</strong>
+          <strong>{% trans "Updates and Modifications" %}</strong>
           <ul>
-            <li><strong>Software Updates</strong>
+            <li><strong>{% trans "Software Updates" %}</strong>
               <ul>
-                <li>The Providers may update the Software without notice</li>
-                <li>Updates may change functionality, accuracy, or behavior</li>
-                <li>Users should regularly review these Terms for changes</li>
+                <li>{% trans "The Providers may update the Software without notice" %}</li>
+                <li>{% trans "Updates may change functionality, accuracy, or behavior" %}</li>
+                <li>{% trans "Users should regularly review these Terms for changes" %}</li>
               </ul>
             </li>
-            <li><strong>Terms Updates</strong>
+            <li><strong>{% trans "Terms Updates" %}</strong>
               <ul>
-                <li>These Terms may be updated at any time</li>
-                <li>Continued use of the Software constitutes acceptance of updated Terms</li>
-                <li>Material changes will be communicated through appropriate channels</li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <strong>Termination</strong>
-          <ul>
-            <li><strong>Termination Rights</strong>
-              <ul>
-                <li>Users may stop using the Software at any time</li>
-                <li>Providers may terminate access for violations of these Terms</li>
-                <li>Termination does not affect accrued rights or obligations</li>
+                <li>{% trans "These Terms may be updated at any time" %}</li>
+                <li>{% trans "Continued use of the Software constitutes acceptance of updated Terms" %}</li>
+                <li>{% trans "Material changes will be communicated through appropriate channels" %}</li>
               </ul>
             </li>
           </ul>
         </li>
         <li>
-          <strong>Governing Law and Jurisdiction</strong>
+          <strong>{% trans "Termination" %}</strong>
           <ul>
-            <li>These Terms shall be governed by the laws of [Your Jurisdiction]. Any disputes shall be resolved in the courts of [Your Jurisdiction].</li>
+            <li><strong>{% trans "Termination Rights" %}</strong>
+              <ul>
+                <li>{% trans "Users may stop using the Software at any time" %}</li>
+                <li>{% trans "Providers may terminate access for violations of these Terms" %}</li>
+                <li>{% trans "Termination does not affect accrued rights or obligations" %}</li>
+              </ul>
+            </li>
           </ul>
         </li>
         <li>
-          <strong>Severability</strong>
+          <strong>{% trans "Governing Law and Jurisdiction" %}</strong>
           <ul>
-            <li>If any provision of these Terms is found invalid or unenforceable, the remaining provisions shall remain in full force and effect.</li>
+            <li>{% trans "These Terms shall be governed by the laws of [Your Jurisdiction]. Any disputes shall be resolved in the courts of [Your Jurisdiction]." %}</li>
           </ul>
         </li>
         <li>
-          <strong>Contact Information</strong>
+          <strong>{% trans "Severability" %}</strong>
           <ul>
-            <li>For questions about these Terms or the Software, contact:</li>
+            <li>{% trans "If any provision of these Terms is found invalid or unenforceable, the remaining provisions shall remain in full force and effect." %}</li>
+          </ul>
+        </li>
+        <li>
+          <strong>{% trans "Contact Information" %}</strong>
+          <ul>
+            <li>{% trans "For questions about these Terms or the Software, contact:" %}</li>
             <ul>
-              <li><strong>MCADS Development Team</strong></li>
-              <li>Paulius Bundza and Justas Trinkūnas</li>
-              <li>Vilnius Tech</li>
-              <li>Email: paulius.bundza@stud.vgtu.lt</li>
+              <li><strong>{% trans "MCADS Development Team" %}</strong></li>
+              <li>{% trans "Paulius Bundza and Justas Trinkūnas" %}</li>
+              <li>{% trans "Vilnius Tech" %}</li>
+              <li>{% trans "Email:" %} paulius.bundza@stud.vgtu.lt</li>
             </ul>
           </ul>
         </li>
@@ -277,9 +278,9 @@
       <div class="alert alert-danger d-flex align-items-center mt-5" role="alert">
         <i class="bi bi-exclamation-triangle-fill me-2 fs-3"></i>
         <div>
-          <strong>FINAL MEDICAL WARNING</strong><br>
-          BY USING MCADS, YOU ACKNOWLEDGE THAT YOU HAVE READ, UNDERSTOOD, AND AGREED TO ALL MEDICAL DISCLAIMERS AND LIMITATIONS. YOU UNDERSTAND THAT MCADS IS NOT A MEDICAL DEVICE AND SHALL NOT BE USED FOR CLINICAL PURPOSES. YOU AGREE THAT THE AUTHORS BEAR NO RESPONSIBILITY FOR ANY MEDICAL DECISIONS OR OUTCOMES RELATED TO THE USE OF THIS SOFTWARE.<br>
-          IF YOU HAVE ANY MEDICAL CONCERNS, CONSULT A QUALIFIED HEALTHCARE PROFESSIONAL IMMEDIATELY.
+          <strong>{% trans "FINAL MEDICAL WARNING" %}</strong><br>
+          {% trans "BY USING MCADS, YOU ACKNOWLEDGE THAT YOU HAVE READ, UNDERSTOOD, AND AGREED TO ALL MEDICAL DISCLAIMERS AND LIMITATIONS. YOU UNDERSTAND THAT MCADS IS NOT A MEDICAL DEVICE AND SHALL NOT BE USED FOR CLINICAL PURPOSES. YOU AGREE THAT THE AUTHORS BEAR NO RESPONSIBILITY FOR ANY MEDICAL DECISIONS OR OUTCOMES RELATED TO THE USE OF THIS SOFTWARE." %}<br>
+          {% trans "IF YOU HAVE ANY MEDICAL CONCERNS, CONSULT A QUALIFIED HEALTHCARE PROFESSIONAL IMMEDIATELY." %}
         </div>
       </div>
     </div>

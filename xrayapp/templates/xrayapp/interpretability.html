@@ -1,5 +1,6 @@
 {% extends 'xrayapp/base.html' %}
 {% load xrayapp_extras %}
+{% load i18n %}
 
 {% block title %}MCADS Interpretability{% endblock %}
 
@@ -67,18 +68,18 @@
 <div class="interpretation-container mt-4">
     <div class="row">
         <div class="col-md-12">
-            <h2 class="mb-4">MCADS interpretability analysis</h2>
+            <h2 class="mb-4">{% trans "MCADS interpretability analysis" %}</h2>
             
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Original X-ray image</h5>
-                    <small>Uploaded on {{ xray.uploaded_at|date:"F d, Y H:i" }}</small>
+                    <h5 class="mb-0">{% trans "Original X-ray image" %}</h5>
+                    <small>{% trans "Uploaded on" %} {{ xray.uploaded_at|date:"F d, Y H:i" }}</small>
                 </div>
                 <div class="card-body text-center">
                     <div class="position-relative d-inline-block">
                         <img src="{{ image_url }}" alt="X-ray Image" class="img-fluid" style="max-height: 400px;">
                         <div class="position-absolute bottom-0 end-0 m-2 bg-dark bg-opacity-50 text-white px-2 py-1 rounded small">
-                            <i class="bi bi-zoom-in"></i> Click to enlarge
+                            <i class="bi bi-zoom-in"></i> {% trans "Click to enlarge" %}
                         </div>
                     </div>
                 </div>
@@ -119,31 +120,31 @@
             
             <div class="card mb-4">
                 <div class="card-header">
-                    <h5 class="mb-0">Generate interpretability visualizations</h5>
+                    <h5 class="mb-0">{% trans "Generate interpretability visualizations" %}</h5>
                 </div>
                 <div class="card-body">
                     <form id="interpretability-form" action="{% url 'generate_interpretability' xray.id %}" method="get" class="mb-4">
                         <div class="row g-3">
                             <div class="col-md-4">
-                                <label for="method" class="form-label">Interpretation Method</label>
+                                <label for="method" class="form-label">{% trans "Interpretation Method" %}</label>
                                 <select name="method" id="method" class="form-select">
-                                    <option value="gradcam">Grad-CAM</option>
-                                    <option value="combined_gradcam">Combined Grad-CAM (pathologies > 0.5)</option>
-                                    <option value="pli">Pixel-level interpretability</option>
-                                    <option value="combined_pli">Combined Pixel-level interpretability (pathologies > 0.5)</option>
+                                    <option value="gradcam">{% trans "Grad-CAM" %}</option>
+                                    <option value="combined_gradcam">{% trans "Combined Grad-CAM (pathologies > 0.5)" %}</option>
+                                    <option value="pli">{% trans "Pixel-level interpretability" %}</option>
+                                    <option value="combined_pli">{% trans "Combined Pixel-level interpretability (pathologies > 0.5)" %}</option>
                                 </select>
                             </div>
                             <div class="col-md-4">
-                                <label for="model_type" class="form-label">Model Type</label>
+                                <label for="model_type" class="form-label">{% trans "Model Type" %}</label>
                                 <select name="model_type" id="model_type" class="form-select">
                                     <option value="densenet">DenseNet-121</option>
                                     <option value="resnet">ResNet-50</option>
                                 </select>
                             </div>
                             <div class="col-md-4">
-                                <label for="target_class" class="form-label">Target Class (optional)</label>
+                                <label for="target_class" class="form-label">{% trans "Target Class (optional)" %}</label>
                                 <select name="target_class" id="target_class" class="form-select">
-                                    <option value="">Use highest probability class</option>
+                                    <option value="">{% trans "Use highest probability class" %}</option>
                                     {% for pathology, prob in predictions.items %}
                                     <option value="{{ pathology }}">{{ pathology }} ({{ prob|floatformat:3 }})</option>
                                     {% endfor %}
@@ -151,7 +152,7 @@
                             </div>
                         </div>
                         <div class="mt-3">
-                            <button type="submit" class="btn btn-outline-secondary">Generate visualization</button>
+                            <button type="submit" class="btn btn-outline-secondary">{% trans "Generate visualization" %}</button>
                         </div>
                     </form>
                 </div>
@@ -211,7 +212,7 @@
                                         <tbody>
                                             <tr>
                                                 {% for field, value in image_metadata.items %}
-                                                <td><strong>{{ field }}:</strong> {{ value|default:"Unknown" }}</td>
+                                                <td><strong>{{ field }}:</strong> {{ value|default:_("Unknown") }}</td>
                                                 {% endfor %}
                                             </tr>
                                         </tbody>
@@ -221,8 +222,8 @@
                             
                             <div class="btn-group mt-2">
                                 <button class="btn btn-sm btn-outline-secondary invert-btn">Invert colors</button>
-                                <button class="btn btn-sm btn-outline-secondary raw-gradients-btn" data-target="gradcam">Raw gradients</button>
-                                <button class="btn btn-sm btn-outline-secondary reset-btn" data-target="gradcam">Reset layers</button>
+                                <button class="btn btn-sm btn-outline-secondary raw-gradients-btn" data-target="gradcam">{% trans "Raw gradients" %}</button>
+                                <button class="btn btn-sm btn-outline-secondary reset-btn" data-target="gradcam">{% trans "Reset layers" %}</button>
                             </div>
                         </div>
                     </div>
@@ -282,7 +283,7 @@
                                         <tbody>
                                             <tr>
                                                 {% for field, value in image_metadata.items %}
-                                                <td><strong>{{ field }}:</strong> {{ value|default:"Unknown" }}</td>
+                                                <td><strong>{{ field }}:</strong> {{ value|default:_("Unknown") }}</td>
                                                 {% endfor %}
                                             </tr>
                                         </tbody>
@@ -292,8 +293,8 @@
                             
                             <div class="btn-group mt-2">
                                 <button class="btn btn-sm btn-outline-secondary invert-btn">Invert colors</button>
-                                <button class="btn btn-sm btn-outline-secondary raw-gradients-btn" data-target="pli">Raw gradients</button>
-                                <button class="btn btn-sm btn-outline-secondary reset-btn" data-target="pli">Reset layers</button>
+                                <button class="btn btn-sm btn-outline-secondary raw-gradients-btn" data-target="pli">{% trans "Raw gradients" %}</button>
+                                <button class="btn btn-sm btn-outline-secondary reset-btn" data-target="pli">{% trans "Reset layers" %}</button>
                             </div>
                         </div>
                     </div>
@@ -353,7 +354,7 @@
             
             <div class="text-center mb-5">
                 <a href="{% url 'xray_results' xray.id %}" class="btn btn-outline-secondary">Back to results</a>
-                <a href="{% url 'home' %}" class="btn btn-outline-secondary">Upload new X-ray</a>
+                <a href="{% url 'home' %}" class="btn btn-outline-secondary">{% trans "Upload new X-ray" %}</a>
             </div>
         </div>
     </div>
@@ -366,7 +367,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="pathologyModalLabel">
                     <i class="fas fa-info-circle me-2"></i>
-                    <span id="pathologyName">Pathology Information</span>
+                    <span id="pathologyName">{% trans "Pathology Information" %}</span>
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -381,7 +382,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    <i class="fas fa-times me-1"></i>Close
+                    <i class="fas fa-times me-1"></i>{% trans "Close" %}
                 </button>
             </div>
         </div>
@@ -645,7 +646,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     saliencyImg.parentElement.style.display = 'block';
                     overlayImg.parentElement.style.display = 'block';
                     rawImg.style.display = 'none';
-                    this.textContent = 'Raw gradients';
+                    this.textContent = '{% trans "Raw gradients" %}';
                     this.classList.remove('active');
                 } else {
                     // Switch to raw gradients view
@@ -669,7 +670,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     heatmapImg.parentElement.style.display = 'block';
                     overlayImg.parentElement.style.display = 'block';
                     rawImg.style.display = 'none';
-                    this.textContent = 'Raw gradients';
+                    this.textContent = '{% trans "Raw gradients" %}';
                     this.classList.remove('active');
                 } else {
                     // Switch to raw gradients view
@@ -709,7 +710,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Reset button states
                 const rawBtn = this.previousElementSibling;
-                rawBtn.textContent = 'Raw gradients';
+                rawBtn.textContent = '{% trans "Raw gradients" %}';
                 rawBtn.classList.remove('active');
             } else {
                 // For GradCAM with separate panels
@@ -731,7 +732,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Reset button states
                 const rawBtn = this.previousElementSibling;
-                rawBtn.textContent = 'Raw gradients';
+                rawBtn.textContent = '{% trans "Raw gradients" %}';
                 rawBtn.classList.remove('active');
             }
         });

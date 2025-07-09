@@ -1,5 +1,6 @@
 from django import template
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 import pytz
 from datetime import datetime
 
@@ -82,9 +83,9 @@ def get_severity_label(obj):
         
     # If no severity_label property, calculate manually
     severity_mapping = {
-        1: "Insignificant findings",
-        2: "Moderate findings",
-        3: "Significant findings",
+        1: _("Insignificant findings"),
+        2: _("Moderate findings"),
+        3: _("Significant findings"),
     }
     
     level = None
@@ -93,7 +94,7 @@ def get_severity_label(obj):
     elif hasattr(obj, 'calculate_severity_level'):
         level = obj.calculate_severity_level
         
-    return severity_mapping.get(level, "Unknown")
+    return severity_mapping.get(level, _("Unknown"))
 
 @register.filter
 def get_severity_color(level):

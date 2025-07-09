@@ -1,11 +1,12 @@
 {% extends "errors/error_base.html" %}
+{% load i18n %}
 
 {% block title %}503 Service Unavailable - MCADS{% endblock %}
 
 {% block error_code %}503{% endblock %}
 
-{% block error_message %}Service Unavailable{% endblock %}
+{% block error_message %}{% trans "Service Unavailable" %}{% endblock %}
 
 {% block error_description %}
-Indicates that the server is temporarily unable to handle the request (e.g., due to maintenance or overload).
+{% trans "Indicates that the server is temporarily unable to handle the request (e.g., due to maintenance or overload)." %}
 {% endblock %} 

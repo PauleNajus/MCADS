@@ -1,13 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
+from django.utils.translation import gettext_lazy as _
 
 # User Roles Choices
 USER_ROLES = [
-    ('Administrator', 'Administrator'),
-    ('Radiographer', 'Radiographer'),
-    ('Technologist', 'Technologist'),
-    ('Radiologist', 'Radiologist'),
+    ('Administrator', _('Administrator')),
+    ('Radiographer', _('Radiographer')),
+    ('Technologist', _('Technologist')),
+    ('Radiologist', _('Radiologist')),
 ]
 
 # Create your models here.
@@ -137,15 +138,15 @@ class XRayImage(models.Model):
     def severity_label(self):
         """Get severity level label"""
         severity_mapping = {
-            1: "Insignificant findings",
-            2: "Moderate findings",
-            3: "Significant findings",
+            1: _("Insignificant findings"),
+            2: _("Moderate findings"),
+            3: _("Significant findings"),
         }
         level = self.severity_level
         if level is None:
             level = self.calculate_severity_level
             
-        return severity_mapping.get(level, "Unknown")
+        return severity_mapping.get(level, _("Unknown"))
     
     def __str__(self):
         if self.patient_id and (self.first_name or self.last_name):
@@ -156,7 +157,7 @@ class XRayImage(models.Model):
         """Return formatted patient information"""
         if self.first_name or self.last_name:
             return f"{self.first_name} {self.last_name}".strip()
-        return "Unknown patient"
+        return _("Unknown patient")
 
 
 class PredictionHistory(models.Model):
@@ -261,15 +262,15 @@ class PredictionHistory(models.Model):
     def severity_label(self):
         """Get severity level label"""
         severity_mapping = {
-            1: "Insignificant findings",
-            2: "Moderate findings",
-            3: "Significant findings",
+            1: _("Insignificant findings"),
+            2: _("Moderate findings"),
+            3: _("Significant findings"),
         }
         level = self.severity_level
         if level is None:
             level = self.calculate_severity_level
             
-        return severity_mapping.get(level, "Unknown")
+        return severity_mapping.get(level, _("Unknown"))
     
     def __str__(self):
         return f"Prediction #{self.id} for {self.xray} using {self.model_used}"
@@ -290,17 +291,17 @@ class UserProfile(models.Model):
     # User preferences
     preferred_theme = models.CharField(
         max_length=10,
-        choices=[('auto', 'System Default'), ('light', 'Light'), ('dark', 'Dark')],
+        choices=[('auto', _('System Default')), ('light', _('Light')), ('dark', _('Dark'))],
         default='auto'
     )
     preferred_language = models.CharField(
         max_length=10,
-        choices=[('en', 'English'), ('lt', 'Lithuanian')],
+        choices=[('en', _('English')), ('lt', _('Lithuanian'))],
         default='en'
     )
     dashboard_view = models.CharField(
         max_length=10,
-        choices=[('grid', 'Grid View'), ('list', 'List View')],
+        choices=[('grid', _('Grid View')), ('list', _('List View'))],
         default='grid'
     )
     email_notifications = models.BooleanField(default=True)

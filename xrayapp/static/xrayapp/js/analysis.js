@@ -75,12 +75,12 @@ document.addEventListener('DOMContentLoaded', () => {
           trackProgress(data.upload_id);
         } else {
           // Error handling
-          alert('Error starting analysis. Please try again.');
+          alert(gettext('Error starting analysis. Please try again.'));
         }
       })
       .catch(error => {
         console.error('Error submitting form:', error);
-        alert('Error submitting form. Please try again.');
+        alert(gettext('Error submitting form. Please try again.'));
       });
     });
   }

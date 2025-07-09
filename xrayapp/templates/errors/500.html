@@ -1,11 +1,12 @@
 {% extends "errors/error_base.html" %}
+{% load i18n %}
 
 {% block title %}500 Internal Server Error - MCADS{% endblock %}
 
 {% block error_code %}500{% endblock %}
 
-{% block error_message %}Internal Server Error{% endblock %}
+{% block error_message %}{% trans "Internal Server Error" %}{% endblock %}
 
 {% block error_description %}
-A generic catch-all for unexpected conditions on the server that prevent it from fulfilling the request.
+{% trans "A generic catch-all for unexpected conditions on the server that prevent it from fulfilling the request." %}
 {% endblock %} 
