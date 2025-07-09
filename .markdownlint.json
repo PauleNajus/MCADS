@@ -3,10 +3,5 @@
   "MD041": false,
   "MD013": {
     "line_length": 120
-  },
-  "ignores": [
-    "staticfiles/**/*",
-    "venv/**/*",
-    "node_modules/**/*"
-  ]
+  }
 } 

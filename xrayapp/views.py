@@ -466,8 +466,8 @@ def xray_results(request, pk):
         _('Name'): f"{xray_instance.first_name} {xray_instance.last_name}".strip() if xray_instance.first_name or xray_instance.last_name else None,
         _('Gender'): xray_instance.gender.capitalize() if xray_instance.gender else None,
         _('Age'): f"{patient_age} {_('years')}" if patient_age is not None else None,
-        _('Date of Birth'): xray_instance.date_of_birth.strftime("%B %d, %Y") if xray_instance.date_of_birth else None,
-        _('X-ray Date'): xray_instance.date_of_xray.strftime("%B %d, %Y") if xray_instance.date_of_xray else None,
+        _('Date of Birth'): xray_instance.date_of_birth.strftime("%Y-%m-%d") if xray_instance.date_of_birth else None,
+        _('X-ray Date'): xray_instance.date_of_xray.strftime("%Y-%m-%d") if xray_instance.date_of_xray else None,
         _('Additional Information'): xray_instance.additional_info if xray_instance.additional_info else None,
     }
     
@@ -477,7 +477,7 @@ def xray_results(request, pk):
         _('Format'): xray_instance.image_format,
         _('Size'): xray_instance.image_size,
         _('Resolution'): xray_instance.image_resolution,
-        _('Date Created'): xray_instance.image_date_created.strftime("%B %d, %Y %H:%M") if xray_instance.image_date_created else _("Unknown"),
+        _('Date Created'): xray_instance.image_date_created.strftime("%Y-%m-%d %H:%M") if xray_instance.image_date_created else _("Unknown"),
     }
     
     # Filter out None values
@@ -706,7 +706,7 @@ def view_interpretability(request, pk):
         _('Format'): xray_instance.image_format,
         _('Size'): xray_instance.image_size,
         _('Resolution'): xray_instance.image_resolution,
-        _('Date Created'): xray_instance.image_date_created.strftime("%B %d, %Y %H:%M") if xray_instance.image_date_created else _("Unknown"),
+        _('Date Created'): xray_instance.image_date_created.strftime("%Y-%m-%d %H:%M") if xray_instance.image_date_created else _("Unknown"),
     }
     
     # Prepare media URLs for visualizations

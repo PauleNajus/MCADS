@@ -416,7 +416,7 @@
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">{% trans "X-ray image" %}</h5>
-                    <small>{% trans "Uploaded on" %} {{ xray.uploaded_at|localtime|date:"DATETIME_FORMAT" }}</small>
+                    <small>{% trans "Uploaded on" %} {{ xray.uploaded_at|localtime|date:"Y-m-d H:i" }}</small>
                 </div>
                 <div class="card-body text-center">
                     <div class="position-relative d-inline-block">
