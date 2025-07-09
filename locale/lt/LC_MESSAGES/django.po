@@ -3604,15 +3604,15 @@ msgstr "Taikomi įstatymai ir jurisdikcija"
 
 #: .\xrayapp\templates\xrayapp\terms_of_service.html:256
 msgid ""
-"These Terms shall be governed by the laws of [Your Jurisdiction]. Any "
-"disputes shall be resolved in the courts of [Your Jurisdiction]."
+"These Terms shall be governed by the laws of Lithuania. Any "
+"disputes shall be resolved in the courts of Lithuania."
 msgstr ""
-"Šios sąlygos reglamentuojamos [Jūsų jurisdikcijos] įstatymais. Bet kokie "
-"ginčai sprendžiami [Jūsų jurisdikcijos] teismuose."
+"Šios sąlygos reglamentuojamos Lietuvos įstatymais. Bet kokie "
+"ginčai sprendžiami Lietuvos teismuose."
 
 #: .\xrayapp\templates\xrayapp\terms_of_service.html:260
 msgid "Severability"
-msgstr "Atskyrimmas"
+msgstr "Atskyrimas"
 
 #: .\xrayapp\templates\xrayapp\terms_of_service.html:262
 msgid ""
@@ -3636,11 +3636,11 @@ msgstr "MCADS kūrimo komanda"
 
 #: .\xrayapp\templates\xrayapp\terms_of_service.html:271
 msgid "Paulius Bundza and Justas Trinkūnas"
-msgstr "Paulius Bundža ir Justas Trinkūnas"
+msgstr "Paulius Bundza ir Justas Trinkūnas"
 
 #: .\xrayapp\templates\xrayapp\terms_of_service.html:272
 msgid "Vilnius Tech"
-msgstr "Vilniaus Tech"
+msgstr "Vilnius Tech"
 
 #: .\xrayapp\templates\xrayapp\terms_of_service.html:273
 msgid "Email:"
