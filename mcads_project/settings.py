@@ -251,6 +251,12 @@ LOCALE_PATHS = [
     BASE_DIR / 'locale',
 ]
 
+# Language cookie settings
+LANGUAGE_COOKIE_NAME = 'django_language'
+LANGUAGE_COOKIE_AGE = None  # Session cookie (expires when browser closes)
+LANGUAGE_COOKIE_DOMAIN = None
+LANGUAGE_COOKIE_PATH = '/'
+
 TIME_ZONE = 'UTC'
 
 USE_I18N = True

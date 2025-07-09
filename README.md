@@ -1,6 +1,7 @@
 # mcads
 
-A Django web application for analyzing chest X-ray images using the TorchXRayVision library and pre-trained ResNet50 model.
+A Django web application for analyzing chest X-ray images using the TorchXRayVision library and pre-trained
+ResNet50 model.
 
 ## Features
 
@@ -163,7 +164,8 @@ All paths are handled using Python's `pathlib` library to ensure cross-platform 
 
 ### Linux-Specific Setup
 
-The application is fully compatible with modern Linux distributions. For the best experience, follow these distribution-specific instructions:
+The application is fully compatible with modern Linux distributions. For the best experience, follow these
+distribution-specific instructions:
 
 #### Ubuntu/Debian
 
@@ -245,7 +247,8 @@ source ~/.bashrc
 nvcc --version
 ```
 
-After installing CUDA, you can set up the project as usual. The application will automatically detect and use your GPU if available.
+After installing CUDA, you can set up the project as usual. The application will automatically detect and use your
+GPU if available.
 
 ### File Permissions on Linux
 
@@ -270,4 +273,3 @@ This project uses the [TorchXRayVision](https://github.com/mlmed/torchxrayvision
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
-
