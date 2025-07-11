@@ -466,7 +466,7 @@
                                 {% for pathology, prob in predictions.items %}
                                 <tr>
                                     <td style="width: 40%;">
-                                        {{ pathology }}
+                                        {% trans pathology %}
                                         <button type="button" class="btn-info-pathology ms-2" data-pathology="{{ pathology }}" title="Learn more about {{ pathology }}">
                                             <i class="fas fa-question-circle"></i>
                                         </button>

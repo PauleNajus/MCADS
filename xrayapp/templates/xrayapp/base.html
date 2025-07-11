@@ -74,7 +74,7 @@
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                         <li><span class="dropdown-item-text text-muted small">{{ user.first_name }} {{ user.last_name }}</span></li>
                         {% if user.profile %}
-                        <li><span class="dropdown-item-text text-muted small"><i class="bi bi-person-badge"></i> {{ user.profile.role }}</span></li>
+                        <li><span class="dropdown-item-text text-muted small"><i class="bi bi-person-badge"></i> {{ user.profile.get_role_display }}</span></li>
                         {% endif %}
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="{% url 'account_settings' %}"><i class="bi bi-gear"></i> {% trans "Account settings" %}</a></li>
