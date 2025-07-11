@@ -719,7 +719,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         // Complete - redirect to view page after a short delay
                         statusText.textContent = 'Visualization complete! Redirecting...';
                         setTimeout(() => {
-                            window.location.href = `/view-interpretability/${XRAY_ID}/`;
+                            window.location.href = `/interpretability/${XRAY_ID}/view/`;
                         }, 1000);
                     }
                 })
