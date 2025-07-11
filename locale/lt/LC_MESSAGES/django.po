@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MCADS 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-09 22:09+0300\n"
+"POT-Creation-Date: 2025-07-11 21:15+0300\n"
 "PO-Revision-Date: 2025-07-08 23:30+0300\n"
 "Last-Translator: MCADS Team\n"
 "Language-Team: Lithuanian\n"
@@ -18,26 +18,6 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
 "1 : n % 1 != 0 ? 2: 3);\n"
-
-#: .\test_pathologies_translation.py:28 .\test_pathologies_translation.py:43
-#: .\test_pathologies_translation.py:54
-#: .\xrayapp\templates\errors\error_base.html:77
-#: .\xrayapp\templates\xrayapp\base.html:139
-#: .\xrayapp\templates\xrayapp\home.html:36
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:60
-msgid "and"
-msgstr "ir"
-
-#: .\test_pathologies_translation.py:32 .\test_pathologies_translation.py:47
-#: .\test_pathologies_translation.py:55 .\xrayapp\forms.py:157
-msgid "Lung Lesion"
-msgstr "Plaučių pažeidimas"
-
-#: .\test_pathologies_translation.py:53
-#, fuzzy
-#| msgid "ResNet: All pathologies except \\"
-msgid "ResNet: All pathologies except \\\""
-msgstr "ResNet: Visos patologijos, išskyrus \""
 
 # Admin translations
 #: .\xrayapp\admin.py:39
@@ -433,6 +413,10 @@ msgstr "Plaučių drumstumas"
 msgid "Enlarged Cardiomediastinum"
 msgstr "Išplėstas kardiomédiastinum"
 
+#: .\xrayapp\forms.py:157
+msgid "Lung Lesion"
+msgstr "Plaučių pažeidimas"
+
 #: .\xrayapp\forms.py:170
 msgid "Minimum age cannot be greater than maximum age."
 msgstr "Minimalus amžius negali būti didesnis už maksimalų amžių."
@@ -673,6 +657,13 @@ msgstr "Eiti į pagrindinį puslapį"
 #: .\xrayapp\templates\xrayapp\base.html:139
 msgid "All rights reserved."
 msgstr "Visos teisės saugomos."
+
+#: .\xrayapp\templates\errors\error_base.html:77
+#: .\xrayapp\templates\xrayapp\base.html:139
+#: .\xrayapp\templates\xrayapp\home.html:36
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:60
+msgid "and"
+msgstr "ir"
 
 #: .\xrayapp\templates\errors\error_base.html:85
 #: .\xrayapp\templates\xrayapp\base.html:155
@@ -1027,8 +1018,14 @@ msgid "DenseNet: All 18 pathologies included"
 msgstr "DenseNet: Visos 18 patologijų įtrauktos"
 
 #: .\xrayapp\templates\xrayapp\home.html:36
-msgid "ResNet: All pathologies except \"Enlarged cardiomediastinum\""
-msgstr "ResNet: Visos patologijos, išskyrus \"Padidėjęs vidurio krūtinės tarpas\""
+#, fuzzy
+#| msgid "ResNet: All pathologies except \\"
+msgid "ResNet: All pathologies except \\"
+msgstr "ResNet: Visos patologijos, išskyrus \""
+
+#: .\xrayapp\templates\xrayapp\home.html:36
+msgid "\\"
+msgstr ""
 
 #: .\xrayapp\templates\xrayapp\home.html:48
 #: .\xrayapp\templates\xrayapp\results.html:378
@@ -2088,6 +2085,399 @@ msgstr ""
 "JEI TURITE BET KOKIŲ MEDICINOS RŪPESČIŲ, NEDELSIANT KREIPKITĖS Į "
 "KVALIFIKUOTĄ SVEIKATOS PRIEŽIŪROS SPECIALISTĄ."
 
+#: .\xrayapp\views.py:420 .\xrayapp\views.py:723
+msgid ""
+"Atelectasis refers to the collapse or incomplete expansion of lung tissue, "
+"resulting in reduced gas exchange. It can be caused by airway obstruction "
+"(resorption atelectasis), external compression of the lung (compressive "
+"atelectasis), or insufficient surfactant production. Common causes include "
+"mucus plugging, foreign bodies, tumors, pneumothorax, pleural effusion, and "
+"post-surgical complications. On chest X-rays, atelectasis appears as areas "
+"of increased opacity with volume loss, often accompanied by compensatory "
+"changes such as mediastinal shift, elevated hemidiaphragm, or rib crowding."
+msgstr ""
+"Atelektazė - tai plaučių audinio susmukimas ar nepilnas išsiplėtimas, "
+"dėl kurio pablogėja dujų apykaita. Tai gali būti sukelta oro takų užkimšimo "
+"(resorpcijos atelektazė), išorinio plaučio suspaudimo (suspaudimo atelektazė) "
+"arba nepakankamo surfaktanto gamybos. Dažnos priežastys - gleivių kamščiai, "
+"svetimkūniai, navikai, pneumotoraksas, pleuros výpotai ir pooperacinės "
+"komplikacijos. Krūtinės rentgene atelektazė atrodo kaip padidėjusio neperšvietimo "
+"sritys su tūrio praradimu, dažnai kartu su kompensaciniais pakitimais, tokiais "
+"kaip tarpuplaučio poslinkis, pakilusi hemidiafragma ar šonkaulių spūdis."
+
+#: .\xrayapp\views.py:422 .\xrayapp\views.py:724
+msgid ""
+"Cardiomegaly refers to enlargement of the heart, typically identified on "
+"chest X-rays when the cardiothoracic ratio exceeds 0.50 on a posteroanterior "
+"(PA) view. It can result from various conditions including hypertension, "
+"heart failure, cardiomyopathy, valvular disease, or congenital heart "
+"defects. The enlarged cardiac silhouette may appear globular or have "
+"specific chamber enlargement patterns depending on the underlying cause. "
+"Cardiomegaly often indicates underlying cardiovascular disease and may "
+"require further evaluation with echocardiography or other cardiac imaging."
+msgstr ""
+"Kardiomegalija - tai širdies padidėjimas, paprastai nustatomas krūtinės "
+"rentgenogramose, kai kardiotoraksinis santykis viršija 0,50 užpakalinėje "
+"priekinėje (PA) projekcijoje. Gali būti sukelta įvairių ligų, įskaitant "
+"hipertenziją, širdies nepakankamumą, kardiomiopatiją, vožtuvų ligas ar "
+"įgimtus širdies defektus. Padidėjęs širdies siluetas gali atrodyti "
+"rutulinis arba turėti specifinio kamero padidėjimo ypatumus, priklausomai "
+"nuo pagrindinės priežasties. Kardiomegalija dažnai rodo širdies ir kraujagyslių "
+"sistemos ligą ir gali reikalauti tolesnės echokardiografijos ar kitų širdies "
+"vaizdavimo tyrimų."
+
+#: .\xrayapp\views.py:424 .\xrayapp\views.py:725
+msgid ""
+"Consolidation represents the filling of alveolar spaces with fluid, pus, "
+"blood, or other material, replacing normal air-filled lung tissue. It "
+"appears as homogeneous opacity on chest X-rays, often with air bronchograms "
+"visible within the consolidated area. Common causes include pneumonia "
+"(bacterial, viral, or fungal), pulmonary edema, hemorrhage, or aspiration. "
+"The opacity typically has well-defined borders and may be lobar, segmental, "
+"or patchy in distribution. Clinical correlation is essential for determining "
+"the underlying cause and appropriate treatment."
+msgstr ""
+"Konsolidacija - tai alveolių erdvių užpildymas skysčiu, pūliais, krauju "
+"ar kita medžiaga, pakeičiant normalų oru pripildytą plaučių audinį. "
+"Krūtinės rentgenogramose atrodo kaip homogeninis neperšvietimas, dažnai "
+"su matomomis oro bronchogrammomis konsoliduotoje srityje. Dažnos priežastys - "
+"pneumonija (bakterinė, virusinė ar grybelinė), plaučių edema, kraujavimas "
+"ar aspiracija. Neperšvietimas paprastai turi aiškiai apibrėžtus kraštus "
+"ir gali būti skilvelinis, segmentinis ar dėmėtas paskirstymas. Klinikinis "
+"vertinimas yra būtinas nustatant pagrindinę priežastį ir tinkamą gydymą."
+
+#: .\xrayapp\views.py:426 .\xrayapp\views.py:726
+msgid ""
+"Pulmonary edema is the accumulation of excess fluid in the lung tissue and "
+"alveolar spaces, resulting in impaired gas exchange. It can be cardiogenic "
+"(due to heart failure, valve disease, or fluid overload) or non-cardiogenic "
+"(due to acute lung injury, infection, or capillary leak). On chest X-rays, "
+"pulmonary edema appears as bilateral, symmetrical opacities that may have a "
+"\"bat wing\" or perihilar distribution. Additional findings may include "
+"cardiomegaly, pleural effusions, and prominent pulmonary vasculature. Early "
+"recognition is crucial as it can be life-threatening."
+msgstr ""
+"Plaučių edema - tai perteklinio skysčio susikaupimas plaučių audinyje "
+"ir alveolių erdvėse, dėl kurio pablogėja dujų apykaita. Gali būti "
+"kardiogeninė (dėl širdies nepakankamumo, vožtuvų ligos ar skysčio "
+"perkrovos) arba nekardiogeninė (dėl ūminio plaučių pažeidimo, infekcijos "
+"ar kapiliarų pralaidumo). Krūtinės rentgenogramose plaučių edema atrodo "
+"kaip abipusiai, simetriški neperšvietimai, kurie gali turėti 'šikšnosparniu "
+"sparnu' ar perijiliarų pasiskirstymą. Papildomi radiniai gali būti "
+"kardiomegalija, pleuros výpotai ir išryškėjusi plaučių kraujagyslė. "
+"Ankstyvas atpažinimas yra labai svarbus, nes gali kelti pavojų gyvybei."
+
+#: .\xrayapp\views.py:428 .\xrayapp\views.py:727
+msgid ""
+"Pleural effusion is the abnormal accumulation of fluid in the pleural space "
+"between the lung and chest wall. It can be transudative (due to heart "
+"failure, liver disease, or kidney disease) or exudative (due to infection, "
+"malignancy, or inflammatory conditions). On chest X-rays, pleural effusion "
+"appears as a homogeneous opacity that obscures the diaphragm and "
+"costophrenic angle, with a meniscus sign at the fluid-air interface. Large "
+"effusions can cause mediastinal shift away from the affected side and "
+"require drainage for both diagnostic and therapeutic purposes."
+msgstr ""
+"Pleuros výpotas - tai nenormalus skysčio susikaupimas pleuros erdvėje "
+"tarp plaučio ir krūtinės sienos. Gali būti transudatinis (dėl širdies "
+"nepakankamumo, kepenų ligos ar inkstų ligos) arba eksudatinis (dėl "
+"infekcijos, piktybinio proceso ar uždegimo). Krūtinės rentgenogramose "
+"pleuros výpotas atrodo kaip homogeninis neperšvietimas, kuris uždengia "
+"diafragmą ir kostofrenikinį kampą, su menisko ženklu skysčio-oro "
+"sąsajoje. Dideli výpotai gali sukelti tarpuplaučio poslinkį nuo "
+"paveiktos pusės ir reikalauti drenažo tiek diagnostiniais, tiek "
+"gydymo tikslais."
+
+#: .\xrayapp\views.py:430 .\xrayapp\views.py:728
+msgid ""
+"Emphysema is a chronic obstructive pulmonary disease characterized by "
+"permanent enlargement and destruction of alveolar spaces distal to terminal "
+"bronchioles. It is most commonly caused by smoking but can also result from "
+"alpha-1 antitrypsin deficiency or occupational exposures. On chest X-rays, "
+"emphysema appears as hyperinflation with flattened hemidiaphragms, increased "
+"anteroposterior diameter, and decreased lung markings. Advanced cases may "
+"show bullae formation and signs of pulmonary hypertension. High-resolution "
+"CT is more sensitive for detecting early emphysematous changes."
+msgstr ""
+"Emfizema - tai lėtinė obstrukcinė plaučių liga, kuriai būdingas "
+"nuolatinis alveolių erdvių padidėjimas ir sugriovimas už terminalinių "
+"broncholių. Dažniausiai sukelta rūkymo, bet taip pat gali būti dėl "
+"alfa-1 antitripsino trūkumo ar profesinio poveikio. Krūtinės "
+"rentgenogramose emfizema atrodo kaip hiperinfliacija su išlygintomis "
+"hemidiafragmomis, padidėjusiu priekinio-užpakalinio skersmens ir "
+"sumažėjusiais plaučių žymenimis. Pažengusiais atvejais gali būti "
+"bulos formavimasis ir plaučių hipertenzijos ženklai. Didelės raiškos "
+"KT yra jautresnė ankstyvų emfizematinių pakitimų aptikimui."
+
+#: .\xrayapp\views.py:432 .\xrayapp\views.py:729
+msgid ""
+"Pulmonary fibrosis involves the thickening and scarring of lung tissue, "
+"leading to progressive loss of lung function. It can be idiopathic or "
+"secondary to various causes including occupational exposures (asbestosis, "
+"silicosis), medications, radiation therapy, or connective tissue diseases. "
+"On chest X-rays, fibrosis appears as reticular or reticulonodular opacities, "
+"often with a lower lobe predominance. Advanced cases may show honeycombing, "
+"traction bronchiectasis, and loss of lung volume. Early detection and "
+"treatment are important to slow disease progression."
+msgstr ""
+"Plaučių fibrozė - tai plaučių audinio storėjimas ir randėjimasis, "
+"sukeliantis palaipsnį plaučių funkcijos praradimą. Gali būti "
+"idiopatinė arba antrinė dėl įvairių priežasčių, įskaitant "
+"profesinius poveikius (asbestozė, silikozė), vaistus, spinduliuotės "
+"terapiją ar jungiamojo audinio ligas. Krūtinės rentgenogramose "
+"fibrozė atrodo kaip tinkliniai ar tinkliniai-mazgeliniai "
+"neperšvietimai, dažnai su apatinių skilvelių vyravimu. Pažengusiais "
+"atvejais gali būti korių formavimasis, traukos bronchektazės ir "
+"plaučių tūrio praradimas. Ankstyvas aptikimas ir gydymas yra svarbūs "
+"ligos progresavimo sulėtinimui."
+
+#: .\xrayapp\views.py:434 .\xrayapp\views.py:730
+msgid ""
+"Hiatal hernia occurs when part of the stomach protrudes through the "
+"diaphragmatic opening into the thoracic cavity. It can be sliding (most "
+"common) or paraesophageal (less common but more serious). On chest X-rays, "
+"hiatal hernia may appear as a retrocardiac mass or air-fluid level behind "
+"the heart. Large hernias can compress adjacent structures and may be "
+"associated with complications such as gastric volvulus, obstruction, or "
+"strangulation. Barium studies or CT imaging may be needed for detailed "
+"evaluation."
+msgstr ""
+"Hiato išvarža atsiranda, kai dalies skrandžio išsikišo per "
+"diafragmos angą į krūtinės ertmę. Gali būti slenkančioji (dažniausia) "
+"arba paraezofaginė (retesnė, bet rimtesnė). Krūtinės rentgenogramose "
+"hiato išvarža gali atrodyti kaip užširdžinė masė ar oro-skysčio "
+"lygis už širdies. Didelės išvaržos gali suspausti gretimus darinus "
+"ir gali būti susijusios su komplikacijomis, tokiomis kaip skrandžio "
+"volvulus, obstrukcija ar pažeidimas. Barių tyrimai ar KT vaizdavimas "
+"gali būti reikalingi išsamiam įvertinimui."
+
+#: .\xrayapp\views.py:436 .\xrayapp\views.py:731
+msgid ""
+"Pulmonary infiltration refers to the abnormal accumulation of substances in "
+"lung tissue, including inflammatory cells, fluid, or other materials. It "
+"appears as areas of increased opacity on chest X-rays and can be caused by "
+"various conditions such as pneumonia, pulmonary edema, hemorrhage, or "
+"interstitial lung disease. The pattern and distribution of infiltrates can "
+"help narrow the differential diagnosis. Infiltrates may be patchy, diffuse, "
+"or have specific patterns like ground-glass opacity or crazy-paving pattern "
+"on high-resolution imaging."
+msgstr ""
+"Plaučių infiltracija - tai nenormalus medžiagų susikaupimas plaučių "
+"audinyje, įskaitant uždegiminius ląsteles, skystį ar kitas medžiagas. "
+"Krūtinės rentgenogramose atrodo kaip padidėjusio neperšvietumo sritys "
+"ir gali būti sukelta įvairių ligų, tokių kaip pneumonija, plaučių "
+"edema, kraujavimas ar intersticinė plaučių liga. Infiltratų pobūdis "
+"ir pasiskirstymas gali padėti susiaurinti diferencinę diagnozę. "
+"Infiltratai gali būti dėmėti, difuziniai arba turėti specifinius "
+"šablonus, tokius kaip matinio stiklo neperšvietimas ar crazy-paving "
+"šablonas didelės raiškos vaizdavime."
+
+#: .\xrayapp\views.py:438 .\xrayapp\views.py:732
+msgid ""
+"A pulmonary mass is a focal opacity greater than 3 cm in diameter that "
+"appears on chest imaging. Masses can be benign (such as hamartomas or "
+"granulomas) or malignant (primary lung cancer or metastases). On chest X-"
+"rays, masses appear as well-defined or spiculated opacities that may be "
+"accompanied by additional findings such as pleural effusion, "
+"lymphadenopathy, or bone lesions. Further evaluation with CT imaging, PET "
+"scanning, and tissue sampling is typically required to determine the nature "
+"and extent of the mass."
+msgstr ""
+"Plaučių masė - tai židininiai neperšvietimai, didesni nei 3 cm "
+"skersmens, matomi krūtinės vaizdavime. Masės gali būti gerybinės "
+"(tokios kaip hamartomas ar granuliomos) arba piktybinės (pirminis "
+"plaučių vėžys ar metastazės). Krūtinės rentgenogramose masės atrodo "
+"kaip aiškiai apibrėžti ar spiculiuoti neperšvietimai, kuriuos gali "
+"lydėti papildomi radiniai, tokie kaip pleuros výpotas, limfadenopatija "
+"ar kaulų pažeidimai. Tolesnė analizė su KT vaizdavimu, PET skanavimu "
+"ir audinio mėginiu paprastai reikalinga nustatyti masės pobūdį ir "
+"mastą."
+
+#: .\xrayapp\views.py:440 .\xrayapp\views.py:733
+msgid ""
+"A pulmonary nodule is a focal opacity less than or equal to 3 cm in diameter "
+"surrounded by normal lung tissue. Nodules can be solitary or multiple and "
+"may be benign (granulomas, hamartomas) or malignant (primary or metastatic "
+"cancer). On chest X-rays, nodules appear as rounded opacities that may be "
+"calcified or non-calcified. The size, morphology, and growth rate of nodules "
+"help determine the need for further evaluation. CT imaging is often required "
+"for detailed characterization and follow-up."
+msgstr ""
+"Plaučių mazgelis - tai židininiai neperšvietimai, mažesni arba lygūs "
+"3 cm skersmens, apsupti normalaus plaučių audinio. Mazgeliai gali "
+"būti pavieniai arba daugybiniai ir gali būti gerybiniai (granuliomos, "
+"hamartomos) arba piktybiniai (pirminis ar metastazinis vėžys). "
+"Krūtinės rentgenogramose mazgeliai atrodo kaip apvalūs neperšvietimai, "
+"kurie gali būti kalcifikuoti ar nekalcifikuoti. Mazgelių dydis, "
+"morfologija ir augimo greitis padeda nustatyti tolesnės analizės "
+"poreikį. KT vaizdavimas dažnai reikalingas išsamiam apibūdinimui "
+"ir stebėsenai."
+
+#: .\xrayapp\views.py:442 .\xrayapp\views.py:734
+msgid ""
+"Pleural thickening involves the abnormal thickening of the pleural membranes "
+"surrounding the lungs, which can be focal or diffuse. It may result from "
+"previous infection (empyema, tuberculosis), asbestos exposure, trauma, or "
+"malignancy. On chest X-rays, pleural thickening appears as increased opacity "
+"along the pleural surfaces, often with blunting of the costophrenic angles. "
+"Extensive pleural thickening can restrict lung expansion and cause "
+"respiratory symptoms. High-resolution CT is more sensitive for detecting "
+"subtle pleural abnormalities and assessing disease extent."
+msgstr ""
+"Pleuros storėjimas - tai nenormalus pleuros membranas, supančių "
+"plaučius, storėjimas, kuris gali būti židininis ar difuzinis. Gali "
+"atsirasti dėl ankstesnės infekcijos (empiema, tuberkuliozė), "
+"asbesto poveikio, traumos ar piktybinio proceso. Krūtinės "
+"rentgenogramose pleuros storėjimas atrodo kaip padidėjęs "
+"neperšvietimas palei pleuros paviršius, dažnai su kostofreninių "
+"kampų užbaigimų sužadijimu. Platus pleuros storėjimas gali "
+"apriboti plaučių išplėtimą ir sukelti kvėpavimo simptomus. "
+"Didelės raiškos KT yra jautresnė subtilių pleuros nenormalumų "
+"aptikimui ir ligos masto įvertinimui."
+
+#: .\xrayapp\views.py:444 .\xrayapp\views.py:735
+msgid ""
+"Pneumonia is an inflammatory condition of the lung tissue, usually caused by "
+"bacterial, viral, or fungal infections. It can also result from aspiration "
+"or chemical irritants. On chest X-rays, pneumonia appears as areas of "
+"consolidation or infiltration that may be lobar, segmental, or patchy in "
+"distribution. Air bronchograms are often visible within the consolidated "
+"areas. Clinical symptoms include fever, cough, shortness of breath, and "
+"chest pain. Prompt diagnosis and appropriate antibiotic therapy are "
+"essential for optimal outcomes."
+msgstr ""
+"Pneumonija - tai plaučių audinio uždegiminė būklė, paprastai sukelta "
+"bakterinės, virusinės ar grybelinės infekcijos. Taip pat gali būti "
+"dėl aspiracijos ar cheminių dirgiklių. Krūtinės rentgenogramose "
+"pneumonija atrodo kaip konsolidacijos ar infiltracijos sritys, kurios "
+"gali būti skilvelinės, segmentinės ar dėmėto paskirstymo. Oro "
+"bronchogramos dažnai matomos konsoliduotose srityse. Klinikiniai "
+"simptomai - karščiavimas, kosulys, dusulys ir krūtinės skausmas. "
+"Greitas diagnozavimas ir tinkamas antibiotikų gydymas yra būtini "
+"optimaliam rezultatui."
+
+#: .\xrayapp\views.py:446 .\xrayapp\views.py:736
+msgid ""
+"Pneumothorax is the presence of air in the pleural space, causing partial or "
+"complete lung collapse. It can be spontaneous (primary in healthy "
+"individuals or secondary in those with lung disease) or traumatic (due to "
+"injury or medical procedures). On chest X-rays, pneumothorax appears as a "
+"lucent area without lung markings, with a visible pleural line separating "
+"the collapsed lung from the chest wall. Large pneumothoraces may cause "
+"mediastinal shift and require immediate decompression. Small pneumothoraces "
+"may resolve spontaneously with observation."
+msgstr ""
+"Pneumotoraksas - tai oro buvimas pleuros erdvėje, sukeliantis "
+"dalinį ar visišką plaučio kolapsą. Gali būti spontaninis (pirminės "
+"formos sveikiems asmenims ar antrinės formos turintiems plaučių ligą) "
+"arba trauminis (dėl traumos ar medicininių procedūrų). Krūtinės "
+"rentgenogramose pneumotoraksas atrodo kaip šviesi sritis be plaučių "
+"žymenimų, su matoma pleuros linija, skiriančia susmukusį plaučią nuo "
+"krūtinės sienos. Dideli pneumotoraksai gali sukelti tarpuplaučio "
+"poslinkį ir reikalauja neatidėliotinos dekompresijos. Maži "
+"pneumotoraksai gali išnykti savaime stebint."
+
+#: .\xrayapp\views.py:448 .\xrayapp\views.py:737
+msgid ""
+"Rib fractures are breaks in one or more of the bones that form the ribcage, "
+"commonly resulting from trauma, falls, or repetitive stress. On chest X-"
+"rays, fractures may appear as lucent lines, discontinuity of the cortex, or "
+"displacement of bone fragments. Multiple rib fractures can be associated "
+"with serious complications including pneumothorax, hemothorax, or injury to "
+"underlying organs. Pathological fractures may occur in patients with bone "
+"metastases or metabolic bone disease. Pain management and monitoring for "
+"complications are important aspects of treatment."
+msgstr ""
+"Šonkaulių lūžiai - tai vieno ar kelių šonkaulių, sudarančių krūtinės "
+"ląstą, kaulų lūžiai, dažniausiai atsirandantys dėl traumos, kritimų "
+"ar kartotinio poveikio. Krūtinės rentgenogramose lūžiai gali atrodyti "
+"kaip šviesios linijos, žievės nutraukimas ar kaulų fragmentų poslinkis. "
+"Keli šonkaulių lūžiai gali būti susiję su rimtomis komplikacijomis, "
+"įskaitant pneumotoraksą, hemotoraksą ar gretimų organų pažeidimą. "
+"Patologiniai lūžiai gali atsirasti pacientams, turintiems kaulų "
+"metastazes ar metabolinių kaulų ligą. Skausmo valdymas ir "
+"komplikacijų stebėjimas yra svarbūs gydymo aspektai."
+
+#: .\xrayapp\views.py:450 .\xrayapp\views.py:738
+msgid ""
+"Lung opacity refers to any area of increased density on chest imaging that "
+"obscures normal lung anatomy. It is a general term that encompasses various "
+"pathological processes including consolidation, ground-glass opacity, or "
+"mass lesions. The pattern, distribution, and associated findings help narrow "
+"the differential diagnosis. Common causes include pneumonia, pulmonary "
+"edema, interstitial lung disease, or malignancy. Further evaluation with "
+"high-resolution CT imaging and clinical correlation is often needed to "
+"determine the specific underlying pathology."
+msgstr ""
+"Plaučių neperšvietimas - tai bet kuri padidėjusio tankio sritis "
+"krūtinės vaizdavime, kuri uždengia normalią plaučių anatomiją. "
+"Tai bendrasis terminas, apimantis įvairius patologinius procesus, "
+"įskaitant konsolidaciją, matinio stiklo neperšvietimą ar masės "
+"pažeidimus. Pobūdis, pasiskirstymas ir susiję radiniai padeda "
+"susiaurinti diferencinę diagnozę. Dažnos priežastys - pneumonija, "
+"plaučių edema, intersticinė plaučių liga ar piktybinis procesas. "
+"Tolesnė analizė su didelės raiškos KT vaizdavimu ir klinikinė "
+"koreliacija dažnai reikalinga nustatyti specifinę pagrindinę "
+"patologiją."
+
+#: .\xrayapp\views.py:452 .\xrayapp\views.py:739
+msgid ""
+"Enlarged cardiomediastinum refers to an increase in the combined width of "
+"the cardiac silhouette and mediastinal contours. On a standard "
+"posteroanterior (PA) view, it is commonly identified when the cardiothoracic "
+"ratio (maximum horizontal cardiac diameter divided by maximal thoracic "
+"diameter) exceeds 0.50. On an anteroposterior (AP) projection—often "
+"performed in supine or portable studies—a mediastinal width greater than "
+"approximately 6–8 cm at the level of the aortic knob likewise suggests "
+"enlargement. Common causes include: Cardiomegaly (e.g., dilated "
+"cardiomyopathy, left ventricular hypertrophy), Pericardial effusion, which "
+"produces a globular (\"water‐bottle\") silhouette, Aortic pathology "
+"(aneurysm or dissection) leading to mediastinal widening, Mediastinal masses "
+"or lymphadenopathy. Recognition of an enlarged cardiomediastinum is pivotal, "
+"as it often prompts further evaluation—such as echocardiography for cardiac "
+"enlargement or contrast-enhanced CT to assess aortic and mediastinal "
+"pathology."
+msgstr ""
+"Padidėjęs kardiomediastinas - tai širdies silueto ir tarpuplaučio "
+"kontūrų bendro pločio padidėjimas. Standartiniame užpakaliniame-"
+"priekiniame (PA) vaizdavime paprastai nustatomas, kai kardiotoraksinis "
+"santykis (didžiausias horizontalus širdies skersmuo, padalytas iš "
+"didžiausio krūtinės skersmens) viršija 0,50. Priekiniame-užpakaliniame "
+"(AP) projekcijoje - dažnai atliekamoje gulimoje ar nešiojamoje tyrimų - "
+"tarpuplaučio plotis, didesnis nei maždaug 6-8 cm aortos mazgo lygyje, "
+"taip pat rodo padidėjimą. Dažnos priežastys: Kardiomegalija (pvz., "
+"išplėstinė kardiomiopatija, kairiojo širdies skilvelio hipertrofija), "
+"Perikardo výpotas, sukeliantis rutulišką ('vandens butelio') siluetą, "
+"Aortos patologija (aneurizma ar disekcija), sukelianti tarpuplaučio "
+"platėjimą, Tarpuplaučio masės ar limfadenopatija. Padidėjusio "
+"kardiomediastino atpažinimas yra svarbus, nes dažnai skatina tolesnį "
+"vertinimą - tokį kaip echokardiografija širdies padidėjimui ar "
+"kontrastiniu KT aortos ir tarpuplaučio patologijai įvertinti."
+
+#: .\xrayapp\views.py:454 .\xrayapp\views.py:740
+msgid ""
+"A lung lesion is any abnormal area or growth in lung tissue that differs "
+"from normal lung anatomy. Lesions can be benign or malignant and may include "
+"nodules, masses, cysts, or areas of inflammation. On chest X-rays, lesions "
+"appear as focal opacities that may vary in size, shape, and density. The "
+"characteristics of the lesion, including its borders, calcification pattern, "
+"and growth rate, help determine the likelihood of malignancy. Further "
+"evaluation with CT imaging, PET scanning, and possibly tissue sampling is "
+"often required to establish a definitive diagnosis and guide appropriate "
+"treatment."
+msgstr ""
+"Plaučių pažeidimas - tai bet kuri nenormali sritis ar augimas "
+"plaučių audinyje, kuris skiriasi nuo normalios plaučių anatomijos. "
+"Pažeidimai gali būti gerybiniai ar piktybiniai ir gali apimti "
+"mazgelius, mases, cistas ar uždegimo sritis. Krūtinės rentgenogramose "
+"pažeidimai atrodo kaip židininiai neperšvietimai, kurie gali "
+"skirtis dydžiu, forma ir tankumu. Pažeidimo charakteristikos, "
+"įskaitant jo kraštus, kalcifikacijos šabloną ir augimo greitį, "
+"padeda nustatyti piktybingumo tikimybę. Tolesnė analizė su KT "
+"vaizdavimu, PET skanavimu ir galbūt audinio mėginiu dažnai "
+"reikalinga galutinei diagnozei nustatyti ir tinkamam gydymui "
+"orientuoti."
+
 #: .\xrayapp\views.py:466
 #, fuzzy
 #| msgid "Full Name"
@@ -2162,6 +2552,12 @@ msgstr "Nėra prognozių istorijos įrašų šalinimui."
 msgid "Prediction record has been updated."
 msgstr "Prognozės įrašas atnaujintas."
 
+#: .\xrayapp\views.py:775
+#, fuzzy
+#| msgid "Page Not Found"
+msgid "Image not found"
+msgstr "Puslapis nerastas"
+
 #: .\xrayapp\views.py:792
 msgid "Your profile information has been updated successfully."
 msgstr "Jūsų profilio informacija sėkmingai atnaujinta."
@@ -2207,6 +2603,11 @@ msgstr "Prašome ištaisyti klaidas slaptažodžio formoje."
 
 #, fuzzy
 #~| msgid "New passwords do not match."
+#~ msgid "Error: The value you entered was invalid."
+#~ msgstr "Nauji slaptažodžiai nesutampa."
+
+#, fuzzy
+#~| msgid "New passwords do not match."
 #~ msgid "Error: The two entered values do not match."
 #~ msgstr "Nauji slaptažodžiai nesutampa."
 
@@ -2222,8 +2623,38 @@ msgstr "Prašome ištaisyti klaidas slaptažodžio formoje."
 
 #, fuzzy
 #~| msgid "Email address"
+#~ msgid "Enter a valid value."
+#~ msgstr "El. pašto adresas"
+
+#, fuzzy
+#~| msgid "Email address"
+#~ msgid "Enter a valid domain name."
+#~ msgstr "El. pašto adresas"
+
+#, fuzzy
+#~| msgid "Generate visualization"
+#~ msgid "Enter a valid URL."
+#~ msgstr "Generuoti vizualizaciją"
+
+#, fuzzy
+#~| msgid "Generate visualization"
+#~ msgid "Enter a valid integer."
+#~ msgstr "Generuoti vizualizaciją"
+
+#, fuzzy
+#~| msgid "Email address"
 #~ msgid "Enter a valid email address."
 #~ msgstr "El. pašto adresas"
+
+#, fuzzy, python-format
+#~| msgid "Email address"
+#~ msgid "Enter a valid %(protocol)s address."
+#~ msgstr "El. pašto adresas"
+
+#, fuzzy
+#~| msgid "December"
+#~ msgid "Decimal number"
+#~ msgstr "gruodis"
 
 #, fuzzy
 #~| msgid "Termination"
@@ -2241,13 +2672,61 @@ msgstr "Prašome ištaisyti klaidas slaptažodžio formoje."
 #~ msgstr "El. pašto adresas"
 
 #, fuzzy
+#~| msgid "Image name"
+#~ msgid "Image"
+#~ msgstr "Vaizdo pavadinimas"
+
+#, fuzzy
+#~| msgid "Generate visualization"
+#~ msgid "Enter a valid date."
+#~ msgstr "Generuoti vizualizaciją"
+
+#, fuzzy
+#~| msgid "Generate visualization"
+#~ msgid "Enter a valid time."
+#~ msgstr "Generuoti vizualizaciją"
+
+#, fuzzy
+#~| msgid "Generate visualization"
+#~ msgid "Enter a valid date/time."
+#~ msgstr "Generuoti vizualizaciją"
+
+#, fuzzy
 #~| msgid "Generate visualization"
 #~ msgid "Enter a valid duration."
+#~ msgstr "Generuoti vizualizaciją"
+
+#, fuzzy
+#~| msgid "Email address"
+#~ msgid "Enter a list of values."
+#~ msgstr "El. pašto adresas"
+
+#, fuzzy
+#~| msgid "Generate visualization"
+#~ msgid "Enter a valid UUID."
+#~ msgstr "Generuoti vizualizaciją"
+
+#, fuzzy
+#~| msgid "Generate visualization"
+#~ msgid "Enter a valid JSON."
 #~ msgstr "Generuoti vizualizaciją"
 
 #, fuzzy, python-format
 #~| msgid "Please correct the errors below."
 #~ msgid "Please correct the duplicate data for %(field)s."
+#~ msgstr "Prašome ištaisyti klaidas žemiau."
+
+#, fuzzy, python-format
+#~| msgid "Please correct the errors below."
+#~ msgid ""
+#~ "Please correct the duplicate data for %(field)s, which must be unique."
+#~ msgstr "Prašome ištaisyti klaidas žemiau."
+
+#, fuzzy, python-format
+#~| msgid "Please correct the errors below."
+#~ msgid ""
+#~ "Please correct the duplicate data for %(field_name)s which must be unique "
+#~ "for the %(lookup)s in %(date_field)s."
 #~ msgstr "Prašome ištaisyti klaidas žemiau."
 
 #, fuzzy
@@ -2264,37 +2743,6 @@ msgstr "Prašome ištaisyti klaidas slaptažodžio formoje."
 #~| msgid "Light"
 #~ msgid "midnight"
 #~ msgstr "Šviesi"
-
-#, fuzzy
-#~| msgid "and"
-#~ msgid "jan"
-#~ msgstr "ir"
-
-#, fuzzy
-#~| msgid "No profile information available"
-#~ msgid "More information is available with DEBUG=True."
-#~ msgstr "Profilio informacija nepasiekiama"
-
-#, fuzzy
-#~| msgid "Date of X-ray"
-#~ msgid "Date out of range"
-#~ msgstr "Rentgeno data"
-
-# Account Settings translations
-#, fuzzy
-#~| msgid "Close"
-#~ msgid "close"
-#~ msgstr "Uždaryti"
-
-#~ msgid "Type \"DELETE\" to confirm"
-#~ msgstr "Įveskite \"DELETE\" kad patvirtintumėte"
-
-#~ msgid ""
-#~ "ResNet: All pathologies except \"Enlarged cardiomediastinum\" and \"Lung "
-#~ "lesion\""
-#~ msgstr ""
-#~ "ResNet: Visos patologijos, išskyrus \"Padidėjęs vidurio krūtinės tarpas\" "
-#~ "ir \"Plaučių pažeidimas\""
 
 # Month names for Django date formatting
 #~ msgid "January"
@@ -2332,3 +2780,156 @@ msgstr "Prašome ištaisyti klaidas slaptažodžio formoje."
 
 #~ msgid "December"
 #~ msgstr "gruodis"
+
+#, fuzzy
+#~| msgid "and"
+#~ msgid "jan"
+#~ msgstr "ir"
+
+#, fuzzy
+#~| msgid "May"
+#~ msgid "may"
+#~ msgstr "gegužė"
+
+#, fuzzy
+#~| msgid "and"
+#~ msgid "jun"
+#~ msgstr "ir"
+
+#, fuzzy
+#~| msgid "March"
+#~ msgctxt "abbrev. month"
+#~ msgid "March"
+#~ msgstr "kovas"
+
+#, fuzzy
+#~| msgid "April"
+#~ msgctxt "abbrev. month"
+#~ msgid "April"
+#~ msgstr "balandis"
+
+#, fuzzy
+#~| msgid "May"
+#~ msgctxt "abbrev. month"
+#~ msgid "May"
+#~ msgstr "gegužė"
+
+#, fuzzy
+#~| msgid "June"
+#~ msgctxt "abbrev. month"
+#~ msgid "June"
+#~ msgstr "birželis"
+
+#, fuzzy
+#~| msgid "July"
+#~ msgctxt "abbrev. month"
+#~ msgid "July"
+#~ msgstr "liepa"
+
+# Month names for Django date formatting
+#, fuzzy
+#~| msgid "January"
+#~ msgctxt "alt. month"
+#~ msgid "January"
+#~ msgstr "sausis"
+
+#, fuzzy
+#~| msgid "February"
+#~ msgctxt "alt. month"
+#~ msgid "February"
+#~ msgstr "vasaris"
+
+#, fuzzy
+#~| msgid "March"
+#~ msgctxt "alt. month"
+#~ msgid "March"
+#~ msgstr "kovas"
+
+#, fuzzy
+#~| msgid "April"
+#~ msgctxt "alt. month"
+#~ msgid "April"
+#~ msgstr "balandis"
+
+#, fuzzy
+#~| msgid "May"
+#~ msgctxt "alt. month"
+#~ msgid "May"
+#~ msgstr "gegužė"
+
+#, fuzzy
+#~| msgid "June"
+#~ msgctxt "alt. month"
+#~ msgid "June"
+#~ msgstr "birželis"
+
+#, fuzzy
+#~| msgid "July"
+#~ msgctxt "alt. month"
+#~ msgid "July"
+#~ msgstr "liepa"
+
+#, fuzzy
+#~| msgid "August"
+#~ msgctxt "alt. month"
+#~ msgid "August"
+#~ msgstr "rugpjūtis"
+
+#, fuzzy
+#~| msgid "September"
+#~ msgctxt "alt. month"
+#~ msgid "September"
+#~ msgstr "rugsėjis"
+
+#, fuzzy
+#~| msgid "October"
+#~ msgctxt "alt. month"
+#~ msgid "October"
+#~ msgstr "spalis"
+
+#, fuzzy
+#~| msgid "November"
+#~ msgctxt "alt. month"
+#~ msgid "November"
+#~ msgstr "lapkritis"
+
+#, fuzzy
+#~| msgid "December"
+#~ msgctxt "alt. month"
+#~ msgid "December"
+#~ msgstr "gruodis"
+
+#, fuzzy
+#~| msgid "Email address"
+#~ msgid "This is not a valid IPv6 address."
+#~ msgstr "El. pašto adresas"
+
+#, fuzzy
+#~| msgid "No profile information available"
+#~ msgid "More information is available with DEBUG=True."
+#~ msgstr "Profilio informacija nepasiekiama"
+
+#, fuzzy
+#~| msgid "Date of X-ray"
+#~ msgid "Date out of range"
+#~ msgstr "Rentgeno data"
+
+# Account Settings translations
+#, fuzzy
+#~| msgid "Close"
+#~ msgid "close"
+#~ msgstr "Uždaryti"
+
+#~ msgid "ResNet: All pathologies except \"Enlarged cardiomediastinum\""
+#~ msgstr ""
+#~ "ResNet: Visos patologijos, išskyrus \"Padidėjęs vidurio krūtinės tarpas\""
+
+#~ msgid "Type \"DELETE\" to confirm"
+#~ msgstr "Įveskite \"DELETE\" kad patvirtintumėte"
+
+#~ msgid ""
+#~ "ResNet: All pathologies except \"Enlarged cardiomediastinum\" and \"Lung "
+#~ "lesion\""
+#~ msgstr ""
+#~ "ResNet: Visos patologijos, išskyrus \"Padidėjęs vidurio krūtinės tarpas\" "
+#~ "ir \"Plaučių pažeidimas\""
