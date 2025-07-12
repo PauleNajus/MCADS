@@ -90,10 +90,85 @@
                             <div class="col-md-6">
                                 <div class="card border">
                                     <div class="card-body">
-                                        <h5 class="card-title">{% trans "Account information" %}</h5>
-                                        <p class="card-text"><strong>{% trans "Username:" %}</strong> {{ user.username }}</p>
-                                        <p class="card-text"><strong>{% trans "Last Login:" %}</strong> {{ user.last_login|date:"F d, Y H:i" }}</p>
-                                        <p class="card-text"><strong>{% trans "Date Joined:" %}</strong> {{ user.date_joined|date:"F d, Y" }}</p>
+                                        <h5 class="card-title"><i class="bi bi-person-circle"></i> {% trans "Account information" %}</h5>
+                                        
+                                        <!-- Basic User Information -->
+                                        <div class="mb-3">
+                                            <h6 class="text-muted">{% trans "Basic Information" %}</h6>
+                                            <p class="card-text mb-1"><strong>{% trans "Username:" %}</strong> {{ user.username }}</p>
+                                            <p class="card-text mb-1"><strong>{% trans "First Name:" %}</strong> {{ user.first_name|default:"—" }}</p>
+                                            <p class="card-text mb-1"><strong>{% trans "Last Name:" %}</strong> {{ user.last_name|default:"—" }}</p>
+                                            <p class="card-text mb-1"><strong>{% trans "Email Address:" %}</strong> {{ user.email|default:"—" }}</p>
+                                        </div>
+
+                                        <!-- Professional Information -->
+                                        {% if user.profile %}
+                                        <div class="mb-3">
+                                            <h6 class="text-muted">{% trans "Professional Information" %}</h6>
+                                            <p class="card-text mb-1"><strong>{% trans "Hospital:" %}</strong> <span class="badge bg-primary">{{ user.profile.hospital }}</span></p>
+                                            <p class="card-text mb-1"><strong>{% trans "Role:" %}</strong> <span class="badge bg-secondary">{{ user.profile.get_role_display }}</span></p>
+                                        </div>
+                                        {% endif %}
+
+                                        <!-- Account Status -->
+                                        <div class="mb-3">
+                                            <h6 class="text-muted">{% trans "Account Status" %}</h6>
+                                            <p class="card-text mb-1"><strong>{% trans "Status:" %}</strong> 
+                                                {% if user.is_active %}
+                                                    <span class="badge bg-success">{% trans "Active" %}</span>
+                                                {% else %}
+                                                    <span class="badge bg-danger">{% trans "Inactive" %}</span>
+                                                {% endif %}
+                                            </p>
+                                            {% if user.is_superuser %}
+                                            <p class="card-text mb-1"><strong>{% trans "Superuser:" %}</strong> <span class="badge bg-warning text-dark">{% trans "Yes" %}</span></p>
+                                            {% endif %}
+                                            {% if user.is_staff %}
+                                            <p class="card-text mb-1"><strong>{% trans "Staff:" %}</strong> <span class="badge bg-info">{% trans "Yes" %}</span></p>
+                                            {% endif %}
+                                        </div>
+
+                                        <!-- Account Dates -->
+                                        <div class="mb-3">
+                                            <h6 class="text-muted">{% trans "Account Dates" %}</h6>
+                                            <p class="card-text mb-1"><strong>{% trans "Date Joined:" %}</strong> {{ user.date_joined|date:"F d, Y H:i" }}</p>
+                                            <p class="card-text mb-1"><strong>{% trans "Last Login:" %}</strong> {{ user.last_login|date:"F d, Y H:i"|default:"—" }}</p>
+                                            {% if user.profile %}
+                                            <p class="card-text mb-1"><strong>{% trans "Profile Created:" %}</strong> {{ user.profile.created_at|date:"F d, Y H:i" }}</p>
+                                            <p class="card-text mb-1"><strong>{% trans "Profile Updated:" %}</strong> {{ user.profile.updated_at|date:"F d, Y H:i" }}</p>
+                                            {% endif %}
+                                        </div>
+
+                                        <!-- User Preferences -->
+                                        {% if user.profile %}
+                                        <div class="mb-0">
+                                            <h6 class="text-muted">{% trans "Current Preferences" %}</h6>
+                                            <p class="card-text mb-1"><strong>{% trans "Theme:" %}</strong> {{ user.profile.get_preferred_theme_display }}</p>
+                                            <p class="card-text mb-1"><strong>{% trans "Language:" %}</strong> {{ user.profile.get_preferred_language_display }}</p>
+                                            <p class="card-text mb-1"><strong>{% trans "Dashboard View:" %}</strong> {{ user.profile.get_dashboard_view_display }}</p>
+                                            <p class="card-text mb-1"><strong>{% trans "Email Notifications:" %}</strong> 
+                                                {% if user.profile.email_notifications %}
+                                                    <span class="badge bg-success">{% trans "Enabled" %}</span>
+                                                {% else %}
+                                                    <span class="badge bg-secondary">{% trans "Disabled" %}</span>
+                                                {% endif %}
+                                            </p>
+                                            <p class="card-text mb-1"><strong>{% trans "Processing Notifications:" %}</strong> 
+                                                {% if user.profile.processing_complete_notification %}
+                                                    <span class="badge bg-success">{% trans "Enabled" %}</span>
+                                                {% else %}
+                                                    <span class="badge bg-secondary">{% trans "Disabled" %}</span>
+                                                {% endif %}
+                                            </p>
+                                            <p class="card-text mb-0"><strong>{% trans "Two-Factor Auth:" %}</strong> 
+                                                {% if user.profile.two_factor_auth_enabled %}
+                                                    <span class="badge bg-success">{% trans "Enabled" %}</span>
+                                                {% else %}
+                                                    <span class="badge bg-secondary">{% trans "Disabled" %}</span>
+                                                {% endif %}
+                                            </p>
+                                        </div>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>

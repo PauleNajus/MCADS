@@ -288,6 +288,14 @@ class UserProfile(models.Model):
         db_index=True
     )
     
+    # Hospital affiliation
+    hospital = models.CharField(
+        max_length=100,
+        default='VULSK',
+        db_index=True,
+        help_text='Hospital name for shared prediction history'
+    )
+    
     # User preferences
     preferred_theme = models.CharField(
         max_length=10,

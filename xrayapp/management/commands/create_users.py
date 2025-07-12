@@ -15,6 +15,7 @@ class Command(BaseCommand):
                 'first_name': 'Adminfirst',
                 'last_name': 'Adminlast',
                 'role': 'Administrator',
+                'hospital': 'VULSK',
                 'is_staff': True,
                 'is_superuser': True
             },
@@ -25,6 +26,7 @@ class Command(BaseCommand):
                 'first_name': 'Paulius',
                 'last_name': 'Bundza',
                 'role': 'Radiographer',
+                'hospital': 'VULSK',
                 'is_staff': False,
                 'is_superuser': False
             },
@@ -35,6 +37,40 @@ class Command(BaseCommand):
                 'first_name': 'Justas',
                 'last_name': 'Trinkūnas',
                 'role': 'Radiographer',
+                'hospital': 'VULSK',
+                'is_staff': False,
+                'is_superuser': False
+            },
+            {
+                'username': 'rolber',
+                'password': 'RolBer2025!',
+                'email': 'rolber@gmail.com',
+                'first_name': 'Rolandas',
+                'last_name': 'Bėrontas',
+                'role': 'Radiographer',
+                'hospital': 'VULSK',
+                'is_staff': False,
+                'is_superuser': False
+            },
+            {
+                'username': 'technologist',
+                'password': 'TechNologist2025!',
+                'email': 'technologist@gmail.com',
+                'first_name': 'Tech',
+                'last_name': 'Nologist',
+                'role': 'Technologist',
+                'hospital': 'VULSK',
+                'is_staff': False,
+                'is_superuser': False
+            },
+            {
+                'username': 'radiologist',
+                'password': 'RadioLogist2025!',
+                'email': 'radiologist@gmail.com',
+                'first_name': 'Radio',
+                'last_name': 'Logist',
+                'role': 'Radiologist',
+                'hospital': 'VULSK',
                 'is_staff': False,
                 'is_superuser': False
             },
@@ -45,6 +81,7 @@ class Command(BaseCommand):
                 'first_name': 'Guest',
                 'last_name': 'User',
                 'role': 'Radiographer',
+                'hospital': 'VULSK',
                 'is_staff': False,
                 'is_superuser': False
             }
@@ -55,6 +92,7 @@ class Command(BaseCommand):
                 username = user_data.pop('username')
                 password = user_data.pop('password')
                 role = user_data.pop('role')
+                hospital = user_data.pop('hospital')
                 
                 # Check if user already exists
                 if User.objects.filter(username=username).exists():
@@ -66,17 +104,18 @@ class Command(BaseCommand):
                 user.set_password(password)
                 user.save()
                 
-                # Create user profile with role
+                # Create user profile with role and hospital
                 profile, created = UserProfile.objects.get_or_create(
                     user=user,
-                    defaults={'role': role}
+                    defaults={'role': role, 'hospital': hospital}
                 )
                 if not created:
                     profile.role = role
+                    profile.hospital = hospital
                     profile.save()
                 
                 self.stdout.write(
-                    self.style.SUCCESS(f'User {username} created successfully with role: {role}')
+                    self.style.SUCCESS(f'User {username} created successfully with role: {role}, hospital: {hospital}')
                 )
         
         self.stdout.write(self.style.SUCCESS('All users created successfully.')) 

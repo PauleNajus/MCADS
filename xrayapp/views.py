@@ -381,7 +381,11 @@ def home(request):
 @login_required
 def xray_results(request, pk):
     """View the results of the X-ray analysis"""
-    xray_instance = XRayImage.objects.get(pk=pk, user=request.user)
+    # Get user's hospital from profile
+    user_hospital = request.user.profile.hospital
+    
+    # Allow access to any X-ray from the same hospital
+    xray_instance = XRayImage.objects.get(pk=pk, user__profile__hospital=user_hospital)
     
     # Build predictions dictionary based on model fields
     predictions = {
@@ -521,9 +525,13 @@ def prediction_history(request):
     """View prediction history with advanced filtering and pagination"""
     form = PredictionHistoryFilterForm(request.GET)
     
+    # Get user's hospital from profile
+    user_hospital = request.user.profile.hospital
+    
     # Initialize query with optimized select_related to avoid N+1 queries
-    query = PredictionHistory.objects.filter(user=request.user)\
-                                    .select_related('xray', 'user')\
+    # Filter by users from the same hospital instead of just current user
+    query = PredictionHistory.objects.filter(user__profile__hospital=user_hospital)\
+                                    .select_related('xray', 'user', 'user__profile')\
                                     .prefetch_related('xray__user')\
                                     .order_by('-created_at')
     
@@ -581,7 +589,11 @@ def prediction_history(request):
 def delete_prediction_history(request, pk):
     """Delete a prediction history record"""
     try:
-        history_item = PredictionHistory.objects.get(pk=pk, user=request.user)
+        # Get user's hospital from profile
+        user_hospital = request.user.profile.hospital
+        
+        # Allow deletion of any record from the same hospital
+        history_item = PredictionHistory.objects.get(pk=pk, user__profile__hospital=user_hospital)
         history_item.delete()
         messages.success(request, _('Prediction history record has been deleted.'))
     except PredictionHistory.DoesNotExist:
@@ -594,11 +606,14 @@ def delete_prediction_history(request, pk):
 def delete_all_prediction_history(request):
     """Delete all prediction history records"""
     if request.method == 'POST':
-        # Count records before deletion for current user
-        count = PredictionHistory.objects.filter(user=request.user).count()
+        # Get user's hospital from profile
+        user_hospital = request.user.profile.hospital
         
-        # Delete all records for current user
-        PredictionHistory.objects.filter(user=request.user).delete()
+        # Count records before deletion for current hospital
+        count = PredictionHistory.objects.filter(user__profile__hospital=user_hospital).count()
+        
+        # Delete all records for current hospital
+        PredictionHistory.objects.filter(user__profile__hospital=user_hospital).delete()
         
         if count > 0:
             messages.success(request, _('All %(count)d prediction history records have been deleted.') % {'count': count})
@@ -612,7 +627,11 @@ def delete_all_prediction_history(request):
 def edit_prediction_history(request, pk):
     """Edit a prediction history record"""
     try:
-        history_item = PredictionHistory.objects.get(pk=pk, user=request.user)
+        # Get user's hospital from profile
+        user_hospital = request.user.profile.hospital
+        
+        # Allow editing of any record from the same hospital
+        history_item = PredictionHistory.objects.get(pk=pk, user__profile__hospital=user_hospital)
         
         if request.method == 'POST':
             # Handle form submission
@@ -637,7 +656,11 @@ def edit_prediction_history(request, pk):
 @login_required
 def generate_interpretability(request, pk):
     """Generate interpretability visualization for an X-ray image"""
-    xray_instance = XRayImage.objects.get(pk=pk, user=request.user)
+    # Get user's hospital from profile
+    user_hospital = request.user.profile.hospital
+    
+    # Allow access to any X-ray from the same hospital
+    xray_instance = XRayImage.objects.get(pk=pk, user__profile__hospital=user_hospital)
     
     # Get parameters from request
     interpretation_method = request.GET.get('method', 'gradcam')  # Default to Grad-CAM
@@ -666,7 +689,11 @@ def generate_interpretability(request, pk):
 @login_required
 def view_interpretability(request, pk):
     """View interpretability visualizations for an X-ray image"""
-    xray_instance = XRayImage.objects.get(pk=pk, user=request.user)
+    # Get user's hospital from profile
+    user_hospital = request.user.profile.hospital
+    
+    # Allow access to any X-ray from the same hospital
+    xray_instance = XRayImage.objects.get(pk=pk, user__profile__hospital=user_hospital)
     
     # Build predictions dictionary
     predictions = {
@@ -765,7 +792,11 @@ def view_interpretability(request, pk):
 def check_progress(request, pk):
     """AJAX endpoint to check processing progress"""
     try:
-        xray_instance = XRayImage.objects.get(pk=pk, user=request.user)
+        # Get user's hospital from profile
+        user_hospital = request.user.profile.hospital
+        
+        # Allow access to any X-ray from the same hospital
+        xray_instance = XRayImage.objects.get(pk=pk, user__profile__hospital=user_hospital)
         return JsonResponse({
             'status': xray_instance.processing_status,
             'progress': xray_instance.progress,
