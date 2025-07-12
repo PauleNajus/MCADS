@@ -864,6 +864,14 @@
   background-color: white;
 }
 
+/* Ensure all images in pixel-level interpretability have consistent sizing */
+#pli-card .visualization-image {
+  width: 100%;
+  height: 400px;
+  object-fit: contain;
+  max-height: 400px !important;
+}
+
 .card-body.text-center img.visualization-image {
   transition: transform 0.3s ease;
 }
@@ -885,6 +893,14 @@
   .visualization-image {
     max-width: 100% !important;
     height: auto !important;
+  }
+  
+  /* Ensure consistent sizing on mobile for pixel-level interpretability */
+  #pli-card .visualization-image {
+    width: 100%;
+    height: 300px;
+    object-fit: contain;
+    max-height: 300px !important;
   }
 }
 
