@@ -1,275 +1,240 @@
-# mcads
+# Multi-label Chest Abnormality Detection System (MCADS)
 
-A Django web application for analyzing chest X-ray images using the TorchXRayVision library and pre-trained
-ResNet50 model.
+A Django-based web application for automated chest X-ray analysis using deep learning models. MCADS provides healthcare professionals with AI-powered tools to detect multiple pathologies in chest X-rays with interpretability features.
 
 ## Features
 
-- Upload chest X-ray images for analysis
-- Automatic detection of 14+ pathological conditions
-- Visualization of pathology probabilities
-- Responsive UI with Bootstrap 5
-- Light and dark mode support
-- Professional medical color scheme
+- **Multi-label Classification**: Detects 18 different chest abnormalities including:
+  - Atelectasis, Cardiomegaly, Consolidation, Edema, Effusion
+  - Emphysema, Enlarged Cardiomediastinum, Fibrosis, Fracture
+  - Hernia, Infiltration, Lung Lesion, Lung Opacity, Mass
+  - Nodule, Pleural Thickening, Pneumonia, Pneumothorax
+
+- **User Management**: Secure authentication system with user profiles and hospital affiliations
+- **Image Upload & Analysis**: Support for various image formats with preprocessing
+- **Prediction History**: Track and review past analyses
+- **Interpretability**: Grad-CAM visualizations to understand model predictions
+- **Responsive UI**: Bootstrap-based interface optimized for medical workflows
+- **RESTful API**: Programmatic access to prediction services
 
 ## Technology Stack
 
-- Python 3.11.9
-- Django 5.2
-- PyTorch 2.7.0
-- TorchXRayVision 1.3.4
-- Bootstrap 5.3.5
-- SQLite 3.49.1
+- **Backend**: Django 5.2, Python 3.11.9
+- **Machine Learning**: PyTorch 2.7.0, TorchXRayVision
+- **Database**: SQLite 3.49.1
+- **Frontend**: Django-Bootstrap5 25.1, HTML5, CSS3, JavaScript
+- **Deployment**: Cross-platform (Windows/Linux)
 
 ## Installation
 
-### Quick Setup (Recommended)
+### Prerequisites
 
-1. Clone the repository:
+- Python 3.11.9
+- pip (Python package manager)
+- Git
+
+### Setup Instructions
+
+1. **Clone the repository:**
 
 ```bash
-git clone https://github.com/yourusername/mcads.git
+git clone <repository-url>
 cd mcads
 ```
 
-1. Run the setup script:
+1. **Create and activate virtual environment:**
+
+On Windows:
 
 ```bash
-# On Windows
-python setup.py
-
-# On Linux/Mac
-python3 setup.py
+python -m venv venv
+venv\Scripts\activate
 ```
 
-1. Follow the prompts to set up your virtual environment, install dependencies, and configure Django.
-
-1. Start the development server:
+On Linux/Mac:
 
 ```bash
-# On Windows
-.\.venv\Scripts\activate
-python manage.py runserver
-
-# On Linux/Mac
-source .venv/bin/activate
-python manage.py runserver
+python3 -m venv venv
+source venv/bin/activate
 ```
 
-### Manual Setup
-
-1. Clone the repository:
-
-```bash
-git clone https://github.com/yourusername/mcads.git
-cd mcads
-```
-
-1. Create and activate a virtual environment:
-
-```bash
-# On Windows
-python -m venv .venv
-.\.venv\Scripts\activate
-
-# On Linux/Mac
-python3 -m venv .venv
-source .venv/bin/activate
-```
-
-1. Install dependencies:
+1. **Install dependencies:**
 
 ```bash
 pip install -r requirements.txt
 ```
 
-1. Create a .env file in the project root with the following content:
-
-```text
-DEBUG=True
-SECRET_KEY=your-secret-key
-ALLOWED_HOSTS=localhost,127.0.0.1
-```
-
-1. Run migrations:
+1. **Set up the database:**
 
 ```bash
 python manage.py migrate
 ```
 
-1. Collect static files:
+1. **Create a superuser:**
 
 ```bash
-python manage.py collectstatic
+python manage.py createsuperuser
 ```
 
-1. Start the development server:
+1. **Collect static files:**
+
+```bash
+python manage.py collectstatic --noinput
+```
+
+1. **Run the development server:**
 
 ```bash
 python manage.py runserver
 ```
 
-1. Open your browser and navigate to <http://127.0.0.1:8000/>
-
-### Additional Steps for Linux Users
-
-If you're on Linux, you may need to install additional system dependencies for PyTorch and image processing libraries:
-
-```bash
-# Ubuntu/Debian
-sudo apt-get update
-sudo apt-get install -y python3-dev libjpeg-dev zlib1g-dev
-```
+The application will be available at `http://127.0.0.1:8000/`
 
 ## Usage
 
-1. Upload a chest X-ray image (JPG, PNG, or DICOM format)
-1. Wait for the analysis to complete
-1. View the pathology prediction results
-1. Toggle between light and dark modes using the theme toggle button in the navigation bar
+### Web Interface
 
-## Model Details
+1. **Login/Register**: Create an account or log in with existing credentials
+2. **Upload Image**: Navigate to the analysis page and upload a chest X-ray image
+3. **View Results**: Review prediction scores for all pathologies
+4. **Interpretability**: View Grad-CAM visualizations to understand model decisions
+5. **History**: Access previous analyses and results
 
-The application uses pre-trained models from TorchXRayVision:
+### API Usage
 
-- **DenseNet121** (default): 224px resolution, trained on all classes
-- **ResNet50**: 512px resolution, trained on all classes
+The application provides REST endpoints for programmatic access:
 
-These models are trained on large datasets of chest X-rays to detect various pathological conditions including:
+```python
+import requests
 
-- Atelectasis
-- Cardiomegaly
-- Consolidation
-- Edema
-- Effusion
-- Emphysema
-- Fibrosis
-- Hernia
-- Infiltration
-- Mass
-- Nodule
-- Pleural Thickening
-- Pneumonia
-- Pneumothorax
+# Upload and analyze image
+with open('chest_xray.jpg', 'rb') as f:
+    response = requests.post(
+        'http://localhost:8000/api/analyze/',
+        files={'image': f},
+        headers={'Authorization': 'Bearer your-token'}
+    )
 
-## Cross-Platform Compatibility
-
-This project is designed to work across different operating systems:
-
-- Windows
-- Linux (Ubuntu, Debian, Fedora, CentOS, Arch)
-- macOS
-
-All paths are handled using Python's `pathlib` library to ensure cross-platform compatibility.
-
-### Linux-Specific Setup
-
-The application is fully compatible with modern Linux distributions. For the best experience, follow these
-distribution-specific instructions:
-
-#### Ubuntu/Debian
-
-```bash
-# Install system dependencies
-sudo apt update
-sudo apt install -y python3-dev python3-pip python3-venv libjpeg-dev zlib1g-dev libopenblas-dev
-
-# Create and set up the project
-git clone https://github.com/yourusername/mcads.git
-cd mcads
-chmod +x run_linux.sh
-./run_linux.sh
+results = response.json()
 ```
 
-#### Fedora
+## Project Structure
 
-```bash
-# Install system dependencies
-sudo dnf install -y python3-devel python3-pip libjpeg-turbo-devel zlib-devel openblas-devel
-
-# Create and set up the project
-git clone https://github.com/yourusername/mcads.git
-cd mcads
-chmod +x run_linux.sh
-./run_linux.sh
+```text
+mcads/
+├── mcads_project/          # Django project configuration
+├── xrayapp/               # Main application
+│   ├── models.py          # Database models
+│   ├── views.py           # View controllers
+│   ├── forms.py           # Form definitions
+│   ├── interpretability.py # Grad-CAM implementation
+│   ├── utils.py           # Utility functions
+│   └── templates/         # HTML templates
+├── static/                # Static files (CSS, JS, images)
+├── media/                 # User uploaded files
+├── tests/                 # Test files and sample images
+└── requirements.txt       # Python dependencies
 ```
 
-#### Arch Linux
+## Models
 
-```bash
-# Install system dependencies
-sudo pacman -Sy python python-pip libjpeg-turbo zlib openblas
+MCADS uses pre-trained models from the TorchXRayVision library:
 
-# Create and set up the project
-git clone https://github.com/yourusername/mcads.git
-cd mcads
-chmod +x run_linux.sh
-./run_linux.sh
+- **ResNet-50**: Primary model for multi-label classification
+- **Input Size**: 224x224 or 512x512 pixels
+- **Preprocessing**: Automatic normalization and resizing
+- **Output**: Probability scores for 18 pathologies
+
+## Configuration
+
+### Environment Variables
+
+Create a `.env` file in the project root:
+
+```env
+SECRET_KEY=your-secret-key
+DEBUG=True
+ALLOWED_HOSTS=localhost,127.0.0.1
+DATABASE_URL=sqlite:///db.sqlite3
 ```
 
-#### CentOS/RHEL
+### Settings
+
+Key configuration options in `mcads_project/settings.py`:
+
+- `MEDIA_ROOT`: Directory for uploaded images
+- `STATIC_ROOT`: Directory for static files
+- `LOGGING`: Logging configuration
+- `DATABASES`: Database configuration
+
+## Testing
+
+Run the test suite:
 
 ```bash
-# Install system dependencies
-sudo yum install -y python3-devel python3-pip libjpeg-devel zlib-devel openblas-devel
-
-# Create and set up the project
-git clone https://github.com/yourusername/mcads.git
-cd mcads
-chmod +x run_linux.sh
-./run_linux.sh
+python manage.py test
 ```
 
-### GPU Support on Linux
+### Sample Images
 
-For GPU acceleration with NVIDIA GPUs on Linux:
+Test images are available in the `tests/` directory:
 
-1. Install the appropriate NVIDIA drivers for your distribution
-1. Install CUDA and cuDNN following the [official PyTorch documentation](https://pytorch.org/get-started/locally/)
+- `normal.jpeg`: Normal chest X-ray
+- `viral_pneumonia.jpeg`: Pneumonia case
+- `00000001_000.png`: Sample from NIH dataset
 
-Example for Ubuntu with CUDA 12.1:
+## Deployment
 
-```bash
-# Add NVIDIA repository
-wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb
-sudo dpkg -i cuda-keyring_1.1-1_all.deb
-sudo apt-get update
+### Production Considerations
 
-# Install CUDA
-sudo apt-get -y install cuda-toolkit-12-1
+1. **Database**: Consider PostgreSQL for production
+2. **Static Files**: Use a CDN or reverse proxy for static file serving
+3. **Security**: Update `SECRET_KEY` and disable `DEBUG`
+4. **WSGI Server**: Use Gunicorn or uWSGI
+5. **Reverse Proxy**: Nginx or Apache for production
 
-# Add CUDA to your path
-echo 'export PATH=/usr/local/cuda-12.1/bin:$PATH' >> ~/.bashrc
-echo 'export LD_LIBRARY_PATH=/usr/local/cuda-12.1/lib64:$LD_LIBRARY_PATH' >> ~/.bashrc
-source ~/.bashrc
+### Docker Deployment
 
-# Verify installation
-nvcc --version
+```dockerfile
+FROM python:3.11.9-slim
+
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+COPY . .
+RUN python manage.py collectstatic --noinput
+
+EXPOSE 8000
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 ```
 
-After installing CUDA, you can set up the project as usual. The application will automatically detect and use your
-GPU if available.
+## Contributing
 
-### File Permissions on Linux
-
-If you encounter permission issues with media uploads:
-
-```bash
-# Set correct permissions for media directory
-chmod -R 755 media/
-```
-
-For production environments, ensure your web server user has appropriate permissions:
-
-```bash
-# For Nginx/Apache with www-data user
-sudo chown -R www-data:www-data media/
-```
-
-## Acknowledgements
-
-This project uses the [TorchXRayVision](https://github.com/mlmed/torchxrayvision) library by Joseph Paul Cohen et al.
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- [TorchXRayVision](https://github.com/mlmed/torchxrayvision) for the pre-trained models
+- Django and PyTorch communities for excellent documentation
+- Healthcare professionals for domain expertise
+
+## Support
+
+For issues and questions:
+
+- Create an issue in the repository
+- Check the documentation in the `docs/` directory
+- Review the test cases for usage examples
+
+## Disclaimer
+
+This software is for research and educational purposes only. It should not be used as a substitute for professional medical diagnosis or treatment. Always consult with qualified healthcare professionals for medical decisions.
