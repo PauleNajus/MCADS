@@ -222,6 +222,13 @@
                 if (strong.textContent.includes('Warning! This tool is not meant to be used without supervision of a medical professional!')) {
                     alert.classList.add('medical-warning');
                 }
+                // Apply red background to critical medical disclaimers
+                if (strong.textContent.includes('CRITICAL MEDICAL DISCLAIMER')) {
+                    alert.classList.add('medical-warning');
+                }
+                if (strong.textContent.includes('FINAL MEDICAL WARNING')) {
+                    alert.classList.add('medical-warning');
+                }
             });
             
             // Check for no records found message
