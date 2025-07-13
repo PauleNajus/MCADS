@@ -5,6 +5,30 @@ document.addEventListener('DOMContentLoaded', () => {
   const progressBar = document.getElementById('analysis-progress-bar');
   const progressPercentage = document.getElementById('progress-percentage');
   
+  // Custom file input functionality
+  const customFileButton = document.getElementById('custom-file-button');
+  const fileInput = document.getElementById('id_image');
+  const fileNameDisplay = document.getElementById('file-name-display');
+  
+  if (customFileButton && fileInput && fileNameDisplay) {
+    // Click the custom button to trigger file selection
+    customFileButton.addEventListener('click', () => {
+      fileInput.click();
+    });
+    
+    // Update display when file is selected
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        fileNameDisplay.value = file.name;
+        fileNameDisplay.classList.remove('text-muted');
+      } else {
+        fileNameDisplay.value = '';
+        fileNameDisplay.classList.add('text-muted');
+      }
+    });
+  }
+  
   // Function to simulate/track progress
   const trackProgress = (uploadId) => {
     let currentProgress = 0;

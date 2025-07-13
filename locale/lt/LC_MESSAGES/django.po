@@ -2899,6 +2899,87 @@ msgstr "Prašome ištaisyti klaidas slaptažodžio formoje."
 #~ msgid "December"
 #~ msgstr "gruodis"
 
+# File upload translations
+msgid "Browse"
+msgstr "Naršyti"
+
+msgid "No file selected."
+msgstr "Nepasirinktas failas."
+
+msgid "Technologist information"
+msgstr "Technologo informacija"
+
+msgid "Technologist first name:"
+msgstr "Technologo vardas:"
+
+msgid "Technologist last name:"
+msgstr "Technologo pavardė:"
+
+msgid "Basic Information"
+msgstr "Pagrindinė informacija"
+
+msgid "First Name:"
+msgstr "Vardas:"
+
+msgid "Last Name:"
+msgstr "Pavardė:"
+
+msgid "Email Address:"
+msgstr "El. pašto adresas:"
+
+msgid "Professional Information"
+msgstr "Profesinė informacija"
+
+msgid "Hospital:"
+msgstr "Ligoninė:"
+
+msgid "Role:"
+msgstr "Vaidmuo:"
+
+msgid "Account Status"
+msgstr "Paskyros būsena"
+
+msgid "Status:"
+msgstr "Būsena:"
+
+msgid "Account Dates"
+msgstr "Paskyros datos"
+
+msgid "Profile Created:"
+msgstr "Profilis sukurtas:"
+
+msgid "Profile Updated:"
+msgstr "Profilis atnaujintas:"
+
+msgid "Current Preferences"
+msgstr "Dabartiniai nustatymai"
+
+msgid "Theme:"
+msgstr "Tema:"
+
+msgid "Language:"
+msgstr "Kalba:"
+
+msgid "Dashboard View:"
+msgstr "Prietaisų skydelio vaizdas:"
+
+msgid "Email Notifications:"
+msgstr "El. pašto pranešimai:"
+
+msgid "Processing Notifications:"
+msgstr "Apdorojimo pranešimai:"
+
+msgid "Two-Factor Auth:"
+msgstr "Dviejų veiksnių autentifikacija:"
+
+msgid "Active"
+msgstr "Aktyvus"
+
+msgid "Disabled"
+msgstr "Išjungta"
+
+
+
 #, fuzzy
 #~| msgid "Email address"
 #~ msgid "This is not a valid IPv6 address."

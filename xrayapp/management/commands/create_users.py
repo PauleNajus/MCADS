@@ -95,6 +95,17 @@ class Command(BaseCommand):
                 'hospital': 'VULSK',
                 'is_staff': False,
                 'is_superuser': False
+            },
+            {
+                'username': 'augbun',
+                'password': 'AugBun2025!',
+                'email': 'augbun@gmail.com',
+                'first_name': 'Augustė',
+                'last_name': 'Bundzaitė',
+                'role': 'Radiographer',
+                'hospital': 'VULSK',
+                'is_staff': False,
+                'is_superuser': False
             }
         ]
 

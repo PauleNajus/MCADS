@@ -200,6 +200,7 @@
 .card-header.header-danger h5:before,
 .card-header.header-danger .mb-0:before {
   content: '\f06a'; /* exclamation-circle icon */
+  color: #dc3545 !important; /* Red color */
 }
 
 /* Style all card headers consistently */
@@ -236,13 +237,6 @@
 }
 
 /* Style medical warning messages to match header color */
-.alert-danger:has(strong:contains("Warning! This tool is not meant to be used without supervision of a medical professional!")) {
-  background-color: rgba(var(--primary-rgb), 0.1) !important;
-  border-color: rgba(var(--primary-rgb), 0.3) !important;
-  color: var(--primary) !important;
-}
-
-/* Alternative targeting using class for medical warnings */
 .medical-warning {
   background-color: rgba(var(--primary-rgb), 0.1) !important;
   border-color: rgba(var(--primary-rgb), 0.3) !important;
@@ -359,7 +353,6 @@
 
 /* Make all buttons use outline-secondary style */
 .btn-primary,
-.btn-danger,
 .btn-warning,
 .btn-success,
 .btn-info {
@@ -372,23 +365,30 @@
   transition: all 0.3s ease;
 }
 
+/* Danger buttons should be red */
+.btn-danger {
+  background-color: transparent !important;
+  border: 1px solid #dc3545 !important;
+  color: #dc3545 !important;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  border-radius: 0.375rem;
+  transition: all 0.3s ease;
+}
+
 .btn-primary:hover,
-.btn-danger:hover,
 .btn-warning:hover,
 .btn-success:hover,
 .btn-info:hover,
 .btn-primary:focus,
-.btn-danger:focus,
 .btn-warning:focus,
 .btn-success:focus,
 .btn-info:focus,
 .btn-primary:active,
-.btn-danger:active,
 .btn-warning:active,
 .btn-success:active,
 .btn-info:active,
 .btn-primary.active,
-.btn-danger.active,
 .btn-warning.active,
 .btn-success.active,
 .btn-info.active {
@@ -397,8 +397,17 @@
   color: white !important;
 }
 
+/* Danger button hover/focus/active states */
+.btn-danger:hover,
+.btn-danger:focus,
+.btn-danger:active,
+.btn-danger.active {
+  background-color: #dc3545 !important;
+  border-color: #dc3545 !important;
+  color: white !important;
+}
+
 .btn-sm.btn-primary,
-.btn-sm.btn-danger,
 .btn-sm.btn-warning,
 .btn-sm.btn-success,
 .btn-sm.btn-info {
@@ -406,8 +415,13 @@
   font-size: 0.875rem;
 }
 
+/* Small danger buttons */
+.btn-sm.btn-danger {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+
 .btn-outline-primary,
-.btn-outline-danger,
 .btn-outline-warning,
 .btn-outline-success,
 .btn-outline-info {
@@ -417,31 +431,47 @@
   padding: 0.5rem 1rem;
   font-weight: 500;
   border-radius: 0.375rem;
+}
+
+/* Outline danger buttons should be red */
+.btn-outline-danger {
+  color: #dc3545 !important;
+  border-color: #dc3545 !important;
+  background-color: transparent !important;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  border-radius: 0.375rem;
   transition: all 0.3s ease;
 }
 
 .btn-outline-primary:hover,
-.btn-outline-danger:hover,
 .btn-outline-warning:hover,
 .btn-outline-success:hover,
 .btn-outline-info:hover,
 .btn-outline-primary:focus,
-.btn-outline-danger:focus,
 .btn-outline-warning:focus,
 .btn-outline-success:focus,
 .btn-outline-info:focus,
 .btn-outline-primary:active,
-.btn-outline-danger:active,
 .btn-outline-warning:active,
 .btn-outline-success:active,
 .btn-outline-info:active,
 .btn-outline-primary.active,
-.btn-outline-danger.active,
 .btn-outline-warning.active,
 .btn-outline-success.active,
 .btn-outline-info.active {
   background-color: #6c757d !important;
   border-color: #6c757d !important;
+  color: white !important;
+}
+
+/* Outline danger button hover/focus/active states */
+.btn-outline-danger:hover,
+.btn-outline-danger:focus,
+.btn-outline-danger:active,
+.btn-outline-danger.active {
+  background-color: #dc3545 !important;
+  border-color: #dc3545 !important;
   color: white !important;
 }
 
@@ -677,11 +707,16 @@
 
 /* Badge styling */
 .badge.bg-primary,
-.badge.bg-danger,
 .badge.bg-warning,
 .badge.bg-success,
 .badge.bg-info {
   background-color: #6c757d !important;
+  color: white !important;
+}
+
+/* Keep danger badges red */
+.badge.bg-danger {
+  background-color: #dc3545 !important;
   color: white !important;
 }
 
@@ -696,6 +731,19 @@
 
 .text-success {
   color: #198754 !important; /* Bootstrap green */
+}
+
+/* Ensure all danger icons are red */
+.text-danger .bi-x-circle,
+.text-danger .bi-exclamation-triangle-fill,
+.text-danger .bi-exclamation-triangle,
+.bi-x-circle.text-danger,
+.bi-exclamation-triangle-fill.text-danger,
+.bi-exclamation-triangle.text-danger,
+.alert-danger .bi-exclamation-triangle-fill,
+.alert-danger .bi-exclamation-triangle,
+.alert-danger .bi-x-circle {
+  color: #dc3545 !important;
 }
 
 .text-info {
@@ -715,7 +763,6 @@
 
 /* Override all colored card headers to use advanced filters style */
 .card-header.bg-primary,
-.card-header.bg-danger,
 .card-header.bg-warning,
 .card-header.bg-success,
 .card-header.bg-info {
@@ -726,23 +773,42 @@
   font-weight: 600;
 }
 
+/* Danger card headers should be red */
+.card-header.bg-danger {
+  background-color: rgba(220, 53, 69, 0.1) !important;
+  color: #dc3545 !important;
+  border-bottom: 1px solid var(--light-border);
+  padding: 0.75rem 1.25rem;
+  font-weight: 600;
+}
+
 /* Text inside colored headers should also use primary color */
 .card-header.bg-primary *,
-.card-header.bg-danger *,
 .card-header.bg-warning *,
 .card-header.bg-success *,
 .card-header.bg-info * {
   color: var(--primary) !important;
 }
 
+/* Text inside danger headers should be red */
+.card-header.bg-danger * {
+  color: #dc3545 !important;
+}
+
 /* Modal headers */
 .modal-header.bg-primary,
-.modal-header.bg-danger,
 .modal-header.bg-warning,
 .modal-header.bg-success,
 .modal-header.bg-info {
   background-color: rgba(108, 117, 125, 0.1) !important;
   color: #6c757d !important;
+  border-bottom: 1px solid var(--light-border);
+}
+
+/* Danger modal headers should be red */
+.modal-header.bg-danger {
+  background-color: rgba(220, 53, 69, 0.1) !important;
+  color: #dc3545 !important;
   border-bottom: 1px solid var(--light-border);
 }
 
@@ -760,16 +826,19 @@
 
 /* Ensure border variants also match */
 .border-primary,
-.border-danger,
 .border-warning,
 .border-success,
 .border-info {
   border-color: #6c757d !important;
 }
 
+/* Danger borders should remain red */
+.border-danger {
+  border-color: #dc3545 !important;
+}
+
 /* Dark mode adjustments for overridden colors */
 [data-bs-theme="dark"] .btn-primary,
-[data-bs-theme="dark"] .btn-danger,
 [data-bs-theme="dark"] .btn-warning,
 [data-bs-theme="dark"] .btn-success,
 [data-bs-theme="dark"] .btn-info {
@@ -778,13 +847,26 @@
   color: #6c757d !important;
 }
 
+/* Dark mode danger buttons should remain red */
+[data-bs-theme="dark"] .btn-danger {
+  background-color: transparent !important;
+  border-color: #dc3545 !important;
+  color: #dc3545 !important;
+}
+
 [data-bs-theme="dark"] .btn-primary:hover,
-[data-bs-theme="dark"] .btn-danger:hover,
 [data-bs-theme="dark"] .btn-warning:hover,
 [data-bs-theme="dark"] .btn-success:hover,
 [data-bs-theme="dark"] .btn-info:hover {
   background-color: #6c757d !important;
   border-color: #6c757d !important;
+  color: white !important;
+}
+
+/* Dark mode danger button hover should remain red */
+[data-bs-theme="dark"] .btn-danger:hover {
+  background-color: #dc3545 !important;
+  border-color: #dc3545 !important;
   color: white !important;
 }
 
@@ -917,6 +999,64 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+  }
+  
+  /* Add vertical gaps between main action buttons on mobile */
+  .text-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .text-center .btn {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 !important;
+  }
+  
+  /* Add vertical gaps in mobile navbar between toggle button and controls */
+  .navbar .container-fluid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .navbar .ms-auto {
+    margin-top: 1rem !important;
+    margin-left: 0 !important;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .navbar .ms-auto .dropdown,
+  .navbar .ms-auto .btn {
+    margin-bottom: 0.5rem;
+  }
+  
+  .navbar .ms-auto .theme-toggle {
+    margin-left: 0.5rem;
+  }
+  
+  /* Add vertical gap between Save profile button and Account information section on mobile */
+  .tab-pane .row .col-md-6:first-child {
+    margin-bottom: 2rem;
+  }
+  
+  /* Ensure icon and MCADS text stay on same row on mobile */
+  .card-header.header-mcads h2,
+  .card-header.header-mcads h5,
+  .card-header.header-mcads .mb-0 {
+    display: inline-block;
+    white-space: nowrap;
+    line-height: 1.2;
+  }
+  
+  .card-header.header-mcads h2:before,
+  .card-header.header-mcads h5:before,
+  .card-header.header-mcads .mb-0:before {
+    display: inline;
+    vertical-align: middle;
   }
   
   /* History Records Mobile Card Styles */

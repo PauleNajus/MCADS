@@ -217,18 +217,9 @@
             const spanElements = alert.querySelectorAll('span');
             const alertText = alert.textContent.trim();
             
-            // Check for medical warning
+            // Apply red background to critical medical disclaimers
             strongElements.forEach(strong => {
-                if (strong.textContent.includes('Warning! This tool is not meant to be used without supervision of a medical professional!')) {
-                    alert.classList.add('medical-warning');
-                }
-                // Apply red background to critical medical disclaimers
-                if (strong.textContent.includes('CRITICAL MEDICAL DISCLAIMER')) {
-                    alert.classList.add('medical-warning');
-                }
-                if (strong.textContent.includes('FINAL MEDICAL WARNING')) {
-                    alert.classList.add('medical-warning');
-                }
+                // Note: CRITICAL MEDICAL DISCLAIMER and FINAL MEDICAL WARNING now use CSS classes directly
             });
             
             // Check for no records found message

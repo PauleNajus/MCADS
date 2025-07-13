@@ -4,7 +4,7 @@
 {% block content %}
 <style>
   .alert-danger .bi-exclamation-triangle-fill {
-    color: #572437 !important;
+    color: #dc3545 !important;
   }
 </style>
 <div class="container my-5">
@@ -15,7 +15,7 @@
       <p class="text-muted mb-1"><strong>{% trans "Last Updated:" %}</strong> 2025-07-05</p>
       <p class="text-muted mb-4"><strong>{% trans "Version:" %}</strong> 1.2.0</p>
       <hr>
-      <div class="alert alert-danger d-flex align-items-center" role="alert">
+      <div class="alert alert-danger medical-warning d-flex align-items-center" role="alert">
         <i class="bi bi-exclamation-triangle-fill me-2 fs-3"></i>
         <div>
           <strong>{% trans "CRITICAL MEDICAL DISCLAIMER" %}</strong><br>
@@ -275,7 +275,7 @@
           </ul>
         </li>
       </ol>
-      <div class="alert alert-danger d-flex align-items-center mt-5" role="alert">
+      <div class="alert alert-danger medical-warning d-flex align-items-center mt-5" role="alert">
         <i class="bi bi-exclamation-triangle-fill me-2 fs-3"></i>
         <div>
           <strong>{% trans "FINAL MEDICAL WARNING" %}</strong><br>

@@ -111,7 +111,16 @@
                         
                         <div class="mb-3">
                             <label for="id_image" class="form-label">{% trans "Select X-ray image:" %}</label>
-                            <input type="file" name="image" id="id_image" accept="image/*" class="form-control" required>
+                            <!-- Hidden file input -->
+                            <input type="file" name="image" id="id_image" accept="image/*" class="d-none" required>
+                            <!-- Custom file input button -->
+                            <div class="input-group">
+                                <button type="button" class="btn btn-outline-secondary" id="custom-file-button">
+                                    <i class="bi bi-folder2-open me-2"></i>{% trans "Browse" %}
+                                </button>
+                                <input type="text" class="form-control" id="file-name-display" 
+                                       placeholder="{% trans 'No file selected.' %}" readonly>
+                            </div>
                             <div class="form-text">{% trans "Supported formats: JPG, PNG, DICOM" %}</div>
                         </div>
                         <div class="text-center">
@@ -123,7 +132,7 @@
                         </div>
                     </form>
                     
-                    <div class="alert alert-danger">
+                    <div class="alert alert-danger medical-warning">
                         <p class="mb-0 text-center">
                             <i class="bi bi-exclamation-triangle-fill me-2"></i>
                             <strong>{% trans "Warning! This tool is not meant to be used without supervision of a medical professional!" %}</strong>
