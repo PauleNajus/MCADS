@@ -116,9 +116,10 @@
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-outline-secondary me-2">{% trans "Analyze X-ray" %}</button>
-                            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#acceptableImagesModal">
+                            <button type="button" class="btn btn-outline-secondary me-2" data-bs-toggle="modal" data-bs-target="#acceptableImagesModal">
                                 <i class="bi bi-info-circle"></i> {% trans "Acceptable images" %}
                             </button>
+                            <a href="{% url 'prediction_history' %}" class="btn btn-outline-secondary">{% trans "View prediction history" %}</a>
                         </div>
                     </form>
                     
@@ -129,9 +130,7 @@
                         </p>
                     </div>
                     
-                    <div class="text-center mt-3">
-                        <a href="{% url 'prediction_history' %}" class="btn btn-outline-secondary">{% trans "View prediction history" %}</a>
-                    </div>
+
                 </div>
                 
                 <!-- Progress Wrapper - Hidden initially, shown during processing -->
