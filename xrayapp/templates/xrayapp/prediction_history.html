@@ -221,11 +221,11 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        Are you sure you want to delete this prediction record for {{ item.xray.get_patient_display }}?
+                                        {% trans "Are you sure you want to delete this prediction record for" %} {{ item.xray.get_patient_display }}?
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Cancel" %}</button>
-                                        <a href="{% url 'delete_prediction_history' item.id %}" class="btn btn-danger">Delete</a>
+                                        <a href="{% url 'delete_prediction_history' item.id %}" class="btn btn-danger">{% trans "Delete" %}</a>
                                     </div>
                                 </div>
                             </div>
@@ -244,11 +244,11 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        Are you sure you want to delete this prediction record for {{ item.xray.get_patient_display }}?
+                                        {% trans "Are you sure you want to delete this prediction record for" %} {{ item.xray.get_patient_display }}?
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Cancel" %}</button>
-                                        <a href="{% url 'delete_prediction_history' item.id %}" class="btn btn-danger">Delete</a>
+                                        <a href="{% url 'delete_prediction_history' item.id %}" class="btn btn-danger">{% trans "Delete" %}</a>
                                     </div>
                                 </div>
                             </div>

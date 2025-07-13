@@ -490,6 +490,10 @@ msgstr "Radiologijos technologas"
 msgid "Technologist"
 msgstr "Technologas"
 
+#: .\xrayapp\templates\xrayapp\prediction_history.html:178
+msgid "Technologist:"
+msgstr "Technologas:"
+
 #: .\xrayapp\models.py:11
 msgid "Radiologist"
 msgstr "Radiologas"
@@ -3014,3 +3018,8 @@ msgstr "Išjungta"
 #~ msgstr ""
 #~ "ResNet: Visos patologijos, išskyrus \"Padidėjęs vidurio krūtinės tarpas\" "
 #~ "ir \"Plaučių pažeidimas\""
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:223
+#: .\xrayapp\templates\xrayapp\prediction_history.html:246
+msgid "Are you sure you want to delete this prediction record for"
+msgstr "Ar tikrai norite ištrinti šį prognozės įrašą pacientui"
