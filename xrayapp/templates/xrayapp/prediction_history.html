@@ -84,7 +84,7 @@
                                     <th>{% trans "Date of birth" %}</th>
                                     <th>{% trans "X-ray date" %}</th>
                                     <th>{% trans "Severity" %}</th>
-                                    <th>{% trans "Model used" %}</th>
+                                    <th>{% trans "Technologist" %}</th>
                                     <th>{% trans "Prediction date" %}</th>
                                     <th>{% trans "Actions" %}</th>
                                 </tr>
@@ -104,7 +104,13 @@
                                             </span>
                                         {% endwith %}
                                     </td>
-                                    <td>{{ item.model_used }}</td>
+                                    <td>
+                                        {% if item.xray.technologist_first_name or item.xray.technologist_last_name %}
+                                            {{ item.xray.technologist_first_name }} {{ item.xray.technologist_last_name }}
+                                        {% else %}
+                                            -
+                                        {% endif %}
+                                    </td>
                                     <td>{{ item.created_at|date:"Y-m-d H:i" }}</td>
                                     <td>
                                         <div class="btn-group">
@@ -170,8 +176,14 @@
                                         {% endwith %}
                                     </div>
                                     <div class="col-6">
-                                        <small class="text-muted">{% trans "Model:" %}</small><br>
-                                        <span>{{ item.model_used }}</span>
+                                        <small class="text-muted">{% trans "Technologist:" %}</small><br>
+                                        <span>
+                                            {% if item.xray.technologist_first_name or item.xray.technologist_last_name %}
+                                                {{ item.xray.technologist_first_name }} {{ item.xray.technologist_last_name }}
+                                            {% else %}
+                                                -
+                                            {% endif %}
+                                        </span>
                                     </div>
                                 </div>
                                 
