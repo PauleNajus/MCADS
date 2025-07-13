@@ -90,6 +90,25 @@
                             </div>
                         </div>
                         
+                        <!-- Technologist Information Section -->
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                {% trans "Technologist information" %}
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="id_technologist_first_name" class="form-label">{% trans "Technologist first name:" %}</label>
+                                        <input type="text" name="technologist_first_name" id="id_technologist_first_name" class="form-control">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="id_technologist_last_name" class="form-label">{% trans "Technologist last name:" %}</label>
+                                        <input type="text" name="technologist_last_name" id="id_technologist_last_name" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
                         <div class="mb-3">
                             <label for="id_image" class="form-label">{% trans "Select X-ray image:" %}</label>
                             <input type="file" name="image" id="id_image" accept="image/*" class="form-control" required>

@@ -84,6 +84,17 @@ class Command(BaseCommand):
                 'hospital': 'VULSK',
                 'is_staff': False,
                 'is_superuser': False
+            },
+            {
+                'username': 'gabryl',
+                'password': 'GabRyl2025!',
+                'email': 'gabryl@gmail.com',
+                'first_name': 'Gabija',
+                'last_name': 'Ryliškytė',
+                'role': 'Radiographer',
+                'hospital': 'VULSK',
+                'is_staff': False,
+                'is_superuser': False
             }
         ]
 

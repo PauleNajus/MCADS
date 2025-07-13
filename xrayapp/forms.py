@@ -15,7 +15,8 @@ class XRayUploadForm(forms.ModelForm):
     class Meta:
         model = XRayImage
         fields = ['image', 'first_name', 'last_name', 'patient_id', 'gender', 
-                 'date_of_birth', 'date_of_xray', 'additional_info']
+                 'date_of_birth', 'date_of_xray', 'additional_info', 
+                 'technologist_first_name', 'technologist_last_name']
         widgets = {
             'date_of_birth': forms.TextInput(attrs={'placeholder': 'YYYY-MM-DD'}),
             'date_of_xray': forms.TextInput(attrs={'placeholder': 'YYYY-MM-DD', 'value': timezone.now().strftime('%Y-%m-%d')}),
@@ -33,6 +34,8 @@ class XRayUploadForm(forms.ModelForm):
         self.fields['first_name'].widget.attrs.update({'maxlength': 100})
         self.fields['last_name'].widget.attrs.update({'maxlength': 100})
         self.fields['patient_id'].widget.attrs.update({'maxlength': 100})
+        self.fields['technologist_first_name'].widget.attrs.update({'maxlength': 100})
+        self.fields['technologist_last_name'].widget.attrs.update({'maxlength': 100})
     
     def clean_image(self):
         """Validate uploaded image file"""
@@ -99,6 +102,20 @@ class XRayUploadForm(forms.ModelForm):
         if xray_date and xray_date > timezone.now().date():
             raise ValidationError(_('X-ray date cannot be in the future.'))
         return xray_date
+    
+    def clean_technologist_first_name(self):
+        """Sanitize technologist first name input"""
+        technologist_first_name = self.cleaned_data.get('technologist_first_name', '').strip()
+        if technologist_first_name and not technologist_first_name.replace(' ', '').replace('-', '').replace("'", '').isalpha():
+            raise ValidationError(_('Technologist first name should only contain letters, spaces, hyphens, and apostrophes.'))
+        return technologist_first_name
+    
+    def clean_technologist_last_name(self):
+        """Sanitize technologist last name input"""
+        technologist_last_name = self.cleaned_data.get('technologist_last_name', '').strip()
+        if technologist_last_name and not technologist_last_name.replace(' ', '').replace('-', '').replace("'", '').isalpha():
+            raise ValidationError(_('Technologist last name should only contain letters, spaces, hyphens, and apostrophes.'))
+        return technologist_last_name
 
 
 class PredictionHistoryFilterForm(forms.Form):

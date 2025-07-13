@@ -1233,3 +1233,48 @@
     color: #6c757d !important;
   }
 }
+
+/* Interpretability buttons in prediction results table */
+.table-container .interpretation-btn {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  margin-right: 0.25rem;
+  text-decoration: none;
+  border: 1px solid #6c757d;
+  color: #6c757d;
+  background: none;
+  border-radius: 0.25rem;
+  transition: all 0.2s ease;
+}
+
+.table-container .interpretation-btn:hover {
+  background-color: #6c757d;
+  color: white;
+}
+
+.table-container .interpretation-btn:last-child {
+  margin-right: 0;
+}
+
+/* Ensure consistent table layout */
+.table-container .table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.table-container .table td {
+  vertical-align: middle;
+  padding: 0.75rem 0.5rem;
+}
+
+.table-container .table td:first-child {
+  width: 35%;
+}
+
+.table-container .table td:nth-child(2) {
+  width: 45%;
+}
+
+.table-container .table td:last-child {
+  width: 20%;
+}

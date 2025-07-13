@@ -473,6 +473,7 @@ def xray_results(request, pk):
         _('Date of Birth'): xray_instance.date_of_birth.strftime("%Y-%m-%d") if xray_instance.date_of_birth else None,
         _('X-ray Date'): xray_instance.date_of_xray.strftime("%Y-%m-%d") if xray_instance.date_of_xray else None,
         _('Additional Information'): xray_instance.additional_info if xray_instance.additional_info else None,
+        _('Technologist'): f"{xray_instance.technologist_first_name} {xray_instance.technologist_last_name}".strip() if xray_instance.technologist_first_name or xray_instance.technologist_last_name else None,
     }
     
     # Create image metadata dictionary

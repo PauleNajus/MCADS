@@ -458,20 +458,21 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th style="width: 40%;">{% trans "Pathology" %}</th>
-                                    <th style="width: 60%;">{% trans "Probability" %}</th>
+                                    <th style="width: 35%;">{% trans "Pathology" %}</th>
+                                    <th style="width: 45%;">{% trans "Probability" %}</th>
+                                    <th style="width: 20%;">{% trans "Visualize" %}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for pathology, prob in predictions.items %}
                                 <tr>
-                                    <td style="width: 40%;">
+                                    <td style="width: 35%;">
                                         {% trans pathology %}
-                                        <button type="button" class="btn-info-pathology ms-2" data-pathology="{{ pathology }}" title="Learn more about {{ pathology }}">
+                                        <button type="button" class="btn-info-pathology ms-2" data-pathology="{{ pathology }}" title="{% trans 'Learn more about' %} {{ pathology }}">
                                             <i class="fas fa-question-circle"></i>
                                         </button>
                                     </td>
-                                    <td style="width: 60%;" data-value="{{ prob|floatformat:3 }}" data-color="{% if prob >= 0.45 and prob <= 0.55 %}#ffc107{% elif prob > 0.5 %}#dc3545{% else %}#198754{% endif %}">
+                                    <td style="width: 45%;">
                                         <div class="progress position-relative" style="min-width: 200px;">
                                             <div class="progress-bar {% if prob >= 0.45 and prob <= 0.55 %}bg-warning{% elif prob > 0.5 %}bg-danger{% else %}bg-success{% endif %}" 
                                                  role="progressbar" 
@@ -481,6 +482,20 @@
                                             </div>
                                             <span class="progress-text">{{ prob|floatformat:3 }}</span>
                                         </div>
+                                    </td>
+                                    <td style="width: 20%;">
+                                        <a href="{% url 'generate_interpretability' xray.id %}?method=gradcam&target_class={{ pathology }}" 
+                                           class="btn btn-sm btn-outline-secondary interpretation-btn" 
+                                           data-method="gradcam"
+                                           title="{% trans 'Generate Grad-CAM visualization for' %} {{ pathology }}">
+                                            {% trans "Grad-CAM" %}
+                                        </a>
+                                        <a href="{% url 'generate_interpretability' xray.id %}?method=pli&target_class={{ pathology }}" 
+                                           class="btn btn-sm btn-outline-secondary interpretation-btn" 
+                                           data-method="pli"
+                                           title="{% trans 'Generate Pixel-Level interpretability for' %} {{ pathology }}">
+                                            {% trans "PLI" %}
+                                        </a>
                                     </td>
                                 </tr>
                                 {% endfor %}

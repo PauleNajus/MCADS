@@ -27,6 +27,10 @@ class XRayImage(models.Model):
     date_of_xray = models.DateField(null=True, blank=True, db_index=True)
     additional_info = models.TextField(blank=True)
     
+    # Technologist Information
+    technologist_first_name = models.CharField(max_length=100, blank=True, db_index=True)
+    technologist_last_name = models.CharField(max_length=100, blank=True, db_index=True)
+    
     # X-ray image and processing
     image = models.ImageField(upload_to='xrays/')
     uploaded_at = models.DateTimeField(auto_now_add=True, db_index=True)
