@@ -997,8 +997,30 @@
   
   .advanced-filters .filter-actions {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  /* Mobile-specific styling for account settings tabs */
+  #settingsTabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.25rem; /* vertical gap, horizontal gap */
+    justify-content: center;
+    border-bottom: none !important;
+  }
+  
+  #settingsTabs .nav-item {
+    margin-bottom: 0.5rem;
+  }
+  
+  #settingsTabs .nav-link {
+    margin-right: 0 !important;
+    margin-bottom: 0.25rem;
+    border-radius: 0.375rem !important;
+    border-bottom: 1px solid var(--light-border) !important;
   }
   
   /* Add vertical gaps between main action buttons on mobile */
@@ -1371,6 +1393,21 @@
   
   [data-bs-theme="dark"] .history-card-mobile .text-muted {
     color: #6c757d !important;
+  }
+  
+  /* Dark mode support for mobile account settings tabs */
+  [data-bs-theme="dark"] #settingsTabs .nav-link {
+    background-color: rgba(var(--primary-rgb), 0.15) !important;
+    border-color: var(--light-border) !important;
+    color: var(--primary) !important;
+  }
+  
+  [data-bs-theme="dark"] #settingsTabs .nav-link:hover {
+    background-color: rgba(var(--primary-rgb), 0.25) !important;
+  }
+  
+  [data-bs-theme="dark"] #settingsTabs .nav-link.active {
+    background-color: rgba(var(--primary-rgb), 0.3) !important;
   }
 }
 
