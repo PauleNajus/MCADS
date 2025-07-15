@@ -5,7 +5,7 @@ from django.utils.html import format_html
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
-from .models import XRayImage, PredictionHistory, UserProfile, USER_ROLES
+from .models import XRayImage, PredictionHistory, UserProfile, VisualizationResult, USER_ROLES
 
 
 # Unregister the default User admin
@@ -164,7 +164,6 @@ class UserProfileAdmin(admin.ModelAdmin):
             (_('Edit Predictions'), obj.can_edit_predictions()),
             (_('Delete Data'), obj.can_delete_data()),
             (_('Generate Interpretability'), obj.can_generate_interpretability()),
-            (_('View Interpretability'), obj.can_view_interpretability()),
             (_('Manage Users'), obj.can_manage_users()),
         ]
         
@@ -189,7 +188,7 @@ class XRayImageAdmin(admin.ModelAdmin):
         'user__profile__role', 'processing_status', 'gender', 'uploaded_at', 
         'severity_level', 'has_gradcam', 'has_pli'
     )
-    search_fields = ('user__username', 'patient_id', 'first_name', 'last_name')
+    search_fields = ('user__username', 'patient_id', 'first_name', 'last_name', 'technologist_first_name', 'technologist_last_name')
     readonly_fields = (
         'uploaded_at', 'progress', 'image_format', 'image_size', 'image_resolution',
         'atelectasis', 'cardiomegaly', 'consolidation', 'edema', 
@@ -206,7 +205,7 @@ class XRayImageAdmin(admin.ModelAdmin):
             'fields': ('user', 'get_user_role_info')
         }),
         (_('Patient Information'), {
-            'fields': ('first_name', 'last_name', 'patient_id', 'gender', 'date_of_birth', 'date_of_xray', 'additional_info')
+            'fields': ('first_name', 'last_name', 'patient_id', 'gender', 'date_of_birth', 'date_of_xray', 'additional_info', 'technologist_first_name', 'technologist_last_name')
         }),
         (_('Image Processing'), {
             'fields': ('image', 'uploaded_at', 'processing_status', 'progress', 'image_format', 'image_size', 'image_resolution')
@@ -326,6 +325,69 @@ class PredictionHistoryAdmin(admin.ModelAdmin):
             return format_html('<span style="color: #dc3545;">{}</span>', _('Significant'))
         return _('Unknown')
     get_severity_display.short_description = _('Severity')
+
+
+@admin.register(VisualizationResult)
+class VisualizationResultAdmin(admin.ModelAdmin):
+    """Admin interface for VisualizationResult model"""
+    list_display = ('id', 'get_xray_info', 'visualization_type', 'target_pathology', 'model_used', 'created_at', 'get_preview')
+    list_filter = ('visualization_type', 'model_used', 'created_at', 'target_pathology')
+    search_fields = ('xray__patient_id', 'xray__first_name', 'xray__last_name', 'target_pathology', 'model_used')
+    ordering = ('-created_at',)
+    readonly_fields = ('id', 'created_at', 'get_preview', 'get_file_links')
+    
+    fieldsets = (
+        (_('Basic Information'), {
+            'fields': ('id', 'xray', 'visualization_type', 'target_pathology', 'created_at')
+        }),
+        (_('File Paths'), {
+            'fields': ('visualization_path', 'heatmap_path', 'overlay_path', 'saliency_path')
+        }),
+        (_('Metadata'), {
+            'fields': ('model_used', 'threshold')
+        }),
+        (_('Preview'), {
+            'fields': ('get_preview', 'get_file_links'),
+            'classes': ('collapse',)
+        })
+    )
+    
+    def get_xray_info(self, obj):
+        """Get X-ray information with link"""
+        xray = obj.xray
+        url = reverse('admin:xrayapp_xrayimage_change', args=[xray.pk])
+        patient_info = f"{xray.first_name} {xray.last_name}".strip() if xray.first_name or xray.last_name else f"X-ray #{xray.id}"
+        return format_html('<a href="{}">{}</a>', url, patient_info)
+    get_xray_info.short_description = _('X-ray')
+    get_xray_info.admin_order_field = 'xray'
+    
+    def get_preview(self, obj):
+        """Get image preview"""
+        if obj.visualization_url:
+            return format_html(
+                '<img src="{}" style="max-width: 200px; max-height: 200px;" />',
+                obj.visualization_url
+            )
+        return _('No visualization available')
+    get_preview.short_description = _('Preview')
+    
+    def get_file_links(self, obj):
+        """Get links to all visualization files"""
+        links = []
+        
+        if obj.visualization_url:
+            links.append(f'<a href="{obj.visualization_url}" target="_blank">{_("Main Visualization")}</a>')
+        if obj.heatmap_url:
+            links.append(f'<a href="{obj.heatmap_url}" target="_blank">{_("Heatmap")}</a>')
+        if obj.overlay_url:
+            links.append(f'<a href="{obj.overlay_url}" target="_blank">{_("Overlay")}</a>')
+        if obj.saliency_url:
+            links.append(f'<a href="{obj.saliency_url}" target="_blank">{_("Saliency Map")}</a>')
+        
+        if links:
+            return format_html(' | '.join(links))
+        return _('No files available')
+    get_file_links.short_description = _('File Links')
 
 
 # Customize admin site headers

@@ -280,6 +280,90 @@ class PredictionHistory(models.Model):
         return f"Prediction #{self.id} for {self.xray} using {self.model_used}"
 
 
+class VisualizationResult(models.Model):
+    """Model to store multiple interpretability visualizations for each X-ray image"""
+    
+    # Visualization type choices
+    VISUALIZATION_TYPES = [
+        ('gradcam', _('GRAD-CAM')),
+        ('pli', _('Pixel-level Interpretability')),
+        ('combined_gradcam', _('Combined GRAD-CAM')),
+        ('combined_pli', _('Combined PLI')),
+    ]
+    
+    # Foreign key to X-ray image
+    xray = models.ForeignKey(XRayImage, on_delete=models.CASCADE, related_name='visualizations', db_index=True)
+    
+    # Visualization details
+    visualization_type = models.CharField(max_length=20, choices=VISUALIZATION_TYPES, db_index=True)
+    target_pathology = models.CharField(max_length=50, db_index=True)  # The pathology this visualization targets
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
+    
+    # File paths for visualization images
+    visualization_path = models.CharField(max_length=255, null=True, blank=True)  # Main visualization
+    heatmap_path = models.CharField(max_length=255, null=True, blank=True)      # Heatmap (GRAD-CAM)
+    overlay_path = models.CharField(max_length=255, null=True, blank=True)      # Overlay image
+    saliency_path = models.CharField(max_length=255, null=True, blank=True)     # Saliency map (PLI)
+    
+    # Additional metadata
+    model_used = models.CharField(max_length=50, blank=True)  # Model used for visualization
+    threshold = models.FloatField(null=True, blank=True)     # Threshold used (for PLI)
+    
+    class Meta:
+        # Unique constraint: prevent duplicate visualization type + pathology combinations
+        constraints = [
+            models.UniqueConstraint(
+                fields=['xray', 'visualization_type', 'target_pathology'],
+                name='unique_visualization_per_pathology'
+            )
+        ]
+        
+        # Add indexes for common queries
+        indexes = [
+            models.Index(fields=['xray', 'visualization_type']),
+            models.Index(fields=['xray', 'target_pathology']),
+            models.Index(fields=['created_at']),
+        ]
+        
+        # Order by creation time (newest first)
+        ordering = ['-created_at']
+    
+    def __str__(self):
+        return f"{self.get_visualization_type_display()} - {self.target_pathology} for X-ray #{self.xray.id}"
+    
+    @property
+    def visualization_url(self):
+        """Get the main visualization URL"""
+        if self.visualization_path:
+            from django.conf import settings
+            return f"{settings.MEDIA_URL}{self.visualization_path}"
+        return None
+    
+    @property
+    def heatmap_url(self):
+        """Get the heatmap URL"""
+        if self.heatmap_path:
+            from django.conf import settings
+            return f"{settings.MEDIA_URL}{self.heatmap_path}"
+        return None
+    
+    @property
+    def overlay_url(self):
+        """Get the overlay URL"""
+        if self.overlay_path:
+            from django.conf import settings
+            return f"{settings.MEDIA_URL}{self.overlay_path}"
+        return None
+    
+    @property
+    def saliency_url(self):
+        """Get the saliency map URL"""
+        if self.saliency_path:
+            from django.conf import settings
+            return f"{settings.MEDIA_URL}{self.saliency_path}"
+        return None
+
+
 class UserProfile(models.Model):
     """Model to store additional user settings and preferences"""
     user = models.OneToOneField('auth.User', on_delete=models.CASCADE, related_name='profile')
@@ -346,10 +430,6 @@ class UserProfile(models.Model):
     def can_generate_interpretability(self):
         """Check if user can generate interpretability visualizations"""
         return self.role in ['Administrator', 'Radiographer', 'Radiologist']
-    
-    def can_view_interpretability(self):
-        """Check if user can view interpretability visualizations"""
-        return True  # All users can view interpretability
     
     def can_manage_users(self):
         """Check if user can manage other users"""

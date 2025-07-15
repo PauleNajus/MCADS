@@ -10,7 +10,7 @@
 @media print {
     /* Hide elements not needed for printing */
     nav, footer, .btn, #interpretation-progress, .interpretation-btn, #print-button, .dropdown-toggle, 
-    .btn-group, #interpretation-progress, .interpretation-options, .interpretability-card { display: none !important; }
+    .btn-group, #interpretation-progress, .interpretation-options, .interpretability-card, .delete-visualization-btn, .visualization-controls { display: none !important; }
     
     /* A4 paper size with minimal margins for maximum space */
     @page {
@@ -328,6 +328,170 @@
         width: 60% !important;
     }
 }
+
+/* Visualization Controls Styling */
+.visualization-controls {
+    background: rgba(248, 249, 250, 0.8);
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 12px;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.controls-grid {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 2px;
+}
+
+.control-btn {
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    font-size: 0.85rem;
+    width: auto;
+    height: 40px;
+    padding: 0 12px;
+    border: 1px solid #007bff;
+    background: rgba(255, 255, 255, 0.9);
+    color: #007bff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    box-sizing: border-box;
+    white-space: nowrap;
+    min-width: 70px;
+}
+
+.control-btn .btn-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.control-btn:hover {
+    background: #007bff;
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
+}
+
+.control-btn:active,
+.control-btn.active {
+    background: #0056b3;
+    border-color: #0056b3;
+    color: white;
+    transform: translateY(0);
+}
+
+.reset-controls-btn {
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    font-size: 0.8rem;
+    padding: 4px 8px;
+}
+
+.reset-controls-btn:hover {
+    background: #6c757d;
+    border-color: #6c757d;
+    color: white;
+    transform: translateY(-1px);
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark), [data-bs-theme="dark"] {
+    .visualization-controls {
+        background: rgba(33, 37, 41, 0.8);
+        border-color: #495057;
+    }
+    
+    .control-btn {
+        background: rgba(33, 37, 41, 0.9);
+        border-color: #0dcaf0;
+        color: #0dcaf0;
+    }
+    
+    .control-btn:hover {
+        background: #0dcaf0;
+        color: #000;
+    }
+    
+    .control-btn:active,
+    .control-btn.active {
+        background: #0aa2c0;
+        border-color: #0aa2c0;
+        color: white;
+    }
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+    .controls-grid {
+        gap: 4px;
+    }
+    
+    .control-btn {
+        font-size: 0.75rem;
+        width: 36px !important;
+        height: 36px !important;
+        min-width: 36px;
+        min-height: 36px;
+        max-width: 36px;
+        max-height: 36px;
+        flex-shrink: 0;
+        aspect-ratio: 1 / 1;
+        padding: 0 !important;
+        gap: 0;
+    }
+    
+    .control-btn .btn-label {
+        display: none;
+    }
+    
+    .controls-header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .reset-controls-btn {
+        font-size: 0.75rem;
+        padding: 3px 6px;
+        margin-left: auto;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 576px) {
+    .controls-grid {
+        gap: 3px;
+    }
+    
+    .control-btn {
+        font-size: 0.7rem;
+        width: 32px !important;
+        height: 32px !important;
+        min-width: 32px;
+        min-height: 32px;
+        max-width: 32px;
+        max-height: 32px;
+        flex-shrink: 0;
+        aspect-ratio: 1 / 1;
+        padding: 0 !important;
+        gap: 0;
+    }
+    
+    .control-btn .btn-label {
+        display: none;
+    }
+    
+    .visualization-controls {
+        padding: 8px;
+    }
+}
 </style>
 {% endblock %}
 
@@ -510,32 +674,190 @@
                 </div>
             </div>
             
-            <!-- GRAD-CAM Section -->
-            {% if has_gradcam and gradcam_heatmap_url and gradcam_overlay_url %}
-            <div class="card mb-4 gradcam-print-section">
-                <div class="card-header">
-                    <h5 class="mb-0">{% trans "GRAD-CAM Visualization" %} - {{ gradcam_target }}</h5>
+            <!-- Multiple GRAD-CAM Visualizations -->
+            {% if gradcam_visualizations %}
+            {% for viz in gradcam_visualizations %}
+            <div class="card mb-4" id="visualization-{{ viz.id }}">
+                <div class="card-header bg-success text-white">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">
+                            {% trans "GRAD-CAM visualization" %} - {{ viz.target_pathology }}
+                        </h5>
+                        <button class="btn btn-sm btn-danger delete-visualization-btn" 
+                                data-viz-id="{{ viz.id }}" 
+                                data-viz-type="gradcam"
+                                data-pathology="{{ viz.target_pathology }}"
+                                title="{% trans 'Delete this visualization' %}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <div class="gradcam-print-images">
-                        <div>
-                            <img src="{{ image_url }}" alt="Original X-ray">
-                            <p>{% trans "Original X-ray" %}</p>
+                <div class="card-body text-center">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="{{ image_url }}" alt="Original X-ray" class="img-fluid visualization-image" style="max-height: 600px;">
+                            <p class="mt-2 text-center">{% trans "Original X-ray" %}</p>
                         </div>
-                        <div>
-                            <img src="{{ gradcam_heatmap_url }}?t={% now 'U' %}" alt="GRAD-CAM Heatmap">
-                            <p>{% trans "GRAD-CAM Heatmap" %}</p>
+                        <div class="col-md-4">
+                            <img src="{{ viz.heatmap_url }}?t={% now 'U' %}" alt="GRAD-CAM Heatmap" class="img-fluid visualization-image" style="max-height: 600px;">
+                            <p class="mt-2 text-center">{% trans "GRAD-CAM Heatmap" %}</p>
                         </div>
-                        <div>
-                            <img src="{{ gradcam_overlay_url }}?t={% now 'U' %}" alt="GRAD-CAM Overlay">
-                            <p>{% trans "GRAD-CAM Overlay" %}</p>
+                        <div class="col-md-4">
+                            <img src="{{ viz.overlay_url }}?t={% now 'U' %}" alt="GRAD-CAM Overlay" class="img-fluid visualization-image" style="max-height: 600px;">
+                            <p class="mt-2 text-center">{% trans "GRAD-CAM Overlay" %}</p>
                         </div>
                     </div>
-                    <p class="mt-2 text-muted" style="font-size: 8pt;">
-                        {% trans "GRAD-CAM highlights the regions in the image that strongly influenced the model's prediction for" %} {{ gradcam_target }}.
+                    <!-- Visualization Controls -->
+                    <div class="visualization-controls mt-3 mb-3">
+                        <div class="controls-header d-flex justify-content-between align-items-center mb-2">
+                            <small class="text-muted">{% trans "Image Controls" %}</small>
+                            <button class="btn btn-sm btn-outline-secondary reset-controls-btn" data-viz-id="{{ viz.id }}">
+                                <i class="fas fa-undo"></i> {% trans "Reset" %}
+                            </button>
+                        </div>
+                        <div class="controls-grid">
+                            <button class="btn btn-sm btn-outline-primary control-btn" data-action="invert" data-viz-id="{{ viz.id }}" title="{% trans 'Invert Colors' %}">
+                                <i class="fas fa-adjust"></i>
+                                <span class="btn-label">{% trans "Invert" %}</span>
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary control-btn" data-action="flip-h" data-viz-id="{{ viz.id }}" title="{% trans 'Flip Horizontal' %}">
+                                <i class="fas fa-arrows-alt-h"></i>
+                                <span class="btn-label">{% trans "Flip H" %}</span>
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary control-btn" data-action="flip-v" data-viz-id="{{ viz.id }}" title="{% trans 'Flip Vertical' %}">
+                                <i class="fas fa-arrows-alt-v"></i>
+                                <span class="btn-label">{% trans "Flip V" %}</span>
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary control-btn" data-action="rotate" data-viz-id="{{ viz.id }}" title="{% trans 'Rotate 90°' %}">
+                                <i class="fas fa-redo"></i>
+                                <span class="btn-label">{% trans "Rotate" %}</span>
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary control-btn" data-action="sharpen" data-viz-id="{{ viz.id }}" title="{% trans 'Sharpen' %}">
+                                <i class="fas fa-search-plus"></i>
+                                <span class="btn-label">{% trans "Sharpen" %}</span>
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary control-btn" data-action="brightness-up" data-viz-id="{{ viz.id }}" title="{% trans 'Increase Brightness' %}">
+                                <i class="fas fa-sun"></i>
+                                <span class="btn-label">{% trans "Bright +" %}</span>
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary control-btn" data-action="brightness-down" data-viz-id="{{ viz.id }}" title="{% trans 'Decrease Brightness' %}">
+                                <i class="fas fa-moon"></i>
+                                <span class="btn-label">{% trans "Bright -" %}</span>
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary control-btn" data-action="contrast-up" data-viz-id="{{ viz.id }}" title="{% trans 'Increase Contrast' %}">
+                                <i class="fas fa-plus-circle"></i>
+                                <span class="btn-label">{% trans "Contrast +" %}</span>
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary control-btn" data-action="contrast-down" data-viz-id="{{ viz.id }}" title="{% trans 'Decrease Contrast' %}">
+                                <i class="fas fa-minus-circle"></i>
+                                <span class="btn-label">{% trans "Contrast -" %}</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <p class="mt-3 text-muted">
+                        {% trans "GRAD-CAM highlights the regions in the image that strongly influenced the model's prediction for" %} {{ viz.target_pathology }}.
                     </p>
+                    <small class="text-muted">
+                        {% trans "Generated on" %}: {{ viz.created_at|localtime|date:"Y-m-d H:i:s" }}
+                        {% if viz.threshold %} | {% trans "Threshold" %}: {{ viz.threshold }}{% endif %}
+                    </small>
                 </div>
             </div>
+            {% endfor %}
+            {% endif %}
+            
+            <!-- Multiple PLI Visualizations -->
+            {% if pli_visualizations %}
+            {% for viz in pli_visualizations %}
+            <div class="card mb-4" id="visualization-{{ viz.id }}">
+                <div class="card-header bg-info text-white">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">
+                            {% trans "Pixel-level interpretability" %} - {{ viz.target_pathology }}
+                        </h5>
+                        <button class="btn btn-sm btn-danger delete-visualization-btn" 
+                                data-viz-id="{{ viz.id }}" 
+                                data-viz-type="pli"
+                                data-pathology="{{ viz.target_pathology }}"
+                                title="{% trans 'Delete this visualization' %}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body text-center">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="{{ image_url }}" alt="Original X-ray" class="img-fluid visualization-image" style="max-height: 600px;">
+                            <p class="mt-2 text-center">{% trans "Original X-ray" %}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <img src="{{ viz.saliency_url }}?t={% now 'U' %}" alt="Pixel Saliency Map" class="img-fluid visualization-image" style="max-height: 600px;">
+                            <p class="mt-2 text-center">{% trans "Pixel saliency map" %}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <img src="{{ viz.overlay_url }}?t={% now 'U' %}" alt="Pixel-Level Overlay" class="img-fluid visualization-image" style="max-height: 600px;">
+                            <p class="mt-2 text-center">{% trans "Pixel-level overlay" %}</p>
+                        </div>
+                    </div>
+                    <!-- Visualization Controls -->
+                    <div class="visualization-controls mt-3 mb-3">
+                        <div class="controls-header d-flex justify-content-between align-items-center mb-2">
+                            <small class="text-muted">{% trans "Image Controls" %}</small>
+                            <button class="btn btn-sm btn-outline-secondary reset-controls-btn" data-viz-id="{{ viz.id }}">
+                                <i class="fas fa-undo"></i> {% trans "Reset" %}
+                            </button>
+                        </div>
+                        <div class="controls-grid">
+                            <button class="btn btn-sm btn-outline-primary control-btn" data-action="invert" data-viz-id="{{ viz.id }}" title="{% trans 'Invert Colors' %}">
+                                <i class="fas fa-adjust"></i>
+                                <span class="btn-label">{% trans "Invert" %}</span>
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary control-btn" data-action="flip-h" data-viz-id="{{ viz.id }}" title="{% trans 'Flip Horizontal' %}">
+                                <i class="fas fa-arrows-alt-h"></i>
+                                <span class="btn-label">{% trans "Flip H" %}</span>
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary control-btn" data-action="flip-v" data-viz-id="{{ viz.id }}" title="{% trans 'Flip Vertical' %}">
+                                <i class="fas fa-arrows-alt-v"></i>
+                                <span class="btn-label">{% trans "Flip V" %}</span>
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary control-btn" data-action="rotate" data-viz-id="{{ viz.id }}" title="{% trans 'Rotate 90°' %}">
+                                <i class="fas fa-redo"></i>
+                                <span class="btn-label">{% trans "Rotate" %}</span>
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary control-btn" data-action="sharpen" data-viz-id="{{ viz.id }}" title="{% trans 'Sharpen' %}">
+                                <i class="fas fa-search-plus"></i>
+                                <span class="btn-label">{% trans "Sharpen" %}</span>
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary control-btn" data-action="brightness-up" data-viz-id="{{ viz.id }}" title="{% trans 'Increase Brightness' %}">
+                                <i class="fas fa-sun"></i>
+                                <span class="btn-label">{% trans "Bright +" %}</span>
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary control-btn" data-action="brightness-down" data-viz-id="{{ viz.id }}" title="{% trans 'Decrease Brightness' %}">
+                                <i class="fas fa-moon"></i>
+                                <span class="btn-label">{% trans "Bright -" %}</span>
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary control-btn" data-action="contrast-up" data-viz-id="{{ viz.id }}" title="{% trans 'Increase Contrast' %}">
+                                <i class="fas fa-plus-circle"></i>
+                                <span class="btn-label">{% trans "Contrast +" %}</span>
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary control-btn" data-action="contrast-down" data-viz-id="{{ viz.id }}" title="{% trans 'Decrease Contrast' %}">
+                                <i class="fas fa-minus-circle"></i>
+                                <span class="btn-label">{% trans "Contrast -" %}</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <p class="mt-3 text-muted">
+                        {% trans "Pixel-Level Interpretability shows which individual pixels had the most influence on the model's prediction for" %} {{ viz.target_pathology }}.
+                    </p>
+                    <small class="text-muted">
+                                                            {% trans "Generated on" %}: {{ viz.created_at|localtime|date:"Y-m-d H:i:s" }}
+                        {% if viz.threshold %} | {% trans "Threshold" %}: {{ viz.threshold }}{% endif %}
+                    </small>
+                </div>
+            </div>
+            {% endfor %}
             {% endif %}
             
             <!-- Interpretability Processing Feedback -->
@@ -587,10 +909,6 @@
                         <a href="{% url 'generate_interpretability' xray.id %}?method=pli" 
                            class="btn btn-outline-secondary interpretation-btn" data-method="pli">
                             {% trans "Pixel-Level interpretability" %}
-                        </a>
-                        <a href="{% url 'view_interpretability' xray.id %}" 
-                           class="btn btn-outline-secondary" id="view-interpretations-btn">
-                            {% trans "View all interpretability options" %}
                         </a>
                     </div>
                 </div>
@@ -658,6 +976,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Pathology explanations data
     const pathologyExplanations = JSON.parse(document.getElementById('pathology-data').textContent);
     
+    // Make existing visualization images clickable for fullscreen view
+    const existingVisualizationImages = document.querySelectorAll('.visualization-image');
+    makeVisualizationImagesClickable(Array.from(existingVisualizationImages));
+    
     // Handle pathology info button clicks
     document.querySelectorAll('.btn-info-pathology').forEach(button => {
         button.addEventListener('click', function(e) {
@@ -683,7 +1005,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const progressBar = document.getElementById('interpretation-progress-bar');
     const statusText = document.getElementById('interpretation-status');
     const percentageText = document.getElementById('interpretation-percentage');
-    const viewButton = document.getElementById('view-interpretations-btn');
     
     // Add click event listeners to interpretation buttons
     interpretationButtons.forEach(button => {
@@ -701,10 +1022,21 @@ document.addEventListener('DOMContentLoaded', () => {
             statusText.textContent = `Generating ${methodName === 'gradcam' ? 'Grad-CAM' : 'Pixel-Level Interpretability'} visualization...`;
             
             // Fetch the URL to start the process
-            fetch(url)
-                .then(response => {
-                    // Start monitoring progress
-                    monitorProgress();
+            fetch(url, {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Content-Type': 'application/json',
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'started') {
+                        // Start monitoring progress
+                        monitorProgress();
+                    } else {
+                        statusText.textContent = 'Error starting interpretation process';
+                    }
                 })
                 .catch(error => {
                     console.error('Error starting interpretation:', error);
@@ -731,10 +1063,22 @@ document.addEventListener('DOMContentLoaded', () => {
                         // Check again in 500ms
                         setTimeout(checkProgress, 500);
                     } else {
-                        // Complete - redirect to view page after a short delay
-                        statusText.textContent = 'Visualization complete! Redirecting...';
+                        // Complete - display visualizations in-place
+                        statusText.textContent = 'Visualization complete!';
+                        
+                        // Hide progress container after a short delay
                         setTimeout(() => {
-                            window.location.href = `/interpretability/${XRAY_ID}/view/`;
+                            progressWrapper.style.display = 'none';
+                            
+                            // Display GRAD-CAM visualizations if available
+                            if (data.gradcam && data.gradcam.has_gradcam && data.gradcam.visualizations) {
+                                displayMultipleGradCAMVisualizations(data.gradcam.visualizations, data.image_url);
+                            }
+                            
+                            // Display PLI visualizations if available
+                            if (data.pli && data.pli.has_pli && data.pli.visualizations) {
+                                displayMultiplePLIVisualizations(data.pli.visualizations, data.image_url);
+                            }
                         }, 1000);
                     }
                 })
@@ -748,7 +1092,588 @@ document.addEventListener('DOMContentLoaded', () => {
         // Start checking
         checkProgress();
     }
+    
+    function displayMultipleGradCAMVisualizations(visualizations, imageUrl) {
+        // Clear any existing multiple visualization containers
+        removeExistingMultipleVisualizations('gradcam');
+        
+        visualizations.forEach((viz, index) => {
+            const containerId = `dynamic-gradcam-section-${viz.id}`;
+            
+            // Create visualization container
+            const section = document.createElement('div');
+            section.id = containerId;
+            section.className = 'card mb-4';
+            section.innerHTML = `
+                <div class="card-header bg-success text-white">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">
+                            {% trans "GRAD-CAM visualization" %} - ${viz.target_pathology}
+                        </h5>
+                        <button class="btn btn-sm btn-danger delete-visualization-btn" 
+                                data-viz-id="${viz.id}" 
+                                data-viz-type="gradcam"
+                                data-pathology="${viz.target_pathology}"
+                                title="{% trans 'Delete this visualization' %}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body text-center">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="${imageUrl}" alt="Original X-ray" class="img-fluid visualization-image" style="max-height: 600px;">
+                            <p class="mt-2 text-center">{% trans "Original X-ray" %}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <img src="${viz.heatmap_url}?t=${new Date().getTime()}" alt="GRAD-CAM Heatmap" class="img-fluid visualization-image" style="max-height: 600px;">
+                            <p class="mt-2 text-center">{% trans "GRAD-CAM Heatmap" %}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <img src="${viz.overlay_url}?t=${new Date().getTime()}" alt="GRAD-CAM Overlay" class="img-fluid visualization-image" style="max-height: 600px;">
+                            <p class="mt-2 text-center">{% trans "GRAD-CAM Overlay" %}</p>
+                        </div>
+                    </div>
+                    <!-- Visualization Controls -->
+                    <div class="visualization-controls mt-3 mb-3">
+                        <div class="controls-header d-flex justify-content-between align-items-center mb-2">
+                            <small class="text-muted">{% trans "Image Controls" %}</small>
+                            <button class="btn btn-sm btn-outline-secondary reset-controls-btn" data-viz-id="${viz.id}">
+                                <i class="fas fa-undo"></i> {% trans "Reset" %}
+                            </button>
+                        </div>
+                        <div class="controls-grid">
+                            <button class="btn btn-sm btn-outline-primary control-btn" data-action="invert" data-viz-id="${viz.id}" title="Invert Colors">
+                                <i class="fas fa-adjust"></i>
+                                <span class="btn-label">Invert</span>
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary control-btn" data-action="flip-h" data-viz-id="${viz.id}" title="Flip Horizontal">
+                                <i class="fas fa-arrows-alt-h"></i>
+                                <span class="btn-label">Flip H</span>
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary control-btn" data-action="flip-v" data-viz-id="${viz.id}" title="Flip Vertical">
+                                <i class="fas fa-arrows-alt-v"></i>
+                                <span class="btn-label">Flip V</span>
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary control-btn" data-action="rotate" data-viz-id="${viz.id}" title="Rotate 90°">
+                                <i class="fas fa-redo"></i>
+                                <span class="btn-label">Rotate</span>
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary control-btn" data-action="sharpen" data-viz-id="${viz.id}" title="Sharpen">
+                                <i class="fas fa-search-plus"></i>
+                                <span class="btn-label">Sharpen</span>
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary control-btn" data-action="brightness-up" data-viz-id="${viz.id}" title="Increase Brightness">
+                                <i class="fas fa-sun"></i>
+                                <span class="btn-label">Bright +</span>
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary control-btn" data-action="brightness-down" data-viz-id="${viz.id}" title="Decrease Brightness">
+                                <i class="fas fa-moon"></i>
+                                <span class="btn-label">Bright -</span>
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary control-btn" data-action="contrast-up" data-viz-id="${viz.id}" title="Increase Contrast">
+                                <i class="fas fa-plus-circle"></i>
+                                <span class="btn-label">Contrast +</span>
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary control-btn" data-action="contrast-down" data-viz-id="${viz.id}" title="Decrease Contrast">
+                                <i class="fas fa-minus-circle"></i>
+                                <span class="btn-label">Contrast -</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <p class="mt-3 text-muted">
+                        {% trans "GRAD-CAM highlights the regions in the image that strongly influenced the model's prediction for" %} ${viz.target_pathology}.
+                    </p>
+                    <small class="text-muted">
+                        {% trans "Generated on" %}: ${new Date(viz.created_at).toLocaleString()}
+                    </small>
+                </div>
+            `;
+            
+            // Insert after the interpretation progress section
+            const progressWrapper = document.getElementById('interpretation-progress');
+            progressWrapper.parentNode.insertBefore(section, progressWrapper.nextSibling);
+            
+            // Make images clickable
+            const images = section.querySelectorAll('.visualization-image');
+            makeVisualizationImagesClickable(Array.from(images));
+            
+            // Scroll to first visualization
+            if (index === 0) {
+                setTimeout(() => {
+                    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+            }
+        });
+    }
+    
+    function displayMultiplePLIVisualizations(visualizations, imageUrl) {
+        // Clear any existing multiple visualization containers
+        removeExistingMultipleVisualizations('pli');
+        
+        visualizations.forEach((viz, index) => {
+            const containerId = `dynamic-pli-section-${viz.id}`;
+            
+            // Create visualization container
+            const section = document.createElement('div');
+            section.id = containerId;
+            section.className = 'card mb-4';
+            section.innerHTML = `
+                <div class="card-header bg-info text-white">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">
+                            {% trans "Pixel-level interpretability" %} - ${viz.target_pathology}
+                        </h5>
+                        <button class="btn btn-sm btn-danger delete-visualization-btn" 
+                                data-viz-id="${viz.id}" 
+                                data-viz-type="pli"
+                                data-pathology="${viz.target_pathology}"
+                                title="{% trans 'Delete this visualization' %}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body text-center">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="${imageUrl}" alt="Original X-ray" class="img-fluid visualization-image" style="max-height: 600px;">
+                            <p class="mt-2 text-center">{% trans "Original X-ray" %}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <img src="${viz.saliency_url}?t=${new Date().getTime()}" alt="Pixel Saliency Map" class="img-fluid visualization-image" style="max-height: 600px;">
+                            <p class="mt-2 text-center">{% trans "Pixel saliency map" %}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <img src="${viz.overlay_url}?t=${new Date().getTime()}" alt="Pixel-Level Overlay" class="img-fluid visualization-image" style="max-height: 600px;">
+                            <p class="mt-2 text-center">{% trans "Pixel-level overlay" %}</p>
+                        </div>
+                    </div>
+                    <!-- Visualization Controls -->
+                    <div class="visualization-controls mt-3 mb-3">
+                        <div class="controls-header d-flex justify-content-between align-items-center mb-2">
+                            <small class="text-muted">{% trans "Image Controls" %}</small>
+                            <button class="btn btn-sm btn-outline-secondary reset-controls-btn" data-viz-id="${viz.id}">
+                                <i class="fas fa-undo"></i> {% trans "Reset" %}
+                            </button>
+                        </div>
+                        <div class="controls-grid">
+                            <button class="btn btn-sm btn-outline-primary control-btn" data-action="invert" data-viz-id="${viz.id}" title="Invert Colors">
+                                <i class="fas fa-adjust"></i>
+                                <span class="btn-label">Invert</span>
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary control-btn" data-action="flip-h" data-viz-id="${viz.id}" title="Flip Horizontal">
+                                <i class="fas fa-arrows-alt-h"></i>
+                                <span class="btn-label">Flip H</span>
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary control-btn" data-action="flip-v" data-viz-id="${viz.id}" title="Flip Vertical">
+                                <i class="fas fa-arrows-alt-v"></i>
+                                <span class="btn-label">Flip V</span>
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary control-btn" data-action="rotate" data-viz-id="${viz.id}" title="Rotate 90°">
+                                <i class="fas fa-redo"></i>
+                                <span class="btn-label">Rotate</span>
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary control-btn" data-action="sharpen" data-viz-id="${viz.id}" title="Sharpen">
+                                <i class="fas fa-search-plus"></i>
+                                <span class="btn-label">Sharpen</span>
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary control-btn" data-action="brightness-up" data-viz-id="${viz.id}" title="Increase Brightness">
+                                <i class="fas fa-sun"></i>
+                                <span class="btn-label">Bright +</span>
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary control-btn" data-action="brightness-down" data-viz-id="${viz.id}" title="Decrease Brightness">
+                                <i class="fas fa-moon"></i>
+                                <span class="btn-label">Bright -</span>
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary control-btn" data-action="contrast-up" data-viz-id="${viz.id}" title="Increase Contrast">
+                                <i class="fas fa-plus-circle"></i>
+                                <span class="btn-label">Contrast +</span>
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary control-btn" data-action="contrast-down" data-viz-id="${viz.id}" title="Decrease Contrast">
+                                <i class="fas fa-minus-circle"></i>
+                                <span class="btn-label">Contrast -</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <p class="mt-3 text-muted">
+                        {% trans "Pixel-Level Interpretability shows which individual pixels had the most influence on the model's prediction for" %} ${viz.target_pathology}.
+                    </p>
+                    <small class="text-muted">
+                        {% trans "Generated on" %}: ${new Date(viz.created_at).toLocaleString()}
+                        ${viz.threshold ? ` | {% trans "Threshold" %}: ${viz.threshold}` : ''}
+                    </small>
+                </div>
+            `;
+            
+            // Insert after the interpretation progress section
+            const progressWrapper = document.getElementById('interpretation-progress');
+            progressWrapper.parentNode.insertBefore(section, progressWrapper.nextSibling);
+            
+            // Make images clickable
+            const images = section.querySelectorAll('.visualization-image');
+            makeVisualizationImagesClickable(Array.from(images));
+            
+            // Scroll to first visualization
+            if (index === 0) {
+                setTimeout(() => {
+                    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+            }
+        });
+    }
+    
+    function removeExistingMultipleVisualizations(type) {
+        // Remove any existing multiple visualization containers of the same type
+        const existingContainers = document.querySelectorAll(`[id^="dynamic-${type}-section-"]`);
+        existingContainers.forEach(container => container.remove());
+    }
+    
+    function makeVisualizationImagesClickable(images) {
+        images.forEach(img => {
+            img.style.cursor = 'pointer';
+            
+            // Add click event listener to each visualization image
+            img.addEventListener('click', function() {
+                // Create overlay elements
+                const overlay = document.createElement('div');
+                overlay.style.position = 'fixed';
+                overlay.style.top = '0';
+                overlay.style.left = '0';
+                overlay.style.width = '100%';
+                overlay.style.height = '100%';
+                overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+                overlay.style.display = 'flex';
+                overlay.style.alignItems = 'center';
+                overlay.style.justifyContent = 'center';
+                overlay.style.zIndex = '9999';
+                overlay.style.cursor = 'zoom-out';
+                
+                // Create expanded image
+                const expandedImg = document.createElement('img');
+                expandedImg.src = this.src;
+                expandedImg.style.maxHeight = '90vh';
+                expandedImg.style.maxWidth = '90vw';
+                expandedImg.style.objectFit = 'contain';
+                
+                // Copy the filter style from the original image to preserve effects like invert
+                if (this.style.filter) {
+                    expandedImg.style.filter = this.style.filter;
+                }
+                
+                // Add close functionality
+                overlay.addEventListener('click', function() {
+                    document.body.removeChild(overlay);
+                });
+                
+                // Prevent click on image from closing the overlay
+                expandedImg.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+                
+                // Add keyboard navigation (Escape to close)
+                const escapeHandler = function(e) {
+                    if (e.key === 'Escape' && document.body.contains(overlay)) {
+                        document.body.removeChild(overlay);
+                        document.removeEventListener('keydown', escapeHandler);
+                    }
+                };
+                document.addEventListener('keydown', escapeHandler);
+                
+                // Append elements to the body
+                overlay.appendChild(expandedImg);
+                document.body.appendChild(overlay);
+            });
+        });
+    }
 });
+
+// Visualization Controls Functionality
+document.addEventListener('DOMContentLoaded', () => {
+    // Store applied effects for each visualization
+    const visualizationEffects = new Map();
+    
+    // Initialize effects for existing visualizations
+    function initializeVisualizationEffects() {
+        document.querySelectorAll('[id^="visualization-"]').forEach(viz => {
+            const vizId = viz.id.replace('visualization-', '');
+            if (!visualizationEffects.has(vizId)) {
+                visualizationEffects.set(vizId, {
+                    invert: false,
+                    flipH: false,
+                    flipV: false,
+                    rotation: 0,
+                    sharpen: false,
+                    brightness: 100,
+                    contrast: 100
+                });
+            }
+        });
+    }
+    
+    // Apply effects to images
+    function applyEffects(vizId) {
+        const effects = visualizationEffects.get(vizId);
+        if (!effects) return;
+        
+        const visualizationElement = document.getElementById(`visualization-${vizId}`);
+        if (!visualizationElement) return;
+        
+        const images = visualizationElement.querySelectorAll('.visualization-image');
+        
+        // Build CSS filter and transform strings
+        let filterStr = '';
+        let transformStr = '';
+        
+        if (effects.invert) filterStr += 'invert(1) ';
+        if (effects.sharpen) filterStr += 'contrast(1.2) saturate(1.3) ';
+        filterStr += `brightness(${effects.brightness}%) contrast(${effects.contrast}%) `;
+        
+        if (effects.flipH) transformStr += 'scaleX(-1) ';
+        if (effects.flipV) transformStr += 'scaleY(-1) ';
+        if (effects.rotation !== 0) transformStr += `rotate(${effects.rotation}deg) `;
+        
+        // Apply to all images in the visualization
+        images.forEach(img => {
+            img.style.filter = filterStr.trim();
+            img.style.transform = transformStr.trim();
+            img.style.transition = 'all 0.3s ease';
+        });
+        
+        // Update button states
+        updateButtonStates(vizId);
+    }
+    
+    // Update button visual states
+    function updateButtonStates(vizId) {
+        const effects = visualizationEffects.get(vizId);
+        if (!effects) return;
+        
+        const visualizationElement = document.getElementById(`visualization-${vizId}`);
+        if (!visualizationElement) return;
+        
+        // Update button active states
+        const buttons = visualizationElement.querySelectorAll('.control-btn');
+        buttons.forEach(btn => {
+            const action = btn.getAttribute('data-action');
+            btn.classList.remove('active');
+            
+            switch(action) {
+                case 'invert':
+                    if (effects.invert) btn.classList.add('active');
+                    break;
+                case 'flip-h':
+                    if (effects.flipH) btn.classList.add('active');
+                    break;
+                case 'flip-v':
+                    if (effects.flipV) btn.classList.add('active');
+                    break;
+                case 'sharpen':
+                    if (effects.sharpen) btn.classList.add('active');
+                    break;
+                case 'rotate':
+                    if (effects.rotation !== 0) btn.classList.add('active');
+                    break;
+            }
+        });
+    }
+    
+    // Reset all effects for a visualization
+    function resetEffects(vizId) {
+        visualizationEffects.set(vizId, {
+            invert: false,
+            flipH: false,
+            flipV: false,
+            rotation: 0,
+            sharpen: false,
+            brightness: 100,
+            contrast: 100
+        });
+        applyEffects(vizId);
+    }
+    
+    // Handle control button clicks
+    function attachControlHandlers() {
+        document.querySelectorAll('.control-btn').forEach(button => {
+            if (!button.hasAttribute('data-control-attached')) {
+                button.setAttribute('data-control-attached', 'true');
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const vizId = this.getAttribute('data-viz-id');
+                    const action = this.getAttribute('data-action');
+                    const effects = visualizationEffects.get(vizId);
+                    
+                    if (!effects) return;
+                    
+                    // Apply the effect based on action
+                    switch(action) {
+                        case 'invert':
+                            effects.invert = !effects.invert;
+                            break;
+                        case 'flip-h':
+                            effects.flipH = !effects.flipH;
+                            break;
+                        case 'flip-v':
+                            effects.flipV = !effects.flipV;
+                            break;
+                        case 'rotate':
+                            effects.rotation = (effects.rotation + 90) % 360;
+                            break;
+                        case 'sharpen':
+                            effects.sharpen = !effects.sharpen;
+                            break;
+                        case 'brightness-up':
+                            effects.brightness = Math.min(200, effects.brightness + 20);
+                            break;
+                        case 'brightness-down':
+                            effects.brightness = Math.max(50, effects.brightness - 20);
+                            break;
+                        case 'contrast-up':
+                            effects.contrast = Math.min(200, effects.contrast + 20);
+                            break;
+                        case 'contrast-down':
+                            effects.contrast = Math.max(50, effects.contrast - 20);
+                            break;
+                    }
+                    
+                    applyEffects(vizId);
+                });
+            }
+        });
+        
+        // Handle reset button clicks
+        document.querySelectorAll('.reset-controls-btn').forEach(button => {
+            if (!button.hasAttribute('data-reset-attached')) {
+                button.setAttribute('data-reset-attached', 'true');
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const vizId = this.getAttribute('data-viz-id');
+                    resetEffects(vizId);
+                });
+            }
+        });
+    }
+    
+    // Initialize on page load
+    initializeVisualizationEffects();
+    attachControlHandlers();
+    
+    // Re-attach handlers when new visualizations are added
+    const controlObserver = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.type === 'childList') {
+                initializeVisualizationEffects();
+                attachControlHandlers();
+            }
+        });
+    });
+    
+    // Observe the container for changes
+    const container = document.querySelector('.col-md-10');
+    if (container) {
+        controlObserver.observe(container, { childList: true, subtree: true });
+    }
+});
+
+// Delete visualization functionality
+document.addEventListener('DOMContentLoaded', () => {
+    // Function to handle visualization deletion
+    function attachDeleteHandlers() {
+        document.querySelectorAll('.delete-visualization-btn').forEach(button => {
+            if (!button.hasAttribute('data-click-attached')) {
+                button.setAttribute('data-click-attached', 'true');
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const vizId = this.getAttribute('data-viz-id');
+                    const vizType = this.getAttribute('data-viz-type');
+                    const pathology = this.getAttribute('data-pathology');
+                    
+                    // Confirm deletion
+                    if (confirm(`Are you sure you want to delete the ${vizType.toUpperCase()} visualization for ${pathology}?`)) {
+                        // Show loading state on button
+                        const originalHtml = this.innerHTML;
+                        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                        this.disabled = true;
+                        
+                        // Make AJAX request to delete visualization
+                        fetch(`/visualization/${vizId}/delete/`, {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRFToken': getCookie('csrftoken'),
+                                'X-Requested-With': 'XMLHttpRequest',
+                                'Content-Type': 'application/json',
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Remove the visualization card with animation
+                                const card = document.getElementById(`visualization-${vizId}`);
+                                if (card) {
+                                    card.style.transition = 'opacity 0.3s ease-out';
+                                    card.style.opacity = '0';
+                                    setTimeout(() => {
+                                        card.remove();
+                                    }, 300);
+                                }
+                            } else {
+                                alert(data.error || 'Failed to delete visualization');
+                                // Restore button state
+                                this.innerHTML = originalHtml;
+                                this.disabled = false;
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error deleting visualization:', error);
+                            alert('An error occurred while deleting the visualization');
+                            // Restore button state
+                            this.innerHTML = originalHtml;
+                            this.disabled = false;
+                        });
+                    }
+                });
+            }
+        });
+    }
+    
+    // Attach handlers to existing delete buttons
+    attachDeleteHandlers();
+    
+    // Re-attach handlers when new visualizations are added dynamically
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.type === 'childList') {
+                attachDeleteHandlers();
+            }
+        });
+    });
+    
+    // Observe the container for changes
+    const container = document.querySelector('.col-md-10');
+    if (container) {
+        observer.observe(container, { childList: true, subtree: true });
+    }
+});
+
+// Helper function to get CSRF token
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
 
 // Compact print functionality
 document.addEventListener('DOMContentLoaded', () => {
