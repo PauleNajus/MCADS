@@ -1,21 +1,25 @@
 {% extends 'xrayapp/base.html' %}
 {% load i18n %}
-{% block title %}{% trans "Terms of Service" %} | MCADS{% endblock %}
+{% block title %}{% trans "Terms of Service" %} - MCADS{% endblock %}
 {% block content %}
-<style>
+<div class="row">
+    <div class="col-md-10 offset-md-1">
+        <h1 class="mb-4">{% trans "Terms of Service" %}</h1>
+        
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">{% trans "Multi-label Chest Abnormality Detection System (MCADS)" %}</h5>
+            </div>
+            <div class="card-body">
+                <p class="lead">
+                    {% trans "By using MCADS, you acknowledge and agree to the following terms:" %}
+                </p>
+                <style>
   .alert-danger .bi-exclamation-triangle-fill {
     color: #dc3545 !important;
   }
 </style>
-<div class="container my-5">
-  <div class="card shadow-lg">
-    <div class="card-body p-4">
-      <h1 class="display-5 mb-3"><i class="bi bi-file-earmark-text"></i> {% trans "Terms of Service" %}</h1>
-      <h2 class="h4 mb-4">{% trans "Multi-label Chest Abnormality Detection System (MCADS)" %}</h2>
-      <p class="text-muted mb-1"><strong>{% trans "Last Updated:" %}</strong> 2025-07-05</p>
-      <p class="text-muted mb-4"><strong>{% trans "Version:" %}</strong> 1.2.0</p>
-      <hr>
-      <div class="alert alert-danger medical-warning d-flex align-items-center" role="alert">
+<div class="alert alert-danger medical-warning d-flex align-items-center" role="alert">
         <i class="bi bi-exclamation-triangle-fill me-2 fs-3"></i>
         <div>
           <strong>{% trans "CRITICAL MEDICAL DISCLAIMER" %}</strong><br>

@@ -5,58 +5,57 @@
 {% block title %}MCADS - Prediction history{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-md-12">
-            <h2 class="mb-4">{% trans "Prediction history" %}</h2>
-            
-            <div class="card mb-4 advanced-filters">
-                <div class="card-header">
-                    <h5 class="mb-0">{% trans "Advanced filters" %}</h5>
-                </div>
-                <div class="card-body">
-                    <form method="get" class="row g-3">
-                        <div class="col-md-4 col-lg-3">
-                            <label for="id_gender" class="form-label">{% trans "Gender" %}</label>
-                            {{ form.gender|add_class:"form-select" }}
-                        </div>
-                        <div class="col-md-4 col-lg-2">
-                            <label for="id_age_min" class="form-label">{% trans "Min Age" %}</label>
-                            {{ form.age_min|add_class:"form-control" }}
-                        </div>
-                        <div class="col-md-4 col-lg-2">
-                            <label for="id_age_max" class="form-label">{% trans "Max age" %}</label>
-                            {{ form.age_max|add_class:"form-control" }}
-                        </div>
-                        <div class="col-md-6 col-lg-2">
-                            <label for="id_date_min" class="form-label">{% trans "From date" %}</label>
-                            {{ form.date_min|add_class:"form-control" }}
-                        </div>
-                        <div class="col-md-6 col-lg-2">
-                            <label for="id_date_max" class="form-label">{% trans "To date" %}</label>
-                            {{ form.date_max|add_class:"form-control" }}
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <label for="id_pathology" class="form-label">{% trans "Pathology" %}</label>
-                            {{ form.pathology|add_class:"form-select" }}
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <label for="id_pathology_threshold" class="form-label">{% trans "Min Probability" %}</label>
-                            {{ form.pathology_threshold|add_class:"form-control" }}
-                        </div>
-                        <div class="col-md-12 col-lg-6 mt-4">
-                            <div class="filter-actions">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-filter me-1"></i> {% trans "Apply filters" %}
-                                </button>
-                                <a href="{% url 'prediction_history' %}" class="btn btn-outline-secondary">
-                                    <i class="fas fa-undo me-1"></i> {% trans "Reset" %}
-                                </a>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+<div class="row">
+    <div class="col-md-12">
+        <h2 class="mb-4">{% trans "Prediction history" %}</h2>
+        
+        <div class="card mb-4 advanced-filters">
+            <div class="card-header">
+                <h5 class="mb-0">{% trans "Advanced filters" %}</h5>
             </div>
+            <div class="card-body">
+                <form method="get" class="row g-3">
+                    <div class="col-md-4 col-lg-3">
+                        <label for="id_gender" class="form-label">{% trans "Gender" %}</label>
+                        {{ form.gender|add_class:"form-select" }}
+                    </div>
+                    <div class="col-md-4 col-lg-2">
+                        <label for="id_age_min" class="form-label">{% trans "Min Age" %}</label>
+                        {{ form.age_min|add_class:"form-control" }}
+                    </div>
+                    <div class="col-md-4 col-lg-2">
+                        <label for="id_age_max" class="form-label">{% trans "Max age" %}</label>
+                        {{ form.age_max|add_class:"form-control" }}
+                    </div>
+                    <div class="col-md-6 col-lg-2">
+                        <label for="id_date_min" class="form-label">{% trans "From date" %}</label>
+                        {{ form.date_min|add_class:"form-control" }}
+                    </div>
+                    <div class="col-md-6 col-lg-2">
+                        <label for="id_date_max" class="form-label">{% trans "To date" %}</label>
+                        {{ form.date_max|add_class:"form-control" }}
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <label for="id_pathology" class="form-label">{% trans "Pathology" %}</label>
+                        {{ form.pathology|add_class:"form-select" }}
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <label for="id_pathology_threshold" class="form-label">{% trans "Min Probability" %}</label>
+                        {{ form.pathology_threshold|add_class:"form-control" }}
+                    </div>
+                    <div class="col-md-12 col-lg-6 mt-4">
+                        <div class="filter-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-filter me-1"></i> {% trans "Apply filters" %}
+                            </button>
+                            <a href="{% url 'prediction_history' %}" class="btn btn-outline-secondary">
+                                <i class="fas fa-times me-1"></i> {% trans "Clear filters" %}
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
             
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
@@ -267,8 +266,8 @@
             <div class="text-center mt-4 mb-4">
                 <a href="{% url 'home' %}" class="btn btn-primary">{% trans "Upload new X-ray" %}</a>
             </div>
-        </div>
     </div>
+</div>
     
     <!-- Delete All Confirmation Modal -->
     <div class="modal fade" id="deleteAllModal" tabindex="-1" aria-labelledby="deleteAllModalLabel" aria-hidden="true">
@@ -296,7 +295,6 @@
             </div>
         </div>
     </div>
-</div>
 {% endblock %}
 
 {% block extra_js %}

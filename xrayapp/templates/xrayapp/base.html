@@ -37,124 +37,91 @@
 </head>
 <body class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
-        <div class="compact-container container-fluid">
-            <a class="navbar-brand" href="{% url 'home' %}">
-                <i class="bi bi-lungs"></i> MCADS
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'home' %}">
-                            <i class="bi bi-house"></i> {% trans "Home" %}
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if '/prediction-history/' in request.path %}active{% endif %}" href="{% url 'prediction_history' %}">
-                            <i class="bi bi-clock-history"></i> {% trans "Prediction history" %}
-                        </a>
-                    </li>
-                    {% if user.is_staff %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'admin:index' %}">
-                            <i class="bi bi-gear-fill"></i> {% trans "Admin" %}
-                        </a>
-                    </li>
-                    {% endif %}
-                </ul>
-            </div>
-            <div class="ms-auto d-flex align-items-center">
-                {% if user.is_authenticated %}
-                <div class="dropdown me-3">
-                    <a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-person-circle"></i> {{ user.username }}
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                        <li><span class="dropdown-item-text text-muted small">{{ user.first_name }} {{ user.last_name }}</span></li>
-                        {% if user.profile %}
-                        <li><span class="dropdown-item-text text-muted small"><i class="bi bi-person-badge"></i> {{ user.profile.get_role_display }}</span></li>
-                        <li><span class="dropdown-item-text text-muted small"><i class="bi bi-hospital"></i> {{ user.profile.hospital }}</span></li>
-                        {% endif %}
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="{% url 'account_settings' %}"><i class="bi bi-gear"></i> {% trans "Account settings" %}</a></li>
-                        {% if user.profile.can_access_admin %}
-                        <li><a class="dropdown-item" href="/secure-admin-mcads-2024/"><i class="bi bi-shield-fill-check"></i> {% trans "Admin Panel" %}</a></li>
-                        {% endif %}
-                        <li><a class="dropdown-item" href="{% url 'logout_confirmation' %}"><i class="bi bi-box-arrow-right"></i> {% trans "Logout" %}</a></li>
-                    </ul>
-                </div>
-                {% else %}
-                <a href="{% url 'login' %}" class="btn btn-outline-primary me-3">
-                    <i class="bi bi-box-arrow-in-right"></i> {% trans "Login" %}
+        <div class="container-fluid">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'home' %}">
+                    <i class="bi bi-lungs"></i> MCADS
                 </a>
-                {% endif %}
-                
-                <!-- Language Switcher -->
-                {% load i18n %}
-                <div class="dropdown me-2">
-                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="{% trans 'Change language' %}">
-                        <i class="bi bi-translate"></i>
-                        {% get_current_language as LANGUAGE_CODE %}
-                        {% if LANGUAGE_CODE == 'lt' %}LT{% else %}EN{% endif %}
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
-                        <li>
-                            <form method="post" action="{% url 'set_language' %}">
-                                {% csrf_token %}
-                                <input type="hidden" name="language" value="en">
-                                <button type="submit" class="dropdown-item {% if LANGUAGE_CODE == 'en' %}active{% endif %}">
-                                    🇺🇸 English
-                                </button>
-                            </form>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'home' %}">
+                                <i class="bi bi-house"></i> {% trans "Home" %}
+                            </a>
                         </li>
-                        <li>
-                            <form method="post" action="{% url 'set_language' %}">
-                                {% csrf_token %}
-                                <input type="hidden" name="language" value="lt">
-                                <button type="submit" class="dropdown-item {% if LANGUAGE_CODE == 'lt' %}active{% endif %}">
-                                    🇱🇹 Lietuvių
-                                </button>
-                            </form>
+                        <li class="nav-item">
+                            <a class="nav-link {% if '/prediction-history/' in request.path %}active{% endif %}" href="{% url 'prediction_history' %}">
+                                <i class="bi bi-clock-history"></i> {% trans "Prediction history" %}
+                            </a>
                         </li>
                     </ul>
+                    <div class="ms-auto d-flex align-items-center">
+                        {% if user.is_authenticated %}
+                            <div class="dropdown me-3">
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-person"></i> {{ user.username }}
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                    <li><a class="dropdown-item" href="{% url 'account_settings' %}">
+                                        <i class="bi bi-gear"></i> {% trans "Account settings" %}
+                                    </a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="{% url 'logout' %}">
+                                        <i class="bi bi-box-arrow-right"></i> {% trans "Logout" %}
+                                    </a></li>
+                                </ul>
+                            </div>
+                        {% else %}
+                            <a href="{% url 'login' %}" class="btn btn-outline-secondary me-3">
+                                <i class="bi bi-box-arrow-in-right"></i> {% trans "Login" %}
+                            </a>
+                        {% endif %}
+                        
+                        <!-- Theme toggle button -->
+                        <button class="theme-toggle" id="theme-toggle" type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Toggle theme">
+                            <i class="bi bi-sun-fill"></i>
+                            <i class="bi bi-moon-fill"></i>
+                        </button>
+                    </div>
                 </div>
-                
-                <button class="theme-toggle" title="Switch to dark mode">
-                    <i class="bi bi-moon-fill"></i>
-                </button>
             </div>
         </div>
     </nav>
 
-    <div class="compact-container container-fluid py-4 flex-grow-1">
-        {% block content %}{% endblock %}
+    <div class="container-fluid py-4 flex-grow-1">
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
     </div>
 
-    <footer class="py-3 mt-auto bg-body-tertiary">
-        <div class="compact-container container-fluid">
-            <div class="row">
-                <div class="col-md-6">
-                    <p class="mb-0 text-muted small">
-                        &copy; {% now "Y" %} MCADS. {% trans "All rights reserved." %} Paulius Bundza {% trans "and" %} Justas Trinkūnas. Vilnius Tech.
-                    </p>
-                    <p class="mb-0 text-muted small">
-                        <a href="{% url 'terms_of_service' %}" class="link-secondary text-decoration-none">
-                            <i class="bi bi-file-earmark-text"></i> {% trans "Terms of Service" %}
-                        </a>
-                    </p>
-                    <p class="mb-0 text-muted small">
-                        {% trans "Server time" %}: <span id="server-time"></span>
-                    </p>
-                </div>
-                <div class="col-md-6 text-md-end">
-                    <p class="mb-0 text-muted small">
-                        MCADS (Multi-label Chest Abnormality Detection System) demo v1.2.0
-                    </p>
-                    <p class="mb-0 text-muted small">
-                        {% trans "Powered by" %} TorchXRayVision
-                    </p>
+    <footer class="mt-auto" style="background-color: var(--bs-tertiary-bg); width: 100vw; margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%); margin-bottom: 0; padding: 1rem 0 0 0; position: relative; bottom: 0;">
+        <div class="container-fluid" style="background-color: var(--bs-tertiary-bg); width: 100%; margin: 0; padding: 0;">
+            <div class="container" style="max-width: 1140px; margin: 0 auto; padding: 0 15px 1rem 15px;">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="mb-0 text-muted small">
+                            &copy; {% now "Y" %} MCADS. {% trans "All rights reserved." %} Paulius Bundza {% trans "and" %} Justas Trinkūnas. Vilnius Tech.
+                        </p>
+                        <p class="mb-0 text-muted small">
+                            <a href="{% url 'terms_of_service' %}" class="link-secondary text-decoration-none">
+                                <i class="bi bi-file-earmark-text"></i> {% trans "Terms of Service" %}
+                            </a>
+                        </p>
+                        <p class="mb-0 text-muted small">
+                            {% trans "Server time" %}: <span id="server-time"></span>
+                        </p>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <p class="mb-0 text-muted small">
+                            MCADS (Multi-label Chest Abnormality Detection System) demo v1.2.0
+                        </p>
+                        <p class="mb-0 text-muted small">
+                            {% trans "Powered by" %} TorchXRayVision
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
