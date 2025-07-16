@@ -326,6 +326,46 @@ footer {
 }
 
 /* ==========================================
+   LANGUAGE SWITCH
+   ========================================== */
+.dropdown .dropdown-item-form {
+  padding: 0;
+  margin: 0;
+}
+
+.dropdown .dropdown-item-form .dropdown-item {
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.flag-icon {
+  font-size: 1.1em;
+  margin-right: var(--spacing-xs);
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+/* Language dropdown button styling */
+#languageDropdown {
+  min-width: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+}
+
+#languageDropdown .flag-icon {
+  margin-right: 0;
+}
+
+/* ==========================================
    NAVBAR STYLES
    ========================================== */
 .navbar-brand {
@@ -931,6 +971,16 @@ footer {
     font-size: 0.875rem !important;
     padding: var(--spacing-xs) var(--spacing-sm) !important;
   }
+  
+  /* Language switch mobile adjustments */
+  #languageDropdown {
+    min-width: 60px !important;
+    font-size: 0.875rem !important;
+  }
+  
+  #languageDropdown .flag-icon {
+    font-size: 1em !important;
+  }
 }
 
 /* Extra mobile adjustments for very small screens */
@@ -952,6 +1002,16 @@ footer {
   
   .navbar-nav {
     gap: calc(var(--spacing-sm) * 0.75) !important;
+  }
+  
+  /* Language switch very small mobile adjustments */
+  #languageDropdown {
+    min-width: 55px !important;
+    font-size: 0.8rem !important;
+  }
+  
+  #languageDropdown .flag-icon {
+    font-size: 0.9em !important;
   }
   
   /* Account settings tabs */

@@ -80,6 +80,40 @@
                             </a>
                         {% endif %}
                         
+                        <!-- Language switch dropdown -->
+                        <div class="dropdown me-3">
+                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                {% get_current_language as LANGUAGE_CODE %}
+                                {% if LANGUAGE_CODE == 'lt' %}
+                                    <span class="flag-icon">🇱🇹</span> {% trans "LT" %}
+                                {% else %}
+                                    <span class="flag-icon">🇺🇸</span> {% trans "EN" %}
+                                {% endif %}
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+                                <li>
+                                    <form action="{% url 'set_language' %}" method="post" class="dropdown-item-form">
+                                        {% csrf_token %}
+                                        <input name="next" type="hidden" value="{{ request.get_full_path|iriencode }}" />
+                                        <input name="language" type="hidden" value="en" />
+                                        <button type="submit" class="dropdown-item">
+                                            <span class="flag-icon">🇺🇸</span> English
+                                        </button>
+                                    </form>
+                                </li>
+                                <li>
+                                    <form action="{% url 'set_language' %}" method="post" class="dropdown-item-form">
+                                        {% csrf_token %}
+                                        <input name="next" type="hidden" value="{{ request.get_full_path|iriencode }}" />
+                                        <input name="language" type="hidden" value="lt" />
+                                        <button type="submit" class="dropdown-item">
+                                            <span class="flag-icon">🇱🇹</span> Lietuvių
+                                        </button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                        
                         <!-- Theme toggle button -->
                         <button class="theme-toggle" id="theme-toggle" type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Toggle theme">
                             <i class="bi bi-sun-fill"></i>

@@ -3023,3 +3023,10 @@ msgstr "Išjungta"
 #: .\xrayapp\templates\xrayapp\prediction_history.html:246
 msgid "Are you sure you want to delete this prediction record for"
 msgstr "Ar tikrai norite ištrinti šį prognozės įrašą pacientui"
+
+# Language switch button translations
+msgid "LT"
+msgstr "LT"
+
+msgid "EN"
+msgstr "EN"
