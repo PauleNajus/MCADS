@@ -286,6 +286,89 @@ footer {
   margin-right: 0.5rem !important;
 }
 
+/* Password toggle button styles */
+.input-group #togglePassword {
+  border-color: var(--light-border) !important;
+  background-color: transparent !important;
+  color: var(--secondary) !important;
+  transition: all var(--transition-fast);
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 2.5rem !important;
+  height: calc(2.375rem + 2px) !important;
+}
+
+.input-group #togglePassword:hover {
+  background-color: var(--light-bg) !important;
+  border-color: var(--secondary) !important;
+  color: var(--secondary) !important;
+}
+
+.input-group #togglePassword:focus {
+  box-shadow: 0 0 0 0.25rem rgba(var(--secondary), 0.25) !important;
+  border-color: var(--secondary) !important;
+  outline: none !important;
+}
+
+.input-group #togglePassword:active {
+  background-color: var(--secondary) !important;
+  border-color: var(--secondary) !important;
+  color: white !important;
+}
+
+.input-group #togglePassword i {
+  font-size: 1rem !important;
+  transition: color var(--transition-fast);
+}
+
+/* Ensure password input and toggle button have same height */
+.input-group .form-control {
+  height: calc(2.375rem + 2px) !important;
+  border-right: none !important;
+}
+
+.input-group .form-control:focus {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 0.25rem rgba(var(--primary-rgb), 0.25) !important;
+}
+
+.input-group .form-control:focus + #togglePassword {
+  border-color: var(--primary) !important;
+}
+
+/* Dark mode adjustments for password toggle */
+[data-bs-theme="dark"] .input-group #togglePassword {
+  border-color: var(--light-border) !important;
+  background-color: transparent !important;
+  color: var(--light) !important;
+}
+
+[data-bs-theme="dark"] .input-group #togglePassword:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border-color: var(--light) !important;
+  color: var(--light) !important;
+}
+
+[data-bs-theme="dark"] .input-group #togglePassword:focus {
+  box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25) !important;
+  border-color: var(--light) !important;
+}
+
+[data-bs-theme="dark"] .input-group #togglePassword:active {
+  background-color: var(--light) !important;
+  border-color: var(--light) !important;
+  color: var(--dark) !important;
+}
+
+[data-bs-theme="dark"] .input-group .form-control {
+  border-color: var(--light-border) !important;
+}
+
+[data-bs-theme="dark"] .input-group .form-control:focus + #togglePassword {
+  border-color: var(--primary) !important;
+}
+
 /* ==========================================
    CARD STYLES
    ========================================== */

@@ -17,6 +17,7 @@ class AuthenticationMiddleware:
             '/accounts/login/',
             '/accounts/logout/',
             '/secure-admin-mcads-2024/login/',  # Updated admin path
+            '/set-language/',  # Allow language switching for unauthenticated users
             '/favicon.ico',
             '/static/',
             '/media/',
