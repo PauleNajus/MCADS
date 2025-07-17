@@ -5,6 +5,7 @@
 {% block title %}MCADS - Prediction history{% endblock %}
 
 {% block content %}
+{% csrf_token %}
 <div class="row">
     <div class="col-md-12">
         <h2 class="mb-4">{% trans "Prediction history" %}</h2>
@@ -43,7 +44,11 @@
                         <label for="id_pathology_threshold" class="form-label">{% trans "Min Probability" %}</label>
                         {{ form.pathology_threshold|add_class:"form-control" }}
                     </div>
-                    <div class="col-md-12 col-lg-6 mt-4">
+                    <div class="col-md-6 col-lg-3">
+                        <label for="id_records_per_page" class="form-label">{% trans "Records per page" %}</label>
+                        {{ form.records_per_page|add_class:"form-select" }}
+                    </div>
+                    <div class="col-md-12 mt-4">
                         <div class="filter-actions">
                             <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-filter me-1"></i> {% trans "Apply filters" %}
@@ -119,6 +124,12 @@
                                             <a href="{% url 'edit_prediction_history' item.id %}" class="btn btn-sm btn-warning">
                                                 <i class="fas fa-edit"></i>
                                             </a>
+                                            <button type="button" class="btn btn-sm {% if item.id in saved_record_ids %}btn-outline-danger{% else %}btn-outline-warning{% endif %} save-toggle-btn" 
+                                                    data-record-id="{{ item.id }}" 
+                                                    data-saved="{% if item.id in saved_record_ids %}true{% else %}false{% endif %}"
+                                                    title="{% if item.id in saved_record_ids %}{% trans 'Remove from saved' %}{% else %}{% trans 'Save record' %}{% endif %}">
+                                                <i class="{% if item.id in saved_record_ids %}fas fa-star{% else %}far fa-star{% endif %}"></i>
+                                            </button>
                                             <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModalDesktop{{ item.id }}">
                                                 <i class="fas fa-trash"></i>
                                             </button>
@@ -202,6 +213,12 @@
                                             <a href="{% url 'edit_prediction_history' item.id %}" class="btn btn-sm btn-warning">
                                                 <i class="fas fa-edit me-1"></i> {% trans "Edit" %}
                                             </a>
+                                            <button type="button" class="btn btn-sm {% if item.id in saved_record_ids %}btn-outline-danger{% else %}btn-outline-warning{% endif %} save-toggle-btn" 
+                                                    data-record-id="{{ item.id }}" 
+                                                    data-saved="{% if item.id in saved_record_ids %}true{% else %}false{% endif %}">
+                                                <i class="{% if item.id in saved_record_ids %}fas fa-star{% else %}far fa-star{% endif %} me-1"></i> 
+                                                <span class="btn-text">{% if item.id in saved_record_ids %}{% trans "Unsave" %}{% else %}{% trans "Save" %}{% endif %}</span>
+                                            </button>
                                             <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModalMobile{{ item.id }}">
                                                 <i class="fas fa-trash me-1"></i> {% trans "Delete" %}
                                             </button>
@@ -261,6 +278,47 @@
                     </div>
                     {% endif %}
                 </div>
+                
+                <!-- Pagination Controls -->
+                {% if history_items.has_other_pages %}
+                <div class="card-footer">
+                    <nav aria-label="{% trans 'Prediction history pagination' %}">
+                        <div class="d-flex justify-content-center flex-wrap gap-1 mb-3">
+                            {% if history_items.has_previous %}
+                                <a class="btn btn-outline-secondary btn-sm" href="?{% for key, value in request.GET.items %}{% if key != 'page' %}{{ key }}={{ value }}&{% endif %}{% endfor %}page=1" aria-label="{% trans 'First' %}" title="{% trans 'First page' %}">
+                                    <i class="fas fa-angle-double-left"></i>
+                                </a>
+                                <a class="btn btn-outline-secondary btn-sm" href="?{% for key, value in request.GET.items %}{% if key != 'page' %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ history_items.previous_page_number }}" aria-label="{% trans 'Previous' %}" title="{% trans 'Previous page' %}">
+                                    <i class="fas fa-angle-left"></i>
+                                </a>
+                            {% endif %}
+
+                            {% for num in history_items.paginator.page_range %}
+                                {% if history_items.number == num %}
+                                    <span class="btn btn-primary btn-sm active">{{ num }}</span>
+                                {% elif num > history_items.number|add:'-3' and num < history_items.number|add:'3' %}
+                                    <a class="btn btn-outline-secondary btn-sm" href="?{% for key, value in request.GET.items %}{% if key != 'page' %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ num }}">{{ num }}</a>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if history_items.has_next %}
+                                <a class="btn btn-outline-secondary btn-sm" href="?{% for key, value in request.GET.items %}{% if key != 'page' %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ history_items.next_page_number }}" aria-label="{% trans 'Next' %}" title="{% trans 'Next page' %}">
+                                    <i class="fas fa-angle-right"></i>
+                                </a>
+                                <a class="btn btn-outline-secondary btn-sm" href="?{% for key, value in request.GET.items %}{% if key != 'page' %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ history_items.paginator.num_pages }}" aria-label="{% trans 'Last' %}" title="{% trans 'Last page' %}">
+                                    <i class="fas fa-angle-double-right"></i>
+                                </a>
+                            {% endif %}
+                        </div>
+                    </nav>
+                    
+                    <div class="text-center">
+                        <small class="text-muted">
+                            {% trans "Showing" %} {{ history_items.start_index }} - {{ history_items.end_index }} {% trans "of" %} {{ history_items.paginator.count }} {% trans "records" %}
+                        </small>
+                    </div>
+                </div>
+                {% endif %}
             </div>
             
             <div class="text-center mt-4 mb-4">
@@ -356,6 +414,73 @@
           field.parentNode.appendChild(helpText);
         }
       }
+    });
+    
+    // Auto-submit form when records per page changes
+    const recordsPerPageSelect = document.getElementById('id_records_per_page');
+    if (recordsPerPageSelect) {
+      recordsPerPageSelect.addEventListener('change', function() {
+        this.form.submit();
+      });
+    }
+    
+    // Handle save/unsave functionality
+    const saveButtons = document.querySelectorAll('.save-toggle-btn');
+    
+    saveButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const recordId = this.getAttribute('data-record-id');
+            const isSaved = this.getAttribute('data-saved') === 'true';
+            
+            // Disable button during request
+            this.disabled = true;
+            
+            fetch(`/prediction-history/${recordId}/toggle-save/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    if (data.saved) {
+                        // Record was saved
+                        this.setAttribute('data-saved', 'true');
+                        this.classList.remove('btn-outline-warning');
+                        this.classList.add('btn-outline-danger');
+                        this.querySelector('i').classList.add('fas');
+                        this.querySelector('i').classList.remove('far');
+                        this.title = '{% trans "Remove from saved" %}';
+                        if (this.querySelector('.btn-text')) {
+                            this.querySelector('.btn-text').textContent = '{% trans "Unsave" %}';
+                        }
+                    } else {
+                        // Record was unsaved
+                        this.setAttribute('data-saved', 'false');
+                        this.classList.remove('btn-outline-danger');
+                        this.classList.add('btn-outline-warning');
+                        this.querySelector('i').classList.remove('fas');
+                        this.querySelector('i').classList.add('far');
+                        this.title = '{% trans "Save record" %}';
+                        if (this.querySelector('.btn-text')) {
+                            this.querySelector('.btn-text').textContent = '{% trans "Save" %}';
+                        }
+                    }
+                } else {
+                    console.error('Error:', data.error);
+                    alert('Error: ' + data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            })
+            .finally(() => {
+                this.disabled = false;
+            });
+        });
     });
   });
 </script>

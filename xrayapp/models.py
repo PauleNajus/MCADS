@@ -445,3 +445,23 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.role}"
+
+
+class SavedRecord(models.Model):
+    """Model to store user-saved prediction history records"""
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='saved_records', db_index=True)
+    prediction_history = models.ForeignKey(PredictionHistory, on_delete=models.CASCADE, related_name='saved_by_users', db_index=True)
+    saved_at = models.DateTimeField(auto_now_add=True, db_index=True)
+    
+    class Meta:
+        # Ensure a user can only save a record once
+        unique_together = [('user', 'prediction_history')]
+        # Order by most recently saved first
+        ordering = ['-saved_at']
+        indexes = [
+            models.Index(fields=['user', 'saved_at']),
+            models.Index(fields=['prediction_history', 'saved_at']),
+        ]
+    
+    def __str__(self):
+        return f"{self.user.username} saved #{self.prediction_history.id}"

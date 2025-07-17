@@ -12,7 +12,7 @@ from django.core.cache import cache
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 from .forms import XRayUploadForm, PredictionHistoryFilterForm, UserInfoForm, UserProfileForm, ChangePasswordForm
-from .models import XRayImage, PredictionHistory, UserProfile, VisualizationResult
+from .models import XRayImage, PredictionHistory, UserProfile, VisualizationResult, SavedRecord
 from .utils import (process_image, process_image_with_interpretability,
                    save_interpretability_visualization, save_overlay_visualization, save_saliency_map,
                    save_gradcam_heatmap, save_gradcam_overlay)
@@ -467,7 +467,7 @@ def update_existing_prediction_history(xray_instance, model_type):
 def home(request):
     """Home page with image upload form"""
     if request.method == 'POST':
-        form = XRayUploadForm(request.POST, request.FILES)
+        form = XRayUploadForm(request.POST, request.FILES, user=request.user)
         if form.is_valid():
             # Create a new XRayImage instance with all form data but don't save yet
             xray_instance = form.save(commit=False)
@@ -500,11 +500,13 @@ def home(request):
                 # Redirect for normal form submissions
                 return redirect('xray_results', pk=xray_instance.pk)
     else:
-        form = XRayUploadForm()
+        form = XRayUploadForm(user=request.user)
         
     return render(request, 'xrayapp/home.html', {
         'form': form,
-        'today_date': timezone.now()
+        'today_date': timezone.now(),
+        'user_first_name': request.user.first_name if request.user.is_authenticated else '',
+        'user_last_name': request.user.last_name if request.user.is_authenticated else '',
     })
 
 
@@ -731,17 +733,28 @@ def prediction_history(request):
             query = query.filter(**filter_kwargs)
     
     # Add pagination for better performance
-    paginator = Paginator(query, 20)  # Show 20 items per page
+    records_per_page = 25  # Default value
+    if form.is_valid() and form.cleaned_data.get('records_per_page'):
+        records_per_page = int(form.cleaned_data['records_per_page'])
+    
+    paginator = Paginator(query, records_per_page)
     page_number = request.GET.get('page')
     history_items = paginator.get_page(page_number)
     
     # Get total count for the filtered query
     total_count = paginator.count
     
+    # Get saved record IDs for current user to show star status
+    saved_record_ids = set(SavedRecord.objects.filter(
+        user=request.user,
+        prediction_history__in=[item.id for item in history_items]
+    ).values_list('prediction_history_id', flat=True))
+    
     context = {
         'form': form,
         'history_items': history_items,
         'total_count': total_count,
+        'saved_record_ids': saved_record_ids,
     }
     
     return render(request, 'xrayapp/prediction_history.html', context)
@@ -1089,6 +1102,116 @@ def set_language(request):
     
     # If invalid language, redirect to home
     return redirect('/')
+
+
+@login_required
+@require_POST
+def toggle_save_record(request, pk):
+    """Toggle save/unsave a prediction history record via AJAX"""
+    try:
+        # Get user's hospital from profile
+        user_hospital = request.user.profile.hospital
+        
+        # Get the prediction history record (must be from same hospital)
+        prediction_record = PredictionHistory.objects.get(pk=pk, user__profile__hospital=user_hospital)
+        
+        # Check if record is already saved by this user
+        saved_record, created = SavedRecord.objects.get_or_create(
+            user=request.user,
+            prediction_history=prediction_record
+        )
+        
+        if created:
+            # Record was saved
+            return JsonResponse({
+                'success': True,
+                'saved': True,
+                'message': _('Record saved successfully')
+            })
+        else:
+            # Record was already saved, so unsave it
+            saved_record.delete()
+            return JsonResponse({
+                'success': True,
+                'saved': False,
+                'message': _('Record removed from saved')
+            })
+            
+    except PredictionHistory.DoesNotExist:
+        return JsonResponse({
+            'success': False,
+            'error': _('Prediction record not found')
+        }, status=404)
+    except Exception as e:
+        return JsonResponse({
+            'success': False,
+            'error': str(e)
+        }, status=500)
+
+
+@login_required
+def saved_records(request):
+    """View saved prediction history records with advanced filtering"""
+    form = PredictionHistoryFilterForm(request.GET)
+    
+    # Get user's saved records with optimized queries
+    saved_records_query = SavedRecord.objects.filter(user=request.user)\
+                                           .select_related('prediction_history__xray', 'prediction_history__user')\
+                                           .prefetch_related('prediction_history__xray__user')\
+                                           .order_by('-saved_at')
+    
+    # Apply filters if the form is valid
+    if form.is_valid():
+        # Gender filter
+        if form.cleaned_data.get('gender'):
+            saved_records_query = saved_records_query.filter(prediction_history__xray__gender=form.cleaned_data['gender'])
+        
+        # Age range filter
+        if form.cleaned_data.get('age_min') is not None:
+            # Calculate date based on minimum age
+            min_age_date = timezone.now().date() - relativedelta(years=form.cleaned_data['age_min'])
+            saved_records_query = saved_records_query.filter(prediction_history__xray__date_of_birth__lte=min_age_date)
+            
+        if form.cleaned_data.get('age_max') is not None:
+            # Calculate date based on maximum age
+            max_age_date = timezone.now().date() - relativedelta(years=form.cleaned_data['age_max'] + 1)
+            saved_records_query = saved_records_query.filter(prediction_history__xray__date_of_birth__gte=max_age_date)
+        
+        # Date range filter
+        if form.cleaned_data.get('date_min'):
+            saved_records_query = saved_records_query.filter(prediction_history__xray__date_of_xray__gte=form.cleaned_data['date_min'])
+            
+        if form.cleaned_data.get('date_max'):
+            saved_records_query = saved_records_query.filter(prediction_history__xray__date_of_xray__lte=form.cleaned_data['date_max'])
+        
+        # Pathology filter
+        if form.cleaned_data.get('pathology') and form.cleaned_data.get('pathology_threshold') is not None:
+            threshold = form.cleaned_data['pathology_threshold']
+            field_name = f"prediction_history__{form.cleaned_data['pathology']}"
+            
+            # Dynamic field filtering
+            filter_kwargs = {f"{field_name}__gte": threshold}
+            saved_records_query = saved_records_query.filter(**filter_kwargs)
+    
+    # Add pagination for better performance
+    records_per_page = 25  # Default value
+    if form.is_valid() and form.cleaned_data.get('records_per_page'):
+        records_per_page = int(form.cleaned_data['records_per_page'])
+    
+    paginator = Paginator(saved_records_query, records_per_page)
+    page_number = request.GET.get('page')
+    saved_records_page = paginator.get_page(page_number)
+    
+    # Get total count
+    total_count = paginator.count
+    
+    context = {
+        'form': form,
+        'saved_records': saved_records_page,
+        'total_count': total_count,
+    }
+    
+    return render(request, 'xrayapp/saved_records.html', context)
 
 
 # Error handler views

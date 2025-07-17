@@ -64,6 +64,47 @@
   --progress-stripe-size: 32px;
   --progress-stripe-width: 8px;
   --progress-glow-opacity: 0.3;
+  
+  /* Star/save button styles */
+  --star-color-empty: #ffc107;
+  --star-color-filled: #dc3545;
+}
+
+/* Star/save button styling */
+.save-toggle-btn {
+  transition: all var(--transition-fast);
+}
+
+.save-toggle-btn:hover {
+  transform: scale(1.05);
+}
+
+.save-toggle-btn .fa-star {
+  color: var(--star-color-empty);
+  transition: color var(--transition-fast);
+}
+
+.save-toggle-btn[data-saved="true"] .fa-star {
+  color: var(--star-color-filled);
+}
+
+.save-toggle-btn:disabled {
+  opacity: 0.6;
+  transform: none;
+}
+
+/* Ensure consistent button widths in action button groups */
+.btn-group .btn-sm {
+  min-width: 2.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Specific width consistency for table action buttons */
+.table .btn-group .btn-sm {
+  width: 2.5rem;
+  height: 2.25rem;
 }
 
 [data-bs-theme="dark"] {

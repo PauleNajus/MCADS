@@ -25,7 +25,17 @@ class XRayUploadForm(forms.ModelForm):
         }
     
     def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
+        
+        # Auto-populate technologist fields with current user's information
+        if user and user.is_authenticated:
+            # Only set initial values if the fields are not already populated
+            if not self.data.get('technologist_first_name') and not self.initial.get('technologist_first_name'):
+                self.fields['technologist_first_name'].initial = user.first_name or ''
+            if not self.data.get('technologist_last_name') and not self.initial.get('technologist_last_name'):
+                self.fields['technologist_last_name'].initial = user.last_name or ''
+        
         # Add file validation
         self.fields['image'].validators.append(
             FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png', 'bmp', 'tiff'])
@@ -147,6 +157,17 @@ class PredictionHistoryFilterForm(forms.Form):
         label=_("Minimum Probability"),
         initial=0.5,
         widget=forms.NumberInput(attrs={'step': '0.01'})
+    )
+    records_per_page = forms.ChoiceField(
+        choices=[
+            ('25', '25'),
+            ('50', '50'),
+            ('100', '100'),
+            ('200', '200')
+        ],
+        initial='25',
+        required=False,
+        label=_("Records per page")
     )
     
     def __init__(self, *args, **kwargs):

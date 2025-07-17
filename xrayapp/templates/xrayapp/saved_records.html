@@ -1,0 +1,417 @@
+{% extends 'xrayapp/base.html' %}
+{% load xrayapp_extras %}
+{% load i18n %}
+
+{% block title %}MCADS - Saved records{% endblock %}
+
+{% block content %}
+{% csrf_token %}
+<div class="row">
+    <div class="col-md-12">
+        <h2 class="mb-4">{% trans "Saved records" %}</h2>
+        
+        <div class="card mb-4 advanced-filters">
+            <div class="card-header">
+                <h5 class="mb-0">{% trans "Advanced filters" %}</h5>
+            </div>
+            <div class="card-body">
+                <form method="get" class="row g-3">
+                    <div class="col-md-4 col-lg-3">
+                        <label for="id_gender" class="form-label">{% trans "Gender" %}</label>
+                        {{ form.gender|add_class:"form-select" }}
+                    </div>
+                    <div class="col-md-4 col-lg-2">
+                        <label for="id_age_min" class="form-label">{% trans "Min Age" %}</label>
+                        {{ form.age_min|add_class:"form-control" }}
+                    </div>
+                    <div class="col-md-4 col-lg-2">
+                        <label for="id_age_max" class="form-label">{% trans "Max age" %}</label>
+                        {{ form.age_max|add_class:"form-control" }}
+                    </div>
+                    <div class="col-md-6 col-lg-2">
+                        <label for="id_date_min" class="form-label">{% trans "From date" %}</label>
+                        {{ form.date_min|add_class:"form-control" }}
+                    </div>
+                    <div class="col-md-6 col-lg-2">
+                        <label for="id_date_max" class="form-label">{% trans "To date" %}</label>
+                        {{ form.date_max|add_class:"form-control" }}
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <label for="id_pathology" class="form-label">{% trans "Pathology" %}</label>
+                        {{ form.pathology|add_class:"form-select" }}
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <label for="id_pathology_threshold" class="form-label">{% trans "Min Probability" %}</label>
+                        {{ form.pathology_threshold|add_class:"form-control" }}
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <label for="id_records_per_page" class="form-label">{% trans "Records per page" %}</label>
+                        {{ form.records_per_page|add_class:"form-select" }}
+                    </div>
+                    <div class="col-md-12 mt-4">
+                        <div class="filter-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-filter me-1"></i> {% trans "Apply filters" %}
+                            </button>
+                            <a href="{% url 'saved_records' %}" class="btn btn-outline-secondary">
+                                <i class="fas fa-times me-1"></i> {% trans "Clear filters" %}
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+            
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">{% trans "Saved Records" %}</h5>
+                <div class="d-flex align-items-center">
+                    <span class="badge bg-primary me-3">{{ total_count }} {% trans "Saved Records" %}</span>
+                    {% if total_count > 0 %}
+                    <a href="{% url 'prediction_history' %}" class="btn btn-sm btn-outline-primary">
+                        <i class="fas fa-history me-1"></i> {% trans "View all history" %}
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="card-body">
+                {% if saved_records %}
+                
+                <!-- Desktop Table View -->
+                <div class="table-responsive d-none d-lg-block">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>{% trans "Patient" %}</th>
+                                <th>{% trans "ID" %}</th>
+                                <th>{% trans "Gender" %}</th>
+                                <th>{% trans "Date of birth" %}</th>
+                                <th>{% trans "X-ray date" %}</th>
+                                <th>{% trans "Severity" %}</th>
+                                <th>{% trans "Technologist" %}</th>
+                                <th>{% trans "Prediction date" %}</th>
+                                <th>{% trans "Saved date" %}</th>
+                                <th>{% trans "Actions" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for saved_record in saved_records %}
+                            <tr>
+                                <td>{{ saved_record.prediction_history.xray.get_patient_display }}</td>
+                                <td>{{ saved_record.prediction_history.xray.patient_id|default:"-" }}</td>
+                                <td>{{ saved_record.prediction_history.xray.gender|title|default:"-" }}</td>
+                                <td>{{ saved_record.prediction_history.xray.date_of_birth|date:"Y-m-d"|default:"-" }}</td>
+                                <td>{{ saved_record.prediction_history.xray.date_of_xray|date:"Y-m-d"|default:"-" }}</td>
+                                <td>
+                                    {% with severity_level=saved_record.prediction_history|get_severity_level %}
+                                        <span class="{{ severity_level|get_severity_color }}">
+                                            {{ saved_record.prediction_history|get_severity_label }}
+                                        </span>
+                                    {% endwith %}
+                                </td>
+                                <td>
+                                    {% if saved_record.prediction_history.xray.technologist_first_name or saved_record.prediction_history.xray.technologist_last_name %}
+                                        {{ saved_record.prediction_history.xray.technologist_first_name }} {{ saved_record.prediction_history.xray.technologist_last_name }}
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </td>
+                                <td>{{ saved_record.prediction_history.created_at|date:"Y-m-d H:i" }}</td>
+                                <td>{{ saved_record.saved_at|date:"Y-m-d H:i" }}</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="{% url 'xray_results' saved_record.prediction_history.xray.id %}" class="btn btn-sm btn-primary">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="{% url 'edit_prediction_history' saved_record.prediction_history.id %}" class="btn btn-sm btn-warning">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <button type="button" class="btn btn-sm btn-outline-danger save-toggle-btn" 
+                                                data-record-id="{{ saved_record.prediction_history.id }}" 
+                                                data-saved="true"
+                                                title="{% trans 'Remove from saved' %}">
+                                            <i class="fas fa-star"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Mobile Card View -->
+                <div class="d-lg-none">
+                    {% for saved_record in saved_records %}
+                    <div class="card mb-3 history-card-mobile">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h6 class="card-title mb-2">
+                                        <i class="fas fa-user me-2"></i>{{ saved_record.prediction_history.xray.get_patient_display }}
+                                        <i class="fas fa-star text-warning float-end"></i>
+                                    </h6>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-2">
+                                <div class="col-6">
+                                    <small class="text-muted">{% trans "Patient ID:" %}</small><br>
+                                    <span>{{ saved_record.prediction_history.xray.patient_id|default:"-" }}</span>
+                                </div>
+                                <div class="col-6">
+                                    <small class="text-muted">{% trans "Gender:" %}</small><br>
+                                    <span>{{ saved_record.prediction_history.xray.gender|title|default:"-" }}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-2">
+                                <div class="col-6">
+                                    <small class="text-muted">{% trans "Date of Birth:" %}</small><br>
+                                    <span>{{ saved_record.prediction_history.xray.date_of_birth|date:"Y-m-d"|default:"-" }}</span>
+                                </div>
+                                <div class="col-6">
+                                    <small class="text-muted">{% trans "X-ray Date:" %}</small><br>
+                                    <span>{{ saved_record.prediction_history.xray.date_of_xray|date:"Y-m-d"|default:"-" }}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-2">
+                                <div class="col-6">
+                                    <small class="text-muted">{% trans "Severity:" %}</small><br>
+                                    {% with severity_level=saved_record.prediction_history|get_severity_level %}
+                                        <span class="{{ severity_level|get_severity_color }}">
+                                            {{ saved_record.prediction_history|get_severity_label }}
+                                        </span>
+                                    {% endwith %}
+                                </div>
+                                <div class="col-6">
+                                    <small class="text-muted">{% trans "Technologist:" %}</small><br>
+                                    <span>
+                                        {% if saved_record.prediction_history.xray.technologist_first_name or saved_record.prediction_history.xray.technologist_last_name %}
+                                            {{ saved_record.prediction_history.xray.technologist_first_name }} {{ saved_record.prediction_history.xray.technologist_last_name }}
+                                        {% else %}
+                                            -
+                                        {% endif %}
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-2">
+                                <div class="col-6">
+                                    <small class="text-muted">{% trans "Prediction Date:" %}</small><br>
+                                    <span>{{ saved_record.prediction_history.created_at|date:"Y-m-d H:i" }}</span>
+                                </div>
+                                <div class="col-6">
+                                    <small class="text-muted">{% trans "Saved Date:" %}</small><br>
+                                    <span>{{ saved_record.saved_at|date:"Y-m-d H:i" }}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <a href="{% url 'xray_results' saved_record.prediction_history.xray.id %}" class="btn btn-sm btn-primary">
+                                            <i class="fas fa-eye me-1"></i> {% trans "View" %}
+                                        </a>
+                                        <a href="{% url 'edit_prediction_history' saved_record.prediction_history.id %}" class="btn btn-sm btn-warning">
+                                            <i class="fas fa-edit me-1"></i> {% trans "Edit" %}
+                                        </a>
+                                        <button type="button" class="btn btn-sm btn-outline-danger save-toggle-btn" 
+                                                data-record-id="{{ saved_record.prediction_history.id }}" 
+                                                data-saved="true">
+                                            <i class="fas fa-star me-1"></i> {% trans "Unsave" %}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                {% else %}
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    {% trans "You haven't saved any records yet." %} 
+                    <a href="{% url 'prediction_history' %}" class="alert-link">{% trans "Go to prediction history to save records." %}</a>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Pagination Controls -->
+            {% if saved_records.has_other_pages %}
+            <div class="card-footer">
+                <nav aria-label="{% trans 'Saved records pagination' %}">
+                                         <div class="d-flex justify-content-center flex-wrap gap-1 mb-3">
+                         {% if saved_records.has_previous %}
+                             <a class="btn btn-outline-secondary btn-sm" href="?{% for key, value in request.GET.items %}{% if key != 'page' %}{{ key }}={{ value }}&{% endif %}{% endfor %}page=1" aria-label="{% trans 'First' %}" title="{% trans 'First page' %}">
+                                 <i class="fas fa-angle-double-left"></i>
+                             </a>
+                             <a class="btn btn-outline-secondary btn-sm" href="?{% for key, value in request.GET.items %}{% if key != 'page' %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ saved_records.previous_page_number }}" aria-label="{% trans 'Previous' %}" title="{% trans 'Previous page' %}">
+                                 <i class="fas fa-angle-left"></i>
+                             </a>
+                         {% endif %}
+
+                         {% for num in saved_records.paginator.page_range %}
+                             {% if saved_records.number == num %}
+                                 <span class="btn btn-primary btn-sm active">{{ num }}</span>
+                             {% elif num > saved_records.number|add:'-3' and num < saved_records.number|add:'3' %}
+                                 <a class="btn btn-outline-secondary btn-sm" href="?{% for key, value in request.GET.items %}{% if key != 'page' %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ num }}">{{ num }}</a>
+                             {% endif %}
+                         {% endfor %}
+
+                         {% if saved_records.has_next %}
+                             <a class="btn btn-outline-secondary btn-sm" href="?{% for key, value in request.GET.items %}{% if key != 'page' %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ saved_records.next_page_number }}" aria-label="{% trans 'Next' %}" title="{% trans 'Next page' %}">
+                                 <i class="fas fa-angle-right"></i>
+                             </a>
+                             <a class="btn btn-outline-secondary btn-sm" href="?{% for key, value in request.GET.items %}{% if key != 'page' %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ saved_records.paginator.num_pages }}" aria-label="{% trans 'Last' %}" title="{% trans 'Last page' %}">
+                                 <i class="fas fa-angle-double-right"></i>
+                             </a>
+                         {% endif %}
+                     </div>
+                </nav>
+                
+                <div class="text-center">
+                    <small class="text-muted">
+                        {% trans "Showing" %} {{ saved_records.start_index }} - {{ saved_records.end_index }} {% trans "of" %} {{ saved_records.paginator.count }} {% trans "saved records" %}
+                    </small>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        
+        <div class="text-center mt-4 mb-4">
+            <a href="{% url 'prediction_history' %}" class="btn btn-outline-primary me-2">
+                <i class="fas fa-history me-1"></i> {% trans "View all history" %}
+            </a>
+            <a href="{% url 'home' %}" class="btn btn-primary">
+                <i class="fas fa-upload me-1"></i> {% trans "Upload new X-ray" %}
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Ensure date inputs use YYYY-MM-DD format
+    const dateMinField = document.getElementById('id_date_min');
+    const dateMaxField = document.getElementById('id_date_max');
+    
+    // Force YYYY-MM-DD format for all date fields
+    const formatDate = (date) => {
+      if (!date) return '';
+      const parts = date.split(/[-\/]/);
+      
+      // If format is MM/DD/YYYY, convert to YYYY-MM-DD
+      if (parts.length === 3) {
+        if (parts[2].length === 4) { // Likely MM/DD/YYYY format
+          return `${parts[2]}-${parts[0].padStart(2, '0')}-${parts[1].padStart(2, '0')}`;
+        } else {
+          // Already YYYY-MM-DD or similar
+          return `${parts[0]}-${parts[1].padStart(2, '0')}-${parts[2].padStart(2, '0')}`;
+        }
+      }
+      return date; // return original if cannot parse
+    };
+    
+    // Process date inputs
+    [dateMinField, dateMaxField].forEach(field => {
+      if (field) {
+        // Format existing value if needed
+        if (field.value) {
+          field.value = formatDate(field.value);
+        }
+        
+        // Set placeholder explicitly (in case the form widget doesn't)
+        field.setAttribute('placeholder', 'YYYY-MM-DD');
+        
+        field.addEventListener('focus', function() {
+          this.setAttribute('data-original-value', this.value);
+        });
+        
+        field.addEventListener('blur', function() {
+          if (this.value) {
+            this.value = formatDate(this.value);
+            
+            // Validate date format
+            const isValidDate = /^\d{4}-\d{2}-\d{2}$/.test(this.value);
+            if (!isValidDate) {
+              this.value = this.getAttribute('data-original-value') || '';
+              alert('Please use the YYYY-MM-DD format for dates');
+            }
+          }
+        });
+        
+        // Add helper text below the field if not already present
+        if (!field.nextElementSibling || !field.nextElementSibling.classList.contains('date-format-help')) {
+          const helpText = document.createElement('div');
+          helpText.className = 'form-text text-muted date-format-help';
+          field.parentNode.appendChild(helpText);
+        }
+      }
+    });
+    
+    // Auto-submit form when records per page changes
+    const recordsPerPageSelect = document.getElementById('id_records_per_page');
+    if (recordsPerPageSelect) {
+      recordsPerPageSelect.addEventListener('change', function() {
+        this.form.submit();
+      });
+    }
+    
+    // Handle save/unsave functionality
+    const saveButtons = document.querySelectorAll('.save-toggle-btn');
+    
+    saveButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const recordId = this.getAttribute('data-record-id');
+            const isSaved = this.getAttribute('data-saved') === 'true';
+            
+            // Disable button during request
+            this.disabled = true;
+            
+            fetch(`/prediction-history/${recordId}/toggle-save/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    if (data.saved) {
+                        // Record was saved
+                        this.setAttribute('data-saved', 'true');
+                        this.classList.remove('btn-outline-warning');
+                        this.classList.add('btn-outline-danger');
+                        this.querySelector('i').classList.add('fas');
+                        this.querySelector('i').classList.remove('far');
+                        this.title = 'Remove from saved';
+                        if (this.querySelector('.btn-text')) {
+                            this.querySelector('.btn-text').textContent = 'Unsave';
+                        }
+                    } else {
+                        // Record was unsaved - remove the row from this page since it's no longer saved
+                        location.reload(); // Reload to remove the unsaved record from the list
+                    }
+                } else {
+                    console.error('Error:', data.error);
+                    alert('Error: ' + data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            })
+            .finally(() => {
+                this.disabled = false;
+            });
+        });
+    });
+});
+</script>
+{% endblock %} 
