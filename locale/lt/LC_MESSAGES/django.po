@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MCADS 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-11 21:15+0300\n"
+"POT-Creation-Date: 2025-07-17 12:45+0300\n"
 "PO-Revision-Date: 2025-07-08 23:30+0300\n"
 "Last-Translator: MCADS Team\n"
 "Language-Team: Lithuanian\n"
@@ -24,7 +24,7 @@ msgstr ""
 msgid "No Profile"
 msgstr "Nėra profilio"
 
-#: .\xrayapp\admin.py:40 .\xrayapp\admin.py:262
+#: .\xrayapp\admin.py:40 .\xrayapp\admin.py:261
 msgid "Role"
 msgstr "Vaidmuo"
 
@@ -68,12 +68,12 @@ msgstr "Vaidmuo nustato, kokius veiksmus naudotojas gali atlikti sistemoje."
 msgid "Preferences"
 msgstr "Nustatymai"
 
-#: .\xrayapp\admin.py:103 .\xrayapp\templates\xrayapp\account_settings.html:146
+#: .\xrayapp\admin.py:103 .\xrayapp\templates\xrayapp\account_settings.html:221
 msgid "Notifications"
 msgstr "Pranešimai"
 
 #: .\xrayapp\admin.py:107 .\xrayapp\templates\xrayapp\account_settings.html:52
-#: .\xrayapp\templates\xrayapp\account_settings.html:169
+#: .\xrayapp\templates\xrayapp\account_settings.html:244
 msgid "Security"
 msgstr "Saugumas"
 
@@ -105,11 +105,11 @@ msgstr "Supernaudotojas"
 msgid "Edit User Details"
 msgstr "Redaguoti naudotojo duomenis"
 
-#: .\xrayapp\admin.py:141 .\xrayapp\admin.py:205
+#: .\xrayapp\admin.py:141 .\xrayapp\admin.py:204
 msgid "User Information"
 msgstr "Naudotojo informacija"
 
-#: .\xrayapp\admin.py:147 .\xrayapp\templates\xrayapp\base.html:62
+#: .\xrayapp\admin.py:147
 msgid "Admin"
 msgstr "Administracija"
 
@@ -118,12 +118,15 @@ msgid "Upload"
 msgstr "Įkelti"
 
 #: .\xrayapp\admin.py:151
-#: .\xrayapp\templates\xrayapp\prediction_history.html:192
+#: .\xrayapp\templates\xrayapp\prediction_history.html:214
+#: .\xrayapp\templates\xrayapp\saved_records.html:218
 msgid "Edit"
 msgstr "Redaguoti"
 
 #: .\xrayapp\admin.py:153
-#: .\xrayapp\templates\xrayapp\prediction_history.html:195
+#: .\xrayapp\templates\xrayapp\prediction_history.html:223
+#: .\xrayapp\templates\xrayapp\prediction_history.html:244
+#: .\xrayapp\templates\xrayapp\prediction_history.html:267
 msgid "Delete"
 msgstr "Šalinti"
 
@@ -160,320 +163,403 @@ msgid "Generate Interpretability"
 msgstr "Generuoti interpretavimą"
 
 #: .\xrayapp\admin.py:167
-msgid "View Interpretability"
-msgstr "Peržiūrėti interpretavimą"
-
-#: .\xrayapp\admin.py:168
 msgid "Manage Users"
 msgstr "Valdyti naudotojus"
 
-#: .\xrayapp\admin.py:178
+#: .\xrayapp\admin.py:177
 msgid "Role Permissions"
 msgstr "Vaidmens leidimai"
 
-#: .\xrayapp\admin.py:208
+#: .\xrayapp\admin.py:207
 msgid "Patient Information"
 msgstr "Paciento informacija"
 
-#: .\xrayapp\admin.py:211
+#: .\xrayapp\admin.py:210
 msgid "Image Processing"
 msgstr "Nuotraukos apdorojimas"
 
-#: .\xrayapp\admin.py:214
+#: .\xrayapp\admin.py:213
 msgid "Pathology Predictions"
 msgstr "Patologijos prognozės"
 
-#: .\xrayapp\admin.py:224
+#: .\xrayapp\admin.py:223
 msgid "Interpretability Visualizations"
 msgstr "Interpretavimo vizualizacijos"
 
-#: .\xrayapp\admin.py:251 .\xrayapp\admin.py:315
+#: .\xrayapp\admin.py:250 .\xrayapp\admin.py:314
 msgid "User (Role)"
 msgstr "Naudotojas (vaidmuo)"
 
-#: .\xrayapp\admin.py:263
+#: .\xrayapp\admin.py:262
 msgid "Can Edit Predictions"
 msgstr "Gali redaguoti prognozes"
 
-#: .\xrayapp\admin.py:264
+#: .\xrayapp\admin.py:263
 msgid "Can Delete"
 msgstr "Gali šalinti"
 
-#: .\xrayapp\admin.py:267
+#: .\xrayapp\admin.py:266
 msgid "No profile information available"
 msgstr "Profilio informacija nepasiekiama"
 
-#: .\xrayapp\admin.py:268
+#: .\xrayapp\admin.py:267
 msgid "User Role Info"
 msgstr "Naudotojo vaidmens informacija"
 
-#: .\xrayapp\admin.py:274 .\xrayapp\admin.py:322
+#: .\xrayapp\admin.py:273 .\xrayapp\admin.py:321
 msgid "Insignificant"
 msgstr "Nereikšmingi radiniai"
 
-#: .\xrayapp\admin.py:276 .\xrayapp\admin.py:324
+#: .\xrayapp\admin.py:275 .\xrayapp\admin.py:323
 msgid "Moderate"
 msgstr "Vidutinio sunkumo radiniai"
 
-#: .\xrayapp\admin.py:278 .\xrayapp\admin.py:326
+#: .\xrayapp\admin.py:277 .\xrayapp\admin.py:325
 msgid "Significant"
 msgstr "Reikšmingi radiniai"
 
-#: .\xrayapp\admin.py:279 .\xrayapp\admin.py:327 .\xrayapp\models.py:149
-#: .\xrayapp\models.py:273
-#: .\xrayapp\templates\xrayapp\interpretability.html:216
-#: .\xrayapp\templates\xrayapp\interpretability.html:287
-#: .\xrayapp\templates\xrayapp\results.html:441
-#: .\xrayapp\templatetags\xrayapp_extras.py:97 .\xrayapp\views.py:480
-#: .\xrayapp\views.py:709
+#: .\xrayapp\admin.py:278 .\xrayapp\admin.py:326 .\xrayapp\models.py:153
+#: .\xrayapp\models.py:277 .\xrayapp\templates\xrayapp\results.html:604
+#: .\xrayapp\templatetags\xrayapp_extras.py:97 .\xrayapp\views.py:617
 msgid "Unknown"
 msgstr "Nežinoma"
 
-#: .\xrayapp\admin.py:280 .\xrayapp\admin.py:328
-#: .\xrayapp\templates\xrayapp\prediction_history.html:86
+#: .\xrayapp\admin.py:279 .\xrayapp\admin.py:327
+#: .\xrayapp\templates\xrayapp\prediction_history.html:90
+#: .\xrayapp\templates\xrayapp\saved_records.html:90
 msgid "Severity"
 msgstr "Sunkumas"
 
-#: .\xrayapp\admin.py:332
+#: .\xrayapp\admin.py:340 .\xrayapp\templates\xrayapp\account_settings.html:97
+msgid "Basic Information"
+msgstr "Pagrindinė informacija"
+
+#: .\xrayapp\admin.py:343
+msgid "File Paths"
+msgstr ""
+
+#: .\xrayapp\admin.py:346
+#, fuzzy
+#| msgid "Image Metadata"
+msgid "Metadata"
+msgstr "Nuotraukos metaduomenys"
+
+#: .\xrayapp\admin.py:349 .\xrayapp\admin.py:372
+msgid "Preview"
+msgstr ""
+
+#: .\xrayapp\admin.py:361
+#, fuzzy
+#| msgid "X-ray date"
+msgid "X-ray"
+msgstr "Rentgeno data"
+
+#: .\xrayapp\admin.py:371
+#, fuzzy
+#| msgid "No profile information available"
+msgid "No visualization available"
+msgstr "Profilio informacija nepasiekiama"
+
+#: .\xrayapp\admin.py:379
+#, fuzzy
+#| msgid "GRAD-CAM Visualization"
+msgid "Main Visualization"
+msgstr "GRAD-CAM vizualizacija"
+
+#: .\xrayapp\admin.py:381
+#, fuzzy
+#| msgid "GRAD-CAM Heatmap"
+msgid "Heatmap"
+msgstr "GRAD-CAM šilumos žemėlapis"
+
+#: .\xrayapp\admin.py:383
+#, fuzzy
+#| msgid "GRAD-CAM Overlay"
+msgid "Overlay"
+msgstr "GRAD-CAM perdanga"
+
+#: .\xrayapp\admin.py:385
+msgid "Saliency Map"
+msgstr ""
+
+#: .\xrayapp\admin.py:389
+#, fuzzy
+#| msgid "No profile information available"
+msgid "No files available"
+msgstr "Profilio informacija nepasiekiama"
+
+#: .\xrayapp\admin.py:390
+msgid "File Links"
+msgstr ""
+
+#: .\xrayapp\admin.py:394
 msgid "MCADS Administration"
 msgstr "MCADS administracija"
 
-#: .\xrayapp\admin.py:333
+#: .\xrayapp\admin.py:395
 msgid "MCADS Admin"
 msgstr "MCADS administracija"
 
-#: .\xrayapp\admin.py:334
+#: .\xrayapp\admin.py:396
 msgid "Multi-label Chest Abnormality Detection System"
 msgstr "Krūtinės anomalijų aptikimo sistema"
 
 # Form field labels and choices
-#: .\xrayapp\forms.py:22 .\xrayapp\templates\xrayapp\home.html:69
+#: .\xrayapp\forms.py:23 .\xrayapp\templates\xrayapp\home.html:68
 msgid "--Select--"
 msgstr "--Pasirinkite--"
 
-#: .\xrayapp\forms.py:22 .\xrayapp\forms.py:106
-#: .\xrayapp\templates\xrayapp\home.html:70
+#: .\xrayapp\forms.py:23 .\xrayapp\forms.py:133
+#: .\xrayapp\templates\xrayapp\home.html:69
 msgid "Male"
 msgstr "Vyras"
 
-#: .\xrayapp\forms.py:22 .\xrayapp\forms.py:106
-#: .\xrayapp\templates\xrayapp\home.html:71
+#: .\xrayapp\forms.py:23 .\xrayapp\forms.py:133
+#: .\xrayapp\templates\xrayapp\home.html:70
 msgid "Female"
 msgstr "Moteris"
 
-#: .\xrayapp\forms.py:22 .\xrayapp\forms.py:106
-#: .\xrayapp\templates\xrayapp\home.html:72
+#: .\xrayapp\forms.py:23 .\xrayapp\forms.py:133
+#: .\xrayapp\templates\xrayapp\home.html:71
 msgid "Other"
 msgstr "Kita"
 
-#: .\xrayapp\forms.py:45
+#: .\xrayapp\forms.py:58
 msgid "Image file too large. Maximum size is 10MB."
 msgstr "Nuotraukos failas per didelis. Maksimalus dydis yra 10MB."
 
-#: .\xrayapp\forms.py:59
+#: .\xrayapp\forms.py:72
 msgid "Invalid file type. Only image files are allowed."
 msgstr "Neteisingas failo tipas. Leidžiami tik nuotraukų failai."
 
-#: .\xrayapp\forms.py:70
+#: .\xrayapp\forms.py:83
 msgid ""
 "First name should only contain letters, spaces, hyphens, and apostrophes."
 msgstr ""
 "Vardas turi būti sudarytas tik iš raidžių, tarpų, brūkšnelių ir apostrofų."
 
-#: .\xrayapp\forms.py:77
+#: .\xrayapp\forms.py:90
 msgid ""
 "Last name should only contain letters, spaces, hyphens, and apostrophes."
 msgstr ""
 "Pavardė turi būti sudaryta tik iš raidžių, tarpų, brūkšnelių ir apostrofų."
 
-#: .\xrayapp\forms.py:84
+#: .\xrayapp\forms.py:97
 msgid ""
 "Patient ID should only contain letters, numbers, hyphens, and underscores."
 msgstr ""
 "Paciento ID turi būti sudarytas tik iš raidžių, skaičių, brūkšnelių ir "
 "pabraukimų."
 
-#: .\xrayapp\forms.py:91
+#: .\xrayapp\forms.py:104
 msgid "Date of birth cannot be in the future."
 msgstr "Gimimo data negali būti ateityje."
 
-#: .\xrayapp\forms.py:93
+#: .\xrayapp\forms.py:106
 msgid "Date of birth seems too old."
 msgstr "Gimimo data atrodo per sena."
 
-#: .\xrayapp\forms.py:100
+#: .\xrayapp\forms.py:113
 msgid "X-ray date cannot be in the future."
 msgstr "Rentgeno data negali būti ateityje."
 
-#: .\xrayapp\forms.py:106 .\xrayapp\forms.py:139
+#: .\xrayapp\forms.py:120
+#, fuzzy
+#| msgid ""
+#| "First name should only contain letters, spaces, hyphens, and apostrophes."
+msgid ""
+"Technologist first name should only contain letters, spaces, hyphens, and "
+"apostrophes."
+msgstr ""
+"Vardas turi būti sudarytas tik iš raidžių, tarpų, brūkšnelių ir apostrofų."
+
+#: .\xrayapp\forms.py:127
+#, fuzzy
+#| msgid ""
+#| "Last name should only contain letters, spaces, hyphens, and apostrophes."
+msgid ""
+"Technologist last name should only contain letters, spaces, hyphens, and "
+"apostrophes."
+msgstr ""
+"Pavardė turi būti sudaryta tik iš raidžių, tarpų, brūkšnelių ir apostrofų."
+
+#: .\xrayapp\forms.py:133 .\xrayapp\forms.py:177
 msgid "All"
 msgstr "Visi"
 
-#: .\xrayapp\forms.py:110
+#: .\xrayapp\forms.py:137
 msgid "Minimum Age"
 msgstr "Minimalus amžius"
 
-#: .\xrayapp\forms.py:111
+#: .\xrayapp\forms.py:138
 #: .\xrayapp\templates\xrayapp\prediction_history.html:24
+#: .\xrayapp\templates\xrayapp\saved_records.html:24
 msgid "Min Age"
 msgstr "Min. amžius"
 
-#: .\xrayapp\forms.py:113
+#: .\xrayapp\forms.py:140
 msgid "Maximum Age"
 msgstr "Maksimalus amžius"
 
-#: .\xrayapp\forms.py:114
+#: .\xrayapp\forms.py:141
 msgid "Max Age"
 msgstr "Maks. amžius"
 
-#: .\xrayapp\forms.py:116
+#: .\xrayapp\forms.py:143
 msgid "From Date"
 msgstr "Nuo datos"
 
-#: .\xrayapp\forms.py:119
+#: .\xrayapp\forms.py:146
 msgid "To Date"
 msgstr "Iki datos"
 
-#: .\xrayapp\forms.py:124
+#: .\xrayapp\forms.py:151
 #: .\xrayapp\templates\xrayapp\prediction_history.html:40
-#: .\xrayapp\templates\xrayapp\results.html:461
+#: .\xrayapp\templates\xrayapp\results.html:624
+#: .\xrayapp\templates\xrayapp\saved_records.html:40
 msgid "Pathology"
 msgstr "Patologija"
 
-#: .\xrayapp\forms.py:130
+#: .\xrayapp\forms.py:157
 msgid "Minimum Probability"
 msgstr "Minimali tikimybė"
 
+#: .\xrayapp\forms.py:170
+#: .\xrayapp\templates\xrayapp\prediction_history.html:48
+#: .\xrayapp\templates\xrayapp\saved_records.html:48
+msgid "Records per page"
+msgstr ""
+
 # Medical pathologies
-#: .\xrayapp\forms.py:140
+#: .\xrayapp\forms.py:178
 msgid "Atelectasis"
 msgstr "Atelektazė"
 
-#: .\xrayapp\forms.py:141
+#: .\xrayapp\forms.py:179
 msgid "Cardiomegaly"
 msgstr "Kardiomegalija"
 
-#: .\xrayapp\forms.py:142
+#: .\xrayapp\forms.py:180
 msgid "Consolidation"
 msgstr "Konsolidacija"
 
-#: .\xrayapp\forms.py:143
+#: .\xrayapp\forms.py:181
 msgid "Edema"
 msgstr "Edema"
 
-#: .\xrayapp\forms.py:144
+#: .\xrayapp\forms.py:182
 msgid "Effusion"
 msgstr "Išpila"
 
-#: .\xrayapp\forms.py:145
+#: .\xrayapp\forms.py:183
 msgid "Emphysema"
 msgstr "Emfizema"
 
-#: .\xrayapp\forms.py:146
+#: .\xrayapp\forms.py:184
 msgid "Fibrosis"
 msgstr "Fibrozė"
 
-#: .\xrayapp\forms.py:147
+#: .\xrayapp\forms.py:185
 msgid "Hernia"
 msgstr "Išvarža"
 
-#: .\xrayapp\forms.py:148
+#: .\xrayapp\forms.py:186
 msgid "Infiltration"
 msgstr "Infiltracija"
 
-#: .\xrayapp\forms.py:149
+#: .\xrayapp\forms.py:187
 msgid "Mass"
 msgstr "Masė"
 
-#: .\xrayapp\forms.py:150
+#: .\xrayapp\forms.py:188
 msgid "Nodule"
 msgstr "Mazgelis"
 
-#: .\xrayapp\forms.py:151
+#: .\xrayapp\forms.py:189
 msgid "Pleural Thickening"
 msgstr "Pleuros storėjimas"
 
-#: .\xrayapp\forms.py:152
+#: .\xrayapp\forms.py:190
 msgid "Pneumonia"
 msgstr "Pneumonija"
 
-#: .\xrayapp\forms.py:153
+#: .\xrayapp\forms.py:191
 msgid "Pneumothorax"
 msgstr "Pneumotoraksas"
 
-#: .\xrayapp\forms.py:154
+#: .\xrayapp\forms.py:192
 msgid "Fracture"
 msgstr "Lūžis"
 
-#: .\xrayapp\forms.py:155
+#: .\xrayapp\forms.py:193
 msgid "Lung Opacity"
 msgstr "Plaučių drumstumas"
 
-#: .\xrayapp\forms.py:156
+#: .\xrayapp\forms.py:194
 msgid "Enlarged Cardiomediastinum"
-msgstr "Išplėstas kardiomédiastinum"
+msgstr "Išsiplėtęs kardiomediastinumas"
 
-#: .\xrayapp\forms.py:157
+#: .\xrayapp\forms.py:195
 msgid "Lung Lesion"
 msgstr "Plaučių pažeidimas"
 
-#: .\xrayapp\forms.py:170
+#: .\xrayapp\forms.py:208
 msgid "Minimum age cannot be greater than maximum age."
 msgstr "Minimalus amžius negali būti didesnis už maksimalų amžių."
 
-#: .\xrayapp\forms.py:173
+#: .\xrayapp\forms.py:211
 msgid "Start date cannot be after end date."
 msgstr "Pradžios data negali būti vėlesnė už pabaigos datą."
 
-#: .\xrayapp\forms.py:209 .\xrayapp\templates\xrayapp\edit_prediction.html:23
+#: .\xrayapp\forms.py:247 .\xrayapp\templates\xrayapp\edit_prediction.html:25
 msgid "First Name"
 msgstr "Vardas"
 
-#: .\xrayapp\forms.py:210 .\xrayapp\templates\xrayapp\edit_prediction.html:27
+#: .\xrayapp\forms.py:248 .\xrayapp\templates\xrayapp\edit_prediction.html:29
 msgid "Last Name"
 msgstr "Pavardė"
 
-#: .\xrayapp\forms.py:211
+#: .\xrayapp\forms.py:249
 msgid "Email Address"
 msgstr "El. pašto adresas"
 
-#: .\xrayapp\forms.py:218
+#: .\xrayapp\forms.py:256
 msgid "This email address is already in use."
 msgstr "Šis el. pašto adresas jau naudojamas."
 
-#: .\xrayapp\forms.py:225
+#: .\xrayapp\forms.py:263
 msgid "Current Password"
 msgstr "Dabartinis slaptažodis"
 
-#: .\xrayapp\forms.py:229
+#: .\xrayapp\forms.py:267
 msgid "New Password"
 msgstr "Naujas slaptažodis"
 
-#: .\xrayapp\forms.py:234
+#: .\xrayapp\forms.py:272
 msgid "Confirm New Password"
 msgstr "Patvirtinkite naują slaptažodį"
 
-#: .\xrayapp\forms.py:245
+#: .\xrayapp\forms.py:283
 msgid "Current password is incorrect."
 msgstr "Dabartinis slaptažodis neteisingas."
 
-#: .\xrayapp\forms.py:254
+#: .\xrayapp\forms.py:292
 msgid "Password must be at least 8 characters long."
 msgstr "Slaptažodis turi būti bent 8 simbolių ilgio."
 
-#: .\xrayapp\forms.py:258
+#: .\xrayapp\forms.py:296
 msgid "Password must contain at least one digit."
 msgstr "Slaptažodis turi turėti bent vieną skaitmenį."
 
-#: .\xrayapp\forms.py:262
+#: .\xrayapp\forms.py:300
 msgid "Password must contain at least one uppercase letter."
 msgstr "Slaptažodis turi turėti bent vieną didžiąją raidę."
 
-#: .\xrayapp\forms.py:266
+#: .\xrayapp\forms.py:304
 msgid "Password must contain at least one lowercase letter."
 msgstr "Slaptažodis turi turėti bent vieną mažąją raidę."
 
-#: .\xrayapp\forms.py:277
+#: .\xrayapp\forms.py:315
 msgid "New passwords do not match."
 msgstr "Nauji slaptažodžiai nesutampa."
 
@@ -487,61 +573,79 @@ msgid "Radiographer"
 msgstr "Radiologijos technologas"
 
 #: .\xrayapp\models.py:10
+#: .\xrayapp\templates\xrayapp\prediction_history.html:91
+#: .\xrayapp\templates\xrayapp\saved_records.html:91 .\xrayapp\views.py:608
 msgid "Technologist"
 msgstr "Technologas"
-
-#: .\xrayapp\templates\xrayapp\prediction_history.html:178
-msgid "Technologist:"
-msgstr "Technologas:"
 
 #: .\xrayapp\models.py:11
 msgid "Radiologist"
 msgstr "Radiologas"
 
-#: .\xrayapp\models.py:141 .\xrayapp\models.py:265
+#: .\xrayapp\models.py:145 .\xrayapp\models.py:269
 #: .\xrayapp\templatetags\xrayapp_extras.py:86
 msgid "Insignificant findings"
 msgstr "Nereikšmingi radiniai"
 
-#: .\xrayapp\models.py:142 .\xrayapp\models.py:266
+#: .\xrayapp\models.py:146 .\xrayapp\models.py:270
 #: .\xrayapp\templatetags\xrayapp_extras.py:87
 msgid "Moderate findings"
 msgstr "Vidutinio sunkumo radiniai"
 
-#: .\xrayapp\models.py:143 .\xrayapp\models.py:267
+#: .\xrayapp\models.py:147 .\xrayapp\models.py:271
 #: .\xrayapp\templatetags\xrayapp_extras.py:88
 msgid "Significant findings"
 msgstr "Reikšmingi radiniai"
 
-#: .\xrayapp\models.py:160
+#: .\xrayapp\models.py:164
 msgid "Unknown patient"
 msgstr "Nežinomas pacientas"
 
-#: .\xrayapp\models.py:294
+#: .\xrayapp\models.py:288
+#, fuzzy
+#| msgid "GRAD-CAM Heatmap"
+msgid "GRAD-CAM"
+msgstr "GRAD-CAM šilumos žemėlapis"
+
+#: .\xrayapp\models.py:289
+#, fuzzy
+#| msgid "Pixel-level interpretability"
+msgid "Pixel-level Interpretability"
+msgstr "Pikselių lygio interpretavimas"
+
+#: .\xrayapp\models.py:290
+msgid "Combined GRAD-CAM"
+msgstr ""
+
+#: .\xrayapp\models.py:291
+msgid "Combined PLI"
+msgstr ""
+
+#: .\xrayapp\models.py:390
 msgid "System Default"
 msgstr "Sistemos numatytoji"
 
-#: .\xrayapp\models.py:294
+#: .\xrayapp\models.py:390
 msgid "Light"
 msgstr "Šviesi"
 
-#: .\xrayapp\models.py:294
+#: .\xrayapp\models.py:390
 msgid "Dark"
 msgstr "Tamsi"
 
-#: .\xrayapp\models.py:299
+#: .\xrayapp\models.py:395
 msgid "English"
 msgstr "Anglų kalba"
 
-#: .\xrayapp\models.py:299
+#: .\xrayapp\models.py:395
 msgid "Lithuanian"
 msgstr "Lietuvių kalba"
 
-#: .\xrayapp\models.py:304
+#: .\xrayapp\models.py:400
 msgid "Grid View"
 msgstr "Tinklelio vaizdas"
 
-#: .\xrayapp\models.py:304
+#: .\xrayapp\models.py:400
 msgid "List View"
 msgstr "Sąrašo vaizdas"
 
@@ -653,26 +757,28 @@ msgstr "Šliuzo laikas baigėsi"
 msgid "Upstream servers failed to respond in time."
 msgstr "Aukštesnio lygio serveriai nesugebėjo laiku atsakyti."
 
-#: .\xrayapp\templates\errors\error_base.html:67
+#: .\xrayapp\templates\errors\error_base.html:97
 msgid "Go to Homepage"
 msgstr "Eiti į pagrindinį puslapį"
 
-#: .\xrayapp\templates\errors\error_base.html:77
-#: .\xrayapp\templates\xrayapp\base.html:139
+#: .\xrayapp\templates\errors\error_base.html:109
+#: .\xrayapp\templates\xrayapp\base.html:145
 msgid "All rights reserved."
 msgstr "Visos teisės saugomos."
 
-#: .\xrayapp\templates\errors\error_base.html:77
-#: .\xrayapp\templates\xrayapp\base.html:139
-#: .\xrayapp\templates\xrayapp\home.html:36
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:60
+#: .\xrayapp\templates\errors\error_base.html:109
+#: .\xrayapp\templates\xrayapp\base.html:145
+#: .\xrayapp\templates\xrayapp\home.html:35
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:64
 msgid "and"
 msgstr "ir"
 
-#: .\xrayapp\templates\errors\error_base.html:85
-#: .\xrayapp\templates\xrayapp\base.html:155
-msgid "Powered by"
-msgstr "Veikia su"
+#: .\xrayapp\templates\errors\error_base.html:113
+#: .\xrayapp\templates\xrayapp\base.html:149
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:3
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:7
+msgid "Terms of Service"
+msgstr "Paslaugų teikimo sąlygos"
 
 # Authentication templates
 #: .\xrayapp\templates\registration\logged_out.html:11
@@ -695,7 +801,9 @@ msgstr "Prisijungti"
 #: .\xrayapp\templates\registration\login.html:16
 msgid "Your username and password didn't match. Please try again."
 msgstr ""
-"Jūsų naudotojo vardas ir slaptažodis nesutampa. Prašome bandyti dar kartą."
+"Jūsų naudotojo vardas ir slaptažodis nesutampa. Prašome bandyti dar "
+"kartą.Jūsų naudotojo vardas ir slaptažodis nesutampa. Prašome bandyti dar "
+"kartą."
 
 #: .\xrayapp\templates\registration\login.html:27
 msgid "Password"
@@ -714,10 +822,10 @@ msgid "Yes, logout"
 msgstr "Taip, atsijungti"
 
 #: .\xrayapp\templates\registration\logout.html:14
-#: .\xrayapp\templates\xrayapp\account_settings.html:277
-#: .\xrayapp\templates\xrayapp\prediction_history.html:215
-#: .\xrayapp\templates\xrayapp\prediction_history.html:238
-#: .\xrayapp\templates\xrayapp\prediction_history.html:276
+#: .\xrayapp\templates\xrayapp\account_settings.html:352
+#: .\xrayapp\templates\xrayapp\prediction_history.html:243
+#: .\xrayapp\templates\xrayapp\prediction_history.html:266
+#: .\xrayapp\templates\xrayapp\prediction_history.html:345
 msgid "Cancel"
 msgstr "Atšaukti"
 
@@ -744,7 +852,7 @@ msgstr "El. pašto adresas"
 
 #: .\xrayapp\templates\xrayapp\account_settings.html:81
 msgid "We'll never share your email with anyone else."
-msgstr "Mes niekada nedalinsimės jūsų el. paštu su kitais."
+msgstr "Mes niekada nesidalinsime jūsų el. paštu su kitais."
 
 #: .\xrayapp\templates\xrayapp\account_settings.html:86
 msgid "Save profile"
@@ -754,71 +862,184 @@ msgstr "Išsaugoti profilį"
 msgid "Account information"
 msgstr "Paskyros informacija"
 
-#: .\xrayapp\templates\xrayapp\account_settings.html:94
+#: .\xrayapp\templates\xrayapp\account_settings.html:98
 msgid "Username:"
 msgstr "Naudotojo vardas:"
 
-#: .\xrayapp\templates\xrayapp\account_settings.html:95
-msgid "Last Login:"
-msgstr "Paskutinis prisijungimas:"
+#: .\xrayapp\templates\xrayapp\account_settings.html:99
+msgid "First Name:"
+msgstr "Vardas:"
 
-#: .\xrayapp\templates\xrayapp\account_settings.html:96
+#: .\xrayapp\templates\xrayapp\account_settings.html:100
+msgid "Last Name:"
+msgstr "Pavardė:"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:101
+msgid "Email Address:"
+msgstr "El. pašto adresas:"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:107
+msgid "Professional Information"
+msgstr "Profesinė informacija"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:108
+msgid "Hospital:"
+msgstr "Ligoninė:"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:109
+msgid "Role:"
+msgstr "Vaidmuo:"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:115
+msgid "Account Status"
+msgstr "Paskyros būsena"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:116
+msgid "Status:"
+msgstr "Būsena:"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:118
+msgid "Active"
+msgstr "Aktyvus"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:120
+#, fuzzy
+#| msgid "Active"
+msgid "Inactive"
+msgstr "Aktyvus"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:124
+#, fuzzy
+#| msgid "Superuser"
+msgid "Superuser:"
+msgstr "Supernaudotojas"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:124
+#: .\xrayapp\templates\xrayapp\account_settings.html:127
+msgid "Yes"
+msgstr ""
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:127
+#, fuzzy
+#| msgid "Staff"
+msgid "Staff:"
+msgstr "Personalas"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:133
+msgid "Account Dates"
+msgstr "Paskyros datos"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:134
 msgid "Date Joined:"
 msgstr "Registracijos data:"
 
-#: .\xrayapp\templates\xrayapp\account_settings.html:114
+#: .\xrayapp\templates\xrayapp\account_settings.html:135
+msgid "Last Login:"
+msgstr "Paskutinis prisijungimas:"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:137
+msgid "Profile Created:"
+msgstr "Profilis sukurtas:"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:138
+msgid "Profile Updated:"
+msgstr "Profilis atnaujintas:"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:145
+msgid "Current Preferences"
+msgstr "Dabartiniai nustatymai"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:146
+msgid "Theme:"
+msgstr "Tema:"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:147
+msgid "Language:"
+msgstr "Kalba:"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:148
+msgid "Dashboard View:"
+msgstr "Prietaisų skydelio vaizdas:"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:149
+msgid "Email Notifications:"
+msgstr "El. pašto pranešimai:"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:151
+#: .\xrayapp\templates\xrayapp\account_settings.html:158
+#: .\xrayapp\templates\xrayapp\account_settings.html:165
+#, fuzzy
+#| msgid "Disabled"
+msgid "Enabled"
+msgstr "Išjungta"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:153
+#: .\xrayapp\templates\xrayapp\account_settings.html:160
+#: .\xrayapp\templates\xrayapp\account_settings.html:167
+msgid "Disabled"
+msgstr "Išjungta"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:156
+msgid "Processing Notifications:"
+msgstr "Apdorojimo pranešimai:"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:163
+msgid "Two-Factor Auth:"
+msgstr "Dviejų veiksnių autentifikacija:"
+
+#: .\xrayapp\templates\xrayapp\account_settings.html:189
 msgid "Appearance"
 msgstr "Išvaizda"
 
-#: .\xrayapp\templates\xrayapp\account_settings.html:116
+#: .\xrayapp\templates\xrayapp\account_settings.html:191
 msgid "Theme"
 msgstr "Tema"
 
-#: .\xrayapp\templates\xrayapp\account_settings.html:119
+#: .\xrayapp\templates\xrayapp\account_settings.html:194
 msgid "Choose your preferred theme for the application."
 msgstr "Pasirinkite norimą aplikacijos temą."
 
-#: .\xrayapp\templates\xrayapp\account_settings.html:124
+#: .\xrayapp\templates\xrayapp\account_settings.html:199
 msgid "Dashboard layout"
 msgstr "Skydelio išdėstymas"
 
-#: .\xrayapp\templates\xrayapp\account_settings.html:127
+#: .\xrayapp\templates\xrayapp\account_settings.html:202
 msgid "Select how you want items to be displayed on your dashboard."
 msgstr "Pasirinkite, kaip norite, kad elementai būtų rodomi jūsų skydelyje."
 
-#: .\xrayapp\templates\xrayapp\account_settings.html:133
+#: .\xrayapp\templates\xrayapp\account_settings.html:208
 msgid "Language & Localization"
 msgstr "Kalba ir lokalizacija"
 
-#: .\xrayapp\templates\xrayapp\account_settings.html:135
+#: .\xrayapp\templates\xrayapp\account_settings.html:210
 msgid "Language"
 msgstr "Kalba"
 
-#: .\xrayapp\templates\xrayapp\account_settings.html:138
+#: .\xrayapp\templates\xrayapp\account_settings.html:213
 msgid "Select your preferred language for the application."
 msgstr "Pasirinkite norimą aplikacijos kalbą."
 
-#: .\xrayapp\templates\xrayapp\account_settings.html:150
+#: .\xrayapp\templates\xrayapp\account_settings.html:225
 msgid "Receive email notifications"
 msgstr "Gauti el. pašto pranešimus"
 
-#: .\xrayapp\templates\xrayapp\account_settings.html:153
+#: .\xrayapp\templates\xrayapp\account_settings.html:228
 msgid "Get notifications about important updates and changes."
 msgstr "Gaukite pranešimus apie svarbius atnaujinimus ir pakeitimus."
 
-#: .\xrayapp\templates\xrayapp\account_settings.html:160
+#: .\xrayapp\templates\xrayapp\account_settings.html:235
 msgid "Notify when image processing is complete"
 msgstr "Pranešti, kai vaizdų apdorojimas baigtas"
 
-#: .\xrayapp\templates\xrayapp\account_settings.html:163
+#: .\xrayapp\templates\xrayapp\account_settings.html:238
 msgid "Receive notifications when X-ray image processing is finished."
 msgstr "Gaukite pranešimus, kai rentgeno vaizdų apdorojimas baigtas."
 
-#: .\xrayapp\templates\xrayapp\account_settings.html:173
+#: .\xrayapp\templates\xrayapp\account_settings.html:248
 msgid "Enable Two-factor authentication"
 msgstr "Įjungti dviejų veiksnių autentifikavimą"
 
-#: .\xrayapp\templates\xrayapp\account_settings.html:176
+#: .\xrayapp\templates\xrayapp\account_settings.html:251
 msgid ""
 "Two-factor authentication adds an extra layer of security to your account. "
 "In addition to your password, you'll need a code from your phone to log in."
@@ -827,67 +1048,66 @@ msgstr ""
 "paskyroje. Be slaptažodžio, jums reikės kodo iš telefono, kad "
 "prisijungtumėte."
 
-#: .\xrayapp\templates\xrayapp\account_settings.html:183
+#: .\xrayapp\templates\xrayapp\account_settings.html:258
 msgid "Save preferences"
 msgstr "Išsaugoti nustatymus"
 
-#: .\xrayapp\templates\xrayapp\account_settings.html:196
-#: .\xrayapp\templates\xrayapp\account_settings.html:229
+#: .\xrayapp\templates\xrayapp\account_settings.html:271
+#: .\xrayapp\templates\xrayapp\account_settings.html:304
 msgid "Change password"
 msgstr "Keisti slaptažodį"
 
-#: .\xrayapp\templates\xrayapp\account_settings.html:201
+#: .\xrayapp\templates\xrayapp\account_settings.html:276
 msgid "Current password"
 msgstr "Dabartinis slaptažodis"
 
-#: .\xrayapp\templates\xrayapp\account_settings.html:211
+#: .\xrayapp\templates\xrayapp\account_settings.html:286
 msgid "New password"
 msgstr "Naujas slaptažodis"
 
-#: .\xrayapp\templates\xrayapp\account_settings.html:214
+#: .\xrayapp\templates\xrayapp\account_settings.html:289
 msgid "Create a strong password with a mix of letters, numbers, and symbols."
 msgstr "Sukurkite stiprų slaptažodį su raidžių, skaičių ir simbolių deriniu."
 
-#: .\xrayapp\templates\xrayapp\account_settings.html:219
+#: .\xrayapp\templates\xrayapp\account_settings.html:294
 msgid "Confirm new password"
 msgstr "Patvirtinkite naują slaptažodį"
 
-#: .\xrayapp\templates\xrayapp\account_settings.html:237
+#: .\xrayapp\templates\xrayapp\account_settings.html:312
 msgid "Danger Zone"
 msgstr "Pavojaus zona"
 
-#: .\xrayapp\templates\xrayapp\account_settings.html:240
-#: .\xrayapp\templates\xrayapp\account_settings.html:245
-#: .\xrayapp\templates\xrayapp\account_settings.html:278
+#: .\xrayapp\templates\xrayapp\account_settings.html:315
+#: .\xrayapp\templates\xrayapp\account_settings.html:320
+#: .\xrayapp\templates\xrayapp\account_settings.html:353
 msgid "Delete account"
 msgstr "Ištrinti paskyrą"
 
-#: .\xrayapp\templates\xrayapp\account_settings.html:242
+#: .\xrayapp\templates\xrayapp\account_settings.html:317
 msgid ""
 "Once you delete your account, there is no going back. Please be certain."
-msgstr "Kai ištrinate savo paskyrą, kelio atgal nėra. Būkite tikri."
+msgstr "Kai ištrinate savo paskyrą, kelio atgal nėra. Būkite užtikrinti."
 
-#: .\xrayapp\templates\xrayapp\account_settings.html:264
+#: .\xrayapp\templates\xrayapp\account_settings.html:339
 msgid "Delete Account"
 msgstr "Ištrinti paskyrą"
 
 # Account Settings translations
-#: .\xrayapp\templates\xrayapp\account_settings.html:266
-#: .\xrayapp\templates\xrayapp\home.html:239
-#: .\xrayapp\templates\xrayapp\interpretability.html:386
-#: .\xrayapp\templates\xrayapp\results.html:623
+#: .\xrayapp\templates\xrayapp\account_settings.html:341
+#: .\xrayapp\templates\xrayapp\home.html:261
+#: .\xrayapp\templates\xrayapp\results.html:954
 msgid "Close"
 msgstr "Uždaryti"
 
-#: .\xrayapp\templates\xrayapp\account_settings.html:269
+#: .\xrayapp\templates\xrayapp\account_settings.html:344
 msgid "Are you absolutely sure you want to delete your account?"
 msgstr "Ar tikrai norite ištrinti savo paskyrą?"
 
-#: .\xrayapp\templates\xrayapp\account_settings.html:270
+#: .\xrayapp\templates\xrayapp\account_settings.html:345
 msgid "Warning:"
 msgstr "Įspėjimas:"
 
-#: .\xrayapp\templates\xrayapp\account_settings.html:270
+#: .\xrayapp\templates\xrayapp\account_settings.html:345
 msgid ""
 "This action cannot be undone. This will permanently delete your account and "
 "all data associated with it."
@@ -895,106 +1115,141 @@ msgstr ""
 "Šis veiksmas negalės būti atšauktas. Tai visam laikui ištrins jūsų paskyrą "
 "ir visus su ja susijusius duomenis."
 
-#: .\xrayapp\templates\xrayapp\account_settings.html:272
+#: .\xrayapp\templates\xrayapp\account_settings.html:347
 msgid "Type \\"
-msgstr ""
+msgstr "Įveskite \""
 
-#: .\xrayapp\templates\xrayapp\account_settings.html:273
+#: .\xrayapp\templates\xrayapp\account_settings.html:348
 msgid "DELETE"
 msgstr "DELETE"
 
-#: .\xrayapp\templates\xrayapp\base.html:51
+#: .\xrayapp\templates\xrayapp\base.html:52
 msgid "Home"
 msgstr "Pagrindinis"
 
-#: .\xrayapp\templates\xrayapp\base.html:56
+#: .\xrayapp\templates\xrayapp\base.html:57
 #: .\xrayapp\templates\xrayapp\prediction_history.html:11
 msgid "Prediction history"
 msgstr "Prognozių istorija"
 
-#: .\xrayapp\templates\xrayapp\base.html:80
+#: .\xrayapp\templates\xrayapp\base.html:62
+#: .\xrayapp\templates\xrayapp\saved_records.html:11
+msgid "Saved records"
+msgstr "Išsaugoti įrašai"
+
+#: .\xrayapp\templates\xrayapp\base.html:74
 msgid "Account settings"
 msgstr "Paskyros nustatymai"
 
-#: .\xrayapp\templates\xrayapp\base.html:82
-msgid "Admin Panel"
-msgstr "Administracijos skydas"
-
-#: .\xrayapp\templates\xrayapp\base.html:84
+#: .\xrayapp\templates\xrayapp\base.html:78
 msgid "Logout"
 msgstr "Atsijungti"
 
-#: .\xrayapp\templates\xrayapp\base.html:89
+#: .\xrayapp\templates\xrayapp\base.html:84
 msgid "Login"
 msgstr "Prisijungti"
 
-#: .\xrayapp\templates\xrayapp\base.html:96
-msgid "Change language"
-msgstr "Keisti kalbą"
+# Language switch button translations
+#: .\xrayapp\templates\xrayapp\base.html:93
+msgid "LT"
+msgstr "LT"
 
-#: .\xrayapp\templates\xrayapp\base.html:143
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:3
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:13
-msgid "Terms of Service"
-msgstr "Paslaugų teikimo sąlygos"
+#: .\xrayapp\templates\xrayapp\base.html:95
+msgid "EN"
+msgstr "EN"
 
-#: .\xrayapp\templates\xrayapp\base.html:147
+#: .\xrayapp\templates\xrayapp\base.html:153
 msgid "Server time"
 msgstr "Serverio laikas"
 
-#: .\xrayapp\templates\xrayapp\edit_prediction.html:11
-msgid "Edit prediction record"
+#: .\xrayapp\templates\xrayapp\base.html:161
+msgid "Powered by"
+msgstr "Veikia su"
+
+#: .\xrayapp\templates\xrayapp\edit_prediction.html:5
+#, fuzzy
+#| msgid "Edit Predictions"
+msgid "Edit prediction"
+msgstr "Redaguoti prognozes"
+
+#: .\xrayapp\templates\xrayapp\edit_prediction.html:12
+#, fuzzy
+#| msgid "Edit prediction record"
+msgid "Edit prediction for"
 msgstr "Redaguoti prognozės įrašą"
 
-#: .\xrayapp\templates\xrayapp\edit_prediction.html:15
-msgid "Edit Patient Information"
-msgstr "Redaguoti paciento informaciją"
+#: .\xrayapp\templates\xrayapp\edit_prediction.html:16
+#, fuzzy
+#| msgid "X-ray Date:"
+msgid "X-ray taken on:"
+msgstr "Rentgeno data:"
 
-#: .\xrayapp\templates\xrayapp\edit_prediction.html:34 .\xrayapp\views.py:465
-msgid "Patient ID"
-msgstr "Paciento ID"
+#: .\xrayapp\templates\xrayapp\edit_prediction.html:17
+#, fuzzy
+#| msgid "Uploaded on"
+msgid "Uploaded on:"
+msgstr "Įkelta"
 
-#: .\xrayapp\templates\xrayapp\edit_prediction.html:38
-#: .\xrayapp\templates\xrayapp\prediction_history.html:20
-#: .\xrayapp\templates\xrayapp\prediction_history.html:83
-#: .\xrayapp\views.py:467
-msgid "Gender"
-msgstr "Lytis"
-
-#: .\xrayapp\templates\xrayapp\edit_prediction.html:42
-#: .\xrayapp\templates\xrayapp\prediction_history.html:84
-msgid "Date of birth"
-msgstr "Gimimo data"
-
-#: .\xrayapp\templates\xrayapp\edit_prediction.html:49
-msgid "Date of X-ray"
-msgstr "Rentgeno data"
-
-#: .\xrayapp\templates\xrayapp\edit_prediction.html:53
-msgid "Additional information"
-msgstr "Papildoma informacija"
-
-#: .\xrayapp\templates\xrayapp\edit_prediction.html:60
-msgid "Back to history"
-msgstr "Grįžti į istoriją"
-
-#: .\xrayapp\templates\xrayapp\edit_prediction.html:63
-msgid "Save changes"
-msgstr "Išsaugoti pakeitimus"
-
-#: .\xrayapp\templates\xrayapp\edit_prediction.html:72
-msgid "Prediction details"
-msgstr "Prognozės detalės"
-
-#: .\xrayapp\templates\xrayapp\edit_prediction.html:77
+#: .\xrayapp\templates\xrayapp\edit_prediction.html:18
+#: .\xrayapp\templates\xrayapp\edit_prediction.html:90
 msgid "Model used:"
 msgstr "Naudojamas modelis:"
 
-#: .\xrayapp\templates\xrayapp\edit_prediction.html:78
+#: .\xrayapp\templates\xrayapp\edit_prediction.html:36 .\xrayapp\views.py:601
+msgid "Patient ID"
+msgstr "Paciento ID"
+
+#: .\xrayapp\templates\xrayapp\edit_prediction.html:40
+#: .\xrayapp\templates\xrayapp\prediction_history.html:20
+#: .\xrayapp\templates\xrayapp\prediction_history.html:87
+#: .\xrayapp\templates\xrayapp\saved_records.html:20
+#: .\xrayapp\templates\xrayapp\saved_records.html:87 .\xrayapp\views.py:603
+msgid "Gender"
+msgstr "Lytis"
+
+#: .\xrayapp\templates\xrayapp\edit_prediction.html:44
+#: .\xrayapp\templates\xrayapp\prediction_history.html:88
+#: .\xrayapp\templates\xrayapp\saved_records.html:88
+msgid "Date of birth"
+msgstr "Gimimo data"
+
+#: .\xrayapp\templates\xrayapp\edit_prediction.html:51
+msgid "Date of X-ray"
+msgstr "Rentgeno data"
+
+#: .\xrayapp\templates\xrayapp\edit_prediction.html:55
+msgid "Additional information"
+msgstr "Papildoma informacija"
+
+#: .\xrayapp\templates\xrayapp\edit_prediction.html:62
+#, fuzzy
+#| msgid "Technologist first name:"
+msgid "Technologist First Name"
+msgstr "Technologo vardas:"
+
+#: .\xrayapp\templates\xrayapp\edit_prediction.html:66
+#, fuzzy
+#| msgid "Technologist last name:"
+msgid "Technologist Last Name"
+msgstr "Technologo pavardė:"
+
+#: .\xrayapp\templates\xrayapp\edit_prediction.html:73
+msgid "Back to history"
+msgstr "Grįžti į istoriją"
+
+#: .\xrayapp\templates\xrayapp\edit_prediction.html:76
+msgid "Save changes"
+msgstr "Išsaugoti pakeitimus"
+
+#: .\xrayapp\templates\xrayapp\edit_prediction.html:85
+msgid "Prediction details"
+msgstr "Prognozės detalės"
+
+#: .\xrayapp\templates\xrayapp\edit_prediction.html:91
 msgid "Prediction date:"
 msgstr "Prognozės data:"
 
-#: .\xrayapp\templates\xrayapp\edit_prediction.html:83
+#: .\xrayapp\templates\xrayapp\edit_prediction.html:96
 msgid "View full results"
 msgstr "Peržiūrėti pilnus rezultatus"
 
@@ -1005,7 +1260,7 @@ msgid "X-Ray Upload"
 msgstr "Rentgeno įkėlimas"
 
 # Home page templates
-#: .\xrayapp\templates\xrayapp\home.html:18
+#: .\xrayapp\templates\xrayapp\home.html:17
 msgid ""
 "Upload a chest X-ray image for automatic analysis using a pre-trained model "
 "from TorchXRayVision."
@@ -1013,76 +1268,103 @@ msgstr ""
 "Įkelkite krūtinės rentgeno nuotrauką automatiniam analizavimui naudojant iš "
 "anksto išmokytą TorchXRayVision modelį."
 
-#: .\xrayapp\templates\xrayapp\home.html:26
+#: .\xrayapp\templates\xrayapp\home.html:25
 msgid "Select model:"
 msgstr "Pasirinkite modelį:"
 
-#: .\xrayapp\templates\xrayapp\home.html:35
+#: .\xrayapp\templates\xrayapp\home.html:34
 msgid "DenseNet: All 18 pathologies included"
 msgstr "DenseNet: Visos 18 patologijų įtrauktos"
 
-#: .\xrayapp\templates\xrayapp\home.html:36
-#, fuzzy
-#| msgid "ResNet: All pathologies except \\"
-msgid "ResNet: All pathologies except \\"
-msgstr "ResNet: Visos patologijos, išskyrus \""
+#: .\xrayapp\templates\xrayapp\home.html:35
+msgid "ResNet: All pathologies except \"Enlarged cardiomediastinum\""
+msgstr "ResNet: Visos patologijos, išskyrus \"Išsiplėtęs kardiomediastinumas\""
 
-#: .\xrayapp\templates\xrayapp\home.html:36
-msgid "\\"
-msgstr ""
+#: .\xrayapp\templates\xrayapp\home.html:35
+msgid "\"Lung lesion\""
+msgstr "\"Plaučių pažeidimas\""
 
-#: .\xrayapp\templates\xrayapp\home.html:48
-#: .\xrayapp\templates\xrayapp\results.html:378
+#: .\xrayapp\templates\xrayapp\home.html:47
+#: .\xrayapp\templates\xrayapp\results.html:541
 msgid "Patient information"
 msgstr "Paciento informacija"
 
-#: .\xrayapp\templates\xrayapp\home.html:53
+#: .\xrayapp\templates\xrayapp\home.html:52
 msgid "First name:"
 msgstr "Vardas:"
 
-#: .\xrayapp\templates\xrayapp\home.html:57
+#: .\xrayapp\templates\xrayapp\home.html:56
 msgid "Last name:"
 msgstr "Pavardė:"
 
-#: .\xrayapp\templates\xrayapp\home.html:63
-#: .\xrayapp\templates\xrayapp\prediction_history.html:143
+#: .\xrayapp\templates\xrayapp\home.html:62
+#: .\xrayapp\templates\xrayapp\prediction_history.html:159
+#: .\xrayapp\templates\xrayapp\saved_records.html:159
 msgid "Patient ID:"
 msgstr "Paciento ID:"
 
-#: .\xrayapp\templates\xrayapp\home.html:67
-#: .\xrayapp\templates\xrayapp\prediction_history.html:147
+#: .\xrayapp\templates\xrayapp\home.html:66
+#: .\xrayapp\templates\xrayapp\prediction_history.html:163
+#: .\xrayapp\templates\xrayapp\saved_records.html:163
 msgid "Gender:"
 msgstr "Lytis:"
 
-#: .\xrayapp\templates\xrayapp\home.html:78
+#: .\xrayapp\templates\xrayapp\home.html:77
 msgid "Date of birth:"
 msgstr "Gimimo data:"
 
-#: .\xrayapp\templates\xrayapp\home.html:82
+#: .\xrayapp\templates\xrayapp\home.html:81
 msgid "Date of X-ray:"
 msgstr "Rentgeno data:"
 
-#: .\xrayapp\templates\xrayapp\home.html:87
+#: .\xrayapp\templates\xrayapp\home.html:86
 msgid "Additional information:"
 msgstr "Papildoma informacija:"
 
-#: .\xrayapp\templates\xrayapp\home.html:94
+#: .\xrayapp\templates\xrayapp\home.html:95
+msgid "Technologist information"
+msgstr "Technologo informacija"
+
+#: .\xrayapp\templates\xrayapp\home.html:100
+msgid "Technologist first name:"
+msgstr "Technologo vardas:"
+
+#: .\xrayapp\templates\xrayapp\home.html:104
+msgid "Technologist last name:"
+msgstr "Technologo pavardė:"
+
+#: .\xrayapp\templates\xrayapp\home.html:112
 msgid "Select X-ray image:"
 msgstr "Pasirinkite rentgeno nuotrauką:"
 
-#: .\xrayapp\templates\xrayapp\home.html:96
+# File upload translations
+#: .\xrayapp\templates\xrayapp\home.html:118
+msgid "Browse"
+msgstr "Naršyti"
+
+#: .\xrayapp\templates\xrayapp\home.html:121
+msgid "No file selected."
+msgstr "Nepasirinktas failas."
+
+#: .\xrayapp\templates\xrayapp\home.html:123
 msgid "Supported formats: JPG, PNG, DICOM"
 msgstr "Palaikomi formatai: JPG, PNG, DICOM"
 
-#: .\xrayapp\templates\xrayapp\home.html:99
+#: .\xrayapp\templates\xrayapp\home.html:126
 msgid "Analyze X-ray"
 msgstr "Analizuoti rentgeną"
 
-#: .\xrayapp\templates\xrayapp\home.html:101
+#: .\xrayapp\templates\xrayapp\home.html:128
 msgid "Acceptable images"
 msgstr "Tinkamos nuotraukos"
 
-#: .\xrayapp\templates\xrayapp\home.html:109
+#: .\xrayapp\templates\xrayapp\home.html:130
+#: .\xrayapp\templates\xrayapp\results.html:918
+msgid "View prediction history"
+msgstr "Peržiūrėti prognozių istoriją"
+
+#: .\xrayapp\templates\xrayapp\home.html:137
+#: .\xrayapp\templates\xrayapp\results.html:889
 msgid ""
 "Warning! This tool is not meant to be used without supervision of a medical "
 "professional!"
@@ -1090,255 +1372,321 @@ msgstr ""
 "Įspėjimas! Šis įrankis nėra skirtas naudoti be medicinos specialisto "
 "priežiūros!"
 
-#: .\xrayapp\templates\xrayapp\home.html:114
-#: .\xrayapp\templates\xrayapp\results.html:586
-msgid "View prediction history"
-msgstr "Peržiūrėti prognozių istoriją"
-
-#: .\xrayapp\templates\xrayapp\home.html:120
+#: .\xrayapp\templates\xrayapp\home.html:146
 msgid "Analyzing X-ray image"
 msgstr "Analizuojamas rentgeno vaizdas"
 
-#: .\xrayapp\templates\xrayapp\home.html:134
+#: .\xrayapp\templates\xrayapp\home.html:160
 msgid "Complete"
 msgstr "Užbaigta"
 
-#: .\xrayapp\templates\xrayapp\home.html:140
+#: .\xrayapp\templates\xrayapp\home.html:166
 msgid "Please wait while the model analyzes your X-ray image"
 msgstr "Prašome palaukti, kol modelis analizuoja jūsų rentgeno vaizdą"
 
-# Interpretability templates
-#: .\xrayapp\templates\xrayapp\interpretability.html:72
-msgid "MCADS interpretability analysis"
-msgstr "MCADS interpretavimo analizė"
-
-#: .\xrayapp\templates\xrayapp\interpretability.html:76
-msgid "Original X-ray image"
-msgstr "Originalus rentgeno vaizdas"
-
-#: .\xrayapp\templates\xrayapp\interpretability.html:77
-#: .\xrayapp\templates\xrayapp\results.html:419
-msgid "Uploaded on"
-msgstr "Įkelta"
-
-# Image-related messages
-#: .\xrayapp\templates\xrayapp\interpretability.html:83
-#: .\xrayapp\templates\xrayapp\results.html:425
-msgid "Click to enlarge"
-msgstr "Spustelėkite padidinti"
-
-#: .\xrayapp\templates\xrayapp\interpretability.html:124
-msgid "Generate interpretability visualizations"
-msgstr "Generuoti interpretavimo vizualizacijas"
-
-#: .\xrayapp\templates\xrayapp\interpretability.html:130
-msgid "Interpretation Method"
-msgstr "Interpretavimo metodas"
-
-#: .\xrayapp\templates\xrayapp\interpretability.html:132
-msgid "Grad-CAM"
-msgstr "Grad-CAM"
-
-#: .\xrayapp\templates\xrayapp\interpretability.html:133
-msgid "Combined Grad-CAM (pathologies > 0.5)"
-msgstr "Kombinuotas Grad-CAM (patologijos > 0,5)"
-
-#: .\xrayapp\templates\xrayapp\interpretability.html:134
-msgid "Pixel-level interpretability"
-msgstr "Pikselių lygio interpretavimas"
-
-#: .\xrayapp\templates\xrayapp\interpretability.html:135
-msgid "Combined Pixel-level interpretability (pathologies > 0.5)"
-msgstr "Kombinuotas pikselių lygio interpretavimas (patologijos > 0,5)"
-
-#: .\xrayapp\templates\xrayapp\interpretability.html:139
-msgid "Model Type"
-msgstr "Modelio tipas"
-
-#: .\xrayapp\templates\xrayapp\interpretability.html:146
-msgid "Target Class (optional)"
-msgstr "Tikslinis klasės (neprivaloma)"
-
-#: .\xrayapp\templates\xrayapp\interpretability.html:148
-msgid "Use highest probability class"
-msgstr "Naudoti aukščiausios tikimybės klasę"
-
-#: .\xrayapp\templates\xrayapp\interpretability.html:156
-msgid "Generate visualization"
-msgstr "Generuoti vizualizaciją"
-
-#: .\xrayapp\templates\xrayapp\interpretability.html:226
-#: .\xrayapp\templates\xrayapp\interpretability.html:297
-#: .\xrayapp\templates\xrayapp\interpretability.html:650
-#: .\xrayapp\templates\xrayapp\interpretability.html:674
-#: .\xrayapp\templates\xrayapp\interpretability.html:714
-#: .\xrayapp\templates\xrayapp\interpretability.html:736
-msgid "Raw gradients"
-msgstr "Neapdoroti gradientai"
-
-#: .\xrayapp\templates\xrayapp\interpretability.html:227
-#: .\xrayapp\templates\xrayapp\interpretability.html:298
-msgid "Reset layers"
-msgstr "Atstatyti sluoksnius"
-
-#: .\xrayapp\templates\xrayapp\interpretability.html:358
-#: .\xrayapp\templates\xrayapp\prediction_history.html:256
-#: .\xrayapp\templates\xrayapp\results.html:585
-msgid "Upload new X-ray"
-msgstr "Įkelti naują rentgeną"
-
-#: .\xrayapp\templates\xrayapp\interpretability.html:371
-#: .\xrayapp\templates\xrayapp\results.html:608
-msgid "Pathology Information"
-msgstr "Patologijos informacija"
-
 # Prediction history templates
 #: .\xrayapp\templates\xrayapp\prediction_history.html:15
+#: .\xrayapp\templates\xrayapp\saved_records.html:15
 msgid "Advanced filters"
 msgstr "Išplėstiniai filtrai"
 
 #: .\xrayapp\templates\xrayapp\prediction_history.html:28
+#: .\xrayapp\templates\xrayapp\saved_records.html:28
 msgid "Max age"
 msgstr "Maks. amžius"
 
 #: .\xrayapp\templates\xrayapp\prediction_history.html:32
+#: .\xrayapp\templates\xrayapp\saved_records.html:32
 msgid "From date"
 msgstr "Nuo datos"
 
 #: .\xrayapp\templates\xrayapp\prediction_history.html:36
+#: .\xrayapp\templates\xrayapp\saved_records.html:36
 msgid "To date"
 msgstr "Iki datos"
 
 #: .\xrayapp\templates\xrayapp\prediction_history.html:44
+#: .\xrayapp\templates\xrayapp\saved_records.html:44
 msgid "Min Probability"
 msgstr "Min. tikimybė"
 
-#: .\xrayapp\templates\xrayapp\prediction_history.html:50
+#: .\xrayapp\templates\xrayapp\prediction_history.html:54
+#: .\xrayapp\templates\xrayapp\saved_records.html:54
 msgid "Apply filters"
 msgstr "Taikyti filtrus"
 
-#: .\xrayapp\templates\xrayapp\prediction_history.html:53
-msgid "Reset"
-msgstr "Atkurti"
+#: .\xrayapp\templates\xrayapp\prediction_history.html:57
+#: .\xrayapp\templates\xrayapp\saved_records.html:57
+msgid "Clear filters"
+msgstr "Išvalyti filtrus"
 
-#: .\xrayapp\templates\xrayapp\prediction_history.html:63
+#: .\xrayapp\templates\xrayapp\prediction_history.html:67
 msgid "History Records"
 msgstr "Istorijos įrašai"
 
-#: .\xrayapp\templates\xrayapp\prediction_history.html:65
+#: .\xrayapp\templates\xrayapp\prediction_history.html:69
 msgid "Records Found"
 msgstr "Rasta įrašų"
 
-#: .\xrayapp\templates\xrayapp\prediction_history.html:68
+#: .\xrayapp\templates\xrayapp\prediction_history.html:72
 msgid "Delete all"
 msgstr "Šalinti visus"
 
-#: .\xrayapp\templates\xrayapp\prediction_history.html:81
+#: .\xrayapp\templates\xrayapp\prediction_history.html:85
+#: .\xrayapp\templates\xrayapp\saved_records.html:85
 msgid "Patient"
 msgstr "Pacientas"
 
-#: .\xrayapp\templates\xrayapp\prediction_history.html:82
+#: .\xrayapp\templates\xrayapp\prediction_history.html:86
+#: .\xrayapp\templates\xrayapp\saved_records.html:86
 msgid "ID"
 msgstr "ID"
 
-#: .\xrayapp\templates\xrayapp\prediction_history.html:85
+#: .\xrayapp\templates\xrayapp\prediction_history.html:89
+#: .\xrayapp\templates\xrayapp\saved_records.html:89
 msgid "X-ray date"
 msgstr "Rentgeno data"
 
-#: .\xrayapp\templates\xrayapp\prediction_history.html:87
-msgid "Model used"
-msgstr "Naudotas modelis"
-
-#: .\xrayapp\templates\xrayapp\prediction_history.html:88
+#: .\xrayapp\templates\xrayapp\prediction_history.html:92
+#: .\xrayapp\templates\xrayapp\saved_records.html:92
 msgid "Prediction date"
 msgstr "Prognozės data"
 
-#: .\xrayapp\templates\xrayapp\prediction_history.html:89
+#: .\xrayapp\templates\xrayapp\prediction_history.html:93
+#: .\xrayapp\templates\xrayapp\saved_records.html:94
 msgid "Actions"
 msgstr "Veiksmai"
 
-#: .\xrayapp\templates\xrayapp\prediction_history.html:154
+#: .\xrayapp\templates\xrayapp\prediction_history.html:130
+#: .\xrayapp\templates\xrayapp\prediction_history.html:455
+#: .\xrayapp\templates\xrayapp\saved_records.html:132
+msgid "Remove from saved"
+msgstr ""
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:130
+#: .\xrayapp\templates\xrayapp\prediction_history.html:466
+#, fuzzy
+#| msgid "Save profile"
+msgid "Save record"
+msgstr "Išsaugoti profilį"
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:170
+#: .\xrayapp\templates\xrayapp\saved_records.html:170
 msgid "Date of Birth:"
 msgstr "Gimimo data:"
 
-#: .\xrayapp\templates\xrayapp\prediction_history.html:158
+#: .\xrayapp\templates\xrayapp\prediction_history.html:174
+#: .\xrayapp\templates\xrayapp\saved_records.html:174
 msgid "X-ray Date:"
 msgstr "Rentgeno data:"
 
-#: .\xrayapp\templates\xrayapp\prediction_history.html:165
+#: .\xrayapp\templates\xrayapp\prediction_history.html:181
+#: .\xrayapp\templates\xrayapp\saved_records.html:181
 msgid "Severity:"
 msgstr "Sunkumas:"
 
-#: .\xrayapp\templates\xrayapp\prediction_history.html:173
-msgid "Model:"
-msgstr "Modelis:"
+#: .\xrayapp\templates\xrayapp\prediction_history.html:189
+#: .\xrayapp\templates\xrayapp\saved_records.html:189
+msgid "Technologist:"
+msgstr "Technologas:"
 
-#: .\xrayapp\templates\xrayapp\prediction_history.html:180
+#: .\xrayapp\templates\xrayapp\prediction_history.html:202
+#: .\xrayapp\templates\xrayapp\saved_records.html:202
 msgid "Prediction Date:"
 msgstr "Prognozės data:"
 
-#: .\xrayapp\templates\xrayapp\prediction_history.html:189
+#: .\xrayapp\templates\xrayapp\prediction_history.html:211
+#: .\xrayapp\templates\xrayapp\saved_records.html:215
 msgid "View"
 msgstr "Peržiūrėti"
 
+#: .\xrayapp\templates\xrayapp\prediction_history.html:220
+#: .\xrayapp\templates\xrayapp\prediction_history.html:457
+#: .\xrayapp\templates\xrayapp\saved_records.html:223
+msgid "Unsave"
+msgstr ""
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:220
+#: .\xrayapp\templates\xrayapp\prediction_history.html:468
+msgid "Save"
+msgstr ""
+
 # Deletion confirmation modal
-#: .\xrayapp\templates\xrayapp\prediction_history.html:208
-#: .\xrayapp\templates\xrayapp\prediction_history.html:231
+#: .\xrayapp\templates\xrayapp\prediction_history.html:236
+#: .\xrayapp\templates\xrayapp\prediction_history.html:259
 msgid "Confirm Deletion"
 msgstr "Patvirtinti trynimą"
 
-#: .\xrayapp\templates\xrayapp\prediction_history.html:249
+#: .\xrayapp\templates\xrayapp\prediction_history.html:240
+#: .\xrayapp\templates\xrayapp\prediction_history.html:263
+msgid "Are you sure you want to delete this prediction record for"
+msgstr "Ar tikrai norite ištrinti šį prognozės įrašą pacientui"
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:277
 msgid "No prediction history found with the current filters."
 msgstr "Su dabartiniais filtrais nerasta prognozių istorijos."
 
-#: .\xrayapp\templates\xrayapp\prediction_history.html:266
-#: .\xrayapp\templates\xrayapp\prediction_history.html:280
+#: .\xrayapp\templates\xrayapp\prediction_history.html:285
+#, fuzzy
+#| msgid "Prediction history"
+msgid "Prediction history pagination"
+msgstr "Prognozių istorija"
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:288
+#: .\xrayapp\templates\xrayapp\saved_records.html:248
+#, fuzzy
+#| msgid "First Name"
+msgid "First"
+msgstr "Vardas"
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:288
+#: .\xrayapp\templates\xrayapp\saved_records.html:248
+#, fuzzy
+#| msgid "First Name"
+msgid "First page"
+msgstr "Vardas"
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:291
+#: .\xrayapp\templates\xrayapp\saved_records.html:251
+msgid "Previous"
+msgstr ""
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:291
+#: .\xrayapp\templates\xrayapp\saved_records.html:251
+msgid "Previous page"
+msgstr ""
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:305
+#: .\xrayapp\templates\xrayapp\saved_records.html:265
+msgid "Next"
+msgstr ""
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:305
+#: .\xrayapp\templates\xrayapp\saved_records.html:265
+msgid "Next page"
+msgstr ""
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:308
+#: .\xrayapp\templates\xrayapp\saved_records.html:268
+#, fuzzy
+#| msgid "Last Name"
+msgid "Last"
+msgstr "Pavardė"
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:308
+#: .\xrayapp\templates\xrayapp\saved_records.html:268
+#, fuzzy
+#| msgid "Last Name"
+msgid "Last page"
+msgstr "Pavardė"
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:317
+#: .\xrayapp\templates\xrayapp\saved_records.html:277
+msgid "Showing"
+msgstr ""
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:317
+#: .\xrayapp\templates\xrayapp\saved_records.html:277
+msgid "of"
+msgstr ""
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:317
+#, fuzzy
+#| msgid "History Records"
+msgid "records"
+msgstr "Istorijos įrašai"
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:325
+#: .\xrayapp\templates\xrayapp\results.html:917
+#: .\xrayapp\templates\xrayapp\saved_records.html:289
+msgid "Upload new X-ray"
+msgstr "Įkelti naują rentgeną"
+
+#: .\xrayapp\templates\xrayapp\prediction_history.html:335
+#: .\xrayapp\templates\xrayapp\prediction_history.html:349
 msgid "Delete all records"
 msgstr "Šalinti visus įrašus"
 
-#: .\xrayapp\templates\xrayapp\prediction_history.html:271
+#: .\xrayapp\templates\xrayapp\prediction_history.html:340
 msgid "Warning: this action cannot be undone!"
 msgstr "Įspėjimas: šio veiksmo negalima anuliuoti!"
 
-#: .\xrayapp\templates\xrayapp\prediction_history.html:273
+#: .\xrayapp\templates\xrayapp\prediction_history.html:342
 msgid "Are you sure you want to delete all"
 msgstr "Ar tikrai norite ištrinti visus"
 
-#: .\xrayapp\templates\xrayapp\prediction_history.html:273
+#: .\xrayapp\templates\xrayapp\prediction_history.html:342
 msgid "prediction history records?"
 msgstr "prognozių istorijos įrašus?"
 
 # Results templates
-#: .\xrayapp\templates\xrayapp\results.html:338
+#: .\xrayapp\templates\xrayapp\results.html:501
 msgid "MCADS results"
 msgstr "MCADS rezultatai"
 
-#: .\xrayapp\templates\xrayapp\results.html:343
+#: .\xrayapp\templates\xrayapp\results.html:506
 msgid "Severity level"
 msgstr "Sunkumo lygis"
 
-#: .\xrayapp\templates\xrayapp\results.html:367
+#: .\xrayapp\templates\xrayapp\results.html:530
 msgid ""
 "Severity level is calculated as the average of all pathology probabilities."
 msgstr "Sunkumo lygis apskaičiuojamas kaip visų patologijų tikimybių vidurkis."
 
-#: .\xrayapp\templates\xrayapp\results.html:418
+#: .\xrayapp\templates\xrayapp\results.html:581
 msgid "X-ray image"
 msgstr "Rentgeno nuotrauka"
 
-#: .\xrayapp\templates\xrayapp\results.html:435
+#: .\xrayapp\templates\xrayapp\results.html:582
+msgid "Uploaded on"
+msgstr "Įkelta"
+
+# Image-related messages
+#: .\xrayapp\templates\xrayapp\results.html:588
+msgid "Click to enlarge"
+msgstr "Spustelėkite padidinti"
+
+#: .\xrayapp\templates\xrayapp\results.html:598
 msgid "Image Metadata"
 msgstr "Nuotraukos metaduomenys"
 
-#: .\xrayapp\templates\xrayapp\results.html:453
+#: .\xrayapp\templates\xrayapp\results.html:616
 msgid "Prediction Results"
 msgstr "Prognozių rezultatai"
 
-#: .\xrayapp\templates\xrayapp\results.html:462
+#: .\xrayapp\templates\xrayapp\results.html:625
 msgid "Probability"
 msgstr "Tikimybė"
 
-#: .\xrayapp\templates\xrayapp\results.html:492
+#: .\xrayapp\templates\xrayapp\results.html:626
+msgid "Visualize"
+msgstr ""
+
+#: .\xrayapp\templates\xrayapp\results.html:634
+msgid "Learn more about"
+msgstr ""
+
+#: .\xrayapp\templates\xrayapp\results.html:653
+#, fuzzy
+#| msgid "Grad-CAM visualization"
+msgid "Generate Grad-CAM visualization for"
+msgstr "Grad-CAM vizualizacija"
+
+#: .\xrayapp\templates\xrayapp\results.html:654
+msgid "Grad-CAM"
+msgstr "Grad-CAM"
+
+#: .\xrayapp\templates\xrayapp\results.html:659
+#, fuzzy
+#| msgid "Pixel-Level interpretability"
+msgid "Generate Pixel-Level interpretability for"
+msgstr "Pikselių lygio interpretavimas"
+
+#: .\xrayapp\templates\xrayapp\results.html:660
+msgid "PLI"
+msgstr ""
+
+#: .\xrayapp\templates\xrayapp\results.html:670
 msgid ""
 "No predictions available yet. This might be because the image is still being "
 "processed. Please refresh the page in a few moments."
@@ -1346,34 +1694,198 @@ msgstr ""
 "Prognozės dar nepasiekiamos. Tai gali būti todėl, kad vaizdas vis dar "
 "apdorojamas. Prašome atnaujinti puslapį po kelių akimirkų."
 
-#: .\xrayapp\templates\xrayapp\results.html:502
-msgid "GRAD-CAM Visualization"
+#: .\xrayapp\templates\xrayapp\results.html:683
+#: .\xrayapp\templates\xrayapp\results.html:1109
+#, fuzzy
+#| msgid "GRAD-CAM Visualization"
+msgid "GRAD-CAM visualization"
 msgstr "GRAD-CAM vizualizacija"
 
-#: .\xrayapp\templates\xrayapp\results.html:508
+#: .\xrayapp\templates\xrayapp\results.html:689
+#: .\xrayapp\templates\xrayapp\results.html:782
+#: .\xrayapp\templates\xrayapp\results.html:1115
+#: .\xrayapp\templates\xrayapp\results.html:1230
+#, fuzzy
+#| msgid "Generate visualization"
+msgid "Delete this visualization"
+msgstr "Generuoti vizualizaciją"
+
+#: .\xrayapp\templates\xrayapp\results.html:698
+#: .\xrayapp\templates\xrayapp\results.html:791
+#: .\xrayapp\templates\xrayapp\results.html:1124
+#: .\xrayapp\templates\xrayapp\results.html:1239
 msgid "Original X-ray"
 msgstr "Originalus rentgenas"
 
-#: .\xrayapp\templates\xrayapp\results.html:512
+#: .\xrayapp\templates\xrayapp\results.html:702
+#: .\xrayapp\templates\xrayapp\results.html:1128
 msgid "GRAD-CAM Heatmap"
 msgstr "GRAD-CAM šilumos žemėlapis"
 
-#: .\xrayapp\templates\xrayapp\results.html:516
+#: .\xrayapp\templates\xrayapp\results.html:706
+#: .\xrayapp\templates\xrayapp\results.html:1132
 msgid "GRAD-CAM Overlay"
 msgstr "GRAD-CAM perdanga"
 
-#: .\xrayapp\templates\xrayapp\results.html:520
+#: .\xrayapp\templates\xrayapp\results.html:712
+#: .\xrayapp\templates\xrayapp\results.html:805
+#: .\xrayapp\templates\xrayapp\results.html:1138
+#: .\xrayapp\templates\xrayapp\results.html:1253
+#, fuzzy
+#| msgid "Page Not Found"
+msgid "Image Controls"
+msgstr "Puslapis nerastas"
+
+#: .\xrayapp\templates\xrayapp\results.html:714
+#: .\xrayapp\templates\xrayapp\results.html:807
+#: .\xrayapp\templates\xrayapp\results.html:1140
+#: .\xrayapp\templates\xrayapp\results.html:1255
+msgid "Reset"
+msgstr "Atkurti"
+
+#: .\xrayapp\templates\xrayapp\results.html:718
+#: .\xrayapp\templates\xrayapp\results.html:811
+msgid "Invert Colors"
+msgstr ""
+
+#: .\xrayapp\templates\xrayapp\results.html:720
+#: .\xrayapp\templates\xrayapp\results.html:813
+msgid "Invert"
+msgstr ""
+
+#: .\xrayapp\templates\xrayapp\results.html:722
+#: .\xrayapp\templates\xrayapp\results.html:815
+msgid "Flip Horizontal"
+msgstr ""
+
+#: .\xrayapp\templates\xrayapp\results.html:724
+#: .\xrayapp\templates\xrayapp\results.html:817
+msgid "Flip H"
+msgstr ""
+
+#: .\xrayapp\templates\xrayapp\results.html:726
+#: .\xrayapp\templates\xrayapp\results.html:819
+msgid "Flip Vertical"
+msgstr ""
+
+#: .\xrayapp\templates\xrayapp\results.html:728
+#: .\xrayapp\templates\xrayapp\results.html:821
+msgid "Flip V"
+msgstr ""
+
+#: .\xrayapp\templates\xrayapp\results.html:730
+#: .\xrayapp\templates\xrayapp\results.html:823
+msgid "Rotate 90°"
+msgstr ""
+
+#: .\xrayapp\templates\xrayapp\results.html:732
+#: .\xrayapp\templates\xrayapp\results.html:825
+msgid "Rotate"
+msgstr ""
+
+#: .\xrayapp\templates\xrayapp\results.html:734
+#: .\xrayapp\templates\xrayapp\results.html:736
+#: .\xrayapp\templates\xrayapp\results.html:827
+#: .\xrayapp\templates\xrayapp\results.html:829
+msgid "Sharpen"
+msgstr ""
+
+#: .\xrayapp\templates\xrayapp\results.html:738
+#: .\xrayapp\templates\xrayapp\results.html:831
+msgid "Increase Brightness"
+msgstr ""
+
+#: .\xrayapp\templates\xrayapp\results.html:740
+#: .\xrayapp\templates\xrayapp\results.html:833
+#, fuzzy
+#| msgid "Light"
+msgid "Bright +"
+msgstr "Šviesi"
+
+#: .\xrayapp\templates\xrayapp\results.html:742
+#: .\xrayapp\templates\xrayapp\results.html:835
+msgid "Decrease Brightness"
+msgstr ""
+
+#: .\xrayapp\templates\xrayapp\results.html:744
+#: .\xrayapp\templates\xrayapp\results.html:837
+#, fuzzy
+#| msgid "Light"
+msgid "Bright -"
+msgstr "Šviesi"
+
+#: .\xrayapp\templates\xrayapp\results.html:746
+#: .\xrayapp\templates\xrayapp\results.html:839
+msgid "Increase Contrast"
+msgstr ""
+
+#: .\xrayapp\templates\xrayapp\results.html:748
+#: .\xrayapp\templates\xrayapp\results.html:841
+msgid "Contrast +"
+msgstr ""
+
+#: .\xrayapp\templates\xrayapp\results.html:750
+#: .\xrayapp\templates\xrayapp\results.html:843
+msgid "Decrease Contrast"
+msgstr ""
+
+#: .\xrayapp\templates\xrayapp\results.html:752
+#: .\xrayapp\templates\xrayapp\results.html:845
+msgid "Contrast -"
+msgstr ""
+
+#: .\xrayapp\templates\xrayapp\results.html:758
+#: .\xrayapp\templates\xrayapp\results.html:1184
 msgid ""
 "GRAD-CAM highlights the regions in the image that strongly influenced the "
 "model's prediction for"
 msgstr ""
 "GRAD-CAM pažymi vaizdo sritis, kurios stipriai paveikė modelio prognozę"
 
-#: .\xrayapp\templates\xrayapp\results.html:561
+#: .\xrayapp\templates\xrayapp\results.html:761
+#: .\xrayapp\templates\xrayapp\results.html:854
+#: .\xrayapp\templates\xrayapp\results.html:1187
+#: .\xrayapp\templates\xrayapp\results.html:1302
+#, fuzzy
+#| msgid "Generate visualization"
+msgid "Generated on"
+msgstr "Generuoti vizualizaciją"
+
+#: .\xrayapp\templates\xrayapp\results.html:762
+#: .\xrayapp\templates\xrayapp\results.html:855
+#: .\xrayapp\templates\xrayapp\results.html:1303
+msgid "Threshold"
+msgstr ""
+
+#: .\xrayapp\templates\xrayapp\results.html:776
+#: .\xrayapp\templates\xrayapp\results.html:1224
+msgid "Pixel-level interpretability"
+msgstr "Pikselių lygio interpretavimas"
+
+#: .\xrayapp\templates\xrayapp\results.html:795
+#: .\xrayapp\templates\xrayapp\results.html:1243
+msgid "Pixel saliency map"
+msgstr ""
+
+#: .\xrayapp\templates\xrayapp\results.html:799
+#: .\xrayapp\templates\xrayapp\results.html:1247
+#, fuzzy
+#| msgid "Pixel-level interpretability"
+msgid "Pixel-level overlay"
+msgstr "Pikselių lygio interpretavimas"
+
+#: .\xrayapp\templates\xrayapp\results.html:851
+#: .\xrayapp\templates\xrayapp\results.html:1299
+msgid ""
+"Pixel-Level Interpretability shows which individual pixels had the most "
+"influence on the model's prediction for"
+msgstr ""
+
+#: .\xrayapp\templates\xrayapp\results.html:897
 msgid "Interpretability options"
 msgstr "Interpretavimo galimybės"
 
-#: .\xrayapp\templates\xrayapp\results.html:565
+#: .\xrayapp\templates\xrayapp\results.html:901
 msgid ""
 "Want to understand why the model made these predictions? Try "
 "interpretability tools:"
@@ -1381,49 +1893,85 @@ msgstr ""
 "Norite suprasti, kodėl modelis pateikė šias prognozes? Išbandykite "
 "interpretavimo įrankius:"
 
-#: .\xrayapp\templates\xrayapp\results.html:570
+#: .\xrayapp\templates\xrayapp\results.html:906
 msgid "Grad-CAM visualization"
 msgstr "Grad-CAM vizualizacija"
 
-#: .\xrayapp\templates\xrayapp\results.html:574
+#: .\xrayapp\templates\xrayapp\results.html:910
 msgid "Pixel-Level interpretability"
 msgstr "Pikselių lygio interpretavimas"
 
-#: .\xrayapp\templates\xrayapp\results.html:578
-msgid "View all interpretability options"
-msgstr "Peržiūrėti visas interpretavimo galimybes"
-
-#: .\xrayapp\templates\xrayapp\results.html:589
+#: .\xrayapp\templates\xrayapp\results.html:921
 msgid "Print"
 msgstr "Spausdinti"
 
-#: .\xrayapp\templates\xrayapp\results.html:592
+#: .\xrayapp\templates\xrayapp\results.html:924
 msgid "Print to printer"
 msgstr "Spausdinti spausdintuvu"
 
-#: .\xrayapp\templates\xrayapp\results.html:593
+#: .\xrayapp\templates\xrayapp\results.html:925
 msgid "Save as PDF"
 msgstr "Išsaugoti kaip PDF"
 
+#: .\xrayapp\templates\xrayapp\results.html:939
+msgid "Pathology Information"
+msgstr "Patologijos informacija"
+
+#: .\xrayapp\templates\xrayapp\saved_records.html:67
+#: .\xrayapp\templates\xrayapp\saved_records.html:69
+msgid "Saved Records"
+msgstr "Išsaugoti įrašai"
+
+#: .\xrayapp\templates\xrayapp\saved_records.html:72
+#: .\xrayapp\templates\xrayapp\saved_records.html:286
+msgid "View all history"
+msgstr "Peržiūrėti visą istoriją"
+
+#: .\xrayapp\templates\xrayapp\saved_records.html:93
+#, fuzzy
+#| msgid "Save changes"
+msgid "Saved date"
+msgstr "Išsaugoti pakeitimus"
+
+#: .\xrayapp\templates\xrayapp\saved_records.html:206
+#, fuzzy
+#| msgid "X-ray Date:"
+msgid "Saved Date:"
+msgstr "Rentgeno data:"
+
+#: .\xrayapp\templates\xrayapp\saved_records.html:236
+msgid "You haven't saved any records yet."
+msgstr ""
+
+#: .\xrayapp\templates\xrayapp\saved_records.html:237
+#, fuzzy
+#| msgid "prediction history records?"
+msgid "Go to prediction history to save records."
+msgstr "prognozių istorijos įrašus?"
+
+#: .\xrayapp\templates\xrayapp\saved_records.html:245
+msgid "Saved records pagination"
+msgstr "Išsaugotų įrašų puslapiai"
+
+#: .\xrayapp\templates\xrayapp\saved_records.html:277
+msgid "saved records"
+msgstr "išsaugoti įrašai"
+
 # Terms of service
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:14
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:11
 msgid "Multi-label Chest Abnormality Detection System (MCADS)"
 msgstr "Daugiaetiketė krūtinės anomalijų aptikimo sistema (MCADS)"
 
 #: .\xrayapp\templates\xrayapp\terms_of_service.html:15
-msgid "Last Updated:"
-msgstr "Paskutinį kartą atnaujinta:"
-
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:16
-msgid "Version:"
-msgstr "Versija:"
+msgid "By using MCADS, you acknowledge and agree to the following terms:"
+msgstr ""
 
 # Terms of Service translations
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:21
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:25
 msgid "CRITICAL MEDICAL DISCLAIMER"
 msgstr "KRITINIS MEDICINOS ATSISAKYMAS"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:22
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:26
 msgid ""
 "WARNING: MCADS IS NOT A MEDICAL DIAGNOSTIC TOOL AND IS NOT INTENDED FOR "
 "CLINICAL USE"
@@ -1431,7 +1979,7 @@ msgstr ""
 "ĮSPĖJIMAS: MCADS NĖRA MEDICINOS DIAGNOSTIKOS ĮRANKIS IR NESKIRTAS "
 "KLINIKINIAM NAUDOJIMUI"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:23
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:27
 msgid ""
 "MCADS IS FOR RESEARCH, EDUCATIONAL, AND DEMONSTRATION PURPOSES ONLY. THIS "
 "SOFTWARE IS NOT DESIGNED, INTENDED, OR APPROVED FOR USE IN THE DIAGNOSIS, "
@@ -1445,7 +1993,7 @@ msgstr ""
 "MCADS NIEKADA NETURĖTŲ BŪTI NAUDOJAMAS KAIP PROFESIONALIŲ MEDICINOS "
 "PATARIMŲ, DIAGNOZĖS AR GYDYMO PAKAITALAS."
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:24
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:28
 msgid ""
 "THE AUTHORS, DEVELOPERS, AND CONTRIBUTORS OF MCADS EXPRESSLY DISCLAIM ANY "
 "AND ALL LIABILITY FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, "
@@ -1460,11 +2008,11 @@ msgstr ""
 "NEAPSIRIBOJANT, BET KOKIAS NETEISINGAS PROGNOZES, KLAIDINGAS DIAGNOZES AR "
 "MEDICINOS SPRENDIMUS, PAREMTUS PROGRAMINĖS ĮRANGOS IŠVESTIMI."
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:29
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:33
 msgid "Acceptance of Terms"
 msgstr "Sąlygų priėmimas"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:31
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:35
 msgid ""
 "By accessing and using MCADS, you agree to be bound by these Terms of "
 "Service. If you do not agree, you must not use the Software."
@@ -1472,11 +2020,11 @@ msgstr ""
 "Prisijungdami ir naudodami MCADS, sutinkate laikytis šių paslaugų teikimo "
 "sąlygų. Jei nesutinkate, neturite naudoti programinės įrangos."
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:35
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:39
 msgid "Description of Service"
 msgstr "Paslaugos aprašymas"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:37
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:41
 msgid ""
 "MCADS is a research demonstration software developed using Django, PyTorch, "
 "and TorchXRayVision libraries. The Software provides:"
@@ -1485,103 +2033,103 @@ msgstr ""
 "naudojant Django, PyTorch ir TorchXRayVision bibliotekas. Programinė įranga "
 "teikia:"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:39
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:43
 msgid ""
 "Image analysis of chest X-ray images using pre-trained deep learning models"
 msgstr ""
 "Krūtinės rentgeno nuotraukų analizę naudojant iš anksto apmokytus giluminio "
 "mokymosi modelius"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:40
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:44
 msgid "Probability scores for various pathological conditions"
 msgstr "Tikimybės balus įvairioms patologinėms būklėms"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:41
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:45
 msgid "Educational visualization tools"
 msgstr "Švietimo vizualizacijos įrankius"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:42
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:46
 msgid "Research and academic demonstration capabilities"
 msgstr "Mokslinių tyrimų ir akademinio demonstravimo galimybes"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:47
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:51
 msgid "Medical Disclaimers and Limitations"
 msgstr "Medicinos atsisakymai ir apribojimai"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:49
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:53
 msgid "Not for Clinical Use"
 msgstr "Neskirta klinikiniam naudojimui"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:51
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:52
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:53
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:54
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:55
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:56
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:57
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:58
 msgid "MCADS is"
 msgstr "MCADS yra"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:51
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:52
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:53
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:54
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:59
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:55
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:56
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:57
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:58
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:63
 msgid "NOT"
 msgstr "NE"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:51
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:55
 msgid "a medical device"
 msgstr "medicinos prietaisas"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:52
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:56
 msgid "validated for clinical diagnosis"
 msgstr "patvirtintas klinikiniam diagnozavimui"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:53
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:57
 msgid ""
 "approved by any medical regulatory authority (FDA, CE, Health Canada, etc.)"
 msgstr ""
 "patvirtintas jokios medicinos reguliavimo institucijos (FDA, CE, Health "
 "Canada ir kt.)"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:54
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:58
 msgid "intended to replace professional medical judgment"
 msgstr "skirtas pakeisti profesionalų medicinos sprendimą"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:57
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:61
 msgid "Accuracy Limitations"
 msgstr "Tikslumo apribojimai"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:59
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:63
 msgid "The Software provides probability scores,"
 msgstr "Programinė įranga teikia tikimybės balus,"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:59
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:63
 msgid "definitive diagnoses"
 msgstr "galutines diagnozes"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:60
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:64
 msgid "The underlying AI models may produce"
 msgstr "Pagrindiniai AI modeliai gali generuoti"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:60
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:64
 msgid "false positives"
 msgstr "klaidingas teigiamas prognozes"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:60
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:64
 msgid "false negatives"
 msgstr "klaidingas neigiamas prognozes"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:61
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:65
 msgid ""
 "The Software's predictions may be inaccurate, unreliable, or completely wrong"
 msgstr ""
 "Programinės įrangos prognozės gali būti netikslios, nepatikimos arba "
 "visiškai klaidingos"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:62
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:66
 msgid "The Software has not been clinically validated for accuracy"
 msgstr "Programinės įrangos tikslumas nėra kliniškai patvirtintas"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:63
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:67
 msgid ""
 "Performance may vary significantly across different populations, imaging "
 "conditions, and pathologies"
@@ -1589,36 +2137,38 @@ msgstr ""
 "Veikimas gali žymiai skirtis tarp skirtingų populiacijų, vaizdavimo sąlygų "
 "ir patologijų"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:66
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:70
 msgid "Professional Medical Consultation Required"
 msgstr "Reikalinga profesionali medicinos konsultacija"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:68
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:72
 msgid "ALWAYS"
 msgstr "VISADA"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:68
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:72
 msgid "consult qualified healthcare professionals for medical decisions"
 msgstr ""
 "konsultuokitės su kvalifikuotais sveikatos priežiūros specialistais dėl "
-"medicinos sprendimų"
+"medicinos sprendimųkonsultuokitės su kvalifikuotais sveikatos priežiūros "
+"specialistais dėl medicinos sprendimų"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:69
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:70
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:73
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:74
 msgid "NEVER"
 msgstr "NIEKADA"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:69
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:73
 msgid "make medical decisions based solely on MCADS output"
 msgstr "priimkite medicinos sprendimų vien tik pagal MCADS išvestį"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:70
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:74
 msgid "delay seeking medical attention based on Software results"
 msgstr ""
 "atidėliokite medicinos pagalbos ieškojimo pagal programinės įrangos "
-"rezultatus"
+"rezultatusatidėliokite medicinos pagalbos ieškojimo pagal programinės "
+"įrangos rezultatus"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:71
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:75
 msgid ""
 "Any medical concerns require immediate consultation with licensed medical "
 "professionals"
@@ -1626,53 +2176,56 @@ msgstr ""
 "Bet kokie medicinos rūpesčiai reikalauja nedelsiant konsultuotis su "
 "licencijuotais medicinos specialistais"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:77
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:81
 msgid "Limitation of Liability"
 msgstr "Atsakomybės apribojimas"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:79
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:83
 msgid "No Liability for Medical Decisions"
 msgstr "Jokia atsakomybė už medicinos sprendimus"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:81
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:85
 #, fuzzy
 #| msgid ""
 #| "The authors, developers, contributors, and affiliated institutions "
 #| "(\"Providers\") shall not be liable for:"
 msgid "The authors, developers, contributors, and affiliated institutions (\\"
 msgstr ""
-"Autoriai, kūrėjai, prisidėję asmenys ir susijusios institucijos "
-"(\"Teikėjai\") nebus atsakingi už:"
+"Autoriai, kūrėjai, prisidėję asmenys ir susijusios institucijos (\"Autoriai, "
+"kūrėjai, prisidėję asmenys ir susijusios institucijos (\"Teikėjai\") nebus "
+"atsakingi už:"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:83
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:87
 msgid "Any medical decisions made based on Software output"
 msgstr ""
-"Bet kokius medicinos sprendimus, priimtus pagal programinės įrangos išvestį"
+"Bet kokius medicinos sprendimus, priimtus pagal programinės įrangos "
+"išvestįBet kokius medicinos sprendimus, priimtus pagal programinės įrangos "
+"išvestį"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:84
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:88
 msgid "Any misdiagnosis or delayed diagnosis"
 msgstr "Bet kokią klaidingą diagnozę ar vėluojančią diagnozę"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:85
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:89
 msgid "Any adverse health outcomes"
 msgstr "Bet kokius neigiamus sveikatos pasekmės"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:86
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:90
 msgid "Any reliance on Software predictions"
 msgstr "Bet kokį pasitikėjimą programinės įrangos prognozėmis"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:87
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:91
 msgid ""
 "Any direct, indirect, incidental, special, consequential, or punitive damages"
 msgstr ""
 "Bet kokius tiesioginius, netiesioginius, atsitiktinius, specialius, pasekmių "
 "ar baudžiamuosius nuostolius"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:91
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:95
 msgid "Maximum Liability"
 msgstr "Maksimali atsakomybė"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:93
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:97
 msgid ""
 "To the maximum extent permitted by law, the total liability of the Providers "
 "shall not exceed zero euros (€0.00)."
@@ -1680,157 +2233,161 @@ msgstr ""
 "Maksimaliu įstatymu leistinu mastu, bendra teikėjų atsakomybė neviršys nulio "
 "eurų (€0,00)."
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:99
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:103
 msgid "No Warranties"
 msgstr "Jokių garantijų"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:101
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:105
 msgid "Disclaimer of All Warranties"
 msgstr "Visų garantijų atsisakymas"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:103
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:107
 #, fuzzy
 #| msgid "The Software provides probability scores,"
 msgid "The Software is provided \\"
 msgstr "Programinė įranga teikia tikimybės balus,"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:105
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:109
 msgid "Warranties of merchantability"
 msgstr "Prekybos tinkumo garantijos"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:106
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:110
 msgid "Fitness for a particular purpose"
 msgstr "Tinkamumas konkrečiam tikslui"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:107
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:111
 msgid "Non-infringement"
 msgstr "Nepažeidimas"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:108
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:112
 msgid "Accuracy or reliability"
 msgstr "Tikslumas ar patikimumas"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:109
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:113
 msgid "Continuous availability"
 msgstr "Nuolatinis prieinamumas"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:110
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:114
 msgid "Error-free operation"
 msgstr "Veikimas be klaidų"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:114
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:118
 msgid "No Medical Warranty"
 msgstr "Jokių medicinos garantijų"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:116
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:120
 msgid "The Providers make no warranties regarding:"
 msgstr "Teikėjai neteikia jokių garantijų dėl:"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:118
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:122
 msgid "The medical accuracy of predictions"
 msgstr "Prognozių medicinos tikslumo"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:119
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:123
 msgid "The clinical validity of results"
 msgstr "Rezultatų klinikinio pagrįstumo"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:120
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:124
 msgid "The Software's fitness for medical use"
 msgstr "Programinės įrangos tinkamumo medicinos naudojimui"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:121
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:125
 msgid "The completeness or correctness of pathology detection"
 msgstr "Patologijos aptikimo išsamumo ar teisingumo"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:128
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:132
 msgid "User Responsibilities"
 msgstr "Naudotojo atsakomybės"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:130
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:134
 msgid "Appropriate Use"
 msgstr "Tinkamas naudojimas"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:132
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:136
 msgid ""
 "Use the Software only for research, educational, or demonstration purposes"
 msgstr ""
 "Naudokite programinę įrangą tik mokslinių tyrimų, švietimo ar demonstravimo "
 "tikslais"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:133
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:137
 msgid "Understand the Software's limitations and disclaimers"
 msgstr "Suprantate programinės įrangos apribojimus ir atsisakymus"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:134
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:138
 msgid "Not rely on the Software for medical decisions"
 msgstr "Nesivadovaukite programine įranga medicinos sprendimams"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:135
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:139
 msgid "Seek professional medical advice for health concerns"
 msgstr "Kreipkitės profesionalaus medicinos patarimo dėl sveikatos problemų"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:136
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:140
 msgid "Comply with all applicable laws and regulations"
 msgstr "Laikykitės visų taikomų įstatymų ir reglamentų"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:139
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:143
 msgid "Data and Privacy"
 msgstr "Duomenys ir privatumas"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:141
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:145
 msgid "Ensure proper authorization before uploading any medical images"
 msgstr ""
 "Užtikrinkite tinkamą autorizaciją prieš įkeliant bet kokias medicinos "
-"nuotraukas"
+"nuotraukasUžtikrinkite tinkamą autorizaciją prieš įkeliant bet kokias "
+"medicinos nuotraukas"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:142
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:146
 msgid "Comply with HIPAA, GDPR, and other privacy regulations"
 msgstr "Laikykitės HIPAA, BDAR ir kitų privatumo reglamentų"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:143
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:147
 msgid "Protect patient confidentiality"
 msgstr "Apsaugokite pacientų konfidencialumą"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:144
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:148
 msgid "Use only properly anonymized images when required"
 msgstr "Naudokite tik tinkamai anonimintas nuotraukas, kai reikia"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:150
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:154
 msgid "Prohibited Uses"
 msgstr "Draudžiami naudojimai"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:152
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:156
 msgid "Users"
 msgstr "Naudotojai"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:152
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:156
 msgid "SHALL NOT"
 msgstr "NEGALI"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:154
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:158
 msgid "Use the Software for clinical diagnosis or treatment decisions"
 msgstr ""
-"Naudoti programinę įrangą klinikiniam diagnozavimui ar gydymo sprendimams"
+"Naudoti programinę įrangą klinikiniam diagnozavimui ar gydymo "
+"sprendimamsNaudoti programinę įrangą klinikiniam diagnozavimui ar gydymo "
+"sprendimams"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:155
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:159
 msgid "Present Software output as medical advice"
 msgstr "Pateikti programinės įrangos išvestį kaip medicinos patarimus"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:156
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:160
 msgid "Use the Software in any life-critical applications"
 msgstr "Naudoti programinę įrangą bet kokiose gyvybės svarbos programose"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:157
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:161
 msgid "Violate any applicable laws or regulations"
 msgstr "Pažeisti bet kokius taikomus įstatymus ar reglamentus"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:158
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:162
 msgid "Claim the Software is medically validated or approved"
 msgstr ""
 "Teigti, kad programinė įranga yra medicinos požiūriu patvirtinta ar "
-"patvirtinta"
+"patvirtintaTeigti, kad programinė įranga yra medicinos požiūriu patvirtinta "
+"ar patvirtinta"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:159
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:163
 msgid ""
 "Use the Software without proper medical supervision when analyzing patient "
 "data"
@@ -1838,15 +2395,15 @@ msgstr ""
 "Naudoti programinę įrangą be tinkamo medicinos priežiūros, analizuojant "
 "pacientų duomenis"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:164
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:168
 msgid "Intellectual Property"
 msgstr "Intelektualus turtas"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:166
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:170
 msgid "Software License"
 msgstr "Programinės įrangos licencija"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:168
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:172
 msgid ""
 "MCADS is provided under the terms specified in the project's LICENSE file. "
 "The Software incorporates:"
@@ -1854,27 +2411,27 @@ msgstr ""
 "MCADS teikiamas pagal projekto LICENSE faile nurodytas sąlygas. Programinė "
 "įranga apima:"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:170
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:174
 msgid "TorchXRayVision library"
 msgstr "TorchXRayVision biblioteką"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:171
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:175
 msgid "Pre-trained neural network models"
 msgstr "Iš anksto apmokytus neuroninių tinklų modelius"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:172
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:176
 msgid "Django framework"
 msgstr "Django karkasą"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:173
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:177
 msgid "Various open-source components"
 msgstr "Įvairius atvirojo kodo komponentus"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:177
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:181
 msgid "Third-Party Components"
 msgstr "Trečiųjų šalių komponentai"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:179
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:183
 msgid ""
 "Users acknowledge that the Software includes third-party components with "
 "their own licenses and terms."
@@ -1882,11 +2439,11 @@ msgstr ""
 "Naudotojai pripažįsta, kad programinė įranga apima trečiųjų šalių "
 "komponentus su jų pačių licencijomis ir sąlygomis."
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:185
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:189
 msgid "Indemnification"
 msgstr "Žalos atlyginimas"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:187
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:191
 msgid ""
 "Users agree to indemnify, defend, and hold harmless the Providers from any "
 "claims, damages, losses, or expenses arising from:"
@@ -1894,131 +2451,131 @@ msgstr ""
 "Naudotojai sutinka atlyginti žalą, ginti ir apsaugoti teikėjus nuo bet kokių "
 "reikalavimų, žalos, nuostolių ar išlaidų, kylantin iš:"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:189
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:193
 msgid "User's violation of these Terms"
 msgstr "Naudotojo šių sąlygų pažeidimo"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:190
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:194
 msgid "User's misuse of the Software"
 msgstr "Naudotojo programinės įrangos netinkamo naudojimo"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:191
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:195
 msgid "Any medical decisions based on Software output"
 msgstr "Bet kokių medicinos sprendimų, paremtų programinės įrangos išvestimi"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:192
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:196
 msgid "Any breach of applicable laws or regulations"
 msgstr "Bet kokio taikomų įstatymų ar reglamentų pažeidimo"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:197
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:201
 msgid "Research and Academic Use"
 msgstr "Mokslinių tyrimų ir akademinis naudojimas"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:199
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:203
 msgid "Intended Use"
 msgstr "Numatytas naudojimas"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:201
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:205
 msgid "MCADS is intended for:"
 msgstr "MCADS yra skirtas:"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:203
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:207
 msgid "Academic research purposes"
 msgstr "Akademinių tyrimų tikslams"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:204
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:208
 msgid "Educational demonstrations"
 msgstr "Švietimo demonstracijoms"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:205
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:209
 msgid "Algorithm development and testing"
 msgstr "Algoritmų kūrimui ir testavimui"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:206
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:210
 msgid "Non-clinical research studies"
 msgstr "Neklinikinių tyrimų studijoms"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:210
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:214
 msgid "Publication and Citation"
 msgstr "Publikacija ir citavimas"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:212
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:216
 msgid "When using MCADS in research or publications, users should:"
 msgstr "Naudojant MCADS tyrimuose ar publikacijose, naudotojai turėtų:"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:214
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:218
 msgid "Properly cite the Software and underlying models"
 msgstr "Tinkamai cituoti programinę įrangą ir pagrindinius modelius"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:215
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:219
 msgid "Acknowledge the limitations and disclaimers"
 msgstr "Pripažinti apribojimus ir atsisakymus"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:216
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:220
 msgid "Include appropriate medical disclaimers in publications"
 msgstr "Įtraukti tinkamus medicinos atsisakymus publikacijose"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:223
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:227
 msgid "Updates and Modifications"
 msgstr "Atnaujinimai ir modifikacijos"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:225
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:229
 msgid "Software Updates"
 msgstr "Programinės įrangos atnaujinimai"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:227
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:231
 msgid "The Providers may update the Software without notice"
 msgstr "Teikėjai gali atnaujinti programinę įrangą be pranešimo"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:228
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:232
 msgid "Updates may change functionality, accuracy, or behavior"
 msgstr "Atnaujinimai gali pakeisti funkcionalumą, tikslumą ar elgesį"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:229
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:233
 msgid "Users should regularly review these Terms for changes"
 msgstr "Naudotojai turėtų reguliariai peržiūrėti šias sąlygas dėl pakeitimų"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:232
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:236
 msgid "Terms Updates"
 msgstr "Sąlygų atnaujinimai"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:234
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:238
 msgid "These Terms may be updated at any time"
 msgstr "Šios sąlygos gali būti atnaujintos bet kuriuo metu"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:235
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:239
 msgid "Continued use of the Software constitutes acceptance of updated Terms"
 msgstr "Toliau naudojant programinę įrangą reiškia atnaujintų sąlygų priėmimą"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:236
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:240
 msgid "Material changes will be communicated through appropriate channels"
 msgstr "Esminiai pakeitimai bus pranešti tinkamais kanalais"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:242
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:246
 msgid "Termination"
 msgstr "Nutraukimas"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:244
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:248
 msgid "Termination Rights"
 msgstr "Nutraukimo teisės"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:246
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:250
 msgid "Users may stop using the Software at any time"
 msgstr "Naudotojai gali nustoti naudoti programinę įrangą bet kuriuo metu"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:247
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:251
 msgid "Providers may terminate access for violations of these Terms"
 msgstr "Teikėjai gali nutraukti prieigą už šių sąlygų pažeidimus"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:248
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:252
 msgid "Termination does not affect accrued rights or obligations"
 msgstr "Nutraukimas nepaveiks sukauptų teisių ar įsipareigojimų"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:254
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:258
 msgid "Governing Law and Jurisdiction"
 msgstr "Taikomi įstatymai ir jurisdikcija"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:256
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:260
 msgid ""
 "These Terms shall be governed by the laws of Lithuania. Any disputes shall "
 "be resolved in the courts of Lithuania."
@@ -2026,11 +2583,11 @@ msgstr ""
 "Šios sąlygos reglamentuojamos Lietuvos įstatymais. Bet kokie ginčai "
 "sprendžiami Lietuvos teismuose."
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:260
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:264
 msgid "Severability"
 msgstr "Atskyrimas"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:262
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:266
 msgid ""
 "If any provision of these Terms is found invalid or unenforceable, the "
 "remaining provisions shall remain in full force and effect."
@@ -2038,35 +2595,35 @@ msgstr ""
 "Jei bet kuris šių sąlygų punktas pripažįstamas negaliojančiu ar "
 "neįgyvendinamu, likę punktai išlieka galioti ir veikti."
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:266
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:270
 msgid "Contact Information"
 msgstr "Kontaktinė informacija"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:268
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:272
 msgid "For questions about these Terms or the Software, contact:"
 msgstr "Dėl klausimų apie šias sąlygas ar programinę įrangą kreipkitės:"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:270
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:274
 msgid "MCADS Development Team"
 msgstr "MCADS kūrimo komanda"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:271
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:275
 msgid "Paulius Bundza and Justas Trinkūnas"
 msgstr "Paulius Bundza ir Justas Trinkūnas"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:272
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:276
 msgid "Vilnius Tech"
 msgstr "Vilnius Tech"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:273
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:277
 msgid "Email:"
 msgstr "El. paštas:"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:281
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:285
 msgid "FINAL MEDICAL WARNING"
 msgstr "GALUTINIS MEDICINOS ĮSPĖJIMAS"
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:282
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:286
 msgid ""
 "BY USING MCADS, YOU ACKNOWLEDGE THAT YOU HAVE READ, UNDERSTOOD, AND AGREED "
 "TO ALL MEDICAL DISCLAIMERS AND LIMITATIONS. YOU UNDERSTAND THAT MCADS IS NOT "
@@ -2081,7 +2638,7 @@ msgstr ""
 "MEDICINOS SPRENDIMUS AR PASEKMES, SUSIJUSIAS SU ŠOS PROGRAMINĖS ĮRANGOS "
 "NAUDOJIMU."
 
-#: .\xrayapp\templates\xrayapp\terms_of_service.html:283
+#: .\xrayapp\templates\xrayapp\terms_of_service.html:287
 msgid ""
 "IF YOU HAVE ANY MEDICAL CONCERNS, CONSULT A QUALIFIED HEALTHCARE "
 "PROFESSIONAL IMMEDIATELY."
@@ -2089,7 +2646,7 @@ msgstr ""
 "JEI TURITE BET KOKIŲ MEDICINOS RŪPESČIŲ, NEDELSIANT KREIPKITĖS Į "
 "KVALIFIKUOTĄ SVEIKATOS PRIEŽIŪROS SPECIALISTĄ."
 
-#: .\xrayapp\views.py:420 .\xrayapp\views.py:723
+#: .\xrayapp\views.py:556
 msgid ""
 "Atelectasis refers to the collapse or incomplete expansion of lung tissue, "
 "resulting in reduced gas exchange. It can be caused by airway obstruction "
@@ -2100,16 +2657,17 @@ msgid ""
 "of increased opacity with volume loss, often accompanied by compensatory "
 "changes such as mediastinal shift, elevated hemidiaphragm, or rib crowding."
 msgstr ""
-"Atelektazė - tai plaučių audinio susmukimas ar nepilnas išsiplėtimas, "
-"dėl kurio pablogėja dujų apykaita. Tai gali būti sukelta oro takų užkimšimo "
-"(resorpcijos atelektazė), išorinio plaučio suspaudimo (suspaudimo atelektazė) "
-"arba nepakankamo surfaktanto gamybos. Dažnos priežastys - gleivių kamščiai, "
-"svetimkūniai, navikai, pneumotoraksas, pleuros výpotai ir pooperacinės "
-"komplikacijos. Krūtinės rentgene atelektazė atrodo kaip padidėjusio neperšvietimo "
-"sritys su tūrio praradimu, dažnai kartu su kompensaciniais pakitimais, tokiais "
-"kaip tarpuplaučio poslinkis, pakilusi hemidiafragma ar šonkaulių spūdis."
+"Atelektazė - tai plaučių audinio susmukimas ar nepilnas išsiplėtimas, dėl "
+"kurio pablogėja dujų apykaita. Tai gali būti sukelta oro takų užkimšimo "
+"(resorpcijos atelektazė), išorinio plaučio suspaudimo (suspaudimo "
+"atelektazė) arba nepakankamo surfaktanto gamybos. Dažnos priežastys - "
+"gleivių kamščiai, svetimkūniai, navikai, pneumotoraksas, pleuros výpotai ir "
+"pooperacinės komplikacijos. Krūtinės rentgene atelektazė atrodo kaip "
+"padidėjusio neperšvietimo sritys su tūrio praradimu, dažnai kartu su "
+"kompensaciniais pakitimais, tokiais kaip tarpuplaučio poslinkis, pakilusi "
+"hemidiafragma ar šonkaulių spūdis."
 
-#: .\xrayapp\views.py:422 .\xrayapp\views.py:724
+#: .\xrayapp\views.py:558
 msgid ""
 "Cardiomegaly refers to enlargement of the heart, typically identified on "
 "chest X-rays when the cardiothoracic ratio exceeds 0.50 on a posteroanterior "
@@ -2124,13 +2682,13 @@ msgstr ""
 "rentgenogramose, kai kardiotoraksinis santykis viršija 0,50 užpakalinėje "
 "priekinėje (PA) projekcijoje. Gali būti sukelta įvairių ligų, įskaitant "
 "hipertenziją, širdies nepakankamumą, kardiomiopatiją, vožtuvų ligas ar "
-"įgimtus širdies defektus. Padidėjęs širdies siluetas gali atrodyti "
-"rutulinis arba turėti specifinio kamero padidėjimo ypatumus, priklausomai "
-"nuo pagrindinės priežasties. Kardiomegalija dažnai rodo širdies ir kraujagyslių "
+"įgimtus širdies defektus. Padidėjęs širdies siluetas gali atrodyti rutulinis "
+"arba turėti specifinio kamero padidėjimo ypatumus, priklausomai nuo "
+"pagrindinės priežasties. Kardiomegalija dažnai rodo širdies ir kraujagyslių "
 "sistemos ligą ir gali reikalauti tolesnės echokardiografijos ar kitų širdies "
 "vaizdavimo tyrimų."
 
-#: .\xrayapp\views.py:424 .\xrayapp\views.py:725
+#: .\xrayapp\views.py:560
 msgid ""
 "Consolidation represents the filling of alveolar spaces with fluid, pus, "
 "blood, or other material, replacing normal air-filled lung tissue. It "
@@ -2141,16 +2699,16 @@ msgid ""
 "or patchy in distribution. Clinical correlation is essential for determining "
 "the underlying cause and appropriate treatment."
 msgstr ""
-"Konsolidacija - tai alveolių erdvių užpildymas skysčiu, pūliais, krauju "
-"ar kita medžiaga, pakeičiant normalų oru pripildytą plaučių audinį. "
-"Krūtinės rentgenogramose atrodo kaip homogeninis neperšvietimas, dažnai "
-"su matomomis oro bronchogrammomis konsoliduotoje srityje. Dažnos priežastys - "
-"pneumonija (bakterinė, virusinė ar grybelinė), plaučių edema, kraujavimas "
-"ar aspiracija. Neperšvietimas paprastai turi aiškiai apibrėžtus kraštus "
-"ir gali būti skilvelinis, segmentinis ar dėmėtas paskirstymas. Klinikinis "
-"vertinimas yra būtinas nustatant pagrindinę priežastį ir tinkamą gydymą."
+"Konsolidacija - tai alveolių erdvių užpildymas skysčiu, pūliais, krauju ar "
+"kita medžiaga, pakeičiant normalų oru pripildytą plaučių audinį. Krūtinės "
+"rentgenogramose atrodo kaip homogeninis neperšvietimas, dažnai su matomomis "
+"oro bronchogrammomis konsoliduotoje srityje. Dažnos priežastys - pneumonija "
+"(bakterinė, virusinė ar grybelinė), plaučių edema, kraujavimas ar "
+"aspiracija. Neperšvietimas paprastai turi aiškiai apibrėžtus kraštus ir gali "
+"būti skilvelinis, segmentinis ar dėmėtas paskirstymas. Klinikinis vertinimas "
+"yra būtinas nustatant pagrindinę priežastį ir tinkamą gydymą."
 
-#: .\xrayapp\views.py:426 .\xrayapp\views.py:726
+#: .\xrayapp\views.py:562
 msgid ""
 "Pulmonary edema is the accumulation of excess fluid in the lung tissue and "
 "alveolar spaces, resulting in impaired gas exchange. It can be cardiogenic "
@@ -2161,17 +2719,17 @@ msgid ""
 "cardiomegaly, pleural effusions, and prominent pulmonary vasculature. Early "
 "recognition is crucial as it can be life-threatening."
 msgstr ""
-"Plaučių edema - tai perteklinio skysčio susikaupimas plaučių audinyje "
-"ir alveolių erdvėse, dėl kurio pablogėja dujų apykaita. Gali būti "
-"kardiogeninė (dėl širdies nepakankamumo, vožtuvų ligos ar skysčio "
-"perkrovos) arba nekardiogeninė (dėl ūminio plaučių pažeidimo, infekcijos "
-"ar kapiliarų pralaidumo). Krūtinės rentgenogramose plaučių edema atrodo "
-"kaip abipusiai, simetriški neperšvietimai, kurie gali turėti 'šikšnosparniu "
-"sparnu' ar perijiliarų pasiskirstymą. Papildomi radiniai gali būti "
-"kardiomegalija, pleuros výpotai ir išryškėjusi plaučių kraujagyslė. "
-"Ankstyvas atpažinimas yra labai svarbus, nes gali kelti pavojų gyvybei."
+"Plaučių edema - tai perteklinio skysčio susikaupimas plaučių audinyje ir "
+"alveolių erdvėse, dėl kurio pablogėja dujų apykaita. Gali būti kardiogeninė "
+"(dėl širdies nepakankamumo, vožtuvų ligos ar skysčio perkrovos) arba "
+"nekardiogeninė (dėl ūminio plaučių pažeidimo, infekcijos ar kapiliarų "
+"pralaidumo). Krūtinės rentgenogramose plaučių edema atrodo kaip abipusiai, "
+"simetriški neperšvietimai, kurie gali turėti 'šikšnosparniu sparnu' ar "
+"perijiliarų pasiskirstymą. Papildomi radiniai gali būti kardiomegalija, "
+"pleuros výpotai ir išryškėjusi plaučių kraujagyslė. Ankstyvas atpažinimas "
+"yra labai svarbus, nes gali kelti pavojų gyvybei."
 
-#: .\xrayapp\views.py:428 .\xrayapp\views.py:727
+#: .\xrayapp\views.py:564
 msgid ""
 "Pleural effusion is the abnormal accumulation of fluid in the pleural space "
 "between the lung and chest wall. It can be transudative (due to heart "
@@ -2182,17 +2740,16 @@ msgid ""
 "effusions can cause mediastinal shift away from the affected side and "
 "require drainage for both diagnostic and therapeutic purposes."
 msgstr ""
-"Pleuros výpotas - tai nenormalus skysčio susikaupimas pleuros erdvėje "
-"tarp plaučio ir krūtinės sienos. Gali būti transudatinis (dėl širdies "
+"Pleuros výpotas - tai nenormalus skysčio susikaupimas pleuros erdvėje tarp "
+"plaučio ir krūtinės sienos. Gali būti transudatinis (dėl širdies "
 "nepakankamumo, kepenų ligos ar inkstų ligos) arba eksudatinis (dėl "
 "infekcijos, piktybinio proceso ar uždegimo). Krūtinės rentgenogramose "
 "pleuros výpotas atrodo kaip homogeninis neperšvietimas, kuris uždengia "
-"diafragmą ir kostofrenikinį kampą, su menisko ženklu skysčio-oro "
-"sąsajoje. Dideli výpotai gali sukelti tarpuplaučio poslinkį nuo "
-"paveiktos pusės ir reikalauti drenažo tiek diagnostiniais, tiek "
-"gydymo tikslais."
+"diafragmą ir kostofrenikinį kampą, su menisko ženklu skysčio-oro sąsajoje. "
+"Dideli výpotai gali sukelti tarpuplaučio poslinkį nuo paveiktos pusės ir "
+"reikalauti drenažo tiek diagnostiniais, tiek gydymo tikslais."
 
-#: .\xrayapp\views.py:430 .\xrayapp\views.py:728
+#: .\xrayapp\views.py:566
 msgid ""
 "Emphysema is a chronic obstructive pulmonary disease characterized by "
 "permanent enlargement and destruction of alveolar spaces distal to terminal "
@@ -2203,17 +2760,16 @@ msgid ""
 "show bullae formation and signs of pulmonary hypertension. High-resolution "
 "CT is more sensitive for detecting early emphysematous changes."
 msgstr ""
-"Emfizema - tai lėtinė obstrukcinė plaučių liga, kuriai būdingas "
-"nuolatinis alveolių erdvių padidėjimas ir sugriovimas už terminalinių "
-"broncholių. Dažniausiai sukelta rūkymo, bet taip pat gali būti dėl "
-"alfa-1 antitripsino trūkumo ar profesinio poveikio. Krūtinės "
-"rentgenogramose emfizema atrodo kaip hiperinfliacija su išlygintomis "
-"hemidiafragmomis, padidėjusiu priekinio-užpakalinio skersmens ir "
-"sumažėjusiais plaučių žymenimis. Pažengusiais atvejais gali būti "
-"bulos formavimasis ir plaučių hipertenzijos ženklai. Didelės raiškos "
-"KT yra jautresnė ankstyvų emfizematinių pakitimų aptikimui."
+"Emfizema - tai lėtinė obstrukcinė plaučių liga, kuriai būdingas nuolatinis "
+"alveolių erdvių padidėjimas ir sugriovimas už terminalinių broncholių. "
+"Dažniausiai sukelta rūkymo, bet taip pat gali būti dėl alfa-1 antitripsino "
+"trūkumo ar profesinio poveikio. Krūtinės rentgenogramose emfizema atrodo "
+"kaip hiperinfliacija su išlygintomis hemidiafragmomis, padidėjusiu priekinio-"
+"užpakalinio skersmens ir sumažėjusiais plaučių žymenimis. Pažengusiais "
+"atvejais gali būti bulos formavimasis ir plaučių hipertenzijos ženklai. "
+"Didelės raiškos KT yra jautresnė ankstyvų emfizematinių pakitimų aptikimui."
 
-#: .\xrayapp\views.py:432 .\xrayapp\views.py:729
+#: .\xrayapp\views.py:568
 msgid ""
 "Pulmonary fibrosis involves the thickening and scarring of lung tissue, "
 "leading to progressive loss of lung function. It can be idiopathic or "
@@ -2225,17 +2781,16 @@ msgid ""
 "treatment are important to slow disease progression."
 msgstr ""
 "Plaučių fibrozė - tai plaučių audinio storėjimas ir randėjimasis, "
-"sukeliantis palaipsnį plaučių funkcijos praradimą. Gali būti "
-"idiopatinė arba antrinė dėl įvairių priežasčių, įskaitant "
-"profesinius poveikius (asbestozė, silikozė), vaistus, spinduliuotės "
-"terapiją ar jungiamojo audinio ligas. Krūtinės rentgenogramose "
-"fibrozė atrodo kaip tinkliniai ar tinkliniai-mazgeliniai "
-"neperšvietimai, dažnai su apatinių skilvelių vyravimu. Pažengusiais "
-"atvejais gali būti korių formavimasis, traukos bronchektazės ir "
-"plaučių tūrio praradimas. Ankstyvas aptikimas ir gydymas yra svarbūs "
-"ligos progresavimo sulėtinimui."
+"sukeliantis palaipsnį plaučių funkcijos praradimą. Gali būti idiopatinė arba "
+"antrinė dėl įvairių priežasčių, įskaitant profesinius poveikius (asbestozė, "
+"silikozė), vaistus, spinduliuotės terapiją ar jungiamojo audinio ligas. "
+"Krūtinės rentgenogramose fibrozė atrodo kaip tinkliniai ar tinkliniai-"
+"mazgeliniai neperšvietimai, dažnai su apatinių skilvelių vyravimu. "
+"Pažengusiais atvejais gali būti korių formavimasis, traukos bronchektazės ir "
+"plaučių tūrio praradimas. Ankstyvas aptikimas ir gydymas yra svarbūs ligos "
+"progresavimo sulėtinimui."
 
-#: .\xrayapp\views.py:434 .\xrayapp\views.py:730
+#: .\xrayapp\views.py:570
 msgid ""
 "Hiatal hernia occurs when part of the stomach protrudes through the "
 "diaphragmatic opening into the thoracic cavity. It can be sliding (most "
@@ -2246,16 +2801,16 @@ msgid ""
 "strangulation. Barium studies or CT imaging may be needed for detailed "
 "evaluation."
 msgstr ""
-"Hiato išvarža atsiranda, kai dalies skrandžio išsikišo per "
-"diafragmos angą į krūtinės ertmę. Gali būti slenkančioji (dažniausia) "
-"arba paraezofaginė (retesnė, bet rimtesnė). Krūtinės rentgenogramose "
-"hiato išvarža gali atrodyti kaip užširdžinė masė ar oro-skysčio "
-"lygis už širdies. Didelės išvaržos gali suspausti gretimus darinus "
-"ir gali būti susijusios su komplikacijomis, tokiomis kaip skrandžio "
-"volvulus, obstrukcija ar pažeidimas. Barių tyrimai ar KT vaizdavimas "
-"gali būti reikalingi išsamiam įvertinimui."
+"Hiato išvarža atsiranda, kai dalies skrandžio išsikišo per diafragmos angą į "
+"krūtinės ertmę. Gali būti slenkančioji (dažniausia) arba paraezofaginė "
+"(retesnė, bet rimtesnė). Krūtinės rentgenogramose hiato išvarža gali "
+"atrodyti kaip užširdžinė masė ar oro-skysčio lygis už širdies. Didelės "
+"išvaržos gali suspausti gretimus darinus ir gali būti susijusios su "
+"komplikacijomis, tokiomis kaip skrandžio volvulus, obstrukcija ar "
+"pažeidimas. Barių tyrimai ar KT vaizdavimas gali būti reikalingi išsamiam "
+"įvertinimui."
 
-#: .\xrayapp\views.py:436 .\xrayapp\views.py:731
+#: .\xrayapp\views.py:572
 msgid ""
 "Pulmonary infiltration refers to the abnormal accumulation of substances in "
 "lung tissue, including inflammatory cells, fluid, or other materials. It "
@@ -2268,15 +2823,15 @@ msgid ""
 msgstr ""
 "Plaučių infiltracija - tai nenormalus medžiagų susikaupimas plaučių "
 "audinyje, įskaitant uždegiminius ląsteles, skystį ar kitas medžiagas. "
-"Krūtinės rentgenogramose atrodo kaip padidėjusio neperšvietumo sritys "
-"ir gali būti sukelta įvairių ligų, tokių kaip pneumonija, plaučių "
-"edema, kraujavimas ar intersticinė plaučių liga. Infiltratų pobūdis "
-"ir pasiskirstymas gali padėti susiaurinti diferencinę diagnozę. "
-"Infiltratai gali būti dėmėti, difuziniai arba turėti specifinius "
-"šablonus, tokius kaip matinio stiklo neperšvietimas ar crazy-paving "
-"šablonas didelės raiškos vaizdavime."
+"Krūtinės rentgenogramose atrodo kaip padidėjusio neperšvietumo sritys ir "
+"gali būti sukelta įvairių ligų, tokių kaip pneumonija, plaučių edema, "
+"kraujavimas ar intersticinė plaučių liga. Infiltratų pobūdis ir "
+"pasiskirstymas gali padėti susiaurinti diferencinę diagnozę. Infiltratai "
+"gali būti dėmėti, difuziniai arba turėti specifinius šablonus, tokius kaip "
+"matinio stiklo neperšvietimas ar crazy-paving šablonas didelės raiškos "
+"vaizdavime."
 
-#: .\xrayapp\views.py:438 .\xrayapp\views.py:732
+#: .\xrayapp\views.py:574
 msgid ""
 "A pulmonary mass is a focal opacity greater than 3 cm in diameter that "
 "appears on chest imaging. Masses can be benign (such as hamartomas or "
@@ -2287,17 +2842,16 @@ msgid ""
 "scanning, and tissue sampling is typically required to determine the nature "
 "and extent of the mass."
 msgstr ""
-"Plaučių masė - tai židininiai neperšvietimai, didesni nei 3 cm "
-"skersmens, matomi krūtinės vaizdavime. Masės gali būti gerybinės "
-"(tokios kaip hamartomas ar granuliomos) arba piktybinės (pirminis "
-"plaučių vėžys ar metastazės). Krūtinės rentgenogramose masės atrodo "
-"kaip aiškiai apibrėžti ar spiculiuoti neperšvietimai, kuriuos gali "
-"lydėti papildomi radiniai, tokie kaip pleuros výpotas, limfadenopatija "
-"ar kaulų pažeidimai. Tolesnė analizė su KT vaizdavimu, PET skanavimu "
-"ir audinio mėginiu paprastai reikalinga nustatyti masės pobūdį ir "
-"mastą."
+"Plaučių masė - tai židininiai neperšvietimai, didesni nei 3 cm skersmens, "
+"matomi krūtinės vaizdavime. Masės gali būti gerybinės (tokios kaip "
+"hamartomas ar granuliomos) arba piktybinės (pirminis plaučių vėžys ar "
+"metastazės). Krūtinės rentgenogramose masės atrodo kaip aiškiai apibrėžti ar "
+"spiculiuoti neperšvietimai, kuriuos gali lydėti papildomi radiniai, tokie "
+"kaip pleuros výpotas, limfadenopatija ar kaulų pažeidimai. Tolesnė analizė "
+"su KT vaizdavimu, PET skanavimu ir audinio mėginiu paprastai reikalinga "
+"nustatyti masės pobūdį ir mastą."
 
-#: .\xrayapp\views.py:440 .\xrayapp\views.py:733
+#: .\xrayapp\views.py:576
 msgid ""
 "A pulmonary nodule is a focal opacity less than or equal to 3 cm in diameter "
 "surrounded by normal lung tissue. Nodules can be solitary or multiple and "
@@ -2307,17 +2861,16 @@ msgid ""
 "help determine the need for further evaluation. CT imaging is often required "
 "for detailed characterization and follow-up."
 msgstr ""
-"Plaučių mazgelis - tai židininiai neperšvietimai, mažesni arba lygūs "
-"3 cm skersmens, apsupti normalaus plaučių audinio. Mazgeliai gali "
-"būti pavieniai arba daugybiniai ir gali būti gerybiniai (granuliomos, "
-"hamartomos) arba piktybiniai (pirminis ar metastazinis vėžys). "
-"Krūtinės rentgenogramose mazgeliai atrodo kaip apvalūs neperšvietimai, "
-"kurie gali būti kalcifikuoti ar nekalcifikuoti. Mazgelių dydis, "
-"morfologija ir augimo greitis padeda nustatyti tolesnės analizės "
-"poreikį. KT vaizdavimas dažnai reikalingas išsamiam apibūdinimui "
-"ir stebėsenai."
+"Plaučių mazgelis - tai židininiai neperšvietimai, mažesni arba lygūs 3 cm "
+"skersmens, apsupti normalaus plaučių audinio. Mazgeliai gali būti pavieniai "
+"arba daugybiniai ir gali būti gerybiniai (granuliomos, hamartomos) arba "
+"piktybiniai (pirminis ar metastazinis vėžys). Krūtinės rentgenogramose "
+"mazgeliai atrodo kaip apvalūs neperšvietimai, kurie gali būti kalcifikuoti "
+"ar nekalcifikuoti. Mazgelių dydis, morfologija ir augimo greitis padeda "
+"nustatyti tolesnės analizės poreikį. KT vaizdavimas dažnai reikalingas "
+"išsamiam apibūdinimui ir stebėsenai."
 
-#: .\xrayapp\views.py:442 .\xrayapp\views.py:734
+#: .\xrayapp\views.py:578
 msgid ""
 "Pleural thickening involves the abnormal thickening of the pleural membranes "
 "surrounding the lungs, which can be focal or diffuse. It may result from "
@@ -2328,18 +2881,16 @@ msgid ""
 "respiratory symptoms. High-resolution CT is more sensitive for detecting "
 "subtle pleural abnormalities and assessing disease extent."
 msgstr ""
-"Pleuros storėjimas - tai nenormalus pleuros membranas, supančių "
-"plaučius, storėjimas, kuris gali būti židininis ar difuzinis. Gali "
-"atsirasti dėl ankstesnės infekcijos (empiema, tuberkuliozė), "
-"asbesto poveikio, traumos ar piktybinio proceso. Krūtinės "
-"rentgenogramose pleuros storėjimas atrodo kaip padidėjęs "
-"neperšvietimas palei pleuros paviršius, dažnai su kostofreninių "
-"kampų užbaigimų sužadijimu. Platus pleuros storėjimas gali "
-"apriboti plaučių išplėtimą ir sukelti kvėpavimo simptomus. "
-"Didelės raiškos KT yra jautresnė subtilių pleuros nenormalumų "
-"aptikimui ir ligos masto įvertinimui."
+"Pleuros storėjimas - tai nenormalus pleuros membranas, supančių plaučius, "
+"storėjimas, kuris gali būti židininis ar difuzinis. Gali atsirasti dėl "
+"ankstesnės infekcijos (empiema, tuberkuliozė), asbesto poveikio, traumos ar "
+"piktybinio proceso. Krūtinės rentgenogramose pleuros storėjimas atrodo kaip "
+"padidėjęs neperšvietimas palei pleuros paviršius, dažnai su kostofreninių "
+"kampų užbaigimų sužadijimu. Platus pleuros storėjimas gali apriboti plaučių "
+"išplėtimą ir sukelti kvėpavimo simptomus. Didelės raiškos KT yra jautresnė "
+"subtilių pleuros nenormalumų aptikimui ir ligos masto įvertinimui."
 
-#: .\xrayapp\views.py:444 .\xrayapp\views.py:735
+#: .\xrayapp\views.py:580
 msgid ""
 "Pneumonia is an inflammatory condition of the lung tissue, usually caused by "
 "bacterial, viral, or fungal infections. It can also result from aspiration "
@@ -2351,16 +2902,15 @@ msgid ""
 "essential for optimal outcomes."
 msgstr ""
 "Pneumonija - tai plaučių audinio uždegiminė būklė, paprastai sukelta "
-"bakterinės, virusinės ar grybelinės infekcijos. Taip pat gali būti "
-"dėl aspiracijos ar cheminių dirgiklių. Krūtinės rentgenogramose "
-"pneumonija atrodo kaip konsolidacijos ar infiltracijos sritys, kurios "
-"gali būti skilvelinės, segmentinės ar dėmėto paskirstymo. Oro "
-"bronchogramos dažnai matomos konsoliduotose srityse. Klinikiniai "
-"simptomai - karščiavimas, kosulys, dusulys ir krūtinės skausmas. "
-"Greitas diagnozavimas ir tinkamas antibiotikų gydymas yra būtini "
-"optimaliam rezultatui."
+"bakterinės, virusinės ar grybelinės infekcijos. Taip pat gali būti dėl "
+"aspiracijos ar cheminių dirgiklių. Krūtinės rentgenogramose pneumonija "
+"atrodo kaip konsolidacijos ar infiltracijos sritys, kurios gali būti "
+"skilvelinės, segmentinės ar dėmėto paskirstymo. Oro bronchogramos dažnai "
+"matomos konsoliduotose srityse. Klinikiniai simptomai - karščiavimas, "
+"kosulys, dusulys ir krūtinės skausmas. Greitas diagnozavimas ir tinkamas "
+"antibiotikų gydymas yra būtini optimaliam rezultatui."
 
-#: .\xrayapp\views.py:446 .\xrayapp\views.py:736
+#: .\xrayapp\views.py:582
 msgid ""
 "Pneumothorax is the presence of air in the pleural space, causing partial or "
 "complete lung collapse. It can be spontaneous (primary in healthy "
@@ -2371,17 +2921,16 @@ msgid ""
 "mediastinal shift and require immediate decompression. Small pneumothoraces "
 "may resolve spontaneously with observation."
 msgstr ""
-"Pneumotoraksas - tai oro buvimas pleuros erdvėje, sukeliantis "
-"dalinį ar visišką plaučio kolapsą. Gali būti spontaninis (pirminės "
-"formos sveikiems asmenims ar antrinės formos turintiems plaučių ligą) "
-"arba trauminis (dėl traumos ar medicininių procedūrų). Krūtinės "
-"rentgenogramose pneumotoraksas atrodo kaip šviesi sritis be plaučių "
-"žymenimų, su matoma pleuros linija, skiriančia susmukusį plaučią nuo "
-"krūtinės sienos. Dideli pneumotoraksai gali sukelti tarpuplaučio "
-"poslinkį ir reikalauja neatidėliotinos dekompresijos. Maži "
-"pneumotoraksai gali išnykti savaime stebint."
+"Pneumotoraksas - tai oro buvimas pleuros erdvėje, sukeliantis dalinį ar "
+"visišką plaučio kolapsą. Gali būti spontaninis (pirminės formos sveikiems "
+"asmenims ar antrinės formos turintiems plaučių ligą) arba trauminis (dėl "
+"traumos ar medicininių procedūrų). Krūtinės rentgenogramose pneumotoraksas "
+"atrodo kaip šviesi sritis be plaučių žymenimų, su matoma pleuros linija, "
+"skiriančia susmukusį plaučią nuo krūtinės sienos. Dideli pneumotoraksai gali "
+"sukelti tarpuplaučio poslinkį ir reikalauja neatidėliotinos dekompresijos. "
+"Maži pneumotoraksai gali išnykti savaime stebint."
 
-#: .\xrayapp\views.py:448 .\xrayapp\views.py:737
+#: .\xrayapp\views.py:584
 msgid ""
 "Rib fractures are breaks in one or more of the bones that form the ribcage, "
 "commonly resulting from trauma, falls, or repetitive stress. On chest X-"
@@ -2392,17 +2941,17 @@ msgid ""
 "metastases or metabolic bone disease. Pain management and monitoring for "
 "complications are important aspects of treatment."
 msgstr ""
-"Šonkaulių lūžiai - tai vieno ar kelių šonkaulių, sudarančių krūtinės "
-"ląstą, kaulų lūžiai, dažniausiai atsirandantys dėl traumos, kritimų "
-"ar kartotinio poveikio. Krūtinės rentgenogramose lūžiai gali atrodyti "
-"kaip šviesios linijos, žievės nutraukimas ar kaulų fragmentų poslinkis. "
-"Keli šonkaulių lūžiai gali būti susiję su rimtomis komplikacijomis, "
-"įskaitant pneumotoraksą, hemotoraksą ar gretimų organų pažeidimą. "
-"Patologiniai lūžiai gali atsirasti pacientams, turintiems kaulų "
-"metastazes ar metabolinių kaulų ligą. Skausmo valdymas ir "
-"komplikacijų stebėjimas yra svarbūs gydymo aspektai."
+"Šonkaulių lūžiai - tai vieno ar kelių šonkaulių, sudarančių krūtinės ląstą, "
+"kaulų lūžiai, dažniausiai atsirandantys dėl traumos, kritimų ar kartotinio "
+"poveikio. Krūtinės rentgenogramose lūžiai gali atrodyti kaip šviesios "
+"linijos, žievės nutraukimas ar kaulų fragmentų poslinkis. Keli šonkaulių "
+"lūžiai gali būti susiję su rimtomis komplikacijomis, įskaitant "
+"pneumotoraksą, hemotoraksą ar gretimų organų pažeidimą. Patologiniai lūžiai "
+"gali atsirasti pacientams, turintiems kaulų metastazes ar metabolinių kaulų "
+"ligą. Skausmo valdymas ir komplikacijų stebėjimas yra svarbūs gydymo "
+"aspektai."
 
-#: .\xrayapp\views.py:450 .\xrayapp\views.py:738
+#: .\xrayapp\views.py:586
 msgid ""
 "Lung opacity refers to any area of increased density on chest imaging that "
 "obscures normal lung anatomy. It is a general term that encompasses various "
@@ -2413,18 +2962,16 @@ msgid ""
 "high-resolution CT imaging and clinical correlation is often needed to "
 "determine the specific underlying pathology."
 msgstr ""
-"Plaučių neperšvietimas - tai bet kuri padidėjusio tankio sritis "
-"krūtinės vaizdavime, kuri uždengia normalią plaučių anatomiją. "
-"Tai bendrasis terminas, apimantis įvairius patologinius procesus, "
-"įskaitant konsolidaciją, matinio stiklo neperšvietimą ar masės "
-"pažeidimus. Pobūdis, pasiskirstymas ir susiję radiniai padeda "
-"susiaurinti diferencinę diagnozę. Dažnos priežastys - pneumonija, "
-"plaučių edema, intersticinė plaučių liga ar piktybinis procesas. "
-"Tolesnė analizė su didelės raiškos KT vaizdavimu ir klinikinė "
-"koreliacija dažnai reikalinga nustatyti specifinę pagrindinę "
-"patologiją."
+"Plaučių neperšvietimas - tai bet kuri padidėjusio tankio sritis krūtinės "
+"vaizdavime, kuri uždengia normalią plaučių anatomiją. Tai bendrasis "
+"terminas, apimantis įvairius patologinius procesus, įskaitant konsolidaciją, "
+"matinio stiklo neperšvietimą ar masės pažeidimus. Pobūdis, pasiskirstymas ir "
+"susiję radiniai padeda susiaurinti diferencinę diagnozę. Dažnos priežastys - "
+"pneumonija, plaučių edema, intersticinė plaučių liga ar piktybinis procesas. "
+"Tolesnė analizė su didelės raiškos KT vaizdavimu ir klinikinė koreliacija "
+"dažnai reikalinga nustatyti specifinę pagrindinę patologiją."
 
-#: .\xrayapp\views.py:452 .\xrayapp\views.py:739
+#: .\xrayapp\views.py:588
 msgid ""
 "Enlarged cardiomediastinum refers to an increase in the combined width of "
 "the cardiac silhouette and mediastinal contours. On a standard "
@@ -2442,23 +2989,22 @@ msgid ""
 "enlargement or contrast-enhanced CT to assess aortic and mediastinal "
 "pathology."
 msgstr ""
-"Padidėjęs kardiomediastinas - tai širdies silueto ir tarpuplaučio "
-"kontūrų bendro pločio padidėjimas. Standartiniame užpakaliniame-"
-"priekiniame (PA) vaizdavime paprastai nustatomas, kai kardiotoraksinis "
-"santykis (didžiausias horizontalus širdies skersmuo, padalytas iš "
-"didžiausio krūtinės skersmens) viršija 0,50. Priekiniame-užpakaliniame "
-"(AP) projekcijoje - dažnai atliekamoje gulimoje ar nešiojamoje tyrimų - "
-"tarpuplaučio plotis, didesnis nei maždaug 6-8 cm aortos mazgo lygyje, "
-"taip pat rodo padidėjimą. Dažnos priežastys: Kardiomegalija (pvz., "
-"išplėstinė kardiomiopatija, kairiojo širdies skilvelio hipertrofija), "
-"Perikardo výpotas, sukeliantis rutulišką ('vandens butelio') siluetą, "
-"Aortos patologija (aneurizma ar disekcija), sukelianti tarpuplaučio "
-"platėjimą, Tarpuplaučio masės ar limfadenopatija. Padidėjusio "
-"kardiomediastino atpažinimas yra svarbus, nes dažnai skatina tolesnį "
-"vertinimą - tokį kaip echokardiografija širdies padidėjimui ar "
+"Padidėjęs kardiomediastinas - tai širdies silueto ir tarpuplaučio kontūrų "
+"bendro pločio padidėjimas. Standartiniame užpakaliniame-priekiniame (PA) "
+"vaizdavime paprastai nustatomas, kai kardiotoraksinis santykis (didžiausias "
+"horizontalus širdies skersmuo, padalytas iš didžiausio krūtinės skersmens) "
+"viršija 0,50. Priekiniame-užpakaliniame (AP) projekcijoje - dažnai "
+"atliekamoje gulimoje ar nešiojamoje tyrimų - tarpuplaučio plotis, didesnis "
+"nei maždaug 6-8 cm aortos mazgo lygyje, taip pat rodo padidėjimą. Dažnos "
+"priežastys: Kardiomegalija (pvz., išplėstinė kardiomiopatija, kairiojo "
+"širdies skilvelio hipertrofija), Perikardo výpotas, sukeliantis rutulišką "
+"('vandens butelio') siluetą, Aortos patologija (aneurizma ar disekcija), "
+"sukelianti tarpuplaučio platėjimą, Tarpuplaučio masės ar limfadenopatija. "
+"Padidėjusio kardiomediastino atpažinimas yra svarbus, nes dažnai skatina "
+"tolesnį vertinimą - tokį kaip echokardiografija širdies padidėjimui ar "
 "kontrastiniu KT aortos ir tarpuplaučio patologijai įvertinti."
 
-#: .\xrayapp\views.py:454 .\xrayapp\views.py:740
+#: .\xrayapp\views.py:590
 msgid ""
 "A lung lesion is any abnormal area or growth in lung tissue that differs "
 "from normal lung anatomy. Lesions can be benign or malignant and may include "
@@ -2470,107 +3016,121 @@ msgid ""
 "often required to establish a definitive diagnosis and guide appropriate "
 "treatment."
 msgstr ""
-"Plaučių pažeidimas - tai bet kuri nenormali sritis ar augimas "
-"plaučių audinyje, kuris skiriasi nuo normalios plaučių anatomijos. "
-"Pažeidimai gali būti gerybiniai ar piktybiniai ir gali apimti "
-"mazgelius, mases, cistas ar uždegimo sritis. Krūtinės rentgenogramose "
-"pažeidimai atrodo kaip židininiai neperšvietimai, kurie gali "
-"skirtis dydžiu, forma ir tankumu. Pažeidimo charakteristikos, "
-"įskaitant jo kraštus, kalcifikacijos šabloną ir augimo greitį, "
-"padeda nustatyti piktybingumo tikimybę. Tolesnė analizė su KT "
-"vaizdavimu, PET skanavimu ir galbūt audinio mėginiu dažnai "
-"reikalinga galutinei diagnozei nustatyti ir tinkamam gydymui "
-"orientuoti."
+"Plaučių pažeidimas - tai bet kuri nenormali sritis ar augimas plaučių "
+"audinyje, kuris skiriasi nuo normalios plaučių anatomijos. Pažeidimai gali "
+"būti gerybiniai ar piktybiniai ir gali apimti mazgelius, mases, cistas ar "
+"uždegimo sritis. Krūtinės rentgenogramose pažeidimai atrodo kaip židininiai "
+"neperšvietimai, kurie gali skirtis dydžiu, forma ir tankumu. Pažeidimo "
+"charakteristikos, įskaitant jo kraštus, kalcifikacijos šabloną ir augimo "
+"greitį, padeda nustatyti piktybingumo tikimybę. Tolesnė analizė su KT "
+"vaizdavimu, PET skanavimu ir galbūt audinio mėginiu dažnai reikalinga "
+"galutinei diagnozei nustatyti ir tinkamam gydymui orientuoti."
 
-#: .\xrayapp\views.py:466
+#: .\xrayapp\views.py:602
 #, fuzzy
 #| msgid "Full Name"
 msgid "Name"
 msgstr "Pilnas vardas"
 
-#: .\xrayapp\views.py:468
+#: .\xrayapp\views.py:604
 #, fuzzy
 #| msgid "Min Age"
 msgid "Age"
 msgstr "Min. amžius"
 
-#: .\xrayapp\views.py:468
+#: .\xrayapp\views.py:604
 msgid "years"
 msgstr "metai"
 
-#: .\xrayapp\views.py:469
+#: .\xrayapp\views.py:605
 #, fuzzy
 #| msgid "Date of Birth:"
 msgid "Date of Birth"
 msgstr "Gimimo data:"
 
-#: .\xrayapp\views.py:470
+#: .\xrayapp\views.py:606
 msgid "X-ray Date"
 msgstr "Rentgeno data"
 
-#: .\xrayapp\views.py:471
+#: .\xrayapp\views.py:607
 #, fuzzy
 #| msgid "Additional information"
 msgid "Additional Information"
 msgstr "Papildoma informacija"
 
-#: .\xrayapp\views.py:476 .\xrayapp\views.py:705
+#: .\xrayapp\views.py:613
 msgid "Image name"
 msgstr "Vaizdo pavadinimas"
 
-#: .\xrayapp\views.py:477 .\xrayapp\views.py:706
+#: .\xrayapp\views.py:614
 msgid "Format"
 msgstr "Formatas"
 
-#: .\xrayapp\views.py:478 .\xrayapp\views.py:707
+#: .\xrayapp\views.py:615
 msgid "Size"
 msgstr "Dydis"
 
-#: .\xrayapp\views.py:479 .\xrayapp\views.py:708
+#: .\xrayapp\views.py:616
 msgid "Resolution"
 msgstr "Raiška"
 
-#: .\xrayapp\views.py:480 .\xrayapp\views.py:709
+#: .\xrayapp\views.py:617
 msgid "Date Created"
 msgstr "Sukūrimo data"
 
 # Views messages
-#: .\xrayapp\views.py:586
+#: .\xrayapp\views.py:773
 msgid "Prediction history record has been deleted."
 msgstr "Prognozių istorijos įrašas ištrintas."
 
-#: .\xrayapp\views.py:588 .\xrayapp\views.py:633
+#: .\xrayapp\views.py:775 .\xrayapp\views.py:871
 msgid "Prediction history record not found."
 msgstr "Prognozių istorijos įrašas nerastas."
 
-#: .\xrayapp\views.py:604
+#: .\xrayapp\views.py:794
 #, python-format
 msgid "All %(count)d prediction history records have been deleted."
 msgstr "Visi %(count)d prognozių istorijos įrašai ištrinti."
 
-#: .\xrayapp\views.py:606
+#: .\xrayapp\views.py:796
 msgid "No prediction history records to delete."
 msgstr "Nėra prognozių istorijos įrašų šalinimui."
 
-#: .\xrayapp\views.py:622
+#: .\xrayapp\views.py:812
+#, fuzzy
+#| msgid "Key Permissions"
+msgid "Permission denied"
+msgstr "Pagrindiniai leidimai"
+
+#: .\xrayapp\views.py:840
+msgid "Visualization not found"
+msgstr ""
+
+#: .\xrayapp\views.py:860
 msgid "Prediction record has been updated."
 msgstr "Prognozės įrašas atnaujintas."
 
-#: .\xrayapp\views.py:775
+#: .\xrayapp\views.py:909
+#, fuzzy
+#| msgid "Interpretability options"
+msgid "Interpretability generation started"
+msgstr "Interpretavimo galimybės"
+
+#: .\xrayapp\views.py:997
 #, fuzzy
 #| msgid "Page Not Found"
 msgid "Image not found"
 msgstr "Puslapis nerastas"
 
-#: .\xrayapp\views.py:792
+#: .\xrayapp\views.py:1014
 msgid "Your profile information has been updated successfully."
 msgstr "Jūsų profilio informacija sėkmingai atnaujinta."
 
-#: .\xrayapp\views.py:795
+#: .\xrayapp\views.py:1017
 msgid "Please correct the errors below."
 msgstr "Prašome ištaisyti klaidas žemiau."
 
-#: .\xrayapp\views.py:805
+#: .\xrayapp\views.py:1027
 msgid ""
 "Your preferences have been updated successfully. Please refresh the page to "
 "see theme changes."
@@ -2578,455 +3138,30 @@ msgstr ""
 "Jūsų nustatymai sėkmingai atnaujinti. Prašome atnaujinti puslapį, kad "
 "pamatytumėte temos pakeitimus."
 
-#: .\xrayapp\views.py:808
+#: .\xrayapp\views.py:1030
 msgid "Please correct the errors in your preferences."
 msgstr "Prašome ištaisyti klaidas jūsų nustatymuose."
 
-#: .\xrayapp\views.py:823
+#: .\xrayapp\views.py:1045
 msgid "Your password has been changed successfully."
 msgstr "Jūsų slaptažodis sėkmingai pakeistas."
 
-#: .\xrayapp\views.py:826
+#: .\xrayapp\views.py:1048
 msgid "Please correct the errors in your password form."
 msgstr "Prašome ištaisyti klaidas slaptažodžio formoje."
 
+#: .\xrayapp\views.py:1129
 #, fuzzy
-#~| msgid "Actions"
-#~ msgid "Options"
-#~ msgstr "Veiksmai"
+#| msgid "Your password has been changed successfully."
+msgid "Record saved successfully"
+msgstr "Jūsų slaptažodis sėkmingai pakeistas."
 
+#: .\xrayapp\views.py:1137
+msgid "Record removed from saved"
+msgstr ""
+
+#: .\xrayapp\views.py:1143
 #, fuzzy
-#~| msgid "Unknown"
-#~ msgid "unknown error"
-#~ msgstr "Nežinoma"
-
-#, fuzzy
-#~| msgid "Role Information"
-#~ msgid "Repeat for confirmation"
-#~ msgstr "Vaidmens informacija"
-
-#, fuzzy
-#~| msgid "New passwords do not match."
-#~ msgid "Error: The value you entered was invalid."
-#~ msgstr "Nauji slaptažodžiai nesutampa."
-
-#, fuzzy
-#~| msgid "New passwords do not match."
-#~ msgid "Error: The two entered values do not match."
-#~ msgstr "Nauji slaptažodžiai nesutampa."
-
-#, fuzzy
-#~| msgid "Profile"
-#~ msgid "file"
-#~ msgstr "Profilis"
-
-#, fuzzy
-#~| msgid "Indemnification"
-#~ msgid "Syndication"
-#~ msgstr "Žalos atlyginimas"
-
-#, fuzzy
-#~| msgid "Email address"
-#~ msgid "Enter a valid value."
-#~ msgstr "El. pašto adresas"
-
-#, fuzzy
-#~| msgid "Email address"
-#~ msgid "Enter a valid domain name."
-#~ msgstr "El. pašto adresas"
-
-#, fuzzy
-#~| msgid "Generate visualization"
-#~ msgid "Enter a valid URL."
-#~ msgstr "Generuoti vizualizaciją"
-
-#, fuzzy
-#~| msgid "Generate visualization"
-#~ msgid "Enter a valid integer."
-#~ msgstr "Generuoti vizualizaciją"
-
-#, fuzzy
-#~| msgid "Email address"
-#~ msgid "Enter a valid email address."
-#~ msgstr "El. pašto adresas"
-
-#, fuzzy, python-format
-#~| msgid "Email address"
-#~ msgid "Enter a valid %(protocol)s address."
-#~ msgstr "El. pašto adresas"
-
-#, fuzzy
-#~| msgid "December"
-#~ msgid "Decimal number"
-#~ msgstr "gruodis"
-
-#, fuzzy
-#~| msgid "Termination"
-#~ msgid "Duration"
-#~ msgstr "Nutraukimas"
-
-#, fuzzy
-#~| msgid "Email address"
-#~ msgid "IPv4 address"
-#~ msgstr "El. pašto adresas"
-
-#, fuzzy
-#~| msgid "Email address"
-#~ msgid "IP address"
-#~ msgstr "El. pašto adresas"
-
-#, fuzzy
-#~| msgid "Image name"
-#~ msgid "Image"
-#~ msgstr "Vaizdo pavadinimas"
-
-#, fuzzy
-#~| msgid "Generate visualization"
-#~ msgid "Enter a valid date."
-#~ msgstr "Generuoti vizualizaciją"
-
-#, fuzzy
-#~| msgid "Generate visualization"
-#~ msgid "Enter a valid time."
-#~ msgstr "Generuoti vizualizaciją"
-
-#, fuzzy
-#~| msgid "Generate visualization"
-#~ msgid "Enter a valid date/time."
-#~ msgstr "Generuoti vizualizaciją"
-
-#, fuzzy
-#~| msgid "Generate visualization"
-#~ msgid "Enter a valid duration."
-#~ msgstr "Generuoti vizualizaciją"
-
-#, fuzzy
-#~| msgid "Email address"
-#~ msgid "Enter a list of values."
-#~ msgstr "El. pašto adresas"
-
-#, fuzzy
-#~| msgid "Generate visualization"
-#~ msgid "Enter a valid UUID."
-#~ msgstr "Generuoti vizualizaciją"
-
-#, fuzzy
-#~| msgid "Generate visualization"
-#~ msgid "Enter a valid JSON."
-#~ msgstr "Generuoti vizualizaciją"
-
-#, fuzzy, python-format
-#~| msgid "Please correct the errors below."
-#~ msgid "Please correct the duplicate data for %(field)s."
-#~ msgstr "Prašome ištaisyti klaidas žemiau."
-
-#, fuzzy, python-format
-#~| msgid "Please correct the errors below."
-#~ msgid ""
-#~ "Please correct the duplicate data for %(field)s, which must be unique."
-#~ msgstr "Prašome ištaisyti klaidas žemiau."
-
-#, fuzzy, python-format
-#~| msgid "Please correct the errors below."
-#~ msgid ""
-#~ "Please correct the duplicate data for %(field_name)s which must be unique "
-#~ "for the %(lookup)s in %(date_field)s."
-#~ msgstr "Prašome ištaisyti klaidas žemiau."
-
-#, fuzzy
-#~| msgid "Please correct the errors below."
-#~ msgid "Please correct the duplicate values below."
-#~ msgstr "Prašome ištaisyti klaidas žemiau."
-
-#, fuzzy
-#~| msgid "Current Role"
-#~ msgid "Currently"
-#~ msgstr "Dabartinis vaidmuo"
-
-#, fuzzy
-#~| msgid "Light"
-#~ msgid "midnight"
-#~ msgstr "Šviesi"
-
-# Month names for Django date formatting
-#~ msgid "January"
-#~ msgstr "sausis"
-
-#~ msgid "February"
-#~ msgstr "vasaris"
-
-#~ msgid "March"
-#~ msgstr "kovas"
-
-#~ msgid "April"
-#~ msgstr "balandis"
-
-#~ msgid "May"
-#~ msgstr "gegužė"
-
-#~ msgid "June"
-#~ msgstr "birželis"
-
-#~ msgid "July"
-#~ msgstr "liepa"
-
-#~ msgid "August"
-#~ msgstr "rugpjūtis"
-
-#~ msgid "September"
-#~ msgstr "rugsėjis"
-
-#~ msgid "October"
-#~ msgstr "spalis"
-
-#~ msgid "November"
-#~ msgstr "lapkritis"
-
-#~ msgid "December"
-#~ msgstr "gruodis"
-
-#, fuzzy
-#~| msgid "and"
-#~ msgid "jan"
-#~ msgstr "ir"
-
-#, fuzzy
-#~| msgid "May"
-#~ msgid "may"
-#~ msgstr "gegužė"
-
-#, fuzzy
-#~| msgid "and"
-#~ msgid "jun"
-#~ msgstr "ir"
-
-#, fuzzy
-#~| msgid "March"
-#~ msgctxt "abbrev. month"
-#~ msgid "March"
-#~ msgstr "kovas"
-
-#, fuzzy
-#~| msgid "April"
-#~ msgctxt "abbrev. month"
-#~ msgid "April"
-#~ msgstr "balandis"
-
-#, fuzzy
-#~| msgid "May"
-#~ msgctxt "abbrev. month"
-#~ msgid "May"
-#~ msgstr "gegužė"
-
-#, fuzzy
-#~| msgid "June"
-#~ msgctxt "abbrev. month"
-#~ msgid "June"
-#~ msgstr "birželis"
-
-#, fuzzy
-#~| msgid "July"
-#~ msgctxt "abbrev. month"
-#~ msgid "July"
-#~ msgstr "liepa"
-
-# Month names for Django date formatting
-#, fuzzy
-#~| msgid "January"
-#~ msgctxt "alt. month"
-#~ msgid "January"
-#~ msgstr "sausis"
-
-#, fuzzy
-#~| msgid "February"
-#~ msgctxt "alt. month"
-#~ msgid "February"
-#~ msgstr "vasaris"
-
-#, fuzzy
-#~| msgid "March"
-#~ msgctxt "alt. month"
-#~ msgid "March"
-#~ msgstr "kovas"
-
-#, fuzzy
-#~| msgid "April"
-#~ msgctxt "alt. month"
-#~ msgid "April"
-#~ msgstr "balandis"
-
-#, fuzzy
-#~| msgid "May"
-#~ msgctxt "alt. month"
-#~ msgid "May"
-#~ msgstr "gegužė"
-
-#, fuzzy
-#~| msgid "June"
-#~ msgctxt "alt. month"
-#~ msgid "June"
-#~ msgstr "birželis"
-
-#, fuzzy
-#~| msgid "July"
-#~ msgctxt "alt. month"
-#~ msgid "July"
-#~ msgstr "liepa"
-
-#, fuzzy
-#~| msgid "August"
-#~ msgctxt "alt. month"
-#~ msgid "August"
-#~ msgstr "rugpjūtis"
-
-#, fuzzy
-#~| msgid "September"
-#~ msgctxt "alt. month"
-#~ msgid "September"
-#~ msgstr "rugsėjis"
-
-#, fuzzy
-#~| msgid "October"
-#~ msgctxt "alt. month"
-#~ msgid "October"
-#~ msgstr "spalis"
-
-#, fuzzy
-#~| msgid "November"
-#~ msgctxt "alt. month"
-#~ msgid "November"
-#~ msgstr "lapkritis"
-
-#, fuzzy
-#~| msgid "December"
-#~ msgctxt "alt. month"
-#~ msgid "December"
-#~ msgstr "gruodis"
-
-# File upload translations
-msgid "Browse"
-msgstr "Naršyti"
-
-msgid "No file selected."
-msgstr "Nepasirinktas failas."
-
-msgid "Technologist information"
-msgstr "Technologo informacija"
-
-msgid "Technologist first name:"
-msgstr "Technologo vardas:"
-
-msgid "Technologist last name:"
-msgstr "Technologo pavardė:"
-
-msgid "Basic Information"
-msgstr "Pagrindinė informacija"
-
-msgid "First Name:"
-msgstr "Vardas:"
-
-msgid "Last Name:"
-msgstr "Pavardė:"
-
-msgid "Email Address:"
-msgstr "El. pašto adresas:"
-
-msgid "Professional Information"
-msgstr "Profesinė informacija"
-
-msgid "Hospital:"
-msgstr "Ligoninė:"
-
-msgid "Role:"
-msgstr "Vaidmuo:"
-
-msgid "Account Status"
-msgstr "Paskyros būsena"
-
-msgid "Status:"
-msgstr "Būsena:"
-
-msgid "Account Dates"
-msgstr "Paskyros datos"
-
-msgid "Profile Created:"
-msgstr "Profilis sukurtas:"
-
-msgid "Profile Updated:"
-msgstr "Profilis atnaujintas:"
-
-msgid "Current Preferences"
-msgstr "Dabartiniai nustatymai"
-
-msgid "Theme:"
-msgstr "Tema:"
-
-msgid "Language:"
-msgstr "Kalba:"
-
-msgid "Dashboard View:"
-msgstr "Prietaisų skydelio vaizdas:"
-
-msgid "Email Notifications:"
-msgstr "El. pašto pranešimai:"
-
-msgid "Processing Notifications:"
-msgstr "Apdorojimo pranešimai:"
-
-msgid "Two-Factor Auth:"
-msgstr "Dviejų veiksnių autentifikacija:"
-
-msgid "Active"
-msgstr "Aktyvus"
-
-msgid "Disabled"
-msgstr "Išjungta"
-
-
-
-#, fuzzy
-#~| msgid "Email address"
-#~ msgid "This is not a valid IPv6 address."
-#~ msgstr "El. pašto adresas"
-
-#, fuzzy
-#~| msgid "No profile information available"
-#~ msgid "More information is available with DEBUG=True."
-#~ msgstr "Profilio informacija nepasiekiama"
-
-#, fuzzy
-#~| msgid "Date of X-ray"
-#~ msgid "Date out of range"
-#~ msgstr "Rentgeno data"
-
-# Account Settings translations
-#, fuzzy
-#~| msgid "Close"
-#~ msgid "close"
-#~ msgstr "Uždaryti"
-
-#~ msgid "ResNet: All pathologies except \"Enlarged cardiomediastinum\""
-#~ msgstr ""
-#~ "ResNet: Visos patologijos, išskyrus \"Padidėjęs vidurio krūtinės tarpas\""
-
-#~ msgid "Type \"DELETE\" to confirm"
-#~ msgstr "Įveskite \"DELETE\" kad patvirtintumėte"
-
-#~ msgid ""
-#~ "ResNet: All pathologies except \"Enlarged cardiomediastinum\" and \"Lung "
-#~ "lesion\""
-#~ msgstr ""
-#~ "ResNet: Visos patologijos, išskyrus \"Padidėjęs vidurio krūtinės tarpas\" "
-#~ "ir \"Plaučių pažeidimas\""
-
-#: .\xrayapp\templates\xrayapp\prediction_history.html:223
-#: .\xrayapp\templates\xrayapp\prediction_history.html:246
-msgid "Are you sure you want to delete this prediction record for"
-msgstr "Ar tikrai norite ištrinti šį prognozės įrašą pacientui"
-
-# Language switch button translations
-msgid "LT"
-msgstr "LT"
-
-msgid "EN"
-msgstr "EN"
+#| msgid "Prediction history record not found."
+msgid "Prediction record not found"
+msgstr "Prognozių istorijos įrašas nerastas."
