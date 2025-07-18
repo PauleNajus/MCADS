@@ -509,21 +509,43 @@
                 <div class="row">
                     <div class="col-12">
                         {% with severity_level=xray|get_severity_level %}
-                        <div class="d-flex align-items-center mb-2">
-                            <h3 class="me-3 {{ severity_level|get_severity_color }}">
-                                {{ xray|get_severity_label }}
-                            </h3>
-                            <div class="progress flex-grow-1" style="height: 30px;">
-                                {% if severity_level == 1 %}
-                                <div class="progress-bar bg-success" role="progressbar" style="width: 19%;" 
-                                     aria-valuenow="19" aria-valuemin="0" aria-valuemax="100">0-19%</div>
-                                {% elif severity_level == 2 %}
-                                <div class="progress-bar bg-warning" role="progressbar" style="width: 30%;" 
-                                     aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">20-30%</div>
-                                {% elif severity_level == 3 %}
-                                <div class="progress-bar bg-danger" role="progressbar" style="width: 100%;" 
-                                     aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">31-100%</div>
-                                {% endif %}
+                        <div class="d-flex align-items-center mb-3 mobile-severity-layout">
+                            <div class="text-center me-4 mobile-severity-label" style="min-width: 120px;">
+                                <h3 class="mb-1 {{ severity_level|get_severity_color }} fs-4 fs-sm-3">
+                                    {{ xray|get_severity_label }}
+                                </h3>
+                                <div class="small text-muted fw-medium">
+                                    {% if severity_level == 1 %}Risk Level{% elif severity_level == 2 %}Moderate Risk{% else %}High Risk{% endif %}
+                                </div>
+                            </div>
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <small class="text-muted fw-medium">Severity Range</small>
+                                    <small class="fw-bold">
+                                        {% if severity_level == 1 %}0-19%
+                                        {% elif severity_level == 2 %}20-30%
+                                        {% else %}31-100%
+                                        {% endif %}
+                                    </small>
+                                </div>
+                                <div class="progress" style="height: 24px;">
+                                    {% if severity_level == 1 %}
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: 19%;" 
+                                         aria-valuenow="19" aria-valuemin="0" aria-valuemax="100">
+                                        <span class="progress-text small">Low Risk</span>
+                                    </div>
+                                    {% elif severity_level == 2 %}
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 30%;" 
+                                         aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
+                                        <span class="progress-text small">Moderate</span>
+                                    </div>
+                                    {% elif severity_level == 3 %}
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 100%;" 
+                                         aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                                        <span class="progress-text small text-white">High Risk</span>
+                                    </div>
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
                         <p class="text-muted mb-0">
@@ -636,14 +658,28 @@
                                     </button>
                                 </td>
                                 <td style="width: 45%;">
-                                    <div class="progress position-relative" style="min-width: 200px;">
-                                        <div class="progress-bar {% if prob >= 0.45 and prob <= 0.55 %}bg-warning{% elif prob > 0.5 %}bg-danger{% else %}bg-success{% endif %}" 
-                                             role="progressbar" 
-                                             data-probability="{{ prob|percentage }}"
-                                             aria-valuemin="0" 
-                                             aria-valuemax="100">
+                                    <div class="position-relative mobile-pathology-progress">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="badge {% if prob > 0.7 %}bg-very-high{% elif prob > 0.5 %}bg-high{% elif prob >= 0.3 %}bg-medium{% elif prob >= 0.15 %}bg-low{% else %}bg-very-low{% endif %} small fw-medium mobile-risk-badge">
+                                                {% if prob > 0.7 %}Very High
+                                                {% elif prob > 0.5 %}High  
+                                                {% elif prob >= 0.3 %}Medium
+                                                {% elif prob >= 0.15 %}Low
+                                                {% else %}Very Low
+                                                {% endif %}
+                                            </span>
+                                            <small class="fw-bold fs-7 fs-sm-6">{{ prob|floatformat:1 }}%</small>
                                         </div>
-                                        <span class="progress-text">{{ prob|floatformat:3 }}</span>
+                                        <div class="progress position-relative mobile-progress-bar" style="height: 18px;">
+                                            <div class="progress-bar {% if prob > 0.7 %}bg-very-high{% elif prob > 0.5 %}bg-high{% elif prob >= 0.3 %}bg-medium{% elif prob >= 0.15 %}bg-low{% else %}bg-very-low{% endif %}" 
+                                                 role="progressbar" 
+                                                 data-probability="{{ prob|percentage }}"
+                                                 aria-valuemin="0" 
+                                                 aria-valuemax="100"
+                                                 aria-label="Pathology probability: {{ prob|floatformat:1 }}%">
+                                            </div>
+                                            <span class="progress-text small fw-bold">{{ prob|floatformat:3 }}</span>
+                                        </div>
                                     </div>
                                 </td>
                                 <td style="width: 20%;">
@@ -860,32 +896,57 @@
         {% endif %}
         
         <!-- Interpretability Processing Feedback -->
-        <div id="interpretation-progress" class="card mb-4" style="display: none;">
-            <div class="card-header">
-                <h4 class="text-center mb-4">Generating visualization...</h4>
+        <div id="interpretation-progress" class="card mb-4 mobile-optimized" style="display: none;">
+            <div class="card-header bg-primary text-white">
+                <div class="d-flex align-items-center justify-content-center flex-wrap">
+                    <div class="modern-spinner me-3 me-sm-2" style="border-top-color: white; border-right-color: white;"></div>
+                    <h5 class="mb-0 fs-6 fs-sm-5">Generating AI Visualization</h5>
+                </div>
             </div>
             <div class="card-body">
-                <div class="progress mb-3" style="height: 25px;">
-                    <div id="interpretation-progress-bar" 
-                         class="progress-bar bg-loading progress-bar-striped progress-bar-animated" 
-                         role="progressbar" 
-                         style="width: 0%;" 
-                         aria-valuenow="0" 
-                         aria-valuemin="0" 
-                         aria-valuemax="100">
-                    </div>
+                <div class="text-center mb-4">
+                    <div class="modern-dots mb-2"></div>
+                    <p class="text-muted mb-0">
+                        <span id="interpretation-status">Initializing visualization engine...</span>
+                    </p>
                 </div>
                 
-                <p class="text-center">
-                    <span id="interpretation-percentage">0%</span> Complete
-                </p>
+                <div class="modern-progress pulsing mb-3" 
+                     style="height: 36px;" 
+                     role="progressbar" 
+                     aria-label="Visualization generation progress"
+                     aria-valuenow="0" 
+                     aria-valuemin="0" 
+                     aria-valuemax="100"
+                     aria-live="polite"
+                     aria-describedby="interpretation-accessibility-status">
+                    <div id="interpretation-progress-bar" 
+                         class="modern-progress-bar animated" 
+                         style="width: 0%;">
+                    </div>
+                    <span id="interpretation-percentage" class="modern-progress-text">0% Complete</span>
+                </div>
                 
-                <div class="alert alert-danger medical-warning mt-4">
+                <!-- Screen reader announcements -->
+                <div id="interpretation-accessibility-status" class="sr-only" aria-live="polite"></div>
+                
+                <div class="alert medical-warning mt-4">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <i class="bi bi-eye-fill fs-4"></i>
+                        </div>
+                        <div class="col">
+                            <p class="mb-1">
+                                <strong>{% trans "AI Interpretability Processing" %}</strong>
+                            </p>
+                            <small class="text-muted">
+                                {% trans "Generating pixel-level visualization to highlight areas that influenced the AI model's predictions. This advanced process may take up to 60 seconds." %}
+                            </small>
+                        </div>
+                    </div>
+                    <hr class="my-2">
                     <p class="mb-0 text-center">
                         <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                        <span id="interpretation-status">Please wait while we generate the visualization</span>
-                    </p>
-                    <p class="mb-0 text-center mt-2">
                         <strong>{% trans "Warning! This tool is not meant to be used without supervision of a medical professional!" %}</strong>
                     </p>
                 </div>
@@ -1046,7 +1107,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function monitorProgress() {
         let progress = 5;
         progressBar.style.width = `${progress}%`;
-        percentageText.textContent = `${progress}%`;
+        progressBar.setAttribute('aria-valuenow', progress);
+        percentageText.textContent = `${progress}% Complete`;
         
         // Check progress from the server
         function checkProgress() {
@@ -1055,7 +1117,35 @@ document.addEventListener('DOMContentLoaded', () => {
                 .then(data => {
                     progress = data.progress;
                     progressBar.style.width = `${progress}%`;
-                    percentageText.textContent = `${progress}%`;
+                    progressBar.setAttribute('aria-valuenow', progress);
+                    percentageText.textContent = `${progress}% Complete`;
+                    
+                    // Update status text based on progress
+                    if (progress < 25) {
+                        statusText.textContent = 'Initializing AI model...';
+                    } else if (progress < 50) {
+                        statusText.textContent = 'Processing X-ray data...';
+                    } else if (progress < 75) {
+                        statusText.textContent = 'Generating heat maps...';
+                    } else if (progress < 95) {
+                        statusText.textContent = 'Finalizing visualization...';
+                    } else {
+                        statusText.textContent = 'Almost complete...';
+                    }
+                    
+                    // Update screen reader announcements
+                    const accessibilityStatus = document.getElementById('interpretation-accessibility-status');
+                    if (accessibilityStatus && progress % 25 === 0) {
+                        const accessibilityMessages = {
+                            25: 'Visualization generation 25% complete, initializing AI interpretability models',
+                            50: 'Visualization generation 50% complete, processing pixel-level analysis',
+                            75: 'Visualization generation 75% complete, generating heat maps and overlays',
+                            100: 'Visualization generation complete, displaying results'
+                        };
+                        if (accessibilityMessages[progress]) {
+                            accessibilityStatus.textContent = accessibilityMessages[progress];
+                        }
+                    }
                     
                     if (progress < 100) {
                         // Check again in 500ms
@@ -1594,7 +1684,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (confirm(`Are you sure you want to delete the ${vizType.toUpperCase()} visualization for ${pathology}?`)) {
                         // Show loading state on button
                         const originalHtml = this.innerHTML;
-                        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                        this.classList.add('loading');
                         this.disabled = true;
                         
                         // Make AJAX request to delete visualization
@@ -1621,7 +1711,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             } else {
                                 alert(data.error || 'Failed to delete visualization');
                                 // Restore button state
-                                this.innerHTML = originalHtml;
+                                this.classList.remove('loading');
                                 this.disabled = false;
                             }
                         })
@@ -1629,7 +1719,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             console.error('Error deleting visualization:', error);
                             alert('An error occurred while deleting the visualization');
                             // Restore button state
-                            this.innerHTML = originalHtml;
+                            this.classList.remove('loading');
                             this.disabled = false;
                         });
                     }

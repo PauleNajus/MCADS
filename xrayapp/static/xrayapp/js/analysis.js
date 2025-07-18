@@ -44,8 +44,26 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
           // Update progress bar
           currentProgress = data.progress;
-          if (progressBar) progressBar.style.width = `${currentProgress}%`;
-          if (progressPercentage) progressPercentage.textContent = `${currentProgress}%`;
+          if (progressBar) {
+            progressBar.style.width = `${currentProgress}%`;
+            progressBar.setAttribute('aria-valuenow', currentProgress);
+            progressBar.parentElement.setAttribute('aria-valuenow', currentProgress);
+          }
+          if (progressPercentage) progressPercentage.textContent = `${currentProgress}% Complete`;
+          
+          // Update screen reader announcements
+          const statusElement = document.getElementById('analysis-status');
+          if (statusElement && currentProgress % 25 === 0) {
+            const statusMessages = {
+              25: 'Image uploaded successfully, analysis 25% complete',
+              50: 'AI model processing X-ray data, analysis 50% complete', 
+              75: 'Generating predictions, analysis 75% complete',
+              100: 'Analysis complete, redirecting to results'
+            };
+            if (statusMessages[currentProgress]) {
+              statusElement.textContent = statusMessages[currentProgress];
+            }
+          }
           
           // If not complete, check again
           if (currentProgress < 100) {
@@ -63,8 +81,11 @@ document.addEventListener('DOMContentLoaded', () => {
           console.error('Error checking progress:', error);
           // Increase progress a bit anyway to give feedback
           currentProgress = Math.min(currentProgress + 5, 95);
-          if (progressBar) progressBar.style.width = `${currentProgress}%`;
-          if (progressPercentage) progressPercentage.textContent = `${currentProgress}%`;
+          if (progressBar) {
+            progressBar.style.width = `${currentProgress}%`;
+            progressBar.setAttribute('aria-valuenow', currentProgress);
+          }
+          if (progressPercentage) progressPercentage.textContent = `${currentProgress}% Complete`;
           
           // Try again after a delay
           setTimeout(() => checkProgress(), 1000);
