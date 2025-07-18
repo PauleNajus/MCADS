@@ -9,6 +9,7 @@ from django.db.models import Q, Prefetch
 from django.core.paginator import Paginator
 from django.views.decorators.cache import cache_page
 from django.core.cache import cache
+from django.db import transaction
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 from .forms import XRayUploadForm, PredictionHistoryFilterForm, UserInfoForm, UserProfileForm, ChangePasswordForm
@@ -33,39 +34,46 @@ def process_image_async(image_path, xray_instance, model_type):
     try:
         results = process_image(image_path, xray_instance, model_type)
         
-        # Save predictions to the database - only save what's available in the results
-        xray_instance.atelectasis = results.get('Atelectasis', None)
-        xray_instance.cardiomegaly = results.get('Cardiomegaly', None)
-        xray_instance.consolidation = results.get('Consolidation', None)
-        xray_instance.edema = results.get('Edema', None)
-        xray_instance.effusion = results.get('Effusion', None)
-        xray_instance.emphysema = results.get('Emphysema', None)
-        xray_instance.fibrosis = results.get('Fibrosis', None)
-        xray_instance.hernia = results.get('Hernia', None)
-        xray_instance.infiltration = results.get('Infiltration', None)
-        xray_instance.mass = results.get('Mass', None)
-        xray_instance.nodule = results.get('Nodule', None)
-        xray_instance.pleural_thickening = results.get('Pleural_Thickening', None)
-        xray_instance.pneumonia = results.get('Pneumonia', None)
-        xray_instance.pneumothorax = results.get('Pneumothorax', None)
-        xray_instance.fracture = results.get('Fracture', None)
-        xray_instance.lung_opacity = results.get('Lung Opacity', None)
-        
-        # These fields will only be present in DenseNet results
-        if 'Enlarged Cardiomediastinum' in results:
-            xray_instance.enlarged_cardiomediastinum = results.get('Enlarged Cardiomediastinum', None)
-        if 'Lung Lesion' in results:
-            xray_instance.lung_lesion = results.get('Lung Lesion', None)
-        
-        xray_instance.save()
-        
-        # Create prediction history record
-        create_prediction_history(xray_instance, model_type)
+        # Use transaction to ensure atomicity
+        with transaction.atomic():
+            # Save predictions to the database - only save what's available in the results
+            xray_instance.atelectasis = results.get('Atelectasis', None)
+            xray_instance.cardiomegaly = results.get('Cardiomegaly', None)
+            xray_instance.consolidation = results.get('Consolidation', None)
+            xray_instance.edema = results.get('Edema', None)
+            xray_instance.effusion = results.get('Effusion', None)
+            xray_instance.emphysema = results.get('Emphysema', None)
+            xray_instance.fibrosis = results.get('Fibrosis', None)
+            xray_instance.hernia = results.get('Hernia', None)
+            xray_instance.infiltration = results.get('Infiltration', None)
+            xray_instance.mass = results.get('Mass', None)
+            xray_instance.nodule = results.get('Nodule', None)
+            xray_instance.pleural_thickening = results.get('Pleural_Thickening', None)
+            xray_instance.pneumonia = results.get('Pneumonia', None)
+            xray_instance.pneumothorax = results.get('Pneumothorax', None)
+            xray_instance.fracture = results.get('Fracture', None)
+            xray_instance.lung_opacity = results.get('Lung Opacity', None)
+            
+            # These fields will only be present in DenseNet results
+            if 'Enlarged Cardiomediastinum' in results:
+                xray_instance.enlarged_cardiomediastinum = results.get('Enlarged Cardiomediastinum', None)
+            if 'Lung Lesion' in results:
+                xray_instance.lung_lesion = results.get('Lung Lesion', None)
+
+            
+            xray_instance.save()
+            
+            # Create prediction history record
+            create_prediction_history(xray_instance, model_type)
         
     except Exception as e:
         logger.error(f"Error processing image {image_path}: {str(e)}")
-        xray_instance.processing_status = 'error'
-        xray_instance.save()
+        # Ensure we can still update the error status even if transaction failed
+        try:
+            xray_instance.processing_status = 'error'
+            xray_instance.save()
+        except Exception as save_error:
+            logger.error(f"Failed to save error status: {str(save_error)}")
 
 
 def process_with_interpretability_async(image_path, xray_instance, model_type, interpretation_method, target_class=None):
