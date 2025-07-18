@@ -75,7 +75,6 @@ class XRayImage(models.Model):
     lung_opacity = models.FloatField(null=True, blank=True, db_index=True)
     enlarged_cardiomediastinum = models.FloatField(null=True, blank=True, db_index=True)
     lung_lesion = models.FloatField(null=True, blank=True, db_index=True)
-    support_devices = models.FloatField(null=True, blank=True, db_index=True)
     
     # Severity level
     severity_level = models.IntegerField(null=True, blank=True, db_index=True)
@@ -118,7 +117,6 @@ class XRayImage(models.Model):
             'lung_opacity': self.lung_opacity,
             'enlarged_cardiomediastinum': self.enlarged_cardiomediastinum,
             'lung_lesion': self.lung_lesion,
-            'support_devices': self.support_devices,
         }
         
         # Filter out None values
@@ -199,7 +197,6 @@ class PredictionHistory(models.Model):
     lung_opacity = models.FloatField(null=True, blank=True)
     enlarged_cardiomediastinum = models.FloatField(null=True, blank=True)
     lung_lesion = models.FloatField(null=True, blank=True)
-    support_devices = models.FloatField(null=True, blank=True)
     
     # Severity level
     severity_level = models.IntegerField(null=True, blank=True, db_index=True)
@@ -242,7 +239,6 @@ class PredictionHistory(models.Model):
             'lung_opacity': self.lung_opacity,
             'enlarged_cardiomediastinum': self.enlarged_cardiomediastinum,
             'lung_lesion': self.lung_lesion,
-            'support_devices': self.support_devices,
         }
         
         # Filter out None values
