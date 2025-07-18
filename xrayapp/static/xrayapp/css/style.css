@@ -954,6 +954,20 @@ footer {
 [data-bs-theme="dark"] .btn-info-pathology:hover { color: #66b3ff; background-color: rgba(102, 179, 255, 0.1); }
 
 /* ==========================================
+   FILTER ACTION BUTTONS - EQUAL HEIGHT
+   ========================================== */
+/* Ensure equal height for filter action buttons on all screen sizes */
+.advanced-filters .filter-actions .btn {
+  height: auto;
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.375rem 0.75rem;
+  line-height: 1.5;
+}
+
+/* ==========================================
    RESPONSIVE DESIGN - MOBILE OPTIMIZATIONS
    ========================================== */
 @media (max-width: 768px) {

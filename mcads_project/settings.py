@@ -18,9 +18,9 @@ import environ
 # Initialize environ
 env = environ.Env(
     # Set default values
-    DEBUG=(bool, False),
+    DEBUG=(bool, True),  # Default to True for development
     SECRET_KEY=(str, ''.join([get_random_secret_key(), get_random_secret_key()[:20]])),  # Generate longer key
-    ALLOWED_HOSTS=(list, []),
+    ALLOWED_HOSTS=(list, ['localhost', '127.0.0.1']),  # Default development hosts
 )
 
 # Read .env file if it exists
