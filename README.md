@@ -198,11 +198,7 @@ python manage.py test
 
 ### Sample Images
 
-Test images are available in the `tests/` directory:
-
-- `normal.jpeg`: Normal chest X-ray
-- `viral_pneumonia.jpeg`: Pneumonia case
-- `00000001_000.png`: Sample from NIH dataset
+Test images are available here: https://drive.google.com/drive/folders/18uSJ7PaBOHDb-9n760ziAjjjZ_fLiMl_
 
 ## Deployment
 
