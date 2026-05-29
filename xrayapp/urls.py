@@ -19,6 +19,7 @@ urlpatterns = [
     path('prediction-history/<int:pk>/toggle-save/', views.toggle_save_record, name='toggle_save_record'),
     path('saved-records/', views.saved_records, name='saved_records'),
     path('account/settings/', views.account_settings, name='account_settings'),
+    path('account/delete/', views.delete_account, name='delete_account'),
     path('accounts/logout-confirmation/', views.logout_confirmation, name='logout_confirmation'),
     path('set-language/', views.set_language, name='set_language'),
     path('terms/', views.terms_of_service, name='terms_of_service'),

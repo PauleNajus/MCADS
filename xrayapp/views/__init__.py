@@ -8,6 +8,7 @@ from .utils import (
 )
 from .auth import (
     account_settings,
+    delete_account,
     logout_confirmation,
     set_language,
 )

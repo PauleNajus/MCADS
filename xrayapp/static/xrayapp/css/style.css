@@ -1069,20 +1069,24 @@ button,
   }
 }
 
-/* Dark mode mobile optimizations */
-@media (max-width: 768px) and (prefers-color-scheme: dark) {
-  .modern-progress {
+/* Mobile + dark-theme adjustments.
+   Uses the explicit data-bs-theme attribute (set by the inline boot script in
+   base.html) instead of `prefers-color-scheme: dark`. Otherwise, OS-level dark
+   mode would override a user's explicit *light* theme choice on the site,
+   producing white text on light backgrounds (e.g. the medical warning). */
+@media (max-width: 768px) {
+  [data-bs-theme="dark"] .modern-progress {
     background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
     border-color: rgba(var(--primary-rgb), 0.3);
   }
-  
-  .modern-progress-text,
-  .progress-text {
+
+  [data-bs-theme="dark"] .modern-progress-text,
+  [data-bs-theme="dark"] .progress-text {
     color: #e2e8f0;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
   }
-  
-  .alert.medical-warning {
+
+  [data-bs-theme="dark"] .alert.medical-warning {
     background-color: rgba(var(--primary-rgb), 0.15) !important;
     border-color: rgba(var(--primary-rgb), 0.4) !important;
     color: #e2e8f0 !important;
@@ -1413,6 +1417,10 @@ button,
   color: var(--primary) !important;
 }
 
+/* Light mode: force the medical-warning text to pure black for max readability
+   over the light tinted background. Dark mode is preserved below. */
+.medical-warning { color: #000 !important; }
+
 .no-records-info {
   position: relative;
   padding-left: 2.5rem !important;
@@ -1429,6 +1437,18 @@ button,
   transform: translateY(-50%);
   color: var(--primary);
 }
+
+/* ==========================================
+   OOD-FLAGGED HISTORY ROW
+   ========================================== */
+/* Bootstrap sets a per-cell --bs-table-bg-state, so we must override on the <td>
+   (and beat its hover state) — colouring the <tr> alone has no effect. */
+.ood-flagged-row > td { background-color: #ffb3b3 !important; border-color: #dc3545 !important; }
+.ood-flagged-row > td:first-child { border-left: 4px solid #dc3545 !important; }
+.table-hover > tbody > tr.ood-flagged-row:hover > td { background-color: #ff9090 !important; }
+[data-bs-theme="dark"] .ood-flagged-row > td { background-color: #5a1a1a !important; border-color: #ff6b6b !important; color: #ffe5e5; }
+[data-bs-theme="dark"] .ood-flagged-row > td:first-child { border-left: 4px solid #ff6b6b !important; }
+[data-bs-theme="dark"] .table-hover > tbody > tr.ood-flagged-row:hover > td { background-color: #6f2222 !important; }
 
 /* ==========================================
    FORM & FILTER STYLES
@@ -1594,6 +1614,10 @@ button,
   border-color: rgba(var(--primary-rgb), 0.4) !important;
 }
 
+/* Preserve original dark-mode warning text colour (the light-mode override
+   above would otherwise turn it black against a dark background). */
+[data-bs-theme="dark"] .medical-warning { color: var(--primary) !important; }
+
 [data-bs-theme="dark"] .visualization-image {
   background-color: var(--dark-bg);
   border-color: var(--light-border);
@@ -1728,6 +1752,10 @@ button,
   .history-card-mobile .text-muted { font-size: var(--font-size-sm); font-weight: var(--font-weight-normal); text-transform: uppercase; letter-spacing: 0.5px; }
   .history-card-mobile .card-body { padding: var(--spacing-lg); }
   .history-card-mobile .btn-sm { padding: var(--spacing-sm) var(--spacing-md); font-size: var(--font-size-md); min-width: 64px; }
+
+  /* Mobile: OOD-flagged cards stand out with bright red */
+  .history-card-mobile.ood-flagged-card { background-color: #ffb3b3 !important; border-color: #dc3545 !important; border-left: 4px solid #dc3545 !important; }
+  [data-bs-theme="dark"] .history-card-mobile.ood-flagged-card { background-color: #5a1a1a !important; border-color: #ff6b6b !important; border-left: 4px solid #ff6b6b !important; }
   
   /* Image metadata table mobile optimization */
   .image-metadata-table .table thead th {

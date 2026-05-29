@@ -123,8 +123,13 @@
                             </thead>
                             <tbody>
                                 {% for item in history_items %}
-                                <tr>
-                                    <td>{{ item.xray.get_patient_display }}</td>
+                                <tr{% if item.xray.requires_expert_review %} class="ood-flagged-row"{% endif %}>
+                                    <td>
+                                        {% if item.xray.requires_expert_review %}
+                                            <i class="fas fa-exclamation-triangle text-danger me-1" title="{% trans 'Flagged: Out-of-Distribution input — manual expert review recommended.' %}" aria-label="{% trans 'Flagged for expert review' %}"></i>
+                                        {% endif %}
+                                        {{ item.xray.get_patient_display }}
+                                    </td>
                                     <td>{{ item.xray.patient_id|default:"-" }}</td>
                                     <td>{{ item.xray.gender|title|default:"-" }}</td>
                                     <td>{{ item.xray.date_of_birth|date:"Y-m-d"|default:"-" }}</td>
@@ -172,11 +177,14 @@
                     <!-- Mobile Card View -->
                     <div class="d-lg-none">
                         {% for item in history_items %}
-                        <div class="card mb-2 history-card-mobile">
+                        <div class="card mb-2 history-card-mobile{% if item.xray.requires_expert_review %} ood-flagged-card{% endif %}">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-12">
                                         <h6 class="card-title mb-2">
+                                            {% if item.xray.requires_expert_review %}
+                                                <i class="fas fa-exclamation-triangle text-danger me-1" title="{% trans 'Flagged: Out-of-Distribution input — manual expert review recommended.' %}" aria-label="{% trans 'Flagged for expert review' %}"></i>
+                                            {% endif %}
                                             <i class="fas fa-user me-2"></i>{{ item.xray.get_patient_display }}
                                         </h6>
                                     </div>

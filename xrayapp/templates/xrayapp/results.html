@@ -7,12 +7,26 @@
 {% block title %}{% trans "MCADS results" %}{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'xrayapp/css/print-results.css' %}" media="print">
+<link rel="stylesheet" href="{% static 'xrayapp/css/print-results.css' %}?v=20260512-3">
 {% endblock %}
 
 {% block content %}
 <div class="row">
     <div class="col-12">
+        {# Print-only report header. Visible only when the user prints. #}
+        <div class="print-only print-header" aria-hidden="true">
+            <div class="print-header-row">
+                <div class="print-header-brand">
+                    <span class="print-header-title">MCADS</span>
+                    <span class="print-header-subtitle">{% trans "AI Chest X-ray Analysis Report" %}</span>
+                </div>
+                <div class="print-header-meta">
+                    <div><strong>{% trans "Report ID" %}:</strong> #{{ xray.id }}</div>
+                    <div><strong>{% trans "Generated" %}:</strong> <span id="print-generated-at">{% now "Y-m-d H:i" %}</span></div>
+                </div>
+            </div>
+        </div>
+
         <h2 class="mb-2">{% trans "MCADS results" %}</h2>
         
         <!-- OOD Warning Section -->
@@ -525,15 +539,18 @@
         <div class="d-flex flex-wrap justify-content-center gap-1 mb-2 stack-mobile">
             <a href="{% url 'home' %}" class="btn btn-outline-secondary">{% trans "Upload new X-ray" %}</a>
             <a href="{% url 'prediction_history' %}" class="btn btn-outline-secondary">{% trans "View prediction history" %}</a>
-            <div class="btn-group">
-                <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-printer"></i> {% trans "Print" %}
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#" id="print-to-printer"><i class="bi bi-printer"></i> {% trans "Print to printer" %}</a></li>
-                    <li><a class="dropdown-item" href="#" id="print-to-pdf"><i class="bi bi-file-pdf"></i> {% trans "Save as PDF" %}</a></li>
-                </ul>
-            </div>
+            <button type="button" class="btn btn-outline-primary" id="print-report-btn">
+                <i class="bi bi-printer"></i> {% trans "Print" %}
+            </button>
+        </div>
+
+        {# Print-only disclaimer + footer. Visible only when printing. #}
+        <div class="print-only print-disclaimer" aria-hidden="true">
+            <strong>{% trans "Medical Disclaimer" %}:</strong>
+            {% trans "This report is AI-generated and intended only as a clinical decision-support aid. Findings must be reviewed and confirmed by a qualified medical professional before any diagnostic or treatment decision." %}
+        </div>
+        <div class="print-only print-footer" aria-hidden="true">
+            <span>MCADS &middot; {% trans "AI Chest X-ray Analysis Report" %} &middot; {% trans "Report ID" %} #{{ xray.id }}</span>
         </div>
     </div>
 </div>
@@ -595,6 +612,6 @@
 
 {% block extra_js %}
 {% load static %}
-<script src="{% static 'xrayapp/js/results.js' %}?v=20260204"></script>
+<script src="{% static 'xrayapp/js/results.js' %}?v=20260512"></script>
 {# Bump version when `xrayapp/js/results.js` changes to avoid stale cached JS. #}
 {% endblock %}
