@@ -68,7 +68,16 @@ def load_model(model_type: str = 'densenet') -> Tuple[torch.nn.Module, int]:
             return _model_cache[model_type]  # type: ignore[return-value]
 
         device = torch.device('cpu')
-        _ensure_cache_dirs()
+        # Pick a writable cache dir and use it consistently for all XRV downloads.
+        #
+        # IMPORTANT: TorchXRayVision v1.4.0 does *not* honor environment variables
+        # like `TORCH_HOME`/`XRV_DATA_DIR` for its own model weight downloads. It
+        # only uses `cache_dir` arguments (see `xrv.models.*` constructors).
+        #
+        # If we don't pass `cache_dir`, weights will be downloaded to
+        # `~/.torchxrayvision/models_data`, which may be non-persistent (Docker)
+        # or unwritable in hardened deployments.
+        cache_dir = _ensure_cache_dirs()
 
         if 'resnet' in model_type:
             # Handle specific resnet weights or default
@@ -77,7 +86,7 @@ def load_model(model_type: str = 'densenet') -> Tuple[torch.nn.Module, int]:
             else:
                 weights = model_type
                 
-            model = xrv.models.ResNet(weights=weights)
+            model = xrv.models.ResNet(weights=weights, cache_dir=cache_dir)
             resize_dim = 512
         else:
             # Handle specific densenet weights or default (fallback for 'densenet')
@@ -86,7 +95,7 @@ def load_model(model_type: str = 'densenet') -> Tuple[torch.nn.Module, int]:
             else:
                 weights = model_type
                 
-            model = xrv.models.DenseNet(weights=weights)
+            model = xrv.models.DenseNet(weights=weights, cache_dir=cache_dir)
             resize_dim = 224
 
         model.to(device)
@@ -107,10 +116,10 @@ def load_autoencoder() -> Tuple[torch.nn.Module, int]:
             return _model_cache[_AE_CACHE_KEY]  # type: ignore[return-value]
 
         device = torch.device('cpu')
-        _ensure_cache_dirs()
+        cache_dir = _ensure_cache_dirs()
         ae_weights = os.environ.get('XRV_AE_WEIGHTS', '').strip() or '101-elastic'
 
-        ae = xrv.autoencoders.ResNetAE(weights=ae_weights)
+        ae = xrv.autoencoders.ResNetAE(weights=ae_weights, cache_dir=cache_dir)
         ae.to(device)
         ae.eval()
         ae_resize_default = 224
@@ -152,13 +161,13 @@ def load_segmentation_model() -> Tuple[torch.nn.Module, int]:
             return _model_cache[_SEGMENTATION_CACHE_KEY]  # type: ignore[return-value]
 
         device = torch.device('cpu')
-        _ensure_cache_dirs()
+        cache_dir = _ensure_cache_dirs()
 
         logger.info("Loading PSPNet segmentation model...")
 
         try:
             # Load the PSPNet model
-            seg_model = xrv.baseline_models.chestx_det.PSPNet()
+            seg_model = xrv.baseline_models.chestx_det.PSPNet(cache_dir=cache_dir)
             seg_model.to(device)
             seg_model.eval()
 

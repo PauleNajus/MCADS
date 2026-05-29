@@ -9,6 +9,7 @@ import numpy as np
 import torch
 import torchxrayvision as xrv
 import torchvision
+from PIL import Image
 
 from .model_loader import get_model_lock, load_model, load_segmentation_model, load_autoencoder
 from .transforms import get_xrv_transform
@@ -118,22 +119,49 @@ def apply_calibration_and_thresholds(results: dict[str, Any]) -> tuple[dict[str,
     return updated, meta
 
 
-def compute_ood_score(img_np: np.ndarray) -> dict[str, float | bool]:
+def _color_saturation(image_path: str | Path) -> float:
+    """Mean per-pixel max channel-difference for the original (pre-grayscale) image.
+
+    Real chest X-rays are inherently grayscale (R==G==B), so this metric is ~0 for
+    legitimate inputs and clearly positive for natural color photos (cats, scenery).
+    Cheap to compute and complements the autoencoder, which only sees a grayscale
+    image and cannot distinguish a color photo from an unusual X-ray.
+    """
+    try:
+        with Image.open(image_path) as im:
+            # Single-channel modes are always grayscale; skip color check entirely.
+            if im.mode in ('L', '1', 'I', 'F'):
+                return 0.0
+            arr = np.asarray(im.convert('RGB'), dtype=np.int32)
+        if arr.ndim != 3 or arr.shape[-1] < 3:
+            return 0.0
+        r, g, b = arr[..., 0], arr[..., 1], arr[..., 2]
+        # Max absolute pairwise channel diff per pixel; mean over the image.
+        sat = np.maximum.reduce([np.abs(r - g), np.abs(g - b), np.abs(r - b)])
+        return float(sat.mean())
+    except Exception:
+        # Fail open: don't block inference if PIL can't read the file (e.g. DICOM).
+        return 0.0
+
+
+def compute_ood_score(
+    img_np: np.ndarray,
+    image_path: str | Path | None = None,
+) -> dict[str, float | bool]:
     """Compute an Out-of-Distribution (OOD) score and flag.
 
     We use a TorchXRayVision autoencoder reconstruction error as the primary OOD
     heuristic. Because autoencoders can reconstruct some non-X-ray inputs well
-    (low error), we also optionally flag near-uniform images via a low-variance
-    threshold.
+    (low error), we also OR-merge two cheap heuristics: a low-variance guard
+    (near-uniform inputs) and a color-saturation guard (X-rays are grayscale).
 
     Tunables (env vars):
     - XRV_AE_OOD_THRESHOLD: reconstruction error upper bound (default 0.008)
     - XRV_AE_OOD_MIN_STD_THRESHOLD: input std-dev lower bound (default 50.0).
       Set to 0 to disable the low-variance heuristic.
+    - XRV_AE_OOD_COLOR_SAT_THRESHOLD: mean per-pixel channel diff above which the
+      input is considered a color photo (default 5.0). Set to 0 to disable.
     """
-    # Operators can disable OOD gating entirely for speed (warning-only feature).
-    # This is useful on CPU-only deployments where latency matters more than the
-    # additional safety signal.
     if os.environ.get("XRV_ENABLE_OOD", "1") == "0":
         return {'ood_score': float('nan'), 'is_ood': False, 'threshold': float('inf')}
 
@@ -206,16 +234,37 @@ def compute_ood_score(img_np: np.ndarray) -> dict[str, float | bool]:
             )
             min_std_thr = default_min_std_thr
 
+    # Color-saturation guard: real X-rays are grayscale, color photos are not.
+    default_color_sat_thr = 5.0
+    raw_color_sat_thr = os.environ.get('XRV_AE_OOD_COLOR_SAT_THRESHOLD')
+    if raw_color_sat_thr is None:
+        color_sat_thr = default_color_sat_thr
+    else:
+        try:
+            color_sat_thr = float(raw_color_sat_thr)
+        except (TypeError, ValueError):
+            logger.warning(
+                "Invalid XRV_AE_OOD_COLOR_SAT_THRESHOLD=%r; using default %.2f",
+                raw_color_sat_thr,
+                default_color_sat_thr,
+            )
+            color_sat_thr = default_color_sat_thr
+
+    color_sat = _color_saturation(image_path) if (image_path and color_sat_thr > 0.0) else 0.0
+    color_flag = (color_sat_thr > 0.0) and (color_sat > color_sat_thr)
+
     low_variance_flag = (min_std_thr > 0.0) and (input_std < min_std_thr)
-    is_ood = (recon_err > recon_thr) or low_variance_flag
+    is_ood = (recon_err > recon_thr) or low_variance_flag or color_flag
 
     if is_ood:
         logger.info(
-            "OOD flagged: recon_err=%.6f (thr=%.6f), input_std=%.2f (min_std_thr=%.2f)",
+            "OOD flagged: recon_err=%.6f (thr=%.6f), input_std=%.2f (min_std_thr=%.2f), color_sat=%.2f (thr=%.2f)",
             recon_err,
             recon_thr,
             input_std,
             min_std_thr,
+            color_sat,
+            color_sat_thr,
         )
 
     return {'ood_score': recon_err, 'is_ood': bool(is_ood), 'threshold': float(recon_thr)}
@@ -267,10 +316,9 @@ def process_image(
     # expected model input (normalized, shape (1, H, W)).
     img = _load_xrv_image(image_path)
 
-    # OOD gate (reconstruction error)
-    ood = compute_ood_score(img[0])  # pass (H, W)
+    # OOD gate (reconstruction error + color check on the original file)
+    ood = compute_ood_score(img[0], image_path=image_path)
     if xray_instance:
-        # Flag for review if likely OOD
         xray_instance.requires_expert_review = bool(ood.get('is_ood', False))
         xray_instance.save(update_fields=['requires_expert_review'])
     
@@ -339,10 +387,6 @@ def process_image(
     if 'resnet' in model_type:
         excluded_classes = ["Enlarged Cardiomediastinum", "Lung Lesion"]
         results = {k: v for k, v in results.items() if k not in excluded_classes}
-    
-    # Apply specific multiplier for resnet50-res512-all
-    if model_type == 'resnet50-res512-all':
-        results = {k: min(float(v) * 2.0, 1.0) for k, v in results.items()}
 
     # Apply calibration and thresholds
     results, calib_meta = apply_calibration_and_thresholds(results)
@@ -377,8 +421,8 @@ def apply_segmentation(image_path: str) -> dict[str, Any]:
     # Load + normalize image (supports DICOM via pydicom).
     img = _load_xrv_image(image_path)
 
-    # OOD gate (reconstruction error)
-    ood = compute_ood_score(img[0])  # pass (H, W)
+    # OOD gate (reconstruction error + color check on the original file)
+    ood = compute_ood_score(img[0], image_path=image_path)
     
     # Preserve original image for visualization (2D)
     original_img = img[0].copy()

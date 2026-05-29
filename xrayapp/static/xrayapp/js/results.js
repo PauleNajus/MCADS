@@ -1064,18 +1064,33 @@ document.addEventListener('DOMContentLoaded', () => {
     window.attachDeleteHandlers = attachDeleteHandlers;
 });
 
-// Compact print functionality
+// Print: open the system print dialog immediately, with a meaningful
+// document title so the suggested file name (when saving as PDF) is sensible.
 document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('print-to-printer')?.addEventListener('click', e => {
-        e.preventDefault();
-        window.print();
-    });
-    
-    document.getElementById('print-to-pdf')?.addEventListener('click', e => {
-        e.preventDefault();
+    const printBtn = document.getElementById('print-report-btn');
+    if (!printBtn) return;
+
+    // Refresh the "Generated" timestamp shown in the print-only header
+    // right before printing so the printed copy reflects the actual print time.
+    const refreshGeneratedAt = () => {
+        const el = document.getElementById('print-generated-at');
+        if (!el) return;
+        const d = new Date();
+        const pad = n => String(n).padStart(2, '0');
+        el.textContent =
+            `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ` +
+            `${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    };
+
+    printBtn.addEventListener('click', () => {
         const originalTitle = document.title;
-        document.title = `MCADS Result - ${new Date().toISOString().split('T')[0]}`;
+        const xrayIdEl = document.getElementById('xray-id');
+        const xrayId = xrayIdEl ? JSON.parse(xrayIdEl.textContent) : '';
+        const stamp = new Date().toISOString().split('T')[0];
+        document.title = `MCADS_Report_${xrayId}_${stamp}`;
+        refreshGeneratedAt();
         window.print();
-        setTimeout(() => document.title = originalTitle, 1000);
+        // Restore the page title after the print dialog returns.
+        setTimeout(() => { document.title = originalTitle; }, 500);
     });
 });

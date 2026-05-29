@@ -27,8 +27,13 @@ wheels/
 logs/
 backups/
 data_exports/
+
+# Local datasets (downloaded artifacts; never commit)
+datasets/
+research/
 local_settings.py
 media/
+thesis/
 
 # Virtual Environments
 .env
@@ -45,6 +50,7 @@ venv.bak/
 *.swp
 *.swo
 .cursor/
+.cursorignore
 
 # OS specific files
 .DS_Store

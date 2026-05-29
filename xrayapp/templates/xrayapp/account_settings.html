@@ -296,9 +296,16 @@
                                         <p class="card-text small">
                                             {% trans "Once you delete your account, there is no going back. Please be certain." %}
                                         </p>
+                                        {% if user.username == 'guest' %}
+                                        {# Guest user is the shared demo account and cannot be deleted. #}
+                                        <button class="btn btn-sm btn-outline-danger" type="button" id="deleteAccountTrigger" data-guest="1">
+                                            <i class="bi bi-trash"></i> {% trans "Delete account" %}
+                                        </button>
+                                        {% else %}
                                         <button class="btn btn-sm btn-outline-danger" type="button" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">
                                             <i class="bi bi-trash"></i> {% trans "Delete account" %}
                                         </button>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
@@ -310,48 +317,65 @@
     </div>
 </div>
 
-<!-- Delete Account Modal -->
+<!-- Delete Account Modal (non-guest users only) -->
+{% if user.username != 'guest' %}
 <div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header bg-danger text-white">
-                <h5 class="modal-title" id="deleteAccountModalLabel">
-                    <i class="bi bi-exclamation-triangle"></i> {% trans "Delete Account" %}
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% trans 'Close' %}"></button>
-            </div>
-            <div class="modal-body">
-                <p>{% trans "Are you absolutely sure you want to delete your account?" %}</p>
-                <p class="text-danger"><strong>{% trans "Warning:" %}</strong> {% trans "This action cannot be undone. This will permanently delete your account and all data associated with it." %}</p>
-                <div class="mb-2">
-                    <label for="confirmDelete" class="form-label">{% trans "Type \"DELETE\" to confirm" %}</label>
-                    <input type="text" class="form-control" id="confirmDelete" placeholder="{% trans "DELETE" %}">
+            <form method="post" action="{% url 'delete_account' %}">
+                {% csrf_token %}
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="deleteAccountModalLabel">
+                        <i class="bi bi-exclamation-triangle"></i> {% trans "Delete Account" %}
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% trans 'Close' %}"></button>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Cancel" %}</button>
-                <button type="button" class="btn btn-danger" id="deleteAccountBtn" disabled>{% trans "Delete account" %}</button>
-            </div>
+                <div class="modal-body">
+                    <p>{% trans "Are you absolutely sure you want to delete your account?" %}</p>
+                    <p class="text-danger"><strong>{% trans "Warning:" %}</strong> {% trans "This action cannot be undone. This will permanently delete your account and all data associated with it." %}</p>
+                    <div class="mb-2">
+                        <label for="confirmDelete" class="form-label">{% trans "Type \"DELETE\" to confirm" %}</label>
+                        <input type="text" class="form-control" id="confirmDelete" placeholder="{% trans "DELETE" %}" autocomplete="off">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Cancel" %}</button>
+                    <button type="submit" class="btn btn-danger" id="deleteAccountBtn" disabled>{% trans "Delete account" %}</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+{% endif %}
 {% endblock %}
 
 {% block extra_js %}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Handle delete account confirmation
+        // Confirm-by-typing-DELETE only exists for non-guest users (modal is hidden otherwise).
         const confirmField = document.getElementById('confirmDelete');
         const deleteBtn = document.getElementById('deleteAccountBtn');
-        
-        confirmField.addEventListener('input', function() {
-            deleteBtn.disabled = this.value !== 'DELETE';
-        });
-        
+        if (confirmField && deleteBtn) {
+            confirmField.addEventListener('input', function() {
+                deleteBtn.disabled = this.value !== 'DELETE';
+            });
+        }
+
+        // Guest user: intercept the trigger and show a forbidden popup instead of opening the modal.
+        const guestTrigger = document.getElementById('deleteAccountTrigger');
+        if (guestTrigger && guestTrigger.dataset.guest === '1') {
+            guestTrigger.addEventListener('click', function() {
+                window.showModal(
+                    gettext('Account deletion is forbidden for the guest user.'),
+                    gettext('Action forbidden'),
+                    true
+                );
+            });
+        }
+
         // Activate tab based on URL parameter
         const urlParams = new URLSearchParams(window.location.search);
         const tab = urlParams.get('tab');
-        
         if (tab) {
             const tabElement = document.querySelector(`button[data-bs-target="#${tab}-content"]`);
             if (tabElement) {

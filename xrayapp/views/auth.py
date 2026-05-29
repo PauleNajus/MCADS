@@ -4,7 +4,7 @@ import logging
 
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth import logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpRequest, HttpResponse
@@ -14,6 +14,8 @@ from django.utils import translation
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_POST
+
+GUEST_USERNAME = 'guest'
 
 from xrayapp.forms import (
     ChangePasswordForm,
@@ -103,6 +105,31 @@ def account_settings(request: HttpRequest) -> HttpResponse:
     }
     
     return render(request, 'xrayapp/account_settings.html', context)
+
+
+@login_required
+@require_POST
+def delete_account(request: HttpRequest) -> HttpResponse:
+    """Permanently delete the authenticated user's account.
+
+    The shared demo `guest` user is protected so reviewers cannot wipe it.
+    """
+    user = request.user
+    if user.username == GUEST_USERNAME:
+        messages.error(
+            request,
+            _('Account deletion is forbidden for the guest user.'),
+        )
+        return redirect(f"{reverse('account_settings')}?tab=security")
+
+    username = user.username
+    logout(request)
+    user.delete()
+    messages.success(
+        request,
+        _('Account "%(username)s" has been permanently deleted.') % {'username': username},
+    )
+    return redirect(settings.LOGIN_URL)
 
 
 def logout_confirmation(request: HttpRequest) -> HttpResponse:

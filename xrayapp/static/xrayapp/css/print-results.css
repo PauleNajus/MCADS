@@ -1,282 +1,447 @@
-@media print {
-  /* Hide elements not needed for printing */
-  nav,
-  footer,
-  .btn,
-  #interpretation-progress,
-  .interpretation-btn,
-  .dropdown-toggle,
-  .btn-group,
-  .stack-mobile,
-  .interpretability-card,
-  .delete-visualization-btn,
-  .visualization-controls {
-    display: none !important;
-  }
+/* =====================================================================
+   MCADS - Print stylesheet for the X-ray results page.
 
-  /* A4 paper size with minimal margins for maximum space */
-  @page {
+   Goals (per product requirements):
+     1. Hide every UI / decorative element (icons, buttons, overlays,
+        helper alerts, modals, visualization controls, etc.).
+     2. Fit the entire structured report on a single A4 portrait page.
+
+   Strategy:
+     * `.print-only` blocks are hidden on screen and only revealed in print.
+     * Visualization cards (GRAD-CAM / PLI) are excluded - they are
+       supporting interpretability artefacts, too large for one page; the
+       core findings table conveys the same information textually.
+     * Aggressive monochrome typography (7-9pt) with tight padding and
+       margins so a typical report (OOD + triage + patient + image +
+       18-pathology table) fits inside one A4 page.
+   ===================================================================== */
+
+/* The print-only header/footer/disclaimer must stay invisible on screen. */
+.print-only {
+    display: none !important;
+}
+
+@page {
     size: A4 portrait;
-    margin: 0.5cm;
-  }
+    /* Tight margins. Top reserves space for the fixed print header,
+       bottom reserves space for the @page page-counter margin-box. */
+    margin: 16mm 9mm 11mm;
 
-  /* Ensure all content fits within page boundaries - plain text styling */
-  html,
-  body {
-    width: 100% !important;
-    height: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    overflow: visible !important;
-    font-size: 8pt !important;
-    font-family: Arial, sans-serif !important;
-    color: #000 !important;
-    background: white !important;
-  }
+    @bottom-right {
+        content: "Page " counter(page) " / " counter(pages);
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 7.5pt;
+        color: #444;
+    }
+}
 
-  /* Container layout adjustments - more compact */
-  .container,
-  .col-md-10 {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    float: none !important;
-    position: relative !important;
-    overflow: visible !important;
-  }
+@media print {
+    /* ---------------------------------------------------------------
+       1. Hide every screen-only chrome element AND every decorative
+          UI element so the printed output is plain clinical content.
+       --------------------------------------------------------------- */
+    .print-only {
+        display: block !important;
+    }
 
-  /* Fix for the offset-md-1 class */
-  .offset-md-1 {
-    margin-left: 0 !important;
-  }
+    nav,
+    footer,
+    .navbar,
+    .navbar-toggler,
+    .btn,
+    .btn-group,
+    .dropdown,
+    .dropdown-menu,
+    .dropdown-toggle,
+    .modal,
+    .stack-mobile,
+    #interpretation-progress,
+    .interpretability-card,
+    .interpretation-btn,
+    .delete-visualization-btn,
+    .visualization-controls,
+    .btn-info-pathology,
+    #server-time,
+    /* All Bootstrap-icon / FontAwesome <i> tags are decorative. */
+    i,
+    /* Floating "Click to enlarge" / zoom-hint overlays. */
+    .position-absolute,
+    /* Decorative medical-warning blocks (used inside the
+       interpretation-progress card and modals) are UI noise. */
+    .medical-warning,
+    .alert-info,
+    /* Visualization cards (GRAD-CAM / PLI) - too large to keep the
+       report on a single page; findings table covers them textually. */
+    [id^="visualization-"],
+    /* Verbose OOD warning paragraph - keep header + short caution only. */
+    .border-danger .card-text,
+    .border-danger .card-title,
+    /* Header timestamp on the X-ray card duplicates print-header date. */
+    .card-header small,
+    /* Image-metadata table title row ("Image Metadata") is a UI label. */
+    .image-metadata-table thead,
+    /* Inline progress-bar value text duplicates the % shown beside it. */
+    .progress-text,
+    /* Drop the small note under the triage bar to save vertical space. */
+    .card-body > p.text-muted,
+    /* Per requirements: no certainty bars or similar visual indicators
+       in the print form. Hide all progress bars and triage right-side
+       (which only contains the bar). The numeric % and severity label
+       carry the same information textually. */
+    .progress,
+    .progress-bar,
+    .mobile-progress-bar,
+    .mobile-severity-layout > .flex-grow-1,
+    /* Hide colour-coded badges; the percentage column is the primary
+       finding indicator now. */
+    .mobile-pathology-progress .badge {
+        display: none !important;
+    }
 
-  /* Row adjustment */
-  .row {
-    margin: 0 !important;
-    width: 100% !important;
-    display: block !important;
-  }
+    /* Actionable in-content alerts (e.g. OOD "Caution") are kept,
+       but compacted to a single bordered line so they take minimal space. */
+    .alert {
+        margin: 0.8mm 0 0 !important;
+        padding: 1mm 1.5mm !important;
+        background: #f4f4f4 !important;
+        color: #000 !important;
+        border: 0.5pt solid #000 !important;
+        border-radius: 0 !important;
+        font-size: 7pt !important;
+        line-height: 1.25 !important;
+    }
 
-  /* Heading styles - plain text */
-  h2 {
-    font-size: 10pt !important;
-    margin: 1px 0 2px !important;
-    font-weight: bold !important;
-    color: #000 !important;
-    text-decoration: none !important;
-    background: none !important;
-  }
+    /* ---------------------------------------------------------------
+       2. Document baseline: monochrome, dense typography.
+       --------------------------------------------------------------- */
+    html,
+    body {
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #fff !important;
+        color: #000 !important;
+        font-family: "Helvetica Neue", Arial, Helvetica, sans-serif !important;
+        font-size: 8pt !important;
+        line-height: 1.2 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
 
-  /* Card formatting - minimal borders, plain style */
-  .card {
-    border: 1px solid #000 !important;
-    margin-bottom: 3px !important;
-    page-break-inside: avoid !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-    clear: both !important;
-    background: white !important;
-    box-shadow: none !important;
-  }
+    main,
+    .container,
+    .row,
+    .col-12,
+    .col-md-10 {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        float: none !important;
+    }
 
-  /* X-ray image adjustments - more compact */
-  img.img-fluid {
-    max-height: 200px !important;
-    margin: 1px auto !important;
-    display: block !important;
-    border: 1px solid #000 !important;
-  }
+    h2 {
+        display: none !important; /* Replaced by the print header */
+    }
 
-  /* Table formatting - keep tables styled for readability */
-  table {
-    width: 100% !important;
-    border-collapse: collapse !important;
-    table-layout: fixed !important;
-    background: white !important;
-  }
+    /* ---------------------------------------------------------------
+       3. Page header repeated on every printed page.
+       --------------------------------------------------------------- */
+    .print-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        padding: 2.5mm 9mm 1.5mm;
+        border-bottom: 0.6pt solid #000;
+        background: #fff;
+        font-size: 8pt;
+        z-index: 1000;
+    }
+    .print-header-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 6mm;
+    }
+    .print-header-brand {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.05;
+    }
+    .print-header-title {
+        font-size: 12pt;
+        font-weight: 700;
+        letter-spacing: 0.4pt;
+    }
+    .print-header-subtitle {
+        font-size: 7pt;
+        color: #333;
+        text-transform: uppercase;
+        letter-spacing: 0.3pt;
+    }
+    .print-header-meta {
+        text-align: right;
+        font-size: 7.5pt;
+        line-height: 1.25;
+    }
 
-  /* Remove link styling */
-  a[href]:after {
-    content: none !important;
-  }
-  a {
-    color: #000 !important;
-    text-decoration: none !important;
-  }
+    /* ---------------------------------------------------------------
+       4. Disclaimer + report footer printed after the report body.
+       --------------------------------------------------------------- */
+    .print-disclaimer {
+        margin-top: 2mm;
+        padding: 1.2mm 2mm;
+        border: 0.6pt solid #000;
+        background: #f4f4f4 !important;
+        font-size: 7pt;
+        line-height: 1.25;
+        page-break-inside: avoid;
+    }
+    .print-footer {
+        margin-top: 1mm;
+        padding-top: 0.5mm;
+        border-top: 0.4pt solid #888;
+        font-size: 6.5pt;
+        color: #555;
+        text-align: center;
+        page-break-inside: avoid;
+    }
 
-  /* Card header and body - plain text */
-  .card-header {
-    padding: 1px 3px !important;
-    background: white !important;
-    border-bottom: 1px solid #000 !important;
-  }
-  .card-header h5 {
-    margin: 1px 0 !important;
-    font-size: 8pt !important;
-    font-weight: bold !important;
-    color: #000 !important;
-    background: none !important;
-  }
-  .card-body {
-    padding: 2px !important;
-    overflow: visible !important;
-    background: white !important;
-  }
+    /* ---------------------------------------------------------------
+       5. Cards: flatten Bootstrap cards into clean report sections.
+       --------------------------------------------------------------- */
+    .card {
+        border: 0.6pt solid #000 !important;
+        border-radius: 0 !important;
+        margin: 0 0 1.5mm !important;
+        background: #fff !important;
+        box-shadow: none !important;
+        page-break-inside: avoid;
+    }
+    .card-header {
+        padding: 0.6mm 2mm !important;
+        background: #000 !important;
+        color: #fff !important;
+        border: 0 !important;
+        border-bottom: 0.6pt solid #000 !important;
+        display: block !important;
+    }
+    .card-header h5,
+    .card-header .h5 {
+        margin: 0 !important;
+        padding: 0 !important;
+        font-size: 8pt !important;
+        font-weight: 700 !important;
+        color: #fff !important;
+        text-transform: uppercase;
+        letter-spacing: 0.35pt;
+        background: transparent !important;
+    }
+    .card-body {
+        padding: 1.2mm 2mm !important;
+        background: #fff !important;
+    }
 
-  /* Table styling - keep for readability */
-  .table {
-    margin-bottom: 0 !important;
-  }
-  .table th,
-  .table td {
-    padding: 1px 2px !important;
-    font-size: 7pt !important;
-    line-height: 1.1 !important;
-    border: 1px solid #000 !important;
-    overflow: visible !important;
-    word-break: normal !important;
-    white-space: normal !important;
-    background: white !important;
-    color: #000 !important;
-  }
+    /* OOD warning header keeps a stronger border for emphasis. */
+    .border-danger {
+        border-width: 1pt !important;
+    }
+    .bg-danger {
+        background: #000 !important;
+        color: #fff !important;
+    }
 
-  .table thead th {
-    border: 1px solid #000 !important;
-    font-size: 7pt !important;
-    font-weight: bold !important;
-    background: white !important;
-  }
+    /* ---------------------------------------------------------------
+       6. Triage Priority (MTS) - text-only, no progress bar.
+          The right-hand "Assigned Category" + bar block is hidden
+          via the global hide list above; only the severity label and
+          recommended evaluation time remain.
+       --------------------------------------------------------------- */
+    .mobile-severity-layout {
+        display: block !important;
+        margin: 0 !important;
+    }
+    .mobile-severity-label {
+        text-align: left !important;
+        min-width: 0 !important;
+    }
+    .mobile-severity-label h3 {
+        font-size: 10pt !important;
+        font-weight: 700 !important;
+        margin: 0 !important;
+        color: #000 !important;
+    }
+    .mobile-severity-label .small,
+    .mobile-severity-label small {
+        font-size: 7pt !important;
+        color: #000 !important;
+    }
 
-  /* Patient info section */
-  .table-borderless td,
-  .table-borderless th {
-    padding: 1px 2px !important;
-    font-size: 7pt !important;
-    line-height: 1.1 !important;
-    border: 1px solid #000 !important;
-    background: white !important;
-  }
+    h3 {
+        font-size: 10pt !important;
+        font-weight: 700 !important;
+        color: #000 !important;
+        margin: 0 0 0.5mm !important;
+    }
+    .text-success,
+    .text-danger,
+    .text-warning,
+    .text-info,
+    .text-muted {
+        color: #000 !important;
+    }
 
-  /* Remove ALL visual elements - plain text only */
-  .progress,
-  .progress-bar,
-  .bg-success,
-  .bg-danger,
-  .bg-warning,
-  .text-success,
-  .text-danger,
-  .text-warning,
-  .badge,
-  .alert,
-  .position-absolute,
-  .stack-mobile {
-    display: none !important;
-  }
+    /* ---------------------------------------------------------------
+       7. Patient information & generic tables.
+       --------------------------------------------------------------- */
+    .table {
+        width: 100% !important;
+        margin: 0 !important;
+        border-collapse: collapse !important;
+        font-size: 7.5pt !important;
+        background: #fff !important;
+    }
+    .table th,
+    .table td {
+        padding: 0.5mm 1.2mm !important;
+        border: 0.3pt solid #888 !important;
+        line-height: 1.2 !important;
+        background: #fff !important;
+        color: #000 !important;
+        vertical-align: top !important;
+    }
+    .table thead th,
+    .table-light th {
+        background: #ececec !important;
+        font-weight: 700 !important;
+    }
+    .table-borderless th,
+    .table-borderless td {
+        border: 0 !important;
+        border-bottom: 0.25pt dotted #aaa !important;
+        padding: 0.4mm 0.8mm !important;
+        font-size: 7.5pt !important;
+    }
 
-  /* Two-column layout for patient info */
-  .row .col-md-6 {
-    width: 50% !important;
-    float: left !important;
-    padding: 0 1px !important;
-    box-sizing: border-box !important;
-  }
+    /* Two-column patient info side by side. */
+    .row .col-md-6 {
+        width: 50% !important;
+        float: left !important;
+        padding: 0 1mm !important;
+        box-sizing: border-box !important;
+    }
+    .row::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
 
-  /* Plain text probability values - no colors or indicators */
-  td[data-value]:after {
-    content: attr(data-value);
-    margin-left: 2px;
-    color: #000 !important;
-  }
+    /* ---------------------------------------------------------------
+       8. X-ray image: smaller crop, metadata directly underneath.
+       --------------------------------------------------------------- */
+    .model-view-frame {
+        width: 45mm !important;
+        margin: 0 auto !important;
+    }
+    img.img-fluid,
+    .xray-image {
+        max-width: 45mm !important;
+        max-height: 45mm !important;
+        height: auto !important;
+        display: block !important;
+        margin: 0 auto !important;
+        border: 0.5pt solid #000 !important;
+        page-break-inside: avoid;
+    }
+    .xray-image.model-crop {
+        width: 45mm !important;
+        height: 45mm !important;
+        object-fit: cover !important;
+    }
+    .image-metadata-table {
+        margin-top: 1mm !important;
+    }
+    .image-metadata-table .table-sm th,
+    .image-metadata-table .table-sm td {
+        padding: 0.3mm 1mm !important;
+        font-size: 6.5pt !important;
+        border: 0.25pt solid #888 !important;
+        white-space: normal !important;
+        text-align: center !important;
+    }
 
-  /* Remove colored indicators - plain text only */
-  td[data-value]:before {
-    display: none !important;
-  }
+    /* ---------------------------------------------------------------
+       9. Prediction Results - text-only two-column layout per row:
+              [ Pathology name              | XX% ]
+          Certainty bars, badges, and the "Visualize" column are hidden
+          via the global hide list above.
+       --------------------------------------------------------------- */
+    .prediction-results-table th,
+    .prediction-results-table td {
+        font-size: 7.5pt !important;
+        padding: 0.5mm 1.5mm !important;
+        line-height: 1.2 !important;
+        vertical-align: middle !important;
+    }
+    .prediction-results-table th:last-child,
+    .prediction-results-table td:last-child {
+        display: none !important;
+    }
+    .prediction-results-table th:first-child,
+    .prediction-results-table td:first-child {
+        width: 75% !important;
+    }
+    .prediction-results-table th:nth-child(2),
+    .prediction-results-table td:nth-child(2) {
+        width: 25% !important;
+        text-align: right !important;
+    }
 
-  /* Single column layout for prediction results - compact table */
-  .table-responsive {
-    column-count: 1 !important;
-    width: 100% !important;
-    overflow: visible !important;
-  }
+    /* Probability cell: keep only the numeric percentage as plain text. */
+    .mobile-pathology-progress {
+        display: block !important;
+        margin: 0 !important;
+        text-align: right !important;
+    }
+    .mobile-pathology-progress > .d-flex {
+        display: block !important;
+        margin: 0 !important;
+    }
+    .mobile-pathology-progress > .d-flex > small {
+        display: inline-block !important;
+        font-size: 7.5pt !important;
+        font-weight: 700 !important;
+        color: #000 !important;
+    }
 
-  .table {
-    font-size: 7pt !important;
-    break-inside: avoid;
-    margin-bottom: 2px !important;
-    width: 100% !important;
-  }
+    /* ---------------------------------------------------------------
+       10. Hyperlinks: print without underline or trailing URL.
+       --------------------------------------------------------------- */
+    a,
+    a:link,
+    a:visited {
+        color: #000 !important;
+        text-decoration: none !important;
+    }
+    a[href]::after {
+        content: "" !important;
+    }
 
-  /* Column width adjustments for prediction table */
-  .table-responsive .table td:first-child {
-    width: 50% !important;
-  }
-
-  .table-responsive .table td:last-child {
-    width: 50% !important;
-  }
-
-  /* Image metadata table - more compact */
-  .image-metadata-table {
-    margin-bottom: 2px;
-  }
-
-  .image-metadata-table .table-sm td {
-    font-size: 6pt !important;
-    padding: 1px 2px !important;
-    vertical-align: middle;
-    white-space: nowrap;
-    border: 1px solid #000 !important;
-  }
-
-  .image-metadata-table .table-sm th {
-    font-size: 7pt !important;
-    font-weight: bold;
-    padding: 1px 2px !important;
-    background: white !important;
-    border: 1px solid #000 !important;
-  }
-
-  /* Image and metadata layout - more compact */
-  .card:nth-of-type(2) .card-body {
-    display: flex !important;
-    flex-direction: row !important;
-    justify-content: space-between !important;
-    align-items: flex-start !important;
-  }
-
-  .position-relative {
-    width: 35% !important;
-  }
-
-  .mt-3 {
-    width: 63% !important;
-    margin-top: 0 !important;
-    margin-left: 2% !important;
-  }
-
-  /* Remove any remaining styling elements */
-  .text-muted,
-  small,
-  .small {
-    color: #000 !important;
-    font-size: 6pt !important;
-  }
-
-  /* Severity level - plain text */
-  h3 {
-    font-size: 8pt !important;
-    font-weight: bold !important;
-    color: #000 !important;
-    margin: 1px 0 !important;
-  }
-
-  /* Remove all margins and padding from paragraphs */
-  p {
-    margin: 1px 0 !important;
-    padding: 0 !important;
-    font-size: 6pt !important;
-    color: #000 !important;
-  }
+    /* ---------------------------------------------------------------
+       11. Page-break hygiene + force single-page output.
+           If predictions overflow despite all the compaction above,
+           the second page is suppressed via the body height clamp.
+       --------------------------------------------------------------- */
+    .card,
+    table,
+    tr,
+    img,
+    .progress {
+        page-break-inside: avoid !important;
+    }
+    h2,
+    h3,
+    h5 {
+        page-break-after: avoid !important;
+    }
 }

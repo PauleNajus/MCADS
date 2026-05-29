@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
-"""Merged ID datasets benchmark for TorchXRayVision pretrained models.
+"""NIH Chest X-rays ID benchmark for TorchXRayVision pretrained models.
 
-This script tests the ID generalization of models using a merged dataset
-of NIH, PadChest, CheXpert, and MIMIC.
+This script tests the ID generalization of models using the NIH dataset.
 
 Outputs
 -------
@@ -55,11 +54,7 @@ META_COLS: Tuple[str, ...] = (
 
 DEFAULT_MODELS: Tuple[str, ...] = (
     "densenet121-res224-all",
-    "densenet121-res224-chex",
-    "densenet121-res224-mimic_nb",
-    "densenet121-res224-mimic_ch",
     "densenet121-res224-nih",
-    "densenet121-res224-pc",
     "resnet50-res512-all",
 )
 
@@ -87,6 +82,16 @@ LABEL_ALIASES_CANON: Dict[str, str] = {
 def ensure_dir(p: Path) -> Path:
     p.mkdir(parents=True, exist_ok=True)
     return p
+
+
+AGE_ORDER = [
+    "Infants and Toddlers: 0–4 years",
+    "Children: 5–14 years",
+    "Young Adults: 15–24 years",
+    "Adults: 25–64 years",
+    "Seniors: 65–84 years",
+    "Open-ended: 85+",
+]
 
 
 def json_dump(p: Path, obj: Any) -> None:
@@ -261,18 +266,19 @@ def plot_grid_curves(
     out_path: Path,
 ) -> None:
     sns.set_theme(style="whitegrid")
-    n = len(labels)
+    # Only plot labels that have actual curve data
+    valid = [l for l in labels if l in curves and curves[l][0].size > 0]
+    n = len(valid)
     if n == 0:
         return
     ncols = 4
     nrows = int(math.ceil(n / ncols))
     fig, axes = plt.subplots(nrows=nrows, ncols=ncols, figsize=(4.2 * ncols, 3.4 * nrows))
     axes = np.array(axes).reshape(-1)
-    for i, lab in enumerate(labels):
+    for i, lab in enumerate(valid):
         ax = axes[i]
-        x, y, score = curves.get(lab, (np.array([]), np.array([]), None))
-        if x.size and y.size:
-            ax.plot(x, y, lw=1.6)
+        x, y, score = curves[lab]
+        ax.plot(x, y, lw=1.6)
         if diag:
             ax.plot([0, 1], [0, 1], ls="--", lw=1.0, color="gray", alpha=0.6)
         ax.set_xlim(0, 1)
@@ -295,19 +301,20 @@ def plot_grid_calibration(
     out_path: Path,
 ) -> None:
     sns.set_theme(style="whitegrid")
-    n = len(labels)
+    # Only plot labels that have actual calibration data
+    valid = [l for l in labels if l in cal and cal[l][0].size > 0]
+    n = len(valid)
     if n == 0:
         return
     ncols = 4
     nrows = int(math.ceil(n / ncols))
     fig, axes = plt.subplots(nrows=nrows, ncols=ncols, figsize=(4.2 * ncols, 3.4 * nrows))
     axes = np.array(axes).reshape(-1)
-    for i, lab in enumerate(labels):
+    for i, lab in enumerate(valid):
         ax = axes[i]
-        frac_pos, mean_pred, ece = cal.get(lab, (np.array([]), np.array([]), None))
+        frac_pos, mean_pred, ece = cal[lab]
         ax.plot([0, 1], [0, 1], ls="--", lw=1.0, color="gray", alpha=0.6)
-        if frac_pos.size and mean_pred.size:
-            ax.plot(mean_pred, frac_pos, marker="o", lw=1.4)
+        ax.plot(mean_pred, frac_pos, marker="o", lw=1.4)
         ax.set_xlim(0, 1)
         ax.set_ylim(0, 1)
         ax.set_xlabel("Mean predicted")
@@ -327,14 +334,25 @@ def write_cohort_summary(df: pd.DataFrame, out_dir: Path, tag: str) -> None:
     df2 = df.copy()
     df2["AgeBand"] = df2["PatientAge"].map(age_to_band)
 
+    n_total = len(df2)
+
     def bar(col: str, fname: str, title: str) -> None:
-        vc = df2[col].fillna("unknown").astype(str).value_counts().sort_index()
-        fig, ax = plt.subplots(figsize=(10, 4))
-        sns.barplot(x=vc.index.tolist(), y=vc.values.tolist(), ax=ax, color="#4C72B0")
-        ax.set_title(title)
+        series = df2[col].fillna("unknown").astype(str)
+        if col == "AgeBand":
+            order = [b for b in AGE_ORDER if b in series.values]
+            vc = series.value_counts().reindex(order).dropna()
+        else:
+            vc = series.value_counts().sort_index()
+        fig, ax = plt.subplots(figsize=(10, 5))
+        # Use ax.bar to preserve chronological order for age bands
+        bars = ax.bar(range(len(vc)), vc.values, color="#4C72B0", width=0.6)
+        ax.set_xticks(range(len(vc)))
+        ax.set_xticklabels(vc.index.tolist(), rotation=45, ha="right")
+        ax.set_title(f"{title}, total of {n_total:,} frontal X-ray images")
         ax.set_xlabel(col)
-        ax.set_ylabel("Count")
-        ax.tick_params(axis="x", rotation=45)
+        ax.set_ylabel("Count of frontal X-ray images")
+        ax.bar_label(bars, fmt="%d", padding=3, fontsize=9)
+        ax.set_ylim(top=ax.get_ylim()[1] * 1.10)
         fig.tight_layout()
         fig.savefig(plots / fname, dpi=200)
         plt.close(fig)
@@ -536,7 +554,6 @@ class RealImageDatasetWrapper(tud.Dataset):
     def __init__(self, ds: tud.Dataset, img_size: int):
         self.ds = ds
         self.img_size = img_size
-        self.resize = xrv.datasets.XRayResizer(int(img_size))
 
     def __len__(self) -> int:
         return len(self.ds)
@@ -544,25 +561,21 @@ class RealImageDatasetWrapper(tud.Dataset):
     def __getitem__(self, idx: int) -> Tuple[int, torch.Tensor]:
         try:
             item = self.ds[idx]
-        except Exception:
-            # Fallback if image fails to load (missing file)
-            # Create a black image
+        except Exception as e:
+            print(f"Error loading image {idx}: {e}")
             img = np.zeros((1, self.img_size, self.img_size), dtype=np.float32)
             return int(idx), torch.from_numpy(img)
             
-        img = item['img']
-        if img.shape[1] != self.img_size or img.shape[2] != self.img_size:
-            img = self.resize(img)
+        img = item['img'] # Shape: (1, H, W)
+
             
         return int(idx), torch.from_numpy(img).float()
 
 
-def get_metadata_df(merged_ds, N: int) -> pd.DataFrame:
-    # Build dataframe for demographic columns
+def get_metadata_df(d_nih, N: int) -> pd.DataFrame:
     metadata = []
-    # Map from each underlying dataset to standard columns
     for idx in range(N):
-        d_idx = merged_ds.csv.iloc[idx]
+        d_idx = d_nih.csv.iloc[idx]
         patientid = str(d_idx.get("patientid", "unknown"))
         sex = "unknown"
         if "sex_male" in d_idx and d_idx["sex_male"] == 1:
@@ -573,8 +586,7 @@ def get_metadata_df(merged_ds, N: int) -> pd.DataFrame:
         age = d_idx.get("age_years", np.nan)
         view = d_idx.get("view", "unknown")
         
-        # Manufacturer is often not standardized, assign by dataset source
-        ds_name = merged_ds.datasets[merged_ds.dataset_mapping[idx] if hasattr(merged_ds, 'dataset_mapping') else next(i for i, d in enumerate(merged_ds.datasets) if idx < sum(len(x) for x in merged_ds.datasets[:i+1]))].__class__.__name__
+        ds_name = "NIH_Dataset"
         
         meta = {
             "PatientID": patientid,
@@ -584,9 +596,8 @@ def get_metadata_df(merged_ds, N: int) -> pd.DataFrame:
             "Manufacturer": ds_name
         }
         
-        # Inject the ground truth labels
-        labels_vector = merged_ds.labels[idx]
-        for lab_idx, lab_name in enumerate(merged_ds.pathologies):
+        labels_vector = d_nih.labels[idx]
+        for lab_idx, lab_name in enumerate(d_nih.pathologies):
             meta[lab_name] = labels_vector[lab_idx]
             
         metadata.append(meta)
@@ -618,17 +629,18 @@ def run_one_model(
     json_dump(out_dir / "label_map.json", {
         "model": model_name,
         "model_pathologies": pathologies,
-        "brax_to_model_index": label_map,
-        "brax_labels_evaluated": list(label_map.keys()),
+        "id_to_model_index": label_map,
+        "id_labels_evaluated": list(label_map.keys()),
     })
 
-    loader = tud.DataLoader(ds_wrapper, batch_size=int(batch_size), shuffle=False, num_workers=0)
+    loader = tud.DataLoader(ds_wrapper, batch_size=int(batch_size), shuffle=False, num_workers=4)
 
     probs = np.zeros((len(df), len(pathologies)), dtype=np.float32)
     infer_t0 = time.perf_counter()
     with torch.no_grad():
         for idxs, xb in loader:
-            out = model(xb.to(device))
+            xb = xb.to(device, memory_format=torch.channels_last)
+            out = model(xb)
             out_np = np.clip(out.detach().cpu().numpy().astype(np.float32), 0.0, 1.0)
             probs[idxs.numpy(), :] = out_np
     infer_t1 = time.perf_counter()
@@ -683,15 +695,6 @@ def run_one_model(
             group_col="ViewPosition",
             out_csv=pol / "metrics_by_view.csv",
         )
-        subgroup_metrics(
-            df=df_sg,
-            probs=probs,
-            model_pathologies=pathologies,
-            label_policy=policy,
-            label_map=label_map,
-            group_col="Manufacturer",
-            out_csv=pol / "metrics_by_manufacturer.csv",
-        )
 
     t1 = time.perf_counter()
     json_dump(out_dir / "run_info.json", {
@@ -701,7 +704,7 @@ def run_one_model(
         "batch_size": int(batch_size),
         "n_images": int(len(df)),
         "n_model_pathologies": int(len(pathologies)),
-        "n_brax_labels_evaluated": int(len(label_map)),
+        "n_id_labels_evaluated": int(len(label_map)),
         "timing_seconds": {
             "total": float(t1 - t0),
             "inference": float(infer_t1 - infer_t0),
@@ -720,7 +723,6 @@ def write_comparison(results: List[Dict[str, Any]], out_dir: Path) -> None:
     out_dir = ensure_dir(out_dir)
     plots = ensure_dir(out_dir / "plots")
 
-    # coverage
     cov_rows = []
     for r in results:
         have = set(r["labels_evaluated"])
@@ -755,26 +757,26 @@ def write_comparison(results: List[Dict[str, Any]], out_dir: Path) -> None:
 
 
 def parse_args() -> argparse.Namespace:
-    p = argparse.ArgumentParser(description="Run ID benchmark (Merged TorchXRayVision Datasets).")
-    p.add_argument("--n", type=int, default=100, help="Number of images per dataset; <=0 means ALL")
+    p = argparse.ArgumentParser(description="Run ID benchmark (NIH dataset).")
+    p.add_argument("--n", type=int, default=-1, help="Number of images per dataset; <=0 means ALL")
     p.add_argument("--out-root", default="research/results_id")
     p.add_argument("--cache-dir", default="research/cache/torchxrayvision")
     p.add_argument("--device", default="cpu")
-    p.add_argument("--batch-size", type=int, default=8)
+    p.add_argument("--batch-size", type=int, default=16)
     p.add_argument("--models", nargs="*", default=list(DEFAULT_MODELS))
     p.add_argument("--tag", default="full_frontal_all")
-    p.add_argument("--mock-img", default="xrayapp/static/xrayapp/images/examples/good/Good2.jpeg", help="Path to dummy image since full dataset is missing")
+    p.add_argument("--imgpath", default="research/datasets/nih-chest-xrays")
+    p.add_argument("--csvpath", default="research/datasets/nih-chest-xrays/Data_Entry_2017.csv")
     return p.parse_args()
 
 
 def load_existing_result(model_out: Path, model_name: str) -> Dict[str, Any]:
-    """Load prior results so a run can be resumed safely."""
     lm_path = model_out / "label_map.json"
     labels: List[str] = []
     if lm_path.exists():
         try:
             lm = json.loads(lm_path.read_text(encoding="utf-8"))
-            labels = list(lm.get("brax_labels_evaluated", []) or [])
+            labels = list(lm.get("id_labels_evaluated", []) or [])
         except Exception:
             labels = []
 
@@ -806,6 +808,83 @@ def load_existing_result(model_out: Path, model_name: str) -> Dict[str, Any]:
     }
 
 
+class NIH_Dataset_Fixed(xrv.datasets.NIH_Dataset):
+    def __init__(self, *args, **kwargs):
+        self.img_size = kwargs.pop('img_size', 224)
+        super().__init__(*args, **kwargs)
+        print("Indexing image paths...")
+        self.imgid_to_path = {}
+        for p in Path(self.imgpath).rglob("*.png"):
+            self.imgid_to_path[p.name] = str(p)
+            
+    def __getitem__(self, idx):
+        sample = {}
+        sample["idx"] = idx
+        sample["lab"] = self.labels[idx]
+
+        imgid = self.csv['Image Index'].iloc[idx]
+        if imgid in self.imgid_to_path:
+            img_path = self.imgid_to_path[imgid]
+        else:
+            import os
+            img_path = os.path.join(self.imgpath, imgid)
+            
+        import PIL.Image
+        try:
+            pil_img = PIL.Image.open(img_path).convert('L')
+            if pil_img.size[0] != self.img_size or pil_img.size[1] != self.img_size:
+                pil_img = pil_img.resize((self.img_size, self.img_size), PIL.Image.Resampling.BILINEAR)
+            img = np.array(pil_img)
+        except Exception:
+            img = np.zeros((self.img_size, self.img_size), dtype=np.uint8)
+
+        sample["img"] = xrv.datasets.normalize(img, maxval=255, reshape=True)
+
+        if self.pathology_masks:
+            sample["pathology_masks"] = self.get_mask_dict(imgid, sample["img"].shape[2])
+
+        if self.transform is not None:
+            sample = xrv.datasets.apply_transforms(sample, self.transform)
+        if self.data_aug is not None:
+            sample = xrv.datasets.apply_transforms(sample, self.data_aug)
+
+        return sample
+
+def stratified_sample_indices(labels_matrix: np.ndarray, n_sample: int, seed: int = 42) -> List[int]:
+    """Sample indices for even label coverage in multi-label setting."""
+    rng = np.random.default_rng(seed)
+    n_total, n_labels = labels_matrix.shape
+    selected: set = set()
+
+    # Pick equal quota of positive samples per label
+    per_label = max(1, n_sample // n_labels)
+    for lab_idx in range(n_labels):
+        pos = np.where(labels_matrix[:, lab_idx] == 1)[0]
+        if len(pos) == 0:
+            continue
+        chosen = rng.choice(pos, size=min(per_label, len(pos)), replace=False)
+        selected.update(chosen.tolist())
+
+    # Fill remaining budget with random unselected images
+    if len(selected) < n_sample:
+        remaining = list(set(range(n_total)) - selected)
+        n_fill = min(n_sample - len(selected), len(remaining))
+        selected.update(rng.choice(remaining, size=n_fill, replace=False).tolist())
+
+    # Trim if over budget due to rounding
+    indices = sorted(selected)
+    if len(indices) > n_sample:
+        indices = sorted(rng.choice(indices, size=n_sample, replace=False).tolist())
+
+    return indices
+
+
+def subsample_dataset(ds, indices: List[int]) -> None:
+    """In-place subsample a torchxrayvision dataset by row indices."""
+    ds.csv = ds.csv.iloc[indices].reset_index(drop=True)
+    ds.labels = ds.labels[indices]
+
+
 def main() -> int:
     args = parse_args()
     out_root = Path(args.out_root)
@@ -813,39 +892,36 @@ def main() -> int:
     tag = str(args.tag).strip() or "run"
     device = torch.device(args.device)
 
-    print("Loading datasets...")
-    # Using TorchXRayVision's built in CSVs
-    d_nih = xrv.datasets.NIH_Dataset(imgpath="research/datasets/nih/NIH/images-224", csvpath="USE_INCLUDED_FILE")
-    d_pc = xrv.datasets.PC_Dataset(imgpath="research/datasets/padchest/PC/images-224", csvpath="USE_INCLUDED_FILE")
-    d_chex = xrv.datasets.CheX_Dataset(imgpath=".", csvpath="USE_INCLUDED_FILE")
-    
+    # Determine unique image sizes needed across all models
+    size_to_models: Dict[int, List[str]] = {}
+    for m in args.models:
+        s = get_input_size(m)
+        size_to_models.setdefault(s, []).append(m)
+
+    # Load dataset once at 224 for metadata extraction, then cache per size
+    first_size = list(size_to_models.keys())[0]
+    print(f"Loading NIH dataset (img_size={first_size})...")
+    ds_cache: Dict[int, NIH_Dataset_Fixed] = {}
+    d_first = NIH_Dataset_Fixed(
+        imgpath=args.imgpath,
+        csvpath=args.csvpath,
+        views=["PA", "AP"],
+        unique_patients=False,
+        img_size=first_size,
+    )
+    xrv.datasets.relabel_dataset(xrv.datasets.default_pathologies, d_first)
 
     n_req = int(args.n)
-    
+    sample_indices: Optional[List[int]] = None
     if n_req > 0:
-        xrv.datasets.relabel_dataset(xrv.datasets.default_pathologies, d_nih)
-        d_nih.csv = d_nih.csv.head(n_req)
-        d_nih.labels = d_nih.labels[:n_req]
-        d_nih.csv = d_nih.csv.head(n_req)
-        d_nih.labels = d_nih.labels[:n_req]
-        
-        xrv.datasets.relabel_dataset(xrv.datasets.default_pathologies, d_pc)
-        d_pc.csv = d_pc.csv.head(n_req)
-        d_pc.labels = d_pc.labels[:n_req]
-        d_pc.csv = d_pc.csv.head(n_req)
-        d_pc.labels = d_pc.labels[:n_req]
-        
-        xrv.datasets.relabel_dataset(xrv.datasets.default_pathologies, d_chex)
-        d_chex.csv = d_chex.csv.head(n_req)
-        d_chex.labels = d_chex.labels[:n_req]
-        d_chex.csv = d_chex.csv.head(n_req)
-        d_chex.labels = d_chex.labels[:n_req]
-        
+        # Stratified multi-label sampling for even label coverage
+        sample_indices = stratified_sample_indices(d_first.labels, n_req, seed=42)
+        subsample_dataset(d_first, sample_indices)
+        print(f"Stratified sample: {len(sample_indices)} images selected")
 
-    merged_ds = xrv.datasets.Merge_Dataset([d_nih, d_pc, d_chex])
-    print(f"Total merged images: {len(merged_ds)}")
-
-    df = get_metadata_df(merged_ds, len(merged_ds))
+    ds_cache[first_size] = d_first
+    df = get_metadata_df(d_first, len(d_first))
+    print(f"Total images to evaluate: {len(d_first)}")
 
     comp = ensure_dir(out_root / "comparison" / tag)
     write_cohort_summary(df, comp, tag)
@@ -867,10 +943,27 @@ def main() -> int:
             results.append(load_existing_result(model_out, model_name))
             continue
 
-        print(f"[{model_name}] running on {len(df)} images...", flush=True)
         img_size = get_input_size(model_name)
-        ds_wrapper = RealImageDatasetWrapper(merged_ds, img_size)
-        
+
+        # Create dataset at the required resolution if not cached
+        if img_size not in ds_cache:
+            print(f"Loading NIH dataset (img_size={img_size})...")
+            d_new = NIH_Dataset_Fixed(
+                imgpath=args.imgpath,
+                csvpath=args.csvpath,
+                views=["PA", "AP"],
+                unique_patients=False,
+                img_size=img_size,
+            )
+            xrv.datasets.relabel_dataset(xrv.datasets.default_pathologies, d_new)
+            if sample_indices is not None:
+                subsample_dataset(d_new, sample_indices)
+            ds_cache[img_size] = d_new
+
+        d_nih = ds_cache[img_size]
+        print(f"[{model_name}] running on {len(df)} images (img_size={img_size})...", flush=True)
+        ds_wrapper = RealImageDatasetWrapper(d_nih, img_size)
+
         results.append(run_one_model(
             model_name=model_name,
             df=df,

@@ -28,8 +28,8 @@ Example of a GRAD-CAM heatmap:
 
 ## Technology Stack
 
-- **Backend**: Django 5.2 LTS, Python 3.13.11
-- **Machine Learning**: PyTorch 2.7.0, TorchXRayVision
+- **Backend**: Django 5.2.4, Python 3.13.11
+- **Machine Learning**: PyTorch 2.10.0, TorchXRayVision
 - **Database**: PostgreSQL (recommended: 15+)
 - **Frontend**: Django-Bootstrap5 25.1, HTML5, CSS3, JavaScript
 - **Deployment**: Cross-platform (Windows/Linux)
@@ -149,7 +149,6 @@ mcads/
 │   └── templates/         # HTML templates
 ├── static/                # Static files (CSS, JS, images)
 ├── media/                 # User uploaded files
-├── tests/                 # Test files and sample images
 └── requirements.txt       # Python dependencies
 ```
 
@@ -198,11 +197,7 @@ python manage.py test
 
 ### Sample Images
 
-Test images are available in the `tests/` directory:
-
-- `normal.jpeg`: Normal chest X-ray
-- `viral_pneumonia.jpeg`: Pneumonia case
-- `00000001_000.png`: Sample from NIH dataset
+Test images are available here: https://drive.google.com/drive/folders/18uSJ7PaBOHDb-9n760ziAjjjZ_fLiMl_
 
 ## Deployment
 
